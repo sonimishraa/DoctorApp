@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/medical_background">
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lLayoutPatient"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:orientation="vertical"
+            android:padding="@dimen/small_padding">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/patientList"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_face_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvpatinet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_below="@+id/patientList"
+                android:text="Patients"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lLayoutAdd_patient"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_toRightOf="@+id/lLayoutPatient"
+            android:orientation="vertical"
+            android:padding="@dimen/small_padding">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/addPatient"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/small_margin"
+                android:src="@drawable/ic_baseline_person_add_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAddPatient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Add Patients"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lLayout_patient_record"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/lLayout1"
+            android:layout_margin="@dimen/medium_margin"
+            android:orientation="vertical"
+            android:padding="@dimen/small_padding">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/patient_records"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/small_margin"
+                android:src="@drawable/ic_baseline_assignment_ind_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Patient Record"
+                android:textSize="15sp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </RelativeLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

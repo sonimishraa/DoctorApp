@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="start">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lLayoutProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivProfile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_margin="@dimen/medium_margin"
+            android:src="@mipmap/ic_launcher" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_below="@+id/lLayoutProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Dr. Albert Alexander"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:drawableStart="@drawable/ic_baseline_location_on_24"
+        android:textSize="15sp"
+        android:text=" Melbourn Australia" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSpeciality"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLocation"
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/small_margin"
+        android:background="@color/tab_selected_color"
+        android:text="Kidney Specialist"
+        android:textSize="15sp"
+        android:textColor="@color/color_primaryDark" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/tvTiming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSpeciality"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timing - "
+            android:textSize="15sp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 10:00 AM to 4:00 PM"
+            android:textSize="15sp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:text="EDIT PROFILE"
+        android:textStyle="bold"
+        android:textSize="15sp"/>
+
+</RelativeLayout>

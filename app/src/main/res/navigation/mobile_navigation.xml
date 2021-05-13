@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.iotric.doctorplus.ui.fragment.HomeFragment"
+        android:label="@string/navigation_home"
+        tools:layout="@layout/home_fragment" />
+
+
+    <fragment
+        android:id="@+id/navigation_lab"
+        android:name="com.iotric.doctorplus.ui.fragment.LabTestFragment"
+        android:label="@string/lab_test"
+        tools:layout="@layout/lab_test_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.iotric.doctorplus.ui.fragment.NotificationFragment"
+        android:label="@string/notifications"
+        tools:layout="@layout/notification_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_medical_records"
+        android:name="com.iotric.doctorplus.ui.fragment.DashboardFragments"
+        android:label="Account"
+        tools:layout="@layout/dashboard_fragment">
+
+        <action
+            android:id="@+id/action_patient_list"
+            app:destination="@+id/patient_list_fragement" />
+
+        <action
+            android:id="@+id/action_add_patient"
+            app:destination="@+id/add_patient_fragment" />
+
+        <action
+            android:id="@+id/action_profile_fragment"
+            app:destination="@+id/navigation_profile" />
+
+        <action
+            android:id="@+id/action_appointment_fragment"
+            app:destination="@+id/navigation_appointment" />
+
+        <action
+            android:id="@+id/action_privacy_fragment"
+            app:destination="@+id/navigation_privacy" />
+
+        <action
+            android:id="@+id/action_logout_fragment"
+            app:destination="@+id/navigation_logout" />
+
+        <action
+            android:id="@+id/action_patient_record_Fragment"
+            app:destination="@id/patientRecordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.iotric.doctorplus.ui.fragment.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/profile_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_appointment"
+        android:name="com.iotric.doctorplus.ui.fragment.AppointmentFragment"
+        android:label="@string/menu_appointment"
+        tools:layout="@layout/fragment_appointent" />
+
+    <fragment
+        android:id="@+id/navigation_privacy"
+        android:name="com.iotric.doctorplus.ui.fragment.PrivacyFragment"
+        android:label="@string/menu_privacy"
+        tools:layout="@layout/fragment_privacy" />
+
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="com.iotric.doctorplus.ui.fragment.NewsFeedFragment"
+        android:label="NEWSFEEDS"
+        tools:layout="@layout/fragment_newsfeed" />
+
+    <fragment
+        android:id="@+id/navigation_blogs"
+        android:name="com.iotric.doctorplus.ui.fragment.BlogsFragment"
+        android:label="@string/menu_blogs"
+        tools:layout="@layout/fragment_blogs" />
+
+    <fragment
+        android:id="@+id/navigation_faq"
+        android:name="com.iotric.doctorplus.ui.fragment.FaqFragment"
+        android:label="@string/menu_faq"
+        tools:layout="@layout/fragment_faqs" />
+
+    <fragment
+        android:id="@+id/navigation_terms"
+        android:name="com.iotric.doctorplus.ui.fragment.TermsConditionFragment"
+        android:label="@string/menu_terms"
+        tools:layout="@layout/fragment_terms" />
+
+    <dialog
+        android:id="@+id/navigation_logout"
+        android:name="com.iotric.doctorplus.ui.fragment.LogoutFragment"
+        android:label="@string/nav_logout" />
+
+
+    <fragment
+        android:id="@+id/patient_list_fragement"
+        android:name="com.iotric.doctorplus.ui.fragment.PatientListFragment"
+        android:label="@string/patient_list"
+        tools:layout="@layout/patient_list_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_patient_fragment"
+        android:name="com.iotric.doctorplus.ui.fragment.AddPatientFragment"
+        android:label="@string/add_patient"
+        tools:layout="@layout/add_patient_fragment" />
+    <fragment
+        android:id="@+id/baseFragment"
+        android:name="com.iotric.doctorplus.ui.fragment.BaseFragment"
+        android:label="fragment_base"
+        tools:layout="@layout/fragment_base" />
+    <fragment
+        android:id="@+id/patientRecordFragment"
+        android:name="com.iotric.doctorplus.ui.fragment.PatientRecordFragment"
+        android:label="PAST RECORDS"
+        tools:layout="@layout/patient_record_fragment" />
+
+</navigation>

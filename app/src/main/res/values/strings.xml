@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">DocCheck</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_dashboard">DASHBOARD</string>
+    <string name="menu_profile">PROFILE</string>
+    <string name="menu_appointment">APPOINTMENT</string>
+    <string name="menu_privacy">PRIVACY</string>
+    <string name="menu_blogs">BLOGS</string>
+    <string name="menu_faq">FAQ</string>
+    <string name="menu_terms">TERMS AND CONDITIONS</string>
+    <string name="menu_logout">LOGOUT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="patient_list">PATIENT LIST</string>
+    <string name="add_patient">ADD RECORD</string>
+    <string name="permission_not_granted">PermissionGranted</string>
+    <string name="some_err">Some Error Found</string>
+    <string name="select_capture_image">Select_Image</string>
+    <string name="file_provider_name" translatable="false">.fileProvider</string>
+    <string name="nav_logout">Logout?</string>
+    <string name="patient_record">PAST RECORD</string>
+    <string name="prescriptions">PRISCRIPTIONS</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="lab_tests">Lab Tests</string>
+    <string name="navigation_home">Home</string>
+    <string name="notifications">Notifications</string>
+    <string name="lab_test">Lab Tests</string>
+    <string name="account">Account</string>
+</resources>
