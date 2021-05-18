@@ -121,7 +121,12 @@
         android:id="@+id/add_patient_fragment"
         android:name="com.iotric.doctorplus.ui.fragment.AddPatientFragment"
         android:label="@string/add_patient"
-        tools:layout="@layout/add_patient_fragment" />
+        tools:layout="@layout/add_patient_fragment">
+        <action
+            android:id="@+id/action_patient_list"
+            app:destination="@id/patient_list_fragement" />
+
+    </fragment>
     <fragment
         android:id="@+id/baseFragment"
         android:name="com.iotric.doctorplus.ui.fragment.BaseFragment"
