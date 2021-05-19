@@ -10,12 +10,11 @@
     android:orientation="vertical"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
-
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/lLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_image"
@@ -51,15 +50,29 @@
                     android:gravity="start"
                     tools:text="869862123" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_date"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="top"
-                android:padding="@dimen/small_padding"
-                android:text="02/12/2020"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:padding="@dimen/small_padding"
+                    android:text="02/12/2020"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btndelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/small_padding"
+                    android:layout_margin="@dimen/small_margin"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_delete_24"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.cardview.widget.CardView>

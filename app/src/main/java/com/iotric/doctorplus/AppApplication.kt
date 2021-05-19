@@ -1,8 +1,8 @@
 package com.iotric.doctorplus
 
 import android.app.Application
-import com.iotric.doctorplus.ui.fragment.UserDatabase
-import com.iotric.doctorplus.ui.fragment.UserRepository
+import com.iotric.doctorplus.room.UserDatabase
+import com.iotric.doctorplus.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 

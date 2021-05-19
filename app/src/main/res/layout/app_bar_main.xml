@@ -17,8 +17,7 @@
                 android:id="@+id/drawerItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
-                android:src="@drawable/ic_baseline_menu_24"/>
+                android:gravity="start"/>
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/toolbarTitle"
                 android:layout_width="match_parent"

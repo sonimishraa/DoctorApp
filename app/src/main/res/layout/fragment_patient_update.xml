@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/app_bar_main" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dr_image"
+        android:layout_below="@id/appbar"
+        android:layout_marginBottom="@dimen/medium_margin"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_below="@+id/image">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name*" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_below="@+id/layout_edit_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contact*" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_below="@id/layout_edit_contact">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date*" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:text="UPDATE"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>

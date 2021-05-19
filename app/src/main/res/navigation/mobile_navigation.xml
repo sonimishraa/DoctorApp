@@ -7,26 +7,26 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.iotric.doctorplus.ui.fragment.HomeFragment"
+        android:name="com.iotric.doctorplus.fragment.HomeFragment"
         android:label="@string/navigation_home"
         tools:layout="@layout/home_fragment" />
 
 
     <fragment
         android:id="@+id/navigation_lab"
-        android:name="com.iotric.doctorplus.ui.fragment.LabTestFragment"
+        android:name="com.iotric.doctorplus.fragment.LabTestFragment"
         android:label="@string/lab_test"
         tools:layout="@layout/lab_test_fragment" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.iotric.doctorplus.ui.fragment.NotificationFragment"
+        android:name="com.iotric.doctorplus.fragment.NotificationFragment"
         android:label="@string/notifications"
         tools:layout="@layout/notification_fragment" />
 
     <fragment
         android:id="@+id/navigation_medical_records"
-        android:name="com.iotric.doctorplus.ui.fragment.DashboardFragments"
+        android:name="com.iotric.doctorplus.fragment.DashboardFragments"
         android:label="Account"
         tools:layout="@layout/dashboard_fragment">
 
@@ -61,7 +61,7 @@
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.iotric.doctorplus.ui.fragment.ProfileFragment"
+        android:name="com.iotric.doctorplus.fragment.ProfileFragment"
         android:label="@string/menu_profile"
         tools:layout="@layout/profile_fragment">
 
@@ -69,73 +69,86 @@
 
     <fragment
         android:id="@+id/navigation_appointment"
-        android:name="com.iotric.doctorplus.ui.fragment.AppointmentFragment"
+        android:name="com.iotric.doctorplus.fragment.AppointmentFragment"
         android:label="@string/menu_appointment"
         tools:layout="@layout/fragment_appointent" />
 
     <fragment
         android:id="@+id/navigation_privacy"
-        android:name="com.iotric.doctorplus.ui.fragment.PrivacyFragment"
+        android:name="com.iotric.doctorplus.fragment.PrivacyFragment"
         android:label="@string/menu_privacy"
         tools:layout="@layout/fragment_privacy" />
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="com.iotric.doctorplus.ui.fragment.NewsFeedFragment"
+        android:name="com.iotric.doctorplus.fragment.NewsFeedFragment"
         android:label="NEWSFEEDS"
         tools:layout="@layout/fragment_newsfeed" />
 
     <fragment
         android:id="@+id/navigation_blogs"
-        android:name="com.iotric.doctorplus.ui.fragment.BlogsFragment"
+        android:name="com.iotric.doctorplus.fragment.BlogsFragment"
         android:label="@string/menu_blogs"
         tools:layout="@layout/fragment_blogs" />
 
     <fragment
         android:id="@+id/navigation_faq"
-        android:name="com.iotric.doctorplus.ui.fragment.FaqFragment"
+        android:name="com.iotric.doctorplus.fragment.FaqFragment"
         android:label="@string/menu_faq"
         tools:layout="@layout/fragment_faqs" />
 
     <fragment
         android:id="@+id/navigation_terms"
-        android:name="com.iotric.doctorplus.ui.fragment.TermsConditionFragment"
+        android:name="com.iotric.doctorplus.fragment.TermsConditionFragment"
         android:label="@string/menu_terms"
         tools:layout="@layout/fragment_terms" />
 
     <dialog
         android:id="@+id/navigation_logout"
-        android:name="com.iotric.doctorplus.ui.fragment.LogoutFragment"
+        android:name="com.iotric.doctorplus.fragment.LogoutFragment"
         android:label="@string/nav_logout" />
 
 
     <fragment
         android:id="@+id/patient_list_fragement"
-        android:name="com.iotric.doctorplus.ui.fragment.PatientListFragment"
+        android:name="com.iotric.doctorplus.fragment.PatientListFragment"
         android:label="@string/patient_list"
         tools:layout="@layout/patient_list_fragment">
 
+        <action
+            android:id="@+id/action_Update_patient_fragment"
+            app:destination="@id/patientUpdateLDialogFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/add_patient_fragment"
-        android:name="com.iotric.doctorplus.ui.fragment.AddPatientFragment"
+        android:name="com.iotric.doctorplus.fragment.AddPatientFragment"
         android:label="@string/add_patient"
         tools:layout="@layout/add_patient_fragment">
         <action
-            android:id="@+id/action_patient_list"
-            app:destination="@id/patient_list_fragement" />
-
+            android:id="@+id/action_addfragment_to_patient_list"
+            app:destination="@+id/patient_list_fragement"/>
     </fragment>
     <fragment
         android:id="@+id/baseFragment"
-        android:name="com.iotric.doctorplus.ui.fragment.BaseFragment"
+        android:name="com.iotric.doctorplus.fragment.BaseFragment"
         android:label="fragment_base"
         tools:layout="@layout/fragment_base" />
     <fragment
         android:id="@+id/patientRecordFragment"
-        android:name="com.iotric.doctorplus.ui.fragment.PatientRecordFragment"
+        android:name="com.iotric.doctorplus.fragment.PatientRecordFragment"
         android:label="PAST RECORDS"
         tools:layout="@layout/patient_record_fragment" />
+    <dialog
+        android:id="@+id/patientUpdateLDialogFragment"
+        android:name="com.iotric.doctorplus.fragment.PatientUpdateLDialogFragment"
+        android:label="PatientUpdateLDialogFragment" >
+        <action
+            android:id="@+id/action_patient_list"
+            app:destination="@id/patient_list_fragement" />
+        <argument
+            android:name="CurrentUser"
+            app:argType="com.iotric.doctorplus.model.User" />
+    </dialog>
 
 </navigation>

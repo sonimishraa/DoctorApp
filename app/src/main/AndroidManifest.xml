@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorPlus">
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
 
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.LoginActivity"
             android:icon="@drawable/plus_sign"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
 
