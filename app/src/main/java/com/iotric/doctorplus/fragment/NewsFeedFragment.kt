@@ -6,24 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentNewsfeedBinding
+import com.iotric.doctorplus.databinding.HomeFragmentBinding
 
 class NewsFeedFragment : BaseFragment() {
+    private lateinit var binding: FragmentNewsfeedBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        return inflater.inflate(R.layout.fragment_newsfeed, container, false)
+      binding = FragmentNewsfeedBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
+        initView()
     }
 
-    private fun initView(view: View) {
-        val webView = view.findViewById<WebView>(R.id.webView)
-           webView.loadUrl("https://www.google.com/")
+    private fun initView() {
+           binding.webView.loadUrl("https://www.google.com/")
     }
 }

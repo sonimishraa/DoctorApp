@@ -10,29 +10,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentPrescriptionBinding
 import java.io.IOException
 
 
 class PrescriptionFragment : BaseFragment() {
 
-    lateinit var ivpriscription: AppCompatImageView
+    private lateinit var binding:FragmentPrescriptionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-       val view = inflater.inflate(R.layout.fragment_prescription, container, false)
+    ): View {
+       binding=FragmentPrescriptionBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
+        initView()
     }
 
-    private fun initView(view: View) {
-        ivpriscription = view.findViewById(R.id.ivprisDoc)
-        ivpriscription.setOnClickListener {
+    private fun initView() {
+        binding.ivprisDoc.setOnClickListener {
             chooseImage()
         }
 
@@ -52,7 +53,7 @@ class PrescriptionFragment : BaseFragment() {
 
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver,uri)
-                ivpriscription.setImageBitmap(bitmap)
+                binding.ivprisDoc.setImageBitmap(bitmap)
 
             }catch (e:IOException){
                 e.printStackTrace()

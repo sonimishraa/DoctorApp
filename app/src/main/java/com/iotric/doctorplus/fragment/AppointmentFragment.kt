@@ -9,6 +9,7 @@ import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProviders
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentAppointentBinding
 import com.iotric.doctorplus.viewmodel.AppointmentFragmentViewModel
 import java.util.*
 
@@ -22,22 +23,23 @@ class AppointmentFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     var pickYear = 0
     var pickMonth = 0
     var pickDay = 0
+    private lateinit var binding:FragmentAppointentBinding
 
-    lateinit var datePicker: AppCompatTextView
     lateinit var datePickerDialog: DatePickerDialog
     lateinit var viewModel: AppointmentFragmentViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_appointent, container, false)
+    ): View {
+        binding =  FragmentAppointentBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle(getString(R.string.menu_appointment))
-        initView(view)
         initViewModel()
         pickDate()
     }
@@ -60,17 +62,12 @@ class AppointmentFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     }
 
-    private fun initView(view: View) {
-        datePicker = view.findViewById(R.id.tv_appointmentDate)
-
-    }
-
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         pickYear = year
         pickMonth = month + 1
         pickDay = dayOfMonth
         val date = viewModel.makeDateString(pickYear, pickMonth, pickDay)
-        datePicker.text = date
+        binding.tvAppointmentDate.text = date
     }
 
 }

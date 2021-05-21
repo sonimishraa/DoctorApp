@@ -10,10 +10,6 @@ import com.iotric.doctorplus.viewmodel.NotificationViewModel
 
 class NotificationFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = NotificationFragment()
-    }
-
     private lateinit var viewModel: NotificationViewModel
 
     override fun onCreateView(
@@ -27,7 +23,6 @@ class NotificationFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         setToolbarTitle("NOTIFICATIONS")
         viewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

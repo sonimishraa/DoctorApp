@@ -34,4 +34,9 @@
     <string name="notifications">Notifications</string>
     <string name="lab_test">Lab Tests</string>
     <string name="account">Account</string>
+    <string name="update_detail">UPDATE DETAIL</string>
+    <string name="successful_message">Updated Successfully</string>
+    <string name="mediacal_records">MEDICAL RECORDS</string>
+    <string name="add_record">ADD RECORD</string>
+    <string name="home">HOME</string>
 </resources>

@@ -4,59 +4,58 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
 import com.iotric.doctorplus.model.User
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 
 class AddPatientFragment : BaseFragment() {
 
-    lateinit var name: TextInputEditText
-    lateinit var contact: TextInputEditText
-    lateinit var date: TextInputEditText
-    lateinit var btnAdd: Button
-    lateinit var viewModel: AddPatientViewModel
+    private lateinit var viewModel: AddPatientViewModel
+    private lateinit var binding: AddPatientFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.add_patient_fragment, container, false)
+    ): View {
+        binding = AddPatientFragmentBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle("ADD RECORD")
-        initView(view)
+        setToolbarTitle(getString(R.string.add_record))
+        initView()
         initViewModel()
     }
+
     private fun initViewModel() {
         viewModel = ViewModelProvider(this).get(AddPatientViewModel::class.java)
 
     }
 
-    private fun insertDatatoDatabase() {
-        val addname = name.text.toString()
-        val addContact = contact.text.toString()
-        val date = date.text.toString()
-        val user = User(addname, addContact, date)
-        viewModel.insertUser(user)
-        Toast.makeText(requireContext(), "Patient Added successfully", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun initView(view: View) {
-        name = view.findViewById(R.id.tvName)
-        contact = view.findViewById(R.id.tvContact)
-        date = view.findViewById(R.id.tvDate)
-        btnAdd = view.findViewById(R.id.btnAdd)
-        btnAdd.setOnClickListener {
+    private fun initView() {
+        binding.btnAdd.setOnClickListener {
             insertDatatoDatabase()
-            findNavController().navigate(R.id.action_addfragment_to_patient_list)
+            findNavController().popBackStack()
         }
     }
+
+    private fun insertDatatoDatabase() {
+        val name = binding.tvName.text.toString()
+        val contact = binding.tvContact.text.toString()
+        val date = binding.tvDate.text.toString()
+        val user = User(name, contact, date)
+        viewModel.insertUser(user)
+        Toast.makeText(
+            requireContext(),
+            resources.getString(R.string.successful_message),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
 }

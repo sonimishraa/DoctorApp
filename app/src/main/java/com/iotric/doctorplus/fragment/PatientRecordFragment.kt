@@ -8,31 +8,34 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatientRecordPagerAdapter
+import com.iotric.doctorplus.databinding.PatientRecordFragmentBinding
 import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
 
 class PatientRecordFragment : BaseFragment() {
 
     private lateinit var viewModel: PatientRecordViewModel
+    private lateinit var binding:PatientRecordFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.patient_record_fragment, container, false)
+    ): View {
+        binding = PatientRecordFragmentBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle("PAST RECORD")
-        initView(view)
+        initView()
     }
 
-    private fun initView(view: View) {
-        val viewPager = view.findViewById<ViewPager>(R.id.viewPager)
-        val tabLayout = view.findViewById<TabLayout>(R.id.tablayout)
+    private fun initView() {
         val pagerAdapter = PatientRecordPagerAdapter(childFragmentManager)
+        val viewPager = binding.viewPager
         viewPager.adapter = pagerAdapter
-        tabLayout.setupWithViewPager(viewPager)
+        binding.tablayout.setupWithViewPager(viewPager)
     }
 
 }

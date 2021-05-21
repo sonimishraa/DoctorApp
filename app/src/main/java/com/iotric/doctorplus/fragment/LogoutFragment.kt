@@ -9,6 +9,7 @@ import android.text.SpannableString
 import android.text.style.AlignmentSpan
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.iotric.doctorplus.util.UtilClass
 
 
 class LogoutFragment : DialogFragment() {
@@ -20,7 +21,6 @@ class LogoutFragment : DialogFragment() {
             0,
             title.length,
             0)
-
         builder.setTitle(title)
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->

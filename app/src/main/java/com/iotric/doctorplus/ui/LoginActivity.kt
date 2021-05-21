@@ -2,34 +2,25 @@ package com.iotric.doctorplus.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import com.iotric.doctorplus.R
-import com.iotric.doctorplus.ui.HomeActivity
+import com.iotric.doctorplus.databinding.LoginActivityBinding
 
-class LoginActivity: AppCompatActivity(), View.OnClickListener {
+class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: LoginActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_activity)
+        binding = LoginActivityBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         initView()
     }
+
     private fun initView() {
-        val btnsignIn =findViewById<Button>(R.id.btnSignIn)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        btnsignIn?.setOnClickListener(this)
-        setActionBar(toolbar)
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btnSignIn -> {
-               val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-            }
+        binding.btnSignIn.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
-
+        setActionBar(binding.toolbar)
     }
-
 }

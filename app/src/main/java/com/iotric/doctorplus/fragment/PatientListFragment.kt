@@ -9,26 +9,29 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
+import com.iotric.doctorplus.databinding.PatientListFragmentBinding
 import com.iotric.doctorplus.model.User
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 
 class PatientListFragment : BaseFragment() {
 
     lateinit var viewModel: AddPatientViewModel
-    lateinit var recyclerView: RecyclerView
     lateinit var patientListAdapter: PatinetListAdapter
+    private lateinit var binding:PatientListFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.patient_list_fragment, container, false)
+    ): View {
+        binding = PatientListFragmentBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle(getString(R.string.patient_list))
-        initView(view)
+        initView()
         initiviewModel()
         //initViewModel()
         //initObserver()
@@ -56,8 +59,7 @@ class PatientListFragment : BaseFragment() {
 
      }*/
 
-    private fun initView(view: View) {
-        recyclerView = view.findViewById(R.id.recyclerView)
+    private fun initView() {
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onItemLayoutClick(user: User) {
                 val action = PatientListFragmentDirections.actionUpdatePatientFragment(user)
@@ -69,7 +71,7 @@ class PatientListFragment : BaseFragment() {
             }
 
         })
-        recyclerView.adapter = patientListAdapter
+        binding.recyclerView.adapter = patientListAdapter
     }
 
 }

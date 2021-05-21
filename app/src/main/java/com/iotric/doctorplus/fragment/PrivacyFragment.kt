@@ -5,19 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentPrivacyBinding
 
 class PrivacyFragment : BaseFragment() {
+
+    private lateinit var binding:FragmentPrivacyBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-       return inflater.inflate(R.layout.fragment_privacy, container, false)
+    ): View {
+       binding=  FragmentPrivacyBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setToolbarTitle(getString(R.string.menu_privacy))
     }
 }

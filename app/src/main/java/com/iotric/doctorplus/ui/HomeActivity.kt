@@ -2,29 +2,27 @@ package com.iotric.doctorplus.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.ActivityHomeBinding
 
 open class HomeActivity : AppCompatActivity() {
 
     lateinit var toolbar: Toolbar
     lateinit var toolbarTitle: TextView
-    lateinit var navView: BottomNavigationView
-    lateinit var menuBar: ImageView
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        navView = findViewById(R.id.nav_view)
-        toolbar = findViewById(R.id.toolbar)
-        toolbarTitle = findViewById(R.id.toolbarTitle)
-        menuBar = findViewById(R.id.menubar)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        toolbar = binding.toolbar
+        toolbarTitle = binding.toolbarTitle
         val navController = findNavController(R.id.nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -40,7 +38,7 @@ open class HomeActivity : AppCompatActivity() {
                 else -> hideBottomNav()
             }
         }
-        navView.setupWithNavController(navController)
+        binding.navView.setupWithNavController(navController)
     }
 
 
@@ -58,11 +56,11 @@ open class HomeActivity : AppCompatActivity() {
     }
 
     private fun hideBottomNav() {
-        navView.visibility = View.GONE
+        binding.navView.visibility = View.GONE
     }
 
     private fun showBottomNav() {
-        navView.visibility = View.VISIBLE
+        binding.navView.visibility = View.VISIBLE
     }
 
 }

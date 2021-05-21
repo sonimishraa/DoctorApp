@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.ProfileFragmentBinding
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import java.io.IOException
 
@@ -17,26 +18,26 @@ const val PICK_IMAGE_REQUEST = 1
 
 class ProfileFragment : BaseFragment() {
 
-    lateinit var ivProfile: AppCompatImageView
     lateinit var viewModel: ProfileFragmentViewModel
+    private lateinit var binding: ProfileFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.profile_fragment, container, false)
+    ): View {
+       binding = ProfileFragmentBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle("PROFILE")
-        initView(view)
+        initView()
     }
 
-    private fun initView(view: View) {
-        ivProfile = view.findViewById(R.id.ivProfile)
-        ivProfile.setOnClickListener {
+    private fun initView() {
+        binding.ivProfile.setOnClickListener {
             chooseImageReq()
         }
     }
@@ -57,7 +58,7 @@ class ProfileFragment : BaseFragment() {
 
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
-                ivProfile.setImageBitmap(bitmap)
+                binding.ivProfile.setImageBitmap(bitmap)
 
             } catch (e: IOException) {
                 e.printStackTrace()

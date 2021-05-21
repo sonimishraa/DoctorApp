@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import com.iotric.doctorplus.ui.HomeActivity
 
 abstract class BaseFragment : Fragment() {
-
     fun setToolbarTitle(title: String) {
         val activity = activity as HomeActivity
         activity.toolbar.title = ""

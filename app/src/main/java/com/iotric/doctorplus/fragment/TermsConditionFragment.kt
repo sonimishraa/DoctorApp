@@ -1,19 +1,25 @@
 package com.iotric.doctorplus.fragment
 
+import android.os.Binder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentTermsBinding
 
 class TermsConditionFragment : BaseFragment() {
+
+    private lateinit var binding: FragmentTermsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-      return inflater.inflate(R.layout.fragment_terms, container, false)
+    ): View {
+      binding =  FragmentTermsBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
