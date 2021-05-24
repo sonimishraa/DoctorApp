@@ -1,43 +1,38 @@
 package com.iotric.doctorplus.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
+import com.iotric.doctorplus.model.PuppyResponse
 import com.iotric.doctorplus.model.User
-import com.iotric.doctorplus.room.UserDatabase
 import com.iotric.doctorplus.repository.UserRepository
+import com.iotric.doctorplus.room.UserDatabase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddPatientViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class AddPatientViewModel @Inject constructor( private val repository: UserRepository) : ViewModel() {
 
-     val allUser: LiveData<List<User>>
-    private val repository: UserRepository
+    private val allUser = MutableLiveData<PuppyResponse>()
+    val userResponse: LiveData<PuppyResponse>
+        get() = allUser
 
     init {
-        val userDao = UserDatabase.getDatabase(application).userDao()
-        repository = UserRepository(userDao)
-        allUser = repository.readAllData
+        getUser()
     }
 
-    fun insertUser(user: User) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insert(user)
-        }
-    }
+    private fun getUser() = viewModelScope.launch {
+        repository.getResponse().let { response ->
 
-    fun updateUser(user: User){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.update(user)
-        }
-    }
-    fun deleteUser(user: User){
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.delete(user)
+            if (response.isSuccessful) {
+                allUser.postValue(response.body())
+            }else
+                Log.i("Error Response","Get Response:${response.body()}")
 
         }
-    }
 
+
+    }
 }
 

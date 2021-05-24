@@ -1,13 +1,8 @@
 package com.iotric.doctorplus
 
 import android.app.Application
-import com.iotric.doctorplus.room.UserDatabase
-import com.iotric.doctorplus.repository.UserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
+import dagger.hilt.android.HiltAndroidApp
 
-class AppApplication: Application() {
-    val applicationScope = CoroutineScope(SupervisorJob())
-    val database by lazy { UserDatabase.getDatabase(this) }
-    val repository by lazy { UserRepository(database.userDao()) }
+@HiltAndroidApp
+class AppApplication : Application() {
 }

@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.PatientListFragmentBinding
-import com.iotric.doctorplus.model.User
+import com.iotric.doctorplus.model.ResultsItem
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PatientListFragment : BaseFragment() {
 
     lateinit var viewModel: AddPatientViewModel
@@ -33,41 +34,25 @@ class PatientListFragment : BaseFragment() {
         setToolbarTitle(getString(R.string.patient_list))
         initView()
         initiviewModel()
-        //initViewModel()
-        //initObserver()
     }
 
     private fun initiviewModel() {
-        viewModel = ViewModelProvider(this).get(AddPatientViewModel::class.java)
-        viewModel.allUser.observe(viewLifecycleOwner, {
-            patientListAdapter.submitList(it)
+        viewModel.userResponse.observe(requireActivity(), {
+           patientListAdapter.submitList(it.results)
 
         })
     }
 
-    /* private fun initObserver() {
-         viewModel.patientListLiveData.observe(viewLifecycleOwner, {
-             patientListAdapter.submitList(it)
-
-         })
-         viewModel.setRequest()
-     }
-
-     private fun initViewModel() {
-         viewModel =
-             ViewModelProviders.of(this).get(PatientListViewModel::class.java)
-
-     }*/
 
     private fun initView() {
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
-            override fun onItemLayoutClick(user: User) {
-                val action = PatientListFragmentDirections.actionUpdatePatientFragment(user)
+            override fun onItemLayoutClick(result: ResultsItem) {
+                val action = PatientListFragmentDirections.actionUpdatePatientFragment()
                 findNavController().navigate(action)
             }
 
-            override fun onDeleteClick(user: User) {
-                viewModel.deleteUser(user)
+            override fun onDeleteClick(result: ResultsItem) {
+                //viewModel.deleteUser(user)
             }
 
         })

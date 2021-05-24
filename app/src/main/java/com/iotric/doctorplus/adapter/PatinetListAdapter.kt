@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.model.ResultsItem
 import com.iotric.doctorplus.model.User
 
 class PatinetListAdapter(val listener: ItemClickListener) :
-    ListAdapter<User, PatinetListAdapter.ItemViewHolder>(
+    ListAdapter<ResultsItem, PatinetListAdapter.ItemViewHolder>(
         object :
-            DiffUtil.ItemCallback<User>() {
-            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+            DiffUtil.ItemCallback<ResultsItem>() {
+            override fun areContentsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
+            override fun areItemsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
                 return oldItem == newItem
             }
         }) {
@@ -37,9 +38,9 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.tv_name.text = item.name
-        holder.tv_contact.text = item.contact
-        holder.tv_date.text = item.date
+        holder.tv_name.text = item.title
+            //holder.tv_contact.text = item.contact
+        //holder.tv_date.text = item.date
     }
 
 
@@ -64,8 +65,8 @@ class PatinetListAdapter(val listener: ItemClickListener) :
     }
 
     interface ItemClickListener {
-        fun onItemLayoutClick(user: User)
-        fun onDeleteClick(user: User)
+        fun onItemLayoutClick(result: ResultsItem)
+        fun onDeleteClick(result: ResultsItem)
 
     }
 }

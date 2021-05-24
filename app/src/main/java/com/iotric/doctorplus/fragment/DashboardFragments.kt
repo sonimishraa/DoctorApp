@@ -11,13 +11,13 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DashboardFragmentBinding
 
 
-open class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelectedListener {
+class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: DashboardFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DashboardFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         return view

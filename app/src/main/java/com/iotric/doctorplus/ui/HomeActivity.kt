@@ -9,7 +9,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ActivityHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 open class HomeActivity : AppCompatActivity() {
 
     lateinit var toolbar: Toolbar

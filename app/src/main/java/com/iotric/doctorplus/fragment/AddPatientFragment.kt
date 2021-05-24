@@ -11,7 +11,9 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
 import com.iotric.doctorplus.model.User
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddPatientFragment : BaseFragment() {
 
     private lateinit var viewModel: AddPatientViewModel
@@ -30,12 +32,6 @@ class AddPatientFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle(getString(R.string.add_record))
         initView()
-        initViewModel()
-    }
-
-    private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(AddPatientViewModel::class.java)
-
     }
 
     private fun initView() {
@@ -50,7 +46,7 @@ class AddPatientFragment : BaseFragment() {
         val contact = binding.tvContact.text.toString()
         val date = binding.tvDate.text.toString()
         val user = User(name, contact, date)
-        viewModel.insertUser(user)
+        //viewModel.insertUser(user)
         Toast.makeText(
             requireContext(),
             resources.getString(R.string.successful_message),

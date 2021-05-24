@@ -146,9 +146,9 @@
         <action
             android:id="@+id/action_patient_list"
             app:destination="@id/patient_list_fragement" />
-        <argument
+        <!--<argument
             android:name="CurrentUser"
-            app:argType="com.iotric.doctorplus.model.User" />
+            app:argType="com.iotric.doctorplus.model.User" />-->
     </dialog>
 
 </navigation>
