@@ -33,7 +33,7 @@ class PatientListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setToolbarTitle(getString(R.string.patient_list))
         initView()
-        initiviewModel()
+       // initiviewModel()
     }
 
     private fun initiviewModel() {

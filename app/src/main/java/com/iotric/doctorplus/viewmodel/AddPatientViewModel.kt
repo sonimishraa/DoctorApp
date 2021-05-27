@@ -18,7 +18,7 @@ class AddPatientViewModel @Inject constructor( private val repository: UserRepos
     val userResponse: LiveData<PuppyResponse>
         get() = allUser
 
-    init {
+  /*  init {
         getUser()
     }
 
@@ -33,6 +33,6 @@ class AddPatientViewModel @Inject constructor( private val repository: UserRepos
         }
 
 
-    }
+    }*/
 }
 
