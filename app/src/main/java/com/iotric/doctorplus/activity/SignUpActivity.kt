@@ -1,5 +1,6 @@
-package com.iotric.doctorplus.ui
+package com.iotric.doctorplus.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
@@ -9,7 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.iotric.doctorplus.databinding.ActivitySignUpBinding
 import com.iotric.doctorplus.model.request.Doctor
 import com.iotric.doctorplus.viewmodel.AddDoctorViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AddDoctorViewModel
@@ -24,53 +27,44 @@ class SignUpActivity : AppCompatActivity() {
         initViewModel()
     }
 
+    @SuppressLint("UseSupportActionBar")
     private fun initView() {
         setActionBar(binding.toolbar)
         binding.btnAddDoctor.setOnClickListener {
             createUser()
         }
-
     }
 
     private fun createUser() {
-         val  noWhiteSpace = "(?=\\s+$)"
-        if (binding.editName.text.toString().trim().isEmpty() && binding.editEmail.text.toString()
-                .trim().isEmpty() &&
-            binding.editPhone.text.toString().trim()
-                .isEmpty() && binding.editPassword.text.toString().trim().isEmpty() &&
-            binding.editAddress.text.toString().trim().isEmpty()
-        ) {
-            binding.layoutEditName.setError("Field Can't be Empty")
-            binding.layoutEditEmail.setError("Field Can't be Empty")
-            binding.layoutEditPhone.setError("Field Can't be Empty")
-            binding.layoutEditPassword.setError("Field Can't be Empty")
-            binding.layoutEditAddress.setError("Field Can't be Empty")
+        val name = binding.editName.text.toString().trim()
+        val email = binding.editEmail.text.toString().trim()
+        val phone = binding.editPhone.text.toString().trim()
+        val password = binding.editPassword.text.toString().trim()
 
-        } else {
-            binding.layoutEditName.setError(null)
-            binding.layoutEditEmail.setError(null)
-            binding.layoutEditPhone.setError(null)
-            binding.layoutEditPassword.setError(null)
-            binding.layoutEditAddress.setError(null)
+        if(name.isEmpty()) {
+            binding.layoutEditName.setError("Field Can't be Empty")
+        }else   binding.layoutEditName.setError(null)
+
+        if(email.isEmpty()) {
+            binding.layoutEditEmail.setError("Field Can't be Empty")
         }
-        if (binding.editPhone.text.toString().length < 10) {
-            binding.layoutEditPhone.setError(" 10 Number Digit Require")
-        }else{
-            binding.layoutEditPhone.setError(null)
-        }
-        if (!binding.editEmail.text.toString().matches(Patterns.EMAIL_ADDRESS.toRegex())) {
+        else if (password.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
             binding.layoutEditEmail.setError("Invalid Email Id")
-        } else {
-            binding.layoutEditEmail.setError(null)
         }
+        else binding.layoutEditEmail.setError(null)
+
+        if(phone.isEmpty()) {
+            binding.layoutEditPhone.setError("Field Can't be Empty")
+        }else if(phone.length < 10) {
+            binding.layoutEditPhone.setError(" 10 Number Digit Require")
+        } else binding.layoutEditPhone.setError(null)
+
+        if (password.isEmpty()) {
+                binding.layoutEditPassword.setError("Field Can't be Empty")
+            } else binding.layoutEditPassword.setError(null)
 
         val doctor = Doctor(
-            "",
-            binding.editName.toString(),
-            binding.editEmail.toString(),
-            binding.editPhone.toString(),
-            binding.editPassword.toString(),
-            binding.editAddress.toString()
+            "",name,email,phone,password,binding.editAddress.toString()
         )
         viewModel.getApiRequest(doctor)
 
@@ -79,7 +73,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(this).get(AddDoctorViewModel::class.java)
-        viewModel.addNewDoctor().observe(this, Observer {
+        viewModel.addNewDoctor().observe(this, {
             if (it == null) {
                 Toast.makeText(this, "Failed to add Doctor", Toast.LENGTH_SHORT).show()
             } else {

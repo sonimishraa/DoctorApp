@@ -1,7 +1,7 @@
 package com.iotric.doctorplus.fragment
 
 import androidx.fragment.app.Fragment
-import com.iotric.doctorplus.ui.HomeActivity
+import com.iotric.doctorplus.activity.HomeActivity
 
 abstract class BaseFragment : Fragment() {
     fun setToolbarTitle(title: String) {
@@ -11,5 +11,4 @@ abstract class BaseFragment : Fragment() {
         activity.setSupportActionBar(activity.toolbar)
         activity.supportActionBar?.setHomeButtonEnabled(true)
     }
-
 }

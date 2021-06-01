@@ -5,13 +5,16 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DashboardFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelectedListener {
+@AndroidEntryPoint
+class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: DashboardFragmentBinding
 
     override fun onCreateView(
@@ -25,7 +28,6 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(getString(R.string.mediacal_records))
         initView()
     }
 
@@ -39,10 +41,15 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
         binding.dashboardFrame.lLayoutPatientRecord.setOnClickListener {
             findNavController().navigate(R.id.action_patient_record_Fragment)
         }
-        val drawer = binding.drawerLayout
-        if (drawer != null) {
-            binding.navView.setNavigationItemSelectedListener(this)
+        binding.dashboardFrame.menubar.setOnClickListener {
+            val drawer = binding.drawerLayout
+            drawer.open()
+            if (drawer != null) {
+                binding.navView.setNavigationItemSelectedListener(this)
+            }
+
         }
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

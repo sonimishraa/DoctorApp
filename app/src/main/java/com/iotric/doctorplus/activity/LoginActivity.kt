@@ -1,10 +1,10 @@
-package com.iotric.doctorplus.ui
+package com.iotric.doctorplus.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.iotric.doctorplus.databinding.LoginActivityBinding
-import com.iotric.doctorplus.fragment.AddDoctorFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,13 +19,14 @@ class LoginActivity : AppCompatActivity() {
         initView()
     }
 
+    @SuppressLint("UseSupportActionBar")
     private fun initView() {
         binding.btnSignIn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
         binding.tvNewRegister.setOnClickListener {
-            val intent = Intent(this,SignUpActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
         setActionBar(binding.toolbar)

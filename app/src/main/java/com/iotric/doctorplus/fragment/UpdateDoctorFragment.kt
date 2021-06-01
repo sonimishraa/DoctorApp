@@ -14,7 +14,7 @@ import com.iotric.doctorplus.viewmodel.AddDoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddDoctorFragment : BaseFragment() {
+class UpdateDoctorFragment : BaseFragment() {
 
     private lateinit var viewModel: AddDoctorViewModel
     private lateinit var binding:AddDoctorFragmentBinding

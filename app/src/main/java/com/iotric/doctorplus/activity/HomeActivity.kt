@@ -1,4 +1,4 @@
-package com.iotric.doctorplus.ui
+package com.iotric.doctorplus.activity
 
 import android.os.Bundle
 import android.view.View
@@ -30,6 +30,10 @@ open class HomeActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.navigation_home, R.id.navigation_medical_records -> noBackpressIcon()
                 else -> showBackPressIcon()
+            }
+            when(destination.id){
+                R.id.navigation_medical_records -> binding.appbar.visibility = View.GONE
+                else -> binding.appbar.visibility = View.VISIBLE
             }
         }
 

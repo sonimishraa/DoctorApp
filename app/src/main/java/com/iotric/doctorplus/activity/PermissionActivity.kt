@@ -1,4 +1,4 @@
-package com.iotric.doctorplus.ui
+package com.iotric.doctorplus.activity
 
 import android.content.pm.PackageManager
 import android.os.Build
