@@ -1,25 +1,33 @@
 package com.iotric.doctorplus.networks
 
-import com.iotric.doctorplus.model.request.Doctor
-import com.iotric.doctorplus.model.request.DoctorResponse
-import com.iotric.doctorplus.utils.Constants.ADD_DOCTOR
+import com.iotric.doctorplus.model.request.DoctorRegisterRequest
+import com.iotric.doctorplus.model.response.DoctorListsResponse
+import com.iotric.doctorplus.model.response.DoctorSignUpResponse
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR
+import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_LIST
+import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
+import com.rakuten.common.core.intercept.MockJson
 import retrofit2.Call
 import retrofit2.http.*
-import java.lang.reflect.Type
 
 interface ApiService {
 
     @GET(GET_DOCTOR)
-     fun getDoctor()
+    @MockJson("getDoctor.json")
+    fun getDoctor(): Call<DoctorSignUpResponse>
 
-    @POST(ADD_DOCTOR)
+    @GET(GET_DOCTOR_LIST)
+    @MockJson("getAllDoctor.json")
+    fun getDoctorList():Call<DoctorListsResponse>
+
+    @POST(REGISTER_DOCTOR)
     @Headers("Content-Type:application/json")
-    fun addDoctor(@Body doctor: Doctor): Call<DoctorResponse>
+    @MockJson("signUpRequest.json")
+    fun registerDoctor(@Body doctorrequest: DoctorRegisterRequest): Call<DoctorSignUpResponse>
 
     @POST(ADD_PATIENT)
     fun addPatient()

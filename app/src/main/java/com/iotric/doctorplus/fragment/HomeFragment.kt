@@ -13,7 +13,9 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.HomeFragmentPagerAdapter
 import com.iotric.doctorplus.databinding.HomeFragmentBinding
 import com.iotric.doctorplus.viewmodel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
 

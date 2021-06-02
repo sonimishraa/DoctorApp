@@ -11,9 +11,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPrescriptionBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
-
+@AndroidEntryPoint
 class PrescriptionFragment : BaseFragment() {
 
     private lateinit var binding:FragmentPrescriptionBinding

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
@@ -44,10 +43,9 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
         binding.dashboardFrame.menubar.setOnClickListener {
             val drawer = binding.drawerLayout
             drawer.open()
-            if (drawer != null) {
-                binding.navView.setNavigationItemSelectedListener(this)
-            }
-
+        }
+        if (binding.drawerLayout != null) {
+            binding.navView.setNavigationItemSelectedListener(this)
         }
 
     }

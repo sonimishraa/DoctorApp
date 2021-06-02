@@ -1,0 +1,14 @@
+{
+  "message": "Registration successfull",
+  "newdoctor": {
+    "adddress": [],
+    "clinichours": [],
+    "_id": "60b0e387bc158d3a6415c7e8",
+    "doctorname": "uhyu",
+    "email": "tiarun@gmail.com",
+    "phone": "8540967005",
+    "createdAt": "2021-05-28T12:35:19.915Z",
+    "updatedAt": "2021-05-28T12:35:19.915Z",
+    "__v": 0
+  }
+}

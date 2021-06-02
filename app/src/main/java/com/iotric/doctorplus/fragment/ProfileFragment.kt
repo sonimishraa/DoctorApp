@@ -1,21 +1,29 @@
 package com.iotric.doctorplus.fragment
 
+import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.app.ActivityCompat
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
 const val PICK_IMAGE_REQUEST = 1
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
 
     lateinit var viewModel: ProfileFragmentViewModel
@@ -25,7 +33,7 @@ class ProfileFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       binding = ProfileFragmentBinding.inflate(layoutInflater, container, false)
+        binding = ProfileFragmentBinding.inflate(layoutInflater, container, false)
         val view = binding.root
         return view
     }
@@ -38,8 +46,69 @@ class ProfileFragment : BaseFragment() {
 
     private fun initView() {
         binding.ivProfile.setOnClickListener {
-            chooseImageReq()
+            chooseProfilePic()
         }
+    }
+
+    private fun chooseProfilePic() {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogeView = inflater.inflate(R.layout.alter_dialoge_profile, null)
+        builder.setCancelable(false)
+        builder.setView(dialogeView)
+        val alertDialoge = builder.create()
+        alertDialoge.show()
+        val ivCamera = dialogeView.findViewById<AppCompatImageView>(R.id.ivCamera)
+        val ivImage = dialogeView.findViewById<AppCompatImageView>(R.id.ivImage)
+        ivImage.setOnClickListener {
+            chooseImageReq()
+            alertDialoge.cancel()
+
+        }
+        ivCamera.setOnClickListener {
+            if (checkRequestPermission())
+                takePictureFromCamera()
+            alertDialoge.cancel()
+        }
+    }
+
+    private fun checkRequestPermission(): Boolean {
+        if (Build.VERSION.SDK_INT >= 23) {
+            val cameraPermission =
+                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            if (cameraPermission == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(
+                    requireActivity(), arrayOf(Manifest.permission.CAMERA),
+                    2
+                )
+                return false
+            }
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            takePictureFromCamera()
+
+        } else
+            Toast.makeText(requireContext(), "Permission Not Granted", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun takePictureFromCamera() {
+/*
+        val intent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE)
+        if(intent.resolveActivity(packageManager) != null){
+            startActivityForResult(intent, PICK_IMAGE_REQUEST )
+        }
+*/
+
     }
 
     private fun chooseImageReq() {
@@ -63,7 +132,6 @@ class ProfileFragment : BaseFragment() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
         }
     }
 

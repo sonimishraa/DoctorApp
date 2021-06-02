@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.viewmodel.NotificationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class NotificationFragment : BaseFragment() {
 
     private lateinit var viewModel: NotificationViewModel

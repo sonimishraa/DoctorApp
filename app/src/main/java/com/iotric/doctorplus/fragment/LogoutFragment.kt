@@ -10,8 +10,9 @@ import android.text.style.AlignmentSpan
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.iotric.doctorplus.util.UtilClass
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LogoutFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext())

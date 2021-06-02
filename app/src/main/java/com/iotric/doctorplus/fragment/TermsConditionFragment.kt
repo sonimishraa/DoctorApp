@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentTermsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TermsConditionFragment : BaseFragment() {
 
     private lateinit var binding: FragmentTermsBinding

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.iotric.doctorplus.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FaqFragment : BaseFragment() {
 
     override fun onCreateView(

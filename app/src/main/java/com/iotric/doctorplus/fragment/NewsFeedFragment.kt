@@ -8,7 +8,10 @@ import android.webkit.WebView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentNewsfeedBinding
 import com.iotric.doctorplus.databinding.HomeFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class NewsFeedFragment : BaseFragment() {
     private lateinit var binding: FragmentNewsfeedBinding
     override fun onCreateView(

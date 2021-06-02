@@ -10,7 +10,9 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatientRecordPagerAdapter
 import com.iotric.doctorplus.databinding.PatientRecordFragmentBinding
 import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PatientRecordFragment : BaseFragment() {
 
     private lateinit var viewModel: PatientRecordViewModel

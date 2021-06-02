@@ -11,9 +11,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentAppointentBinding
 import com.iotric.doctorplus.viewmodel.AppointmentFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class AppointmentFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     var year = 0
