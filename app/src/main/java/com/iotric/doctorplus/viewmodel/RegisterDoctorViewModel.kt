@@ -1,6 +1,7 @@
 package com.iotric.doctorplus.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
@@ -15,27 +16,27 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterDoctorViewModel @Inject constructor() : ViewModel() {
 
-    val addDoctorLiveData = MutableLiveData<DoctorSignUpResponse>()
+    val addDoctorLiveData = MutableLiveData<DoctorSignUpResponse?>()
 
-    fun getApiResponse(doctorRequest: DoctorRegisterRequest) {
-        ServiceBuilder.getRetrofit(application = Application()).registerDoctor(doctorRequest)
+    fun getApiResponse(doctorRequest: DoctorRegisterRequest, application: Application) {
+
+        ServiceBuilder.getRetrofit(application).registerDoctor(doctorRequest)
             .enqueue(
                 object : Callback<DoctorSignUpResponse> {
                     override fun onResponse(
                         call: Call<DoctorSignUpResponse>,
                         response: Response<DoctorSignUpResponse>
                     ) {
-
+                        Log.i("ResisterDoctor", "${response.body()}")
                         response.body()?.let {
-                            addDoctorLiveData.postValue(response.body())
+                            addDoctorLiveData.postValue(it)
                         }
-
                     }
 
                     override fun onFailure(call: Call<DoctorSignUpResponse>, t: Throwable) {
-                        //addDoctorLiveData.postValue()
+                        Log.e("ResisterDoctor", "${t.message}")
+                        addDoctorLiveData.postValue(null)
                     }
-
                 })
     }
 

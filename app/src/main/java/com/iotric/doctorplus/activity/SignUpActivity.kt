@@ -14,8 +14,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: RegisterDoctorViewModel
     lateinit var binding: ActivitySignUpBinding
+    lateinit var name: String
+    lateinit var email: String
+    lateinit var phone: String
+    lateinit var password: String
+    lateinit var address: String
+
+    lateinit var viewModel: RegisterDoctorViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,52 +36,73 @@ class SignUpActivity : AppCompatActivity() {
     private fun initView() {
         setActionBar(binding.toolbar)
         binding.btnAddDoctor.setOnClickListener {
+            validateFields()
             createUser()
         }
     }
 
     private fun createUser() {
-        val name = binding.editName.text.toString().trim()
-        val email = binding.editEmail.text.toString().trim()
-        val phone = binding.editPhone.text.toString().trim()
-        val password = binding.editPassword.text.toString().trim()
-        val address = binding.editAddress.text.toString().trim()
+        if (validateFields()) {
+            val doctor = DoctorRegisterRequest(name, email, phone, password, address)
+            viewModel.getApiResponse(doctor, application)
+        } else
+            Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun validateFields(): Boolean {
+        var isAllFieldValidate = true
+        name = binding.editName.text.toString().trim()
+        email = binding.editEmail.text.toString().trim()
+        phone = binding.editPhone.text.toString().trim()
+        password = binding.editPassword.text.toString().trim()
+        address = binding.editAddress.text.toString().trim()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError("Field Can't be Empty")
-        } else binding.layoutEditName.setError(null)
+            isAllFieldValidate = false
+        } else {
+            binding.layoutEditName.setError(null)
+        }
 
         if (email.isEmpty()) {
             binding.layoutEditEmail.setError("Field Can't be Empty")
-        } else if (password.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
+            isAllFieldValidate = false
+        } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
             binding.layoutEditEmail.setError("Invalid Email Id")
+            isAllFieldValidate = false
         } else binding.layoutEditEmail.setError(null)
 
         if (phone.isEmpty()) {
             binding.layoutEditPhone.setError("Field Can't be Empty")
+            isAllFieldValidate = false
         } else if (phone.length < 10) {
             binding.layoutEditPhone.setError(" 10 Number Digit Require")
+            isAllFieldValidate = false
         } else binding.layoutEditPhone.setError(null)
 
         if (password.isEmpty()) {
             binding.layoutEditPassword.setError("Field Can't be Empty")
+            isAllFieldValidate = false
         } else binding.layoutEditPassword.setError(null)
 
-        val doctor = DoctorRegisterRequest(name, email, phone, password, address)
-        viewModel.getApiResponse(doctor)
+        if (address.isEmpty()) {
+            binding.layoutEditAddress.setError("Field Can't be Empty")
+            isAllFieldValidate = false
+        } else binding.layoutEditAddress.setError(null)
+
+        return isAllFieldValidate
     }
 
 
     private fun initViewModel() {
         viewModel = ViewModelProvider(this).get(RegisterDoctorViewModel::class.java)
         viewModel.addDoctorLiveData.observe(this, {
-            if (it == null) {
-                Toast.makeText(this, "Failed to add Doctor", Toast.LENGTH_SHORT).show()
-            } else {
-                //binding.editName.text =
+            if (it != null) {
                 Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Failed to create", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
