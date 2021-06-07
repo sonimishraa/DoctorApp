@@ -1,9 +1,11 @@
 package com.iotric.doctorplus.viewmodel
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class AppointmentFragmentViewModel : ViewModel() {
+@HiltViewModel
+class AppointmentFragmentViewModel @Inject constructor(): ViewModel() {
 
     fun makeDateString(year: Int, month: Int, day: Int): String {
         val date = "$day/${monthFormat(month)}/$year"

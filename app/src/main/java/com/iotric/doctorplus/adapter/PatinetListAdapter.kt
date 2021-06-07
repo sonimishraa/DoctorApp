@@ -6,23 +6,22 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.os.persistableBundleOf
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.model.ResultsItem
-import com.iotric.doctorplus.model.User
+import com.iotric.doctorplus.model.response.DoctorsList
 
 class PatinetListAdapter(val listener: ItemClickListener) :
-    ListAdapter<ResultsItem, PatinetListAdapter.ItemViewHolder>(
+    ListAdapter<DoctorsList, PatinetListAdapter.ItemViewHolder>(
         object :
-            DiffUtil.ItemCallback<ResultsItem>() {
-            override fun areContentsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+            DiffUtil.ItemCallback<DoctorsList>() {
+            override fun areContentsTheSame(oldItem: DoctorsList, newItem: DoctorsList): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: ResultsItem, newItem: ResultsItem): Boolean {
+            override fun areItemsTheSame(oldItem: DoctorsList, newItem: DoctorsList): Boolean {
                 return oldItem == newItem
             }
         }) {
@@ -38,9 +37,8 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.tv_name.text = item.title
-            //holder.tv_contact.text = item.contact
-        //holder.tv_date.text = item.date
+        holder.tv_name.text = item.doctorname
+        holder.tv_contact.text = item.phone
     }
 
 
@@ -59,14 +57,12 @@ class PatinetListAdapter(val listener: ItemClickListener) :
             btnDelete.setOnClickListener {
                 listener.onDeleteClick(getItem(position))
             }
-
-
         }
     }
 
     interface ItemClickListener {
-        fun onItemLayoutClick(result: ResultsItem)
-        fun onDeleteClick(result: ResultsItem)
+        fun onItemLayoutClick(result: DoctorsList)
+        fun onDeleteClick(result: DoctorsList)
 
     }
 }

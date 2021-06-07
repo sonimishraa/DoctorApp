@@ -13,9 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 open class HomeActivity : AppCompatActivity() {
-
-    lateinit var toolbar: Toolbar
-    lateinit var toolbarTitle: TextView
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,19 +20,13 @@ open class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        toolbar = binding.toolbar
-        toolbarTitle = binding.toolbarTitle
         val navController = findNavController(R.id.nav_host_fragment)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        /*navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_home, R.id.navigation_medical_records -> noBackpressIcon()
                 else -> showBackPressIcon()
             }
-            when(destination.id){
-                R.id.navigation_medical_records -> binding.appbar.visibility = View.GONE
-                else -> binding.appbar.visibility = View.VISIBLE
-            }
-        }
+        }*/
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

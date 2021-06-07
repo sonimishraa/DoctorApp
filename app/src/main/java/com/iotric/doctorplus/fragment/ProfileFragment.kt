@@ -3,8 +3,10 @@ package com.iotric.doctorplus.fragment
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +17,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
@@ -24,7 +28,7 @@ import java.io.IOException
 const val PICK_IMAGE_REQUEST = 1
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment() {
+class ProfileFragment : Fragment() {
 
     lateinit var viewModel: ProfileFragmentViewModel
     private lateinit var binding: ProfileFragmentBinding
@@ -33,18 +37,21 @@ class ProfileFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ProfileFragmentBinding.inflate(layoutInflater, container, false)
+        binding = ProfileFragmentBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle("PROFILE")
         initView()
     }
 
     private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
+        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+            findNavController().popBackStack()
+        }
         binding.ivProfile.setOnClickListener {
             chooseProfilePic()
         }
@@ -102,13 +109,12 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun takePictureFromCamera() {
-/*
-        val intent: Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE)
-        if(intent.resolveActivity(packageManager) != null){
-            startActivityForResult(intent, PICK_IMAGE_REQUEST )
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        try {
+            startActivityForResult(intent, 2)
+        }catch (e: ActivityNotFoundException){
+            e.printStackTrace()
         }
-*/
-
     }
 
     private fun chooseImageReq() {
@@ -128,6 +134,16 @@ class ProfileFragment : BaseFragment() {
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
                 binding.ivProfile.setImageBitmap(bitmap)
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        if(requestCode == 2 && resultCode == Activity.RESULT_OK  && data != null && data.getData() != null){
+
+            try {
+                val imageBitmap = data.extras?.get("data") as Bitmap
+                binding.ivProfile.setImageBitmap(imageBitmap)
 
             } catch (e: IOException) {
                 e.printStackTrace()

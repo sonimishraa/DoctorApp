@@ -5,28 +5,41 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.LabTestFragmentBinding
 import com.iotric.doctorplus.viewmodel.LabTestViewModel
+import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class LabTestFragment : BaseFragment() {
+class LabTestFragment : Fragment() {
 
-    private lateinit var viewModel: LabTestViewModel
+    val viewModel: PatientListViewModel by viewModels()
+    lateinit var binding: LabTestFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.lab_test_fragment, container, false)
+    ): View {
+        binding = LabTestFragmentBinding.inflate(layoutInflater)
+        val view = binding.root
+        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setToolbarTitle("LAB TESTS")
-        viewModel = ViewModelProvider(this).get(LabTestViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initview()
+    }
+
+    private fun initview() {
+        binding.appbar.toolbarTitle.text = getString(R.string.lab_test)
+        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+            findNavController().popBackStack()
+        }
     }
 
 }

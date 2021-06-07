@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentNewsfeedBinding
 import com.iotric.doctorplus.databinding.HomeFragmentBinding
@@ -12,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class NewsFeedFragment : BaseFragment() {
+class NewsFeedFragment : Fragment() {
     private lateinit var binding: FragmentNewsfeedBinding
     override fun onCreateView(
         inflater: LayoutInflater,

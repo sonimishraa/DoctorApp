@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.iotric.doctorplus.R
@@ -16,7 +18,7 @@ import com.iotric.doctorplus.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HomeFragment : Fragment() {
 
 
     private lateinit var viewModel: HomeViewModel
@@ -26,18 +28,21 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =  HomeFragmentBinding.inflate(layoutInflater, container, false)
+        binding =  HomeFragmentBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(getString(R.string.home))
         initView()
     }
 
     private fun initView() {
+        binding.toolbarTitle.text = getString(R.string.home)
+        binding.toolbar.setNavigationOnClickListener {view ->
+            findNavController().popBackStack()
+        }
         binding.viewPager.adapter = HomeFragmentPagerAdapter(childFragmentManager)
         binding.tablayout.setupWithViewPager(binding.viewPager)
         binding.tablayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFF00"))

@@ -1,38 +1,46 @@
 package com.iotric.doctorplus.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.iotric.doctorplus.model.PuppyResponse
 import com.iotric.doctorplus.model.User
+import com.iotric.doctorplus.model.response.DoctorListsResponse
+import com.iotric.doctorplus.networks.ServiceBuilder
 import com.iotric.doctorplus.repository.UserRepository
 import com.iotric.doctorplus.room.UserDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPatientViewModel @Inject constructor( private val repository: UserRepository) : ViewModel() {
+class AddPatientViewModel @Inject constructor( ) : ViewModel() {
 
-    private val allUser = MutableLiveData<PuppyResponse>()
-    val userResponse: LiveData<PuppyResponse>
-        get() = allUser
+    val allUserList = MutableLiveData<DoctorListsResponse>()
 
-  /*  init {
-        getUser()
+    fun getApiResponse(application: Application){
+        ServiceBuilder.getRetrofit(application).getDoctorList().enqueue(object : Callback<DoctorListsResponse> {
+            override fun onResponse(
+                call: Call<DoctorListsResponse>,
+                response: Response<DoctorListsResponse>
+            ) {
+                response.body()?.let{
+                    allUserList.postValue(it)
+                }
+
+            }
+
+            override fun onFailure(call: Call<DoctorListsResponse>, t: Throwable) {
+
+            }
+
+
+        })
     }
 
-    private fun getUser() = viewModelScope.launch {
-        repository.getResponse().let { response ->
-
-            if (response.isSuccessful) {
-                allUser.postValue(response.body())
-            }else
-                Log.i("Error Response","Get Response:${response.body()}")
-
-        }
-
-
-    }*/
 }
 

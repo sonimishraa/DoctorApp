@@ -32,7 +32,7 @@
     <string name="lab_tests">Lab Tests</string>
     <string name="navigation_home">Home</string>
     <string name="notifications">Notifications</string>
-    <string name="lab_test">Lab Tests</string>
+    <string name="lab_test">LAB TESTS</string>
     <string name="account">Account</string>
     <string name="update_detail">UPDATE DETAIL</string>
     <string name="successful_message">Updated Successfully</string>
@@ -49,4 +49,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title">MEDICAL RECORDS</string>
+    <string name="appointment_toolbar_title">APPOINTMENT</string>
+    <string name="add_patient_toolbar_title">ADD NEW PATIENT</string>
+    <string name="login_toolbar_title">SIGN UP</string>
+    <string name="notification_toolbar_title">NOTIFICATIONS</string>
+    <string name="patient_update_toolbar_title">PATIENT UPDATE</string>
 </resources>

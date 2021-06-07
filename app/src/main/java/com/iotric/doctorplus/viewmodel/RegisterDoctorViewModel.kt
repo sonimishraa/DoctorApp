@@ -20,7 +20,7 @@ class RegisterDoctorViewModel @Inject constructor() : ViewModel() {
 
     fun getApiResponse(doctorRequest: DoctorRegisterRequest, application: Application) {
 
-        ServiceBuilder.getRetrofit(application).registerDoctor(doctorRequest)
+       ServiceBuilder.getRetrofit(application).registerDoctor(doctorRequest)
             .enqueue(
                 object : Callback<DoctorSignUpResponse> {
                     override fun onResponse(

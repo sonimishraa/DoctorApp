@@ -5,18 +5,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentLabReportBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class LabReportFragment : Fragment() {
 
+    lateinit var binding: FragmentLabReportBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_lab_report, container, false)
+    ): View {
+        binding = FragmentLabReportBinding.inflate(layoutInflater)
+        val view = binding.root
+        return view
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initview()
+    }
+
+    private fun initview() {
+    }
+
 
 }

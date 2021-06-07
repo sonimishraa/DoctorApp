@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/app_bar_main"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lLayout_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
         android:layout_margin="@dimen/small_margin"
         android:orientation="vertical">
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.iotric.doctorplus.databinding.ActivitySignUpBinding
@@ -21,8 +22,7 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var password: String
     lateinit var address: String
 
-    lateinit var viewModel: RegisterDoctorViewModel
-
+    val viewModel by viewModels<RegisterDoctorViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -96,7 +96,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(RegisterDoctorViewModel::class.java)
         viewModel.addDoctorLiveData.observe(this, {
             if (it != null) {
                 Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()

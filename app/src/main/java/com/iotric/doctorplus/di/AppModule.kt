@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -31,8 +32,12 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitInstance(application: Application): ApiService =
+    fun provideRetrofit(application: Application): ApiService  =
         ServiceBuilder.getRetrofit(application)
 
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService =
+        ServiceBuilder.getApiService(retrofit)
 
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,16 +14,15 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPatientUpdateBinding
 import com.iotric.doctorplus.model.User
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
+import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentPatientUpdateBinding
-
-    //private val args by navArgs<PatientUpdateLDialogFragmentArgs>()
-
-    private lateinit var viewModel: AddPatientViewModel
+    val viewModel: PatientListViewModel by viewModels()
+   // private val args by navArgs<PatientUpdateLDialogFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,12 +35,15 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
        // initView(view)
-        initViewModel()
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(AddPatientViewModel::class.java)
+    private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.patient_update_toolbar_title)
+        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+            findNavController().popBackStack()
+        }
     }
 
   /*  private fun initView(view: View) {

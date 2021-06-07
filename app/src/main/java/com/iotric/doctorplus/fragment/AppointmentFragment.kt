@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentAppointentBinding
 import com.iotric.doctorplus.viewmodel.AppointmentFragmentViewModel
@@ -15,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class AppointmentFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
+class AppointmentFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     var year = 0
     var month = 0
@@ -27,7 +30,7 @@ class AppointmentFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding:FragmentAppointentBinding
 
     lateinit var datePickerDialog: DatePickerDialog
-    lateinit var viewModel: AppointmentFragmentViewModel
+    val viewModel: AppointmentFragmentViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,13 +43,15 @@ class AppointmentFragment : BaseFragment(), DatePickerDialog.OnDateSetListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setToolbarTitle(getString(R.string.menu_appointment))
-        initViewModel()
+        initView()
         pickDate()
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(AppointmentFragmentViewModel::class.java)
+    private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.appointment_toolbar_title)
+        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+            findNavController().popBackStack()
+        }
     }
 
     private fun pickDate() {

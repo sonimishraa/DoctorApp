@@ -5,27 +5,39 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.NotificationFragmentBinding
 import com.iotric.doctorplus.viewmodel.NotificationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class NotificationFragment : BaseFragment() {
+class NotificationFragment : Fragment() {
 
     private lateinit var viewModel: NotificationViewModel
+    lateinit var binding:NotificationFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.notification_fragment, container, false)
+    ): View {
+        binding = NotificationFragmentBinding.inflate(layoutInflater)
+        val view = binding.root
+        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setToolbarTitle("NOTIFICATIONS")
-        viewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.notification_toolbar_title)
+        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+            findNavController().popBackStack()
+        }
     }
 
 }
