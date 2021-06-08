@@ -1,0 +1,14 @@
+{
+  "updatepatient": {
+    "adddress": [],
+    "clinichours": [],
+    "_id": "60b09239aea2803fac012326",
+    "patientname": "ijhuygtvd",
+    "email": "tarun@gmail.com",
+    "phone": "8510967005",
+    "password": "$2a$10$iAArdibj5NerFtZUyk8A9ecz30rQ64i3hGIttUW7TV13nMGPcxYZO",
+    "createdAt": "2021-05-28T06:48:25.151Z",
+    "updatedAt": "2021-05-28T12:59:11.468Z",
+    "__v": 0
+  }
+}
