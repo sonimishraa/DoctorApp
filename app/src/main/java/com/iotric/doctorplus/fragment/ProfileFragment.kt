@@ -16,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -52,6 +53,9 @@ class ProfileFragment : Fragment() {
         binding.appbar.toolbar.setNavigationOnClickListener {view ->
             findNavController().popBackStack()
         }
+        binding.btnEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_profile_to_editDoctorProfileFragment)
+        }
         binding.ivProfile.setOnClickListener {
             chooseProfilePic()
         }
@@ -65,8 +69,18 @@ class ProfileFragment : Fragment() {
         builder.setView(dialogeView)
         val alertDialoge = builder.create()
         alertDialoge.show()
-        val ivCamera = dialogeView.findViewById<AppCompatImageView>(R.id.ivCamera)
-        val ivImage = dialogeView.findViewById<AppCompatImageView>(R.id.ivImage)
+        val ivCamera = dialogeView.findViewById<AppCompatTextView>(R.id.ivCamera)
+        val ivImage = dialogeView.findViewById<AppCompatTextView>(R.id.ivImage)
+        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
+        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
+
+        tv_cancel.setOnClickListener {
+            alertDialoge.dismiss()
+        }
+        tv_ok.setOnClickListener {
+            chooseImageReq()
+            alertDialoge.cancel()
+        }
         ivImage.setOnClickListener {
             chooseImageReq()
             alertDialoge.cancel()

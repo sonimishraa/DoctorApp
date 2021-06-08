@@ -10,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -34,6 +35,17 @@ object AppModule {
     @Provides
     fun provideRetrofit(application: Application): ApiService  =
         ServiceBuilder.getRetrofit(application)
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(application: Application): OkHttpClient  =
+        ServiceBuilder.getOkHttpClient(application)
+
+    @Singleton
+    @Provides
+    fun provideRetrofitInstance(client: OkHttpClient): Retrofit  =
+        ServiceBuilder.getRetrofitInstance(client)
+
 
     @Singleton
     @Provides

@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.PatientListFragmentBinding
-import com.iotric.doctorplus.model.response.DoctorsList
+import com.iotric.doctorplus.model.response.PatientItem
 import com.iotric.doctorplus.viewmodel.PatientListViewModel
-import com.iotric.doctorplus.viewmodel.RegisterDoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,24 +38,25 @@ class PatientListFragment : Fragment() {
 
     private fun initiviewModel() {
         viewModel.allUserList.observe(requireActivity(), {
-            patientListAdapter.submitList(it.doctors)
+            patientListAdapter.submitList(it.patient)
         })
         viewModel.getApiResponse(requireActivity().application)
+        //viewModel.getApiResponse1()
     }
 
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
-            override fun onItemLayoutClick(result: DoctorsList) {
+            override fun onItemLayoutClick(result: PatientItem) {
                 val action = PatientListFragmentDirections.actionUpdatePatientFragment()
                 findNavController().navigate(action)
             }
 
-            override fun onDeleteClick(result: DoctorsList) {
+            override fun onDeleteClick(result: PatientItem) {
                 //viewModel.deleteUser(user)
             }
 

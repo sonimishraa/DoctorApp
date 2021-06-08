@@ -65,6 +65,9 @@
         android:label="@string/menu_profile"
         tools:layout="@layout/profile_fragment">
 
+        <action
+            android:id="@+id/action_navigation_profile_to_editDoctorProfileFragment"
+            app:destination="@id/editDoctorProfileFragment" />
     </fragment>
 
     <fragment
@@ -150,5 +153,14 @@
             android:name="CurrentUser"
             app:argType="com.iotric.doctorplus.model.User" />-->
     </dialog>
+    <fragment
+        android:id="@+id/editDoctorProfileFragment"
+        android:name="com.iotric.doctorplus.fragment.EditDoctorProfileFragment"
+        android:label="edit_doctor_profile_fragment"
+        tools:layout="@layout/edit_doctor_profile_fragment" >
+        <action
+            android:id="@+id/action_editDoctorProfileFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
 
 </navigation>

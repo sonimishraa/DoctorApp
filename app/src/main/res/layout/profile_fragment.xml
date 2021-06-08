@@ -80,11 +80,12 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
+        android:id="@+id/btnEditProfile"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
         android:text="EDIT PROFILE"
         android:textStyle="bold"
-        android:textSize="15sp"/>
+        android:textSize="20sp"/>
 
 </RelativeLayout>

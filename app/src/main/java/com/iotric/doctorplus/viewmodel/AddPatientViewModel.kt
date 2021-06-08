@@ -1,45 +1,41 @@
 package com.iotric.doctorplus.viewmodel
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import com.iotric.doctorplus.model.PuppyResponse
-import com.iotric.doctorplus.model.User
-import com.iotric.doctorplus.model.response.DoctorListsResponse
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.iotric.doctorplus.model.request.RegisterPatientRequest
+import com.iotric.doctorplus.model.response.RegisterPatientResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
-import com.iotric.doctorplus.repository.UserRepository
-import com.iotric.doctorplus.room.UserDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class AddPatientViewModel @Inject constructor( ) : ViewModel() {
+class AddPatientViewModel @Inject constructor() : ViewModel() {
 
-    val allUserList = MutableLiveData<DoctorListsResponse>()
+    val registerPatientItem = MutableLiveData<RegisterPatientResponse>()
 
-    fun getApiResponse(application: Application){
-        ServiceBuilder.getRetrofit(application).getDoctorList().enqueue(object : Callback<DoctorListsResponse> {
-            override fun onResponse(
-                call: Call<DoctorListsResponse>,
-                response: Response<DoctorListsResponse>
-            ) {
-                response.body()?.let{
-                    allUserList.postValue(it)
+    fun getApiResponse(registerPatientRequest: RegisterPatientRequest, application: Application) {
+        ServiceBuilder.getRetrofit(application).registerPatient(registerPatientRequest)
+            .enqueue(object : Callback<RegisterPatientResponse> {
+                override fun onResponse(
+                    call: Call<RegisterPatientResponse>,
+                    response: Response<RegisterPatientResponse>
+                ) {
+                    response.body()?.let {
+                        registerPatientItem.postValue(it)
+                    }
+
                 }
 
-            }
+                override fun onFailure(call: Call<RegisterPatientResponse>, t: Throwable) {
 
-            override fun onFailure(call: Call<DoctorListsResponse>, t: Throwable) {
-
-            }
+                }
 
 
-        })
+            })
     }
 
 }

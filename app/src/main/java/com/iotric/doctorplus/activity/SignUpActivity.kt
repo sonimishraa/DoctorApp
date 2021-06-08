@@ -32,7 +32,6 @@ class SignUpActivity : AppCompatActivity() {
         initViewModel()
     }
 
-    @SuppressLint("UseSupportActionBar")
     private fun initView() {
         setActionBar(binding.toolbar)
         binding.btnAddDoctor.setOnClickListener {

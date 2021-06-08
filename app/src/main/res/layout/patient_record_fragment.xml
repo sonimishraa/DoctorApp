@@ -135,6 +135,6 @@
         android:background="@color/color_primary"
         android:text="UPDATE PRISCRIPTION"
         android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 </RelativeLayout>

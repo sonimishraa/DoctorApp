@@ -18,7 +18,7 @@ class UserRepository @Inject constructor( private val apiService:ApiService) {
 
     suspend fun addPatient() = apiService.addPatient()
 
-    suspend fun updatePatient() = apiService.updatePatient()
+    //suspend fun updatePatient() = apiService.updatePatient()
 
     suspend fun deletePatient() = apiService.deletePatient()
 

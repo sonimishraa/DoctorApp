@@ -65,7 +65,7 @@
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
         android:text="UPDATE"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
 

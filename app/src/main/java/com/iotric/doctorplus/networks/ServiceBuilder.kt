@@ -24,4 +24,18 @@ object ServiceBuilder {
         val apiService: ApiService = retrofit.create(ApiService::class.java)
         return apiService
     }
+
+    fun getRetrofitInstance(client: OkHttpClient): Retrofit {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit
+    }
+
+    fun getOkHttpClient( application: Application): OkHttpClient {
+        val client = OkHttpClient.Builder().addInterceptor(MockInterceptor(application)).build()
+        return client
+    }
 }
