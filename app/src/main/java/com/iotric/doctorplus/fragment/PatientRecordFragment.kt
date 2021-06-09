@@ -26,7 +26,7 @@ class PatientRecordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = PatientRecordFragmentBinding.inflate(layoutInflater, container, false)
+        binding = PatientRecordFragmentBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }

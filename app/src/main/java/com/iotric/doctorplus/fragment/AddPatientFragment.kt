@@ -44,14 +44,12 @@ class AddPatientFragment : Fragment() {
 
     private fun initView() {
         binding.btnAdd.setOnClickListener {
-            validateFields()
             registerPatient()
         }
         binding.appbar.toolbarTitle.text = getString(R.string.add_patient_toolbar_title)
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
-
     }
 
     private fun registerPatient() {
@@ -63,6 +61,7 @@ class AddPatientFragment : Fragment() {
         viewModel.registerPatientItem.observe(viewLifecycleOwner, {
             if (it != null) {
                 Toast.makeText(requireContext(), "Successfully Created", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_addfragment_to_patient_list)
             } else {
                 Toast.makeText(requireContext(), "Failed to create", Toast.LENGTH_SHORT).show()
             }

@@ -51,7 +51,7 @@
     <string name="title">MEDICAL RECORDS</string>
     <string name="appointment_toolbar_title">APPOINTMENT</string>
     <string name="add_patient_toolbar_title">ADD NEW PATIENT</string>
-    <string name="login_toolbar_title">SIGN UP</string>
+    <string name="login_toolbar_title">SIGN IN</string>
     <string name="notification_toolbar_title">NOTIFICATIONS</string>
     <string name="patient_update_toolbar_title">UPDATE PATIENT</string>
     <string name="edit_doctor_profile">EDIT PROFILE</string>

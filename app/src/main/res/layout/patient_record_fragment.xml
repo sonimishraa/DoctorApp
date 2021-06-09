@@ -120,21 +120,11 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/btn_update_pris"
+            android:layout_marginTop="@dimen/small_margin"
             android:layout_below="@+id/lLayout_detail"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
         </androidx.viewpager.widget.ViewPager>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
-        android:id="@+id/btn_update_pris"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/color_primary"
-        android:text="UPDATE PRISCRIPTION"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 </RelativeLayout>

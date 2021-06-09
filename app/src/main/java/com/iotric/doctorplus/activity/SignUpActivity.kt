@@ -1,12 +1,11 @@
 package com.iotric.doctorplus.activity
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.iotric.doctorplus.databinding.ActivitySignUpBinding
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
 import com.iotric.doctorplus.viewmodel.RegisterDoctorViewModel
@@ -29,13 +28,11 @@ class SignUpActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         initView()
-        initViewModel()
     }
 
     private fun initView() {
         setActionBar(binding.toolbar)
         binding.btnAddDoctor.setOnClickListener {
-            validateFields()
             createUser()
         }
     }
@@ -44,9 +41,17 @@ class SignUpActivity : AppCompatActivity() {
         if (validateFields()) {
             val doctor = DoctorRegisterRequest(name, email, phone, password, address)
             viewModel.getApiResponse(doctor, application)
+            viewModel.addDoctorLiveData.observe(this, {
+                if (it != null) {
+                    Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this, "Failed to create", Toast.LENGTH_SHORT).show()
+                }
+            })
         } else
             Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
-
     }
 
     private fun validateFields(): Boolean {
@@ -92,18 +97,6 @@ class SignUpActivity : AppCompatActivity() {
 
         return isAllFieldValidate
     }
-
-
-    private fun initViewModel() {
-        viewModel.addDoctorLiveData.observe(this, {
-            if (it != null) {
-                Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Failed to create", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
 }
 
 

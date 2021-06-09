@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Address*"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textPostalAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -74,8 +74,7 @@
                     android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email*"
-                    android:inputType="number" />
+                    android:hint="Email*" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -117,11 +116,9 @@
                         android:focusable="false"
                         android:focusableInTouchMode="false"
                         android:gravity="center"
-                        android:hint="Start Time*"
-                        android:inputType="textPostalAddress" />
+                        android:hint="Start Time*"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_edit_EndTime"

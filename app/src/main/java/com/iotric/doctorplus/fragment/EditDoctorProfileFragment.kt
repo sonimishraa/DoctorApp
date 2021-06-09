@@ -2,11 +2,13 @@ package com.iotric.doctorplus.fragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,11 +16,10 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.EditDoctorProfileFragmentBinding
 import com.iotric.doctorplus.viewmodel.EditDoctorProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 
 @AndroidEntryPoint
-class EditDoctorProfileFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
+class EditDoctorProfileFragment : Fragment() {
 
     val viewModel: EditDoctorProfileViewModel by viewModels()
     lateinit var binding: EditDoctorProfileFragmentBinding
@@ -31,10 +32,10 @@ class EditDoctorProfileFragment : Fragment(), TimePickerDialog.OnTimeSetListener
 
     var hr = 0
     var min = 0
-    var pickHr = 0
-    var pickMin = 0
-    lateinit var timePickerDialog: TimePickerDialog
+    var hr1 = 0
+    var min1 = 0
 
+    lateinit var timePickerDialog: TimePickerDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,15 +56,26 @@ class EditDoctorProfileFragment : Fragment(), TimePickerDialog.OnTimeSetListener
             findNavController().popBackStack()
         }
         binding.editStartTime.setOnClickListener {
-            timePicker()
+            startTimePicker()
         }
 
         binding.editEndTime.setOnClickListener {
-            timePicker()
+            endTimePicker()
         }
         binding.btnSave.setOnClickListener {
-            validateFields()
-            EditDoctor()
+            if (validateFields()) {
+                Toast.makeText(
+                    requireContext(),
+                    "Successfully Edited Doctor Profile",
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().popBackStack()
+            } else
+                Toast.makeText(
+                    requireContext(),
+                    "Please fill All the Mandatory Field",
+                    Toast.LENGTH_SHORT
+                ).show()
         }
     }
 
@@ -128,22 +140,34 @@ class EditDoctorProfileFragment : Fragment(), TimePickerDialog.OnTimeSetListener
         return isAllFieldValidate
     }
 
-    private fun timePicker() {
-        getTimeCalender()
-        timePickerDialog = TimePickerDialog(requireContext(), this, hr, min, true)
+    private fun startTimePicker() {
+        viewModel.getTimeCalender()
+        timePickerDialog =
+            TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    hr = hourOfDay
+                    min = minute
+                    Log.i("start time", "$hourOfDay: $minute")
+                    val time = viewModel.time1(hr, min)
+                    binding.editStartTime.setText(time)
+                }
+            }, hr, min1, false)
         timePickerDialog.show()
     }
 
-    private fun getTimeCalender() {
-        val calendar = Calendar.getInstance()
-        hr = calendar.get(Calendar.HOUR_OF_DAY)
-        min = calendar.get(Calendar.MINUTE)
-    }
+    private fun endTimePicker() {
+        viewModel.getTimeCalender()
+        timePickerDialog =
+            TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    hr1 = hourOfDay
+                    min1 = minute
+                    Log.i("End time", "$hourOfDay: $minute")
+                    val time = viewModel.time1(hr1, min1)
+                    binding.editEndTime.setText(time)
+                }
+            }, hr1, min1, false)
 
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        pickHr = hr
-        pickMin = min
-        val time = viewModel.makeDateString(pickHr, pickMin)
-        binding.editStartTime.setText(time)
+        timePickerDialog.show()
     }
 }
