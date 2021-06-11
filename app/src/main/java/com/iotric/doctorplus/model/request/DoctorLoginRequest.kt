@@ -1,6 +1,6 @@
 package com.iotric.doctorplus.model.request
 
 data class DoctorLoginRequest(
-    val phone: String,
+    val number: String,
     val password: String
 )

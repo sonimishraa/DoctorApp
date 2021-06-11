@@ -2,17 +2,20 @@ package com.iotric.doctorplus.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.iotric.doctorplus.databinding.ActivitySignUpBinding
+import com.iotric.doctorplus.fragment.BaseActivity
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
 import com.iotric.doctorplus.viewmodel.RegisterDoctorViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     lateinit var binding: ActivitySignUpBinding
     lateinit var name: String
@@ -28,6 +31,27 @@ class SignUpActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         initView()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewModel.addDoctorErrorMessage.observe(this, {
+            Log.i("Error Message", "${it}")
+            if(it != null){
+                showMessage("${it}", binding.root)
+            }
+        })
+
+        viewModel.addDoctorLiveData.observe(this, {
+            Log.i("Succellfully created ", "${it}")
+            if (it != null) {
+                Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            } else
+                Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
+        })
+
     }
 
     private fun initView() {
@@ -39,17 +63,14 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun createUser() {
         if (validateFields()) {
-            val doctor = DoctorRegisterRequest(name, email, phone, password, address)
+            val doctor = DoctorRegisterRequest(
+                password = password,
+                address = address,
+                phone = phone,
+                name = name,
+                email = email
+            )
             viewModel.getApiResponse(doctor, application)
-            viewModel.addDoctorLiveData.observe(this, {
-                if (it != null) {
-                    Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                } else {
-                    Toast.makeText(this, "Failed to create", Toast.LENGTH_SHORT).show()
-                }
-            })
         } else
             Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
     }

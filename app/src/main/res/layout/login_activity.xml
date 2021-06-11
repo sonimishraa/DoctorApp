@@ -52,6 +52,7 @@
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/layout_edit_number"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginTop="30dp"
@@ -59,10 +60,13 @@
             android:layout_marginBottom="@dimen/medium_margin">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_call_24"
-                android:hint="  Phone Number"
+                android:drawablePadding="@dimen/medium_padding"
+                android:hint="Phone Number"
+                android:text= "8510967005"
                 android:inputType="number"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -71,15 +75,19 @@
             style="@style/LoginTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/layout_edit_password"
             android:layout_marginLeft="@dimen/medium_margin"
             android:layout_marginRight="@dimen/medium_margin"
             android:layout_marginBottom="@dimen/medium_margin">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_baseline_remove_red_eye_24"
-                android:hint="  Password"
+                android:drawablePadding="@dimen/medium_padding"
+                android:hint="Password"
+                android:text="tarun"
                 android:inputType="text"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>

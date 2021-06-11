@@ -41,7 +41,6 @@ class PatientListFragment : Fragment() {
             patientListAdapter.submitList(it.patient)
         })
         viewModel.getApiResponse(requireActivity().application)
-        //viewModel.getApiResponse1()
     }
 
 

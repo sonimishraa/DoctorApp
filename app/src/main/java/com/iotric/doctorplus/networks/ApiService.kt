@@ -1,15 +1,14 @@
 package com.iotric.doctorplus.networks
 
+import com.iotric.doctorplus.model.request.DoctorLoginRequest
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
 import com.iotric.doctorplus.model.request.RegisterPatientRequest
 import com.iotric.doctorplus.model.request.UpdatePatientRequest
-import com.iotric.doctorplus.model.response.DoctorSignUpResponse
-import com.iotric.doctorplus.model.response.PatientsListResponse
-import com.iotric.doctorplus.model.response.RegisterPatientResponse
-import com.iotric.doctorplus.model.response.UpdatePatientResponse
+import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
+import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR
 import com.iotric.doctorplus.utils.Constants.GET_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
@@ -29,9 +28,14 @@ interface ApiService {
     @MockJson("patientList.json")
     fun getDoctorList():Call<PatientsListResponse>
 
+    @POST(DOCTOR_LOGIN)
+    @Headers("Content-Type:application/json")
+    //@MockJson("signUpResponse.json")
+    fun doctorLogin(@Body doctorLoginRequest: DoctorLoginRequest): Call<DoctorLoginResponse>
+
     @POST(REGISTER_DOCTOR)
     @Headers("Content-Type:application/json")
-    @MockJson("signUpResponse.json")
+    //@MockJson("signUpResponse.json")
     fun registerDoctor(@Body doctorrequest: DoctorRegisterRequest): Call<DoctorSignUpResponse>
 
     @POST(ADD_PATIENT)

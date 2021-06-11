@@ -11,7 +11,6 @@ import javax.inject.Inject
 class UserRepository @Inject constructor( private val apiService:ApiService) {
 
     @WorkerThread
-
     suspend fun getDoctorResponse() = apiService.getDoctor()
 
    // suspend fun addDoctor() = apiService.addDoctor()

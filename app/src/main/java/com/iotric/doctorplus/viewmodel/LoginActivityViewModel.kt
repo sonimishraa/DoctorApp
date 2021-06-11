@@ -1,37 +1,35 @@
 package com.iotric.doctorplus.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.iotric.doctorplus.model.request.DoctorLoginRequest
+import com.iotric.doctorplus.model.response.DoctorLoginResponse
+import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginActivityViewModel @Inject constructor() : ViewModel() {
 
-    /*  private var loginData: MutableLiveData<DoctorResponse?>
+    val loginData = MutableLiveData<DoctorLoginResponse?>()
 
-    init {
-        loginData = MutableLiveData()
-    }
-
-    fun getLoginData(): MutableLiveData<DoctorResponse?>{
-        return loginData
-    }
-
-   *//* fun fetchLoginRequest(doctorLogin: DoctorLoginRequest){
-        ServiceBuilder.apiService.doctorLogin(doctorLogin).enqueue(object :
-            retrofit2.Callback<DoctorResponse> {
+    fun fetchLoginRequest(doctorLoginRequest: DoctorLoginRequest, application: Application) {
+        ServiceBuilder.getRetrofit(application).doctorLogin(doctorLoginRequest).enqueue(object :
+            retrofit2.Callback<DoctorLoginResponse> {
             override fun onResponse(
-                call: Call<DoctorResponse>,
-                response: Response<DoctorResponse>
+                call: retrofit2.Call<DoctorLoginResponse>,
+                response: retrofit2.Response<DoctorLoginResponse>
             ) {
                 response.body()?.let {
+                    loginData.postValue(it)
                 }
             }
 
-            override fun onFailure(call: Call<DoctorResponse>, t: Throwable) {
+            override fun onFailure(call: retrofit2.Call<DoctorLoginResponse>, t: Throwable) {
                 loginData.postValue(null)
             }
 
         })
-    }*/
+    }
 }

@@ -1,6 +1,7 @@
 package com.iotric.doctorplus.networks
 
 import android.app.Application
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.iotric.doctorplus.utils.Constants.BASE_URL
 import com.rakuten.common.core.intercept.MockInterceptor
 import okhttp3.OkHttpClient
@@ -15,7 +16,9 @@ object ServiceBuilder {
     }
 
     fun getRetrofit(application: Application): ApiService {
-        val client = OkHttpClient.Builder().addInterceptor(MockInterceptor(application)).build()
+        val client = OkHttpClient.Builder().addInterceptor(MockInterceptor(application)).addInterceptor(
+            ChuckerInterceptor(application)
+        ).build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
