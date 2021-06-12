@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
+import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ActivitySignUpBinding
 import com.iotric.doctorplus.fragment.BaseActivity
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
@@ -37,21 +35,19 @@ class SignUpActivity : BaseActivity() {
     private fun initObserver() {
         viewModel.addDoctorErrorMessage.observe(this, {
             Log.i("Error Message", "${it}")
-            if(it != null){
-                showMessage("${it}", binding.root)
+            if (it != null) {
+                snackBar("${it}", binding.root)
             }
         })
 
         viewModel.addDoctorLiveData.observe(this, {
             Log.i("Succellfully created ", "${it}")
+            toastMessage(getString(R.string.registered_profile_message))
             if (it != null) {
-                Toast.makeText(this, "Successfully Created", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
-            } else
-                Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
+            }
         })
-
     }
 
     private fun initView() {
@@ -72,7 +68,7 @@ class SignUpActivity : BaseActivity() {
             )
             viewModel.getApiResponse(doctor, application)
         } else
-            Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
+            snackBar(getString(R.string.mendatory_field_message), binding.root)
     }
 
     private fun validateFields(): Boolean {
@@ -84,35 +80,35 @@ class SignUpActivity : BaseActivity() {
         address = binding.editAddress.text.toString().trim()
 
         if (name.isEmpty()) {
-            binding.layoutEditName.setError("Field Can't be Empty")
+            binding.layoutEditName.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else {
             binding.layoutEditName.setError(null)
         }
 
         if (email.isEmpty()) {
-            binding.layoutEditEmail.setError("Field Can't be Empty")
+            binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
-            binding.layoutEditEmail.setError("Invalid Email Id")
+            binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
             isAllFieldValidate = false
         } else binding.layoutEditEmail.setError(null)
 
         if (phone.isEmpty()) {
-            binding.layoutEditPhone.setError("Field Can't be Empty")
+            binding.layoutEditPhone.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (phone.length < 10) {
-            binding.layoutEditPhone.setError(" 10 Number Digit Require")
+            binding.layoutEditPhone.setError(getString(R.string.Phone_number_validation))
             isAllFieldValidate = false
         } else binding.layoutEditPhone.setError(null)
 
         if (password.isEmpty()) {
-            binding.layoutEditPassword.setError("Field Can't be Empty")
+            binding.layoutEditPassword.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditPassword.setError(null)
 
         if (address.isEmpty()) {
-            binding.layoutEditAddress.setError("Field Can't be Empty")
+            binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditAddress.setError(null)
 

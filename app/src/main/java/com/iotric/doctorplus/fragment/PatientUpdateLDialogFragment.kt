@@ -48,7 +48,11 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         }
         binding.btnUpdate.setOnClickListener {
             if (validateFields()) {
-                Toast.makeText(requireContext(), "Successfully Updated Patient Profile", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.profile_update_message),
+                    Toast.LENGTH_SHORT
+                ).show()
                 findNavController().popBackStack()
             }
         }
@@ -62,55 +66,33 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         age = binding.editAge.text.toString().trim()
 
         if (name.isEmpty()) {
-            binding.layoutEditName.setError("Field Can't be Empty")
+            binding.layoutEditName.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else {
             binding.layoutEditName.setError(null)
         }
 
         if (email.isEmpty()) {
-            binding.layoutEditEmail.setError("Field Can't be Empty")
+            binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
-            binding.layoutEditEmail.setError("Invalid Email Id")
+            binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
             isAllFieldValidate = false
         } else binding.layoutEditEmail.setError(null)
 
         if (phone.isEmpty()) {
-            binding.layoutEditContact.setError("Field Can't be Empty")
+            binding.layoutEditContact.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (phone.length < 10) {
-            binding.layoutEditContact.setError(" 10 Number Digit Require")
+            binding.layoutEditContact.setError(getString(R.string.Phone_number_validation))
             isAllFieldValidate = false
         } else binding.layoutEditContact.setError(null)
 
         if (age.isEmpty()) {
-            binding.layoutEditAge.setError("Field Can't be Empty")
+            binding.layoutEditAge.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditAge.setError(null)
 
         return isAllFieldValidate
     }
-
-    /*  private fun initView(view: View) {
-          binding.appbar.toolbarTitle.text = resources.getString(R.string.update_detail)
-          binding.editName.setText(args.CurrentUser.name)
-          binding.editContact.setText(args.CurrentUser.contact)
-          binding.editDate.setText(args.CurrentUser.date)
-          binding.btnUpdate.setOnClickListener {
-              updateDetail()
-          }
-      }
-  */
-    /* private fun updateDetail() {
-         val name = binding.editName.text.toString()
-         val contact = binding.editContact.text.toString()
-         val date = binding.editDate.text.toString()
-         val user = User(name, contact, date)
-         viewModel.updateUser(user)
-         Toast.makeText(requireContext(), getString(R.string.successful_message), Toast.LENGTH_SHORT)
-             .show()
-         findNavController().popBackStack()
-     }
- */
 }

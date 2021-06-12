@@ -43,7 +43,6 @@ class PatientListFragment : Fragment() {
         viewModel.getApiResponse(requireActivity().application)
     }
 
-
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
         binding.appbar.toolbar.setNavigationOnClickListener { view ->

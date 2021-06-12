@@ -1,20 +1,21 @@
 package com.iotric.doctorplus.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.LoginActivityBinding
+import com.iotric.doctorplus.fragment.BaseActivity
 import com.iotric.doctorplus.model.request.DoctorLoginRequest
 import com.iotric.doctorplus.viewmodel.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var binding: LoginActivityBinding
     val viewModel by viewModels<LoginActivityViewModel>()
@@ -27,25 +28,36 @@ class LoginActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         initView()
+        initObserver()
+    }
+
+    private fun initObserver() {
+        viewModel.loginData.observe(this, Observer {
+            Log.i("authToken ", "${it}")
+            if (it != null) {
+                // Save data into sharedPref
+                val sharedPreferences = getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+                val editor: SharedPreferences.Editor = sharedPreferences.edit()
+                editor.putString("authToken", it.authToken)
+               /* editor.putString("number", number)
+                editor.putString("password", password)
+                editor.putBoolean("CHECKBOX", checked)*/
+                editor.apply()
+                startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+            } else {
+                snackBar(getString(R.string.login_fail_message), binding.root)
+            }
+        })
     }
 
     private fun loginDoctor() {
         if (validateFields()) {
             // TODO need to add number and passsword accroding to auth request
-            val loginRequest = DoctorLoginRequest(number, password)
-            viewModel.fetchLoginRequest(loginRequest, application)
-            viewModel.loginData.observe(this, Observer {
-                if (it != null) {
-                    Toast.makeText(this, "Logged In Successfully", Toast.LENGTH_SHORT).show()
-                    Log.i("authToken ", "${it.authToken}")
-                    startActivity(Intent(this, HomeActivity::class.java))
-                    finish()
-                } else {
-                    Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show()
-                }
-            })
+                val loginRequest = DoctorLoginRequest(number, password)
+                viewModel.fetchLoginRequest(loginRequest, application)
         } else
-            Toast.makeText(this, "Please fill All the Mandatory Field", Toast.LENGTH_SHORT).show()
+            snackBar(getString(R.string.mendatory_field_message), binding.root)
     }
 
     private fun initView() {
@@ -65,17 +77,17 @@ class LoginActivity : AppCompatActivity() {
         password = binding.editPassword.text.toString().trim()
 
         if (number.isEmpty()) {
-            binding.layoutEditNumber.setError("Field Can't be Empty")
+            binding.layoutEditNumber.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (number.length < 10) {
-            binding.layoutEditNumber.setError(" 10 Number Digit Require")
+            binding.layoutEditNumber.setError(getString(R.string.Phone_number_validation))
             isAllFieldValidate = false
         } else {
             binding.layoutEditNumber.setError(null)
         }
 
         if (password.isEmpty()) {
-            binding.layoutEditPassword.setError("Field Can't be Empty")
+            binding.layoutEditPassword.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditPassword.setError(null)
 

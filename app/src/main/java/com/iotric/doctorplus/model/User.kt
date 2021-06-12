@@ -9,9 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "user_table")
 data class User(
     @PrimaryKey()
-    val name: String,
-    val contact: String,
-    val date: String
+    val authToken: String,
 ) :Parcelable
 
 

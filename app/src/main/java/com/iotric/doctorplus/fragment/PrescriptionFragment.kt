@@ -14,27 +14,23 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPrescriptionBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
 @AndroidEntryPoint
-class PrescriptionFragment : Fragment() {
+class PrescriptionFragment : BaseFragment() {
 
-    private lateinit var binding:FragmentPrescriptionBinding
+    private lateinit var binding: FragmentPrescriptionBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       binding=FragmentPrescriptionBinding.inflate(layoutInflater, container, false)
+        binding = FragmentPrescriptionBinding.inflate(layoutInflater, container, false)
         val view = binding.root
         return view
     }
@@ -96,6 +92,7 @@ class PrescriptionFragment : Fragment() {
         }
         return true
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -107,14 +104,14 @@ class PrescriptionFragment : Fragment() {
             takePictureFromCamera()
 
         } else
-            Toast.makeText(requireContext(), "Permission Not Granted", Toast.LENGTH_SHORT).show()
+            toastMessage(getString(R.string.permission_granted_message))
     }
 
     private fun takePictureFromCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
             startActivityForResult(intent, 2)
-        }catch (e: ActivityNotFoundException){
+        } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
         }
     }
@@ -128,19 +125,19 @@ class PrescriptionFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             val uri: Uri? = data.getData()
 
             try {
-                val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver,uri)
+                val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
                 binding.ivprisDoc.setImageBitmap(bitmap)
 
-            }catch (e:IOException){
+            } catch (e: IOException) {
                 e.printStackTrace()
             }
         }
 
-        if(requestCode == 2 && resultCode == Activity.RESULT_OK  && data != null && data.getData() != null){
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             try {
                 val imageBitmap = data.extras?.get("data") as Bitmap
                 binding.ivprisDoc.setImageBitmap(imageBitmap)

@@ -1,10 +1,14 @@
 package com.iotric.doctorplus.networks
 
 import android.app.Application
+import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.iotric.doctorplus.utils.Constants.BASE_URL
 import com.rakuten.common.core.intercept.MockInterceptor
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -15,10 +19,17 @@ object ServiceBuilder {
         return apiService
     }
 
+    // Add ".addInterceptor(MockInterceptor(application))" for mock interceptor
+    // ".addInterceptor( ChuckerInterceptor(application)" for Response on your real device
+
+
     fun getRetrofit(application: Application): ApiService {
-        val client = OkHttpClient.Builder().addInterceptor(MockInterceptor(application)).addInterceptor(
-            ChuckerInterceptor(application)
-        ).build()
+        val sharePref = application.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE)
+        val authToken = sharePref.getString("authToken","")
+        val client =
+            OkHttpClient.Builder().addInterceptor(ChuckerInterceptor(application)).addInterceptor { chain -> chain.proceed(chain.request().newBuilder().also {reqBuilder->
+                reqBuilder.addHeader("Authorization", "Bearer:${authToken}").header("Content-Type","application/json")
+            }.build()) }.build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

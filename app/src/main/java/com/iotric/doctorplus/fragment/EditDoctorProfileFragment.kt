@@ -66,14 +66,14 @@ class EditDoctorProfileFragment : Fragment() {
             if (validateFields()) {
                 Toast.makeText(
                     requireContext(),
-                    "Successfully Edited Doctor Profile",
+                    getString(R.string.doctor_profile_edit_message),
                     Toast.LENGTH_SHORT
                 ).show()
                 findNavController().popBackStack()
             } else
                 Toast.makeText(
                     requireContext(),
-                    "Please fill All the Mandatory Field",
+                    getString(R.string.mendatory_field_message),
                     Toast.LENGTH_SHORT
                 ).show()
         }
@@ -103,37 +103,37 @@ class EditDoctorProfileFragment : Fragment() {
         startTime = binding.editStartTime.text.toString().trim()
         endTime = binding.editEndTime.text.toString().trim()
         if (name.isEmpty()) {
-            binding.layoutEditName.setError("Field Can't be Empty")
+            binding.layoutEditName.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else {
             binding.layoutEditName.setError(null)
         }
 
         if (email.isEmpty()) {
-            binding.layoutEditEmail.setError("Field Can't be Empty")
+            binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
-            binding.layoutEditEmail.setError("Invalid Email Id")
+            binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
             isAllFieldValidate = false
         } else binding.layoutEditEmail.setError(null)
 
         if (speciality.isEmpty()) {
-            binding.layoutEditSpecialization.setError("Field Can't be Empty")
+            binding.layoutEditSpecialization.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditSpecialization.setError(null)
 
         if (endTime.isEmpty()) {
-            binding.layoutEditEndTime.setError("Field Can't be Empty")
+            binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditEndTime.setError(null)
 
         if (startTime.isEmpty()) {
-            binding.layoutEditStartTime.setError("Field Can't be Empty")
+            binding.layoutEditStartTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditStartTime.setError(null)
 
         if (address.isEmpty()) {
-            binding.layoutEditAddress.setError("Field Can't be Empty")
+            binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditAddress.setError(null)
 

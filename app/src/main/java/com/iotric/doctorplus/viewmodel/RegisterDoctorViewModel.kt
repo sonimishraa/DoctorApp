@@ -2,11 +2,12 @@ package com.iotric.doctorplus.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
 import com.iotric.doctorplus.model.response.DoctorSignUpResponse
+import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -22,7 +23,7 @@ class RegisterDoctorViewModel @Inject constructor() : ViewModel() {
 
     fun getApiResponse(doctorRequest: DoctorRegisterRequest, application: Application) {
 
-       ServiceBuilder.getRetrofit(application).registerDoctor(doctorRequest)
+        ServiceBuilder.getRetrofit(application).registerDoctor(doctorRequest)
             .enqueue(
                 object : Callback<DoctorSignUpResponse> {
                     override fun onResponse(
@@ -35,9 +36,11 @@ class RegisterDoctorViewModel @Inject constructor() : ViewModel() {
                                 addDoctorLiveData.postValue(it)
                             }
                         } else {
-                            val errorMessage = response.errorBody()?.string() ?: ""
+                            val errorMessage = response.errorBody()?.string()
                             Log.i("Error", "$errorMessage")
-                            addDoctorErrorMessage.postValue(errorMessage)
+                            val errorResponse =
+                                Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                            addDoctorErrorMessage.postValue(errorResponse?.error?.message ?: "")
                         }
                     }
 

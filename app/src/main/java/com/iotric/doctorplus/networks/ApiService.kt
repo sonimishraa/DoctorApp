@@ -21,7 +21,7 @@ import retrofit2.http.*
 interface ApiService {
 
     @GET(GET_DOCTOR)
-    @MockJson("getDoctor.json")
+    //@MockJson("getDoctor.json")
     fun getDoctor(): Call<DoctorSignUpResponse>
 
     @GET(GET_PATIENT_LIST)
@@ -29,29 +29,27 @@ interface ApiService {
     fun getDoctorList():Call<PatientsListResponse>
 
     @POST(DOCTOR_LOGIN)
-    @Headers("Content-Type:application/json")
     //@MockJson("signUpResponse.json")
     fun doctorLogin(@Body doctorLoginRequest: DoctorLoginRequest): Call<DoctorLoginResponse>
 
     @POST(REGISTER_DOCTOR)
-    @Headers("Content-Type:application/json")
     //@MockJson("signUpResponse.json")
     fun registerDoctor(@Body doctorrequest: DoctorRegisterRequest): Call<DoctorSignUpResponse>
 
     @POST(ADD_PATIENT)
+
     fun addPatient()
 
     @POST(DELETE_PATIENT)
     fun deletePatient()
 
     @POST(REGISTER_PATIENT)
-    @Headers("Content-Type:application/json")
-    @MockJson("registerUserResponse.json")
+    //@MockJson("registerUserResponse.json")
     fun registerPatient(@Body registerPatientRequest:RegisterPatientRequest):Call<RegisterPatientResponse>
 
     @PUT(UPDATE_PATIENT)
-    @Headers("Content-Type:application/json")
-    @MockJson("updatePatientResponse.json")
+
+   // @MockJson("updatePatientResponse.json")
     fun updatePatient(@Body updatePatientRequest: UpdatePatientRequest):Call<UpdatePatientResponse>
 
     @DELETE(DELETE_REPORT)

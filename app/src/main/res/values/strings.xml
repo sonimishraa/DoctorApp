@@ -55,4 +55,14 @@
     <string name="notification_toolbar_title">NOTIFICATIONS</string>
     <string name="patient_update_toolbar_title">UPDATE PATIENT</string>
     <string name="edit_doctor_profile">EDIT PROFILE</string>
+    <string name="share_pref">SHARED_PREF</string>
+    <string name="empty_field_message">Field Can\'t be Empty</string>
+    <string name="invalid_email_message">Invalid Email Id</string>
+    <string name="Phone_number_validation">\" 10 Number Digit Require\"</string>
+    <string name="profile_update_message">Successfully Updated Patient Profile</string>
+    <string name="doctor_profile_edit_message">Successfully Edited Doctor Profile</string>
+    <string name="mendatory_field_message">Please fill All the Mandatory Field</string>
+    <string name="registered_profile_message">\"Registered Successfully \"</string>
+    <string name="permission_granted_message">Permission Not Granted</string>
+    <string name="login_fail_message">Login Failed</string>
 </resources>

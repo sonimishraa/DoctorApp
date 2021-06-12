@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.iotric.doctorplus.model.request.DoctorLoginRequest
 import com.iotric.doctorplus.model.response.DoctorLoginResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
+import com.iotric.doctorplus.room.UserDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,8 +22,10 @@ class LoginActivityViewModel @Inject constructor() : ViewModel() {
                 call: retrofit2.Call<DoctorLoginResponse>,
                 response: retrofit2.Response<DoctorLoginResponse>
             ) {
-                response.body()?.let {
-                    loginData.postValue(it)
+                if(response.isSuccessful) {
+                    response.body()?.let {
+                        loginData.postValue(it)
+                    }
                 }
             }
 

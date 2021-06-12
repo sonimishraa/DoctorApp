@@ -84,13 +84,23 @@
                 android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_baseline_remove_red_eye_24"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="@dimen/medium_padding"
                 android:hint="Password"
                 android:text="tarun"
                 android:inputType="text"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:text="Remenber me"/>
 
         <Button
             android:id="@+id/btnSignIn"
