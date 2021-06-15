@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
-import com.iotric.doctorplus.model.request.RegisterPatientRequest
+import com.iotric.doctorplus.model.request.AddPatientRequest
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +22,9 @@ class AddPatientFragment : BaseFragment() {
     lateinit var name: String
     lateinit var email: String
     lateinit var phone: String
-    lateinit var password: String
     lateinit var address: String
+    lateinit var doctorid:String
+    lateinit var nextvisit:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +53,7 @@ class AddPatientFragment : BaseFragment() {
 
     private fun registerPatient() {
         if (validateFields()) {
-            val patient = RegisterPatientRequest(name= name, email= email, phone= phone, password = password)
+            val patient = AddPatientRequest(patientname= name, email= email, phone= phone,doctorid = doctorid,address = address,nextvisit = nextvisit)
             viewModel.getApiResponse(patient, requireActivity().application)
 
         } else
@@ -81,8 +82,16 @@ class AddPatientFragment : BaseFragment() {
         name = binding.editName.text.toString().trim()
         email = binding.editEmail.text.toString().trim()
         phone = binding.editPhone.text.toString().trim()
-        password = binding.editPassword.text.toString().trim()
+        nextvisit = binding.editNextVisit.text.toString().trim()
         address = binding.editAddress.text.toString().trim()
+        doctorid = binding.editDoctorid.text.toString().trim()
+
+        if(doctorid.isEmpty()){
+            binding.layoutEditDoctorid.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else {
+            binding.layoutEditName.setError(null)
+        }
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -107,15 +116,15 @@ class AddPatientFragment : BaseFragment() {
             isAllFieldValidate = false
         } else binding.layoutEditPhone.setError(null)
 
-        if (password.isEmpty()) {
-            binding.layoutEditPassword.setError(getString(R.string.empty_field_message))
+        if (nextvisit.isEmpty()) {
+            binding.layoutEditNextVisit.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditPassword.setError(null)
+        } else binding.layoutEditNextVisit.setError(null)
 
-        /* if (address.isEmpty()) {
+         if (address.isEmpty()) {
              binding.layoutEditAddress.setError("Field Can't be Empty")
              isAllFieldValidate = false
-         } else binding.layoutEditAddress.setError(null)*/
+         } else binding.layoutEditAddress.setError(null)
 
         return isAllFieldValidate
     }

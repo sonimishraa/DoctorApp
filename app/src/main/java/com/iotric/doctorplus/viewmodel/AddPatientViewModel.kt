@@ -6,7 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.iotric.doctorplus.model.request.RegisterPatientRequest
+import com.iotric.doctorplus.model.request.AddPatientRequest
+import com.iotric.doctorplus.model.response.AddPatientResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.model.response.RegisterPatientResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
@@ -19,15 +20,15 @@ import javax.inject.Inject
 @HiltViewModel
 class AddPatientViewModel @Inject constructor() : ViewModel() {
 
-    val registerPatientItem = MutableLiveData<RegisterPatientResponse>()
+    val registerPatientItem = MutableLiveData<AddPatientResponse>()
     val registerPatientError = MutableLiveData<String>()
 
-    fun getApiResponse(registerPatientRequest: RegisterPatientRequest, application: Application) {
-        ServiceBuilder.getRetrofit(application).registerPatient(registerPatientRequest)
-            .enqueue(object : Callback<RegisterPatientResponse> {
+    fun getApiResponse(addPatientRequest: AddPatientRequest, application: Application) {
+        ServiceBuilder.getRetrofit(application).registerPatient(addPatientRequest)
+            .enqueue(object : Callback<AddPatientResponse> {
                 override fun onResponse(
-                    call: Call<RegisterPatientResponse>,
-                    response: Response<RegisterPatientResponse>
+                    call: Call<AddPatientResponse>,
+                    response: Response<AddPatientResponse>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
@@ -42,7 +43,7 @@ class AddPatientViewModel @Inject constructor() : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<RegisterPatientResponse>, t: Throwable) {
+                override fun onFailure(call: Call<AddPatientResponse>, t: Throwable) {
                     Toast.makeText(
                         application.applicationContext,
                         "${t.message}",

@@ -11,16 +11,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.model.response.PatientItem
+import com.iotric.doctorplus.model.response.PatientsItem
+import com.iotric.doctorplus.util.DateTimeUtil
 
 class PatinetListAdapter(val listener: ItemClickListener) :
-    ListAdapter<PatientItem, PatinetListAdapter.ItemViewHolder>(
+    ListAdapter<PatientsItem, PatinetListAdapter.ItemViewHolder>(
         object :
-            DiffUtil.ItemCallback<PatientItem>() {
-            override fun areContentsTheSame(oldItem: PatientItem, newItem: PatientItem): Boolean {
+            DiffUtil.ItemCallback<PatientsItem>() {
+            override fun areContentsTheSame(oldItem: PatientsItem, newItem: PatientsItem): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: PatientItem, newItem: PatientItem): Boolean {
+            override fun areItemsTheSame(oldItem: PatientsItem, newItem: PatientsItem): Boolean {
                 return oldItem == newItem
             }
         }) {
@@ -36,19 +38,19 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.tv_name.text = item.patientname
-        holder.tv_contact.text = item.phone
-        holder.tv_email.text = item.email
+        holder.tv_name.text = item.pname
+        holder.tv_contact.text = item.pphone
+        holder.tv_nextVisitDate.text = item.nextvisit.toString()
+        holder.tv_date.text = item.dayofvisit
         val date = item.createdAt
-        //holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)
+        holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tv_name = itemView.findViewById<AppCompatTextView>(R.id.tv_name)
         val tv_contact = itemView.findViewById<AppCompatTextView>(R.id.tv_contact)
-        val tv_email = itemView.findViewById<AppCompatTextView>(R.id.tv_email)
-
-        //val tv_date = itemView.findViewById<AppCompatTextView>(R.id.tv_date)
+        val tv_date = itemView.findViewById<AppCompatTextView>(R.id.tv_visitDate)
+        val tv_nextVisitDate = itemView.findViewById<AppCompatTextView>(R.id.tv_nextVisitDate)
         val iv_image = itemView.findViewById<AppCompatImageView>(R.id.iv_image)
         val item_layout = itemView.findViewById<RelativeLayout>(R.id.lLayout)
         val btnDelete = itemView.findViewById<AppCompatImageView>(R.id.btndelete)
@@ -64,8 +66,8 @@ class PatinetListAdapter(val listener: ItemClickListener) :
     }
 
     interface ItemClickListener {
-        fun onItemLayoutClick(result: PatientItem)
-        fun onDeleteClick(result: PatientItem)
+        fun onItemLayoutClick(result: PatientsItem)
+        fun onDeleteClick(result: PatientsItem)
 
     }
 }

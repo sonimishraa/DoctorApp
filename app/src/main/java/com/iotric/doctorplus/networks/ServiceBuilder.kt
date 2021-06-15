@@ -28,7 +28,7 @@ object ServiceBuilder {
         val authToken = sharePref.getString("authToken","")
         val client =
             OkHttpClient.Builder().addInterceptor(ChuckerInterceptor(application)).addInterceptor { chain -> chain.proceed(chain.request().newBuilder().also {reqBuilder->
-                reqBuilder.addHeader("Authorization", "Bearer:${authToken}").header("Content-Type","application/json")
+                reqBuilder.addHeader("Authorization", "Barrer ${authToken}").header("Content-Type","application/json")
             }.build()) }.build()
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

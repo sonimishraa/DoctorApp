@@ -1,17 +1,30 @@
 package com.iotric.doctorplus.model.response
 
-data class DoctorSignUpResponse( val message: String, val newdoctor: Newdoctor)
+import com.google.gson.annotations.SerializedName
 
-data class Newdoctor (val address: Array<String>,
-val clinichours: Array<String>,
-val _id: String,
-val doctorname: String,
-val email: String,
-val phone: String,
-val createdAt: String,
-val updatedAt:String,
-  val __v: Int
+data class DoctorSignUpResponse(
+
+	@field:SerializedName("password")
+	val password: String? = null,
+
+	@field:SerializedName("phone")
+	val phone: String? = null,
+
+	@field:SerializedName("adddress")
+	val adddress: String? = null,
+
+	@field:SerializedName("type")
+	val type: String? = null,
+
+	@field:SerializedName("clinichours")
+	val clinichours: String? = null,
+
+	@field:SerializedName("metainfo")
+	val metainfo: String? = null,
+
+	@field:SerializedName("doctorname")
+	val doctorname: String? = null,
+
+	@field:SerializedName("email")
+	val email: String? = null
 )
-
-
-

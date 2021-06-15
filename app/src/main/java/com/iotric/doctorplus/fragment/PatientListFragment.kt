@@ -10,12 +10,12 @@ import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.PatientListFragmentBinding
-import com.iotric.doctorplus.model.response.PatientItem
+import com.iotric.doctorplus.model.response.PatientsItem
 import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PatientListFragment : Fragment() {
+class PatientListFragment : BaseFragment() {
 
     val viewModel: PatientListViewModel by viewModels()
     lateinit var patientListAdapter: PatinetListAdapter
@@ -38,9 +38,11 @@ class PatientListFragment : Fragment() {
 
     private fun initiviewModel() {
         viewModel.allUserList.observe(requireActivity(), {
-            patientListAdapter.submitList(it.patient)
+            patientListAdapter.submitList(it.patients)
         })
+        showProgressDialog()
         viewModel.getApiResponse(requireActivity().application)
+        dismissProgressDialog()
     }
 
     private fun initView() {
@@ -49,12 +51,12 @@ class PatientListFragment : Fragment() {
             findNavController().popBackStack()
         }
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
-            override fun onItemLayoutClick(result: PatientItem) {
+            override fun onItemLayoutClick(result: PatientsItem) {
                 val action = PatientListFragmentDirections.actionUpdatePatientFragment()
                 findNavController().navigate(action)
             }
 
-            override fun onDeleteClick(result: PatientItem) {
+            override fun onDeleteClick(result: PatientsItem) {
                 //viewModel.deleteUser(user)
             }
 

@@ -3,6 +3,7 @@ package com.iotric.doctorplus.viewmodel
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.iotric.doctorplus.model.response.AllPatientListResponse
 import com.iotric.doctorplus.model.response.PatientsListResponse
 import com.iotric.doctorplus.networks.ApiService
 import com.iotric.doctorplus.networks.ServiceBuilder
@@ -15,14 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class PatientListViewModel @Inject constructor() : ViewModel() {
 
-    val allUserList = MutableLiveData<PatientsListResponse>()
+    val allUserList = MutableLiveData<AllPatientListResponse>()
 
     fun getApiResponse(application: Application){
-        ServiceBuilder.getRetrofit(application).getDoctorList().enqueue(object :
-            Callback<PatientsListResponse> {
+        ServiceBuilder.getRetrofit(application).getAllPatientList().enqueue(object :
+            Callback< AllPatientListResponse> {
             override fun onResponse(
-                call: Call<PatientsListResponse>,
-                response: Response<PatientsListResponse>
+                call: Call<AllPatientListResponse>,
+                response: Response< AllPatientListResponse>
             ) {
                 response.body()?.let{
                     allUserList.postValue(it)
@@ -30,7 +31,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
 
             }
 
-            override fun onFailure(call: Call<PatientsListResponse>, t: Throwable) {
+            override fun onFailure(call: Call< AllPatientListResponse>, t: Throwable) {
 
             }
 
