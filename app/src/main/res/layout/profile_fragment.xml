@@ -35,24 +35,51 @@
         android:textStyle="bold" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvLocation"
+        android:id="@+id/tv_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvName"
         android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/small_margin"
         android:drawableStart="@drawable/ic_baseline_location_on_24"
+        android:drawablePadding="@dimen/small_padding"
         android:textSize="15sp"
-        android:text=" Melbourn Australia" />
+        android:text="Address" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSpeciality"
+        android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvLocation"
+        android:layout_below="@+id/tv_address"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:drawablePadding="@dimen/small_padding"
+        android:textSize="15sp"
+        android:text="Email Id" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_email"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/small_margin"
+        android:drawableStart="@drawable/ic_baseline_call_24"
+        android:drawablePadding="@dimen/small_padding"
+        android:textSize="15sp"
+        android:text="Contact Number" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_phone"
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/small_margin"
         android:background="@color/tab_selected_color"
+        android:drawablePadding="@dimen/small_padding"
+        android:drawableStart="@drawable/ic_baseline_medical_services_24"
         android:text="Kidney Specialist"
         android:textSize="15sp"
         android:textColor="@color/color_primaryDark" />
@@ -61,7 +88,7 @@
         android:id="@+id/tvTiming"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSpeciality"
+        android:layout_below="@+id/tvType"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:orientation="horizontal">
@@ -69,10 +96,13 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Timing - "
+            android:text="Clinic Hours - "
+            android:drawableStart="@drawable/ic_baseline_access_time_24"
+            android:drawablePadding="@dimen/small_padding"
             android:textSize="15sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_clinicHr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" 10:00 AM to 4:00 PM"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.PatientAdaterItemBinding
 import com.iotric.doctorplus.model.response.PatientItem
 import com.iotric.doctorplus.model.response.PatientsItem
 import com.iotric.doctorplus.util.DateTimeUtil
@@ -26,13 +27,14 @@ class PatinetListAdapter(val listener: ItemClickListener) :
                 return oldItem == newItem
             }
         }) {
+    lateinit var binding: PatientAdaterItemBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ItemViewHolder {
-        val infalter = LayoutInflater.from(parent.context)
-        val view = infalter.inflate(R.layout.patient_adater_item, parent, false)
+        binding = PatientAdaterItemBinding.inflate(LayoutInflater.from(parent.context))
+        val view = binding.root
         return ItemViewHolder(view)
     }
 
@@ -41,19 +43,19 @@ class PatinetListAdapter(val listener: ItemClickListener) :
         holder.tv_name.text = item.pname
         holder.tv_contact.text = item.pphone
         holder.tv_nextVisitDate.text = item.nextvisit.toString()
-        holder.tv_date.text = item.dayofvisit
+        holder.tv_date.text = item.createdAt
         val date = item.createdAt
         holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tv_name = itemView.findViewById<AppCompatTextView>(R.id.tv_name)
-        val tv_contact = itemView.findViewById<AppCompatTextView>(R.id.tv_contact)
-        val tv_date = itemView.findViewById<AppCompatTextView>(R.id.tv_visitDate)
-        val tv_nextVisitDate = itemView.findViewById<AppCompatTextView>(R.id.tv_nextVisitDate)
-        val iv_image = itemView.findViewById<AppCompatImageView>(R.id.iv_image)
-        val item_layout = itemView.findViewById<RelativeLayout>(R.id.lLayout)
-        val btnDelete = itemView.findViewById<AppCompatImageView>(R.id.btndelete)
+        val tv_name = binding.tvName
+        val tv_contact = binding.tvContact
+        val tv_date = binding.tvVisitDate
+        val tv_nextVisitDate = binding.tvNextVisitDate
+        val iv_image = binding.ivImage
+        val item_layout = binding.lLayout
+        val btnDelete = binding.btndelete
 
         init {
             item_layout.setOnClickListener {

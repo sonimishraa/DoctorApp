@@ -6,10 +6,9 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.iotric.doctorplus.model.request.AddPatientRequest
 import com.iotric.doctorplus.model.response.AddPatientResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
-import com.iotric.doctorplus.model.response.RegisterPatientResponse
+import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -23,8 +22,12 @@ class AddPatientViewModel @Inject constructor() : ViewModel() {
     val registerPatientItem = MutableLiveData<AddPatientResponse>()
     val registerPatientError = MutableLiveData<String>()
 
-    fun getApiResponse(addPatientRequest: AddPatientRequest, application: Application) {
-        ServiceBuilder.getRetrofit(application).registerPatient(addPatientRequest)
+    fun getRequestParam(){
+
+    }
+    fun getApiResponse( patient: MultipartParams.Builder, application: Application) {
+        val patientBuilder = patient.build().map
+        ServiceBuilder.getRetrofit(application).addPatient(patientBuilder)
             .enqueue(object : Callback<AddPatientResponse> {
                 override fun onResponse(
                     call: Call<AddPatientResponse>,

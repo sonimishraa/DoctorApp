@@ -22,4 +22,27 @@ object DateTimeUtil {
             ""
         }
     }
+
+   /* fun getSizeFormat(item: ResultsItem): String {
+        val size = item.size?.toDouble()
+        val sizeMB = String.format("%.1f", (size!! / (1024 * 1024)))
+        return sizeMB.toDouble().toString()
+    }
+
+    fun getDurationTime(item: ResultsItem): String {
+        val totalSecond = item.duration?.toLong()?.or(0)
+        val hh = totalSecond!! / 3600
+        val mm = (totalSecond % 3600) / 60
+        val ss = (totalSecond % 60)
+        var str = ""
+
+        if (hh > 0) {
+            str = "${
+                hh
+            }:${String.format("%02d", mm)}:${String.format("%02d", ss)}"
+        } else {
+            str = "${String.format("%02d", mm)}:${String.format("%02d", ss)}"
+        }
+        return str
+    }*/
 }

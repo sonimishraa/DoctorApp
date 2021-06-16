@@ -12,7 +12,7 @@ import com.iotric.doctorplus.fragment.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-open class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,9 @@ open class HomeActivity : BaseActivity() {
         val sharedPreferences =
             getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
         val authToken = sharedPreferences.getString("authToken", "")
+        val id = sharedPreferences.getString("_id", "")
         Log.i("authToken", "${authToken}")
+        Log.i("_id", "${id}")
         val navController = findNavController(R.id.nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

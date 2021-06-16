@@ -122,20 +122,20 @@ class EditDoctorProfileFragment : Fragment() {
             isAllFieldValidate = false
         } else binding.layoutEditSpecialization.setError(null)
 
-        if (endTime.isEmpty()) {
+       /* if (endTime.isEmpty()) {
             binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditEndTime.setError(null)
+        } else binding.layoutEditEndTime.setError(null)*/
 
         if (startTime.isEmpty()) {
-            binding.layoutEditStartTime.setError(getString(R.string.empty_field_message))
+            binding.layoutEditClinicHr.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditStartTime.setError(null)
+        } else binding.layoutEditClinicHr.setError(null)
 
-        if (address.isEmpty()) {
+       /* if (address.isEmpty()) {
             binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditAddress.setError(null)
+        } else binding.layoutEditAddress.setError(null)*/
 
         return isAllFieldValidate
     }

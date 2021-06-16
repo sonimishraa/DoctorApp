@@ -33,12 +33,14 @@ class LoginActivity : BaseActivity() {
 
     private fun initObserver() {
         viewModel.loginData.observe(this, Observer {
-            Log.i("authToken ", "${it}")
+            Log.i("authToken ", "${it?.authToken }}")
+            Log.i("id ", "${it?.id }}")
             if (it != null) {
                 // Save data into sharedPref
                 val sharedPreferences = getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString("authToken", it.authToken)
+                editor.putString("_id", it.id)
                /* editor.putString("number", number)
                 editor.putString("password", password)
                 editor.putBoolean("CHECKBOX", checked)*/

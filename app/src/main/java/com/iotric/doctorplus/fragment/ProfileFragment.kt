@@ -4,7 +4,9 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -19,19 +21,23 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
+import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
+import java.util.ArrayList
 
 const val PICK_IMAGE_REQUEST = 1
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    lateinit var viewModel: ProfileFragmentViewModel
+    val viewModel: ProfileFragmentViewModel by viewModels()
     private lateinit var binding: ProfileFragmentBinding
 
     override fun onCreateView(
@@ -46,9 +52,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initObserver()
     }
 
     private fun initView() {
+        viewModel.getDoctorApi(requireActivity().application)
         binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
         binding.appbar.toolbar.setNavigationOnClickListener {view ->
             findNavController().popBackStack()
@@ -60,6 +68,24 @@ class ProfileFragment : Fragment() {
             chooseProfilePic()
         }
     }
+
+    private fun initObserver() {
+        val sharedPreferences = activity?.getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+        val id = sharedPreferences?.getString("_id", "")
+        viewModel.getDoctorById.observe(requireActivity(), Observer {
+            it.doctors.forEachIndexed { index, doctorsItem ->
+               val doctorId =  doctorsItem.id
+                if(doctorId == id){
+                    binding.tvName.text = doctorsItem.doctorname
+                    binding.tvType.text = doctorsItem.role
+                    binding.tvEmail.text = doctorsItem.email
+                    binding.tvPhone.text = doctorsItem.phone
+                    //binding.tvAddress.text = doctorsItem.adddress.toString()
+                }
+            }
+        })
+    }
+
 
     private fun chooseProfilePic() {
         val builder = AlertDialog.Builder(requireContext())

@@ -61,7 +61,6 @@ class SignUpActivity : BaseActivity() {
         if (validateFields()) {
             val doctor = DoctorRegisterRequest(
                 password = password,
-                address = address,
                 phone = phone,
                 name = name,
                 email = email
@@ -77,7 +76,7 @@ class SignUpActivity : BaseActivity() {
         email = binding.editEmail.text.toString().trim()
         phone = binding.editPhone.text.toString().trim()
         password = binding.editPassword.text.toString().trim()
-        address = binding.editAddress.text.toString().trim()
+        //address = binding.editAddress.text.toString().trim()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -107,11 +106,11 @@ class SignUpActivity : BaseActivity() {
             isAllFieldValidate = false
         } else binding.layoutEditPassword.setError(null)
 
-        if (address.isEmpty()) {
+       /* if (address.isEmpty()) {
             binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditAddress.setError(null)
-
+*/
         return isAllFieldValidate
     }
 }

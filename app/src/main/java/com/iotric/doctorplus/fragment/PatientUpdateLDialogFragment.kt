@@ -38,7 +38,11 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        // initView(view)
+        initObserver()
+    }
+
+    private fun initObserver() {
+
     }
 
     private fun initView() {
@@ -48,6 +52,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         }
         binding.btnUpdate.setOnClickListener {
             if (validateFields()) {
+                //val updatePatient = UpdatePatientRequest()
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.profile_update_message),

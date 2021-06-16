@@ -11,46 +11,53 @@ import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR
+import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
-import com.iotric.doctorplus.utils.Constants.REGISTER_PATIENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
-import com.rakuten.common.core.intercept.MockJson
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
 
+    // Doctors Apis
+
     @GET(GET_DOCTOR)
-    //@MockJson("getDoctor.json")
     fun getDoctor(): Call<DoctorSignUpResponse>
 
-    @GET(All_PATIENT_LIST)
-    //@MockJson("patientList.json")
-    fun getAllPatientList(): Call<AllPatientListResponse>
+    @GET(GET_DOCTOR)
+    fun getAllDoctor(): Call<AllDoctorsListResponse>
 
     @POST(DOCTOR_LOGIN)
-    //@MockJson("signUpResponse.json")
     fun doctorLogin(@Body doctorLoginRequest: DoctorLoginRequest): Call<DoctorLoginResponse>
 
+
     @POST(REGISTER_DOCTOR)
-    //@MockJson("signUpResponse.json")
     fun registerDoctor(@Body doctorrequest: DoctorRegisterRequest): Call<DoctorSignUpResponse>
 
+
+    // Patients Api
+
+    /*@POST(ADD_PATIENT)
+    fun addPatient(@Body addPatientRequest: AddPatientRequest): Call<AddPatientResponse>*/
+
+    @Multipart
     @POST(ADD_PATIENT)
-
-    fun addPatient()
-
-    @POST(DELETE_PATIENT)
-    fun deletePatient()
-
-    @POST(REGISTER_PATIENT)
-    //@MockJson("registerUserResponse.json")
-    fun registerPatient(@Body addPatientRequest: AddPatientRequest): Call<AddPatientResponse>
+    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody> ): Call<AddPatientResponse>
 
     @PUT(UPDATE_PATIENT)
-
-    // @MockJson("updatePatientResponse.json")
     fun updatePatient(@Body updatePatientRequest: UpdatePatientRequest): Call<UpdatePatientResponse>
+
+    @POST(DELETE_PATIENT)
+     fun deletePatient(@Path("id") id: String?): Call<DeletePatientResponse>
+
+    @GET(All_PATIENT_LIST)
+    fun getAllPatientList(): Call<AllPatientListResponse>
+
+    @GET(MY_PATIENT_LIST)
+    fun getMyPatientList(): Call<MyPAtientListResponse>
+
+    // Patient Report Apis
 
     @DELETE(DELETE_REPORT)
     fun deletReport()
