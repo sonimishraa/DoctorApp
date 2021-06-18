@@ -1,6 +1,7 @@
 package com.iotric.doctorplus.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,10 +35,10 @@ class PatientListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initiviewModel()
+        initiObserver()
     }
 
-    private fun initiviewModel() {
+    private fun initiObserver() {
         viewModel.allUserList.observe(requireActivity(), {
             patientListAdapter.submitList(it.patients)
         })
@@ -47,7 +48,6 @@ class PatientListFragment : BaseFragment() {
                 snackBar(it, binding.root)
             }
         })
-
     }
 
     private fun initView() {
@@ -63,9 +63,9 @@ class PatientListFragment : BaseFragment() {
             }
 
             override fun onDeleteClick(result: PatientsItem) {
-                val id = result.id
-                if (id != null) {
-                    viewModel.getDeleteApiResponse(requireActivity().application, id)
+                Log.i("PatientListFragment","id: ${result.id}")
+                result.id?.let{
+                    viewModel.getDeleteApiResponse(requireActivity().application, it)
                 }
             }
         })

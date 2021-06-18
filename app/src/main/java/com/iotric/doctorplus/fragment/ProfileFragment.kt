@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -26,11 +25,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
-import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
-import java.util.ArrayList
 
 const val PICK_IMAGE_REQUEST = 1
 
@@ -39,6 +36,7 @@ class ProfileFragment : Fragment() {
 
     val viewModel: ProfileFragmentViewModel by viewModels()
     private lateinit var binding: ProfileFragmentBinding
+    lateinit var sharePref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,9 +54,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initView() {
-        viewModel.getDoctorApi(requireActivity().application)
+        sharePref = requireActivity().getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+        val id = sharePref.getString("_id", "")
+        viewModel.getDoctorApi(id, requireActivity().application)
         binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.btnEditProfile.setOnClickListener {
@@ -70,22 +70,18 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initObserver() {
-        val sharedPreferences = activity?.getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
-        val id = sharedPreferences?.getString("_id", "")
+        val id = sharePref.getString("_id", "")
         viewModel.getDoctorById.observe(requireActivity(), Observer {
-            it.doctors.forEachIndexed { index, doctorsItem ->
-               val doctorId =  doctorsItem.id
-                if(doctorId == id){
-                    binding.tvName.text = doctorsItem.doctorname
-                    binding.tvType.text = doctorsItem.role
-                    binding.tvEmail.text = doctorsItem.email
-                    binding.tvPhone.text = doctorsItem.phone
-                    //binding.tvAddress.text = doctorsItem.adddress.toString()
+            it?.doctor?.let {
+                if (it.id == id) {
+                    binding.tvName.text = it.doctorname
+                    binding.tvType.text = it.role
+                    binding.tvEmail.text = it.email
+                    binding.tvPhone.text = it.phone
                 }
             }
         })
     }
-
 
     private fun chooseProfilePic() {
         val builder = AlertDialog.Builder(requireContext())
@@ -152,7 +148,7 @@ class ProfileFragment : Fragment() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         try {
             startActivityForResult(intent, 2)
-        }catch (e: ActivityNotFoundException){
+        } catch (e: ActivityNotFoundException) {
             e.printStackTrace()
         }
     }
@@ -179,7 +175,7 @@ class ProfileFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-        if(requestCode == 2 && resultCode == Activity.RESULT_OK  && data != null && data.getData() != null){
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
 
             try {
                 val imageBitmap = data.extras?.get("data") as Bitmap

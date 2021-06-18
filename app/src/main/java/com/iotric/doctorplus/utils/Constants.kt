@@ -4,8 +4,9 @@ object Constants {
 
     const val BASE_URL = "http://3.108.56.211/api/"
     const val GET_DOCTOR = "doctor"
+    const val GET_DOCTOR_ID = "doctor/{id}"
     const val REGISTER_DOCTOR = "doctor/registerdoctor"
-    const val UPDATE_PATIENT = "patient/updatepatient"
+    const val UPDATE_PATIENT = "patient/{id}"
     const val ADD_PATIENT = "patient/addpatient"
     const val DELETE_PATIENT = "patient/{id}"
     const val GET_PATIENT_LIST = "doctor/getall"

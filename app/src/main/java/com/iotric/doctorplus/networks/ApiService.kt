@@ -11,6 +11,7 @@ import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR
+import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_ID
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
@@ -27,6 +28,9 @@ interface ApiService {
 
     @GET(GET_DOCTOR)
     fun getAllDoctor(): Call<AllDoctorsListResponse>
+
+    @GET(GET_DOCTOR_ID)
+    fun getDoctorId(@Path("id") id: String?): Call<GetDoctorByidResponse>
 
     @POST(DOCTOR_LOGIN)
     fun doctorLogin(@Body doctorLoginRequest: DoctorLoginRequest): Call<DoctorLoginResponse>
@@ -46,10 +50,10 @@ interface ApiService {
     fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody> ): Call<AddPatientResponse>
 
     @PUT(UPDATE_PATIENT)
-    fun updatePatient(@Body updatePatientRequest: UpdatePatientRequest): Call<UpdatePatientResponse>
+    fun updatePatient(@Path("id") id: String?, @Body updatePatientRequest: UpdatePatientRequest): Call<UpdatePatientResponse>
 
-    @POST(DELETE_PATIENT)
-     fun deletePatient(@Path("id") id: String?): Call<DeletePatientResponse>
+    @DELETE(DELETE_PATIENT)
+    fun deletePatient(@Path("id") id: String?): Call<DeletePatientResponse>
 
     @GET(All_PATIENT_LIST)
     fun getAllPatientList(): Call<AllPatientListResponse>

@@ -23,13 +23,13 @@ data class PatientsItem(
 	val address: List<String?>? = null,
 
 	@field:SerializedName("nextvisit")
-	val nextvisit: List<String?>? = null,
+	val nextvisit: List<List<String>?>? = null,
 
 	@field:SerializedName("pphone")
 	val pphone: String? = null,
 
 	@field:SerializedName("prescription")
-	val prescription: List<Any?>? = null,
+	val prescription: List<String>? = null,
 
 	@field:SerializedName("doctorid")
 	val doctorid: String? = null,

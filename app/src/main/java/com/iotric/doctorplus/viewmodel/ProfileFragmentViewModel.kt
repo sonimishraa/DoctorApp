@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.iotric.doctorplus.model.response.AllDoctorsListResponse
+import com.iotric.doctorplus.model.response.GetDoctorByidResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,15 +13,15 @@ import retrofit2.Response
 
 class ProfileFragmentViewModel : ViewModel() {
 
-    val getDoctorById = MutableLiveData<AllDoctorsListResponse>()
+    val getDoctorById = MutableLiveData<GetDoctorByidResponse>()
     val getDoctorErrorMessage = MutableLiveData<String>()
 
-    fun getDoctorApi(application: Application) {
-        ServiceBuilder.getRetrofit(application).getAllDoctor()
-            .enqueue(object : Callback<AllDoctorsListResponse> {
+    fun getDoctorApi(id: String?, application: Application) {
+        ServiceBuilder.getRetrofit(application).getDoctorId(id)
+            .enqueue(object : Callback<GetDoctorByidResponse> {
                 override fun onResponse(
-                    call: Call<AllDoctorsListResponse>,
-                    response: Response<AllDoctorsListResponse>
+                    call: Call<GetDoctorByidResponse>,
+                    response: Response<GetDoctorByidResponse>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
@@ -35,7 +35,7 @@ class ProfileFragmentViewModel : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<AllDoctorsListResponse>, t: Throwable) {
+                override fun onFailure(call: Call<GetDoctorByidResponse>, t: Throwable) {
                     Toast.makeText(
                         application.applicationContext,
                         "${t.message}",
@@ -44,6 +44,5 @@ class ProfileFragmentViewModel : ViewModel() {
                 }
             })
     }
-
 
 }
