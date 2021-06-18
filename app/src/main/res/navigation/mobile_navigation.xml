@@ -149,9 +149,9 @@
         <action
             android:id="@+id/action_patient_list"
             app:destination="@id/patient_list_fragement" />
-        <!--<argument
-            android:name="CurrentUser"
-            app:argType="com.iotric.doctorplus.model.User" />-->
+        <argument
+            android:name="result"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </dialog>
     <fragment
         android:id="@+id/editDoctorProfileFragment"

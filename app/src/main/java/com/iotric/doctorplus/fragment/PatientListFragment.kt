@@ -5,10 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.room.Delete
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.PatientListFragmentBinding
@@ -58,7 +56,7 @@ class PatientListFragment : BaseFragment() {
         viewModel.getApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onItemLayoutClick(result: PatientsItem) {
-                val action = PatientListFragmentDirections.actionUpdatePatientFragment()
+                val action = PatientListFragmentDirections.actionUpdatePatientFragment(result)
                 findNavController().navigate(action)
             }
 

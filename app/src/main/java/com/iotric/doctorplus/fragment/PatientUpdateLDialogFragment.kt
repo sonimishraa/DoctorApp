@@ -12,6 +12,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPatientUpdateBinding
@@ -42,6 +43,8 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     lateinit var datePickerDialog:DatePickerDialog
 
     private lateinit var binding: FragmentPatientUpdateBinding
+    val args: PatientUpdateLDialogFragmentArgs by navArgs()
+
     val viewModel: PatientUpdateViewModel by viewModels()
 
     override fun onCreateView(
@@ -56,6 +59,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         initObserver()
     }
 
@@ -64,7 +68,24 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        name = binding.editName.text.toString()
+        report = binding.editReport.text.toString()
+        phone = binding.editContact.text.toString()
+        address = binding.editAddress.text.toString()
+        email = binding.editEmail.text.toString()
+        nextVisit = binding.editNextAppointmentTime.text.toString().trim()
+        setArgs()
+    }
+
+    private fun setArgs() {
+        val argsItem = args.result
+        Log.i("PatientUpdateFragment", "${argsItem}")
+        binding.editName.setText(argsItem.pname.orEmpty())
+        binding.editContact.setText(argsItem.pphone.orEmpty())
         binding.appbar.toolbarTitle.text = getString(R.string.patient_update_toolbar_title)
+    }
+
+    private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
@@ -90,17 +111,8 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun validateFields(): Boolean {
-        val str = "first Name"
-        val str1 = "Last Name"
-        val result = str + " " + str1
-        val result1 = "${str} ${str1}"
         var isAllFieldValidate = true
-        name = binding.editName.text.toString().trim()
-        report = binding.editReport.text.toString().trim()
-        phone = binding.editContact.text.toString().trim()
-        address = binding.editAddress.text.toString().trim()
-        email = binding.editEmail.text.toString().trim()
-        nextVisit = binding.editNextAppointmentTime.toString().trim()
+
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
