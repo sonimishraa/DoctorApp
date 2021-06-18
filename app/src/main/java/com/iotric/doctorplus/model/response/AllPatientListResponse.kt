@@ -1,6 +1,8 @@
 package com.iotric.doctorplus.model.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class AllPatientListResponse(
 
@@ -13,7 +15,7 @@ data class AllPatientListResponse(
 	@field:SerializedName("status")
 	val status: Boolean? = null
 )
-
+@Parcelize
 data class PatientsItem(
 
 	@field:SerializedName("createdAt")
@@ -48,4 +50,4 @@ data class PatientsItem(
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null
-)
+):Parcelable

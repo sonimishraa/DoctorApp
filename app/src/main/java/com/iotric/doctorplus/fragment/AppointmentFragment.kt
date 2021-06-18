@@ -6,19 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentAppointentBinding
+import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.AppointmentFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
-class AppointmentFragment : Fragment(), DatePickerDialog.OnDateSetListener {
+class AppointmentFragment : Fragment() {
 
     var year = 0
     var month = 0
@@ -27,16 +25,17 @@ class AppointmentFragment : Fragment(), DatePickerDialog.OnDateSetListener {
     var pickYear = 0
     var pickMonth = 0
     var pickDay = 0
-    private lateinit var binding:FragmentAppointentBinding
 
     lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var binding: FragmentAppointentBinding
+
     val viewModel: AppointmentFragmentViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =  FragmentAppointentBinding.inflate(layoutInflater, container, false)
+        binding = FragmentAppointentBinding.inflate(layoutInflater, container, false)
         val view = binding.root
         return view
     }
@@ -49,31 +48,25 @@ class AppointmentFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.appointment_toolbar_title)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
     }
 
     private fun pickDate() {
-        getDateCalender()
-        datePickerDialog = DatePickerDialog(requireContext(), this, year, month, day)
+        UtilClass.getDateCalendarInstance()
+        datePickerDialog =
+            DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                    pickYear = year
+                    pickMonth = month + 1
+                    pickDay = dayOfMonth
+                    val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
+                    binding.tvAppointmentDate.text = date
+                }
+
+            }, year, month, day)
         datePickerDialog.show()
-    }
-
-    private fun getDateCalender() {
-        val calendar = Calendar.getInstance()
-        year = calendar.get(Calendar.YEAR)
-        month = calendar.get(Calendar.MONTH)
-        day = calendar.get(Calendar.DAY_OF_MONTH)
-
-    }
-
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        pickYear = year
-        pickMonth = month + 1
-        pickDay = dayOfMonth
-        val date = viewModel.makeDateString(pickYear, pickMonth, pickDay)
-        binding.tvAppointmentDate.text = date
     }
 
 }

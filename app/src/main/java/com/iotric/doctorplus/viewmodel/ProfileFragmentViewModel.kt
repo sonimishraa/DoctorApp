@@ -5,6 +5,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.model.response.GetDoctorByidResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import retrofit2.Call
@@ -30,8 +32,8 @@ class ProfileFragmentViewModel : ViewModel() {
                     } else {
                         val errorMessage = response.errorBody()?.string()
                         Log.i("Error", "$errorMessage")
-                        //val errorResponse = Gson().fromJson(errorMessage, ErrorResponse::class.java)
-                        //getDoctorErrorMessage.postValue(errorResponse?.error?.message ?: "")
+                        val errorResponse = Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                        getDoctorErrorMessage.postValue(errorResponse?.error?.message ?: "")
                     }
                 }
 
