@@ -1,6 +1,7 @@
 package com.iotric.doctorplus.fragment
 
 import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.adapter.AppointmentPagerAdapter
+import com.iotric.doctorplus.adapter.HomeFragmentPagerAdapter
 import com.iotric.doctorplus.databinding.FragmentAppointentBinding
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.AppointmentFragmentViewModel
@@ -43,11 +46,18 @@ class AppointmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        pickDate()
+        initListener()
+       // pickDate()
     }
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.appointment_toolbar_title)
+        binding.viewPager.adapter = AppointmentPagerAdapter(childFragmentManager)
+        binding.tablayout.setupWithViewPager(binding.viewPager)
+        binding.tablayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFF00"))
+    }
+
+    private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
@@ -62,7 +72,7 @@ class AppointmentFragment : Fragment() {
                     pickMonth = month + 1
                     pickDay = dayOfMonth
                     val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
-                    binding.tvAppointmentDate.text = date
+                   // binding.tvAppointmentDate.text = date
                 }
 
             }, year, month, day)
