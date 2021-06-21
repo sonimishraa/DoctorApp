@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,6 +23,7 @@ import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.util.UtilClass.day
 import com.iotric.doctorplus.util.UtilClass.month
 import com.iotric.doctorplus.util.UtilClass.year
+import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import com.iotric.doctorplus.viewmodel.PatientUpdateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,11 +43,10 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     lateinit var email: String
     lateinit var nextVisit: String
     lateinit var timePickerDialog: TimePickerDialog
-    lateinit var datePickerDialog:DatePickerDialog
+    lateinit var datePickerDialog: DatePickerDialog
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateLDialogFragmentArgs by navArgs()
-
     val viewModel: PatientUpdateViewModel by viewModels()
 
     override fun onCreateView(
@@ -61,20 +63,24 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         initView()
         initListener()
         initObserver()
-    }
-
-    private fun initObserver() {
-
+        setArgs()
     }
 
     private fun initView() {
-        name = binding.editName.text.toString()
-        report = binding.editReport.text.toString()
-        phone = binding.editContact.text.toString()
-        address = binding.editAddress.text.toString()
-        email = binding.editEmail.text.toString()
-        nextVisit = binding.editNextAppointmentTime.text.toString().trim()
-        setArgs()
+        binding.appbar.toolbarTitle.text = getString(R.string.patient_update_toolbar_title)
+    }
+
+    private fun initObserver() {
+        viewModel.updateError.observe(requireActivity(), Observer {
+            if (it != null) {
+                Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel.updatePatientProfile.observe(requireActivity(), Observer {
+            if (it != null) {
+                Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun setArgs() {
@@ -82,7 +88,6 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         Log.i("PatientUpdateFragment", "${argsItem}")
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
-        binding.appbar.toolbarTitle.text = getString(R.string.patient_update_toolbar_title)
     }
 
     private fun initListener() {
@@ -98,20 +103,28 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         binding.btnUpdate.setOnClickListener {
             if (validateFields()) {
                 updatePatient()
-                findNavController().popBackStack()
+                findNavController().navigate(R.id.action_patient_list)
             }
         }
     }
 
     private fun updatePatient() {
         if (validateFields()) {
-            val updatePatient = UpdatePatientRequest(pname = name, pphone = phone)
-            viewModel.getUpdateApi(updatePatient, requireActivity().application)
+            val id = args.result.id
+            val updatePatient = UpdatePatientRequest(pname = name, pphone = phone, nextvisit = listOf(
+                nextVisit))
+            viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
         }
     }
 
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
+        name = binding.editName.text.toString()
+        report = binding.editReport.text.toString()
+        phone = binding.editContact.text.toString()
+        address = binding.editAddress.text.toString()
+        email = binding.editEmail.text.toString()
+        nextVisit = binding.editNextAppointmentTime.text.toString().trim()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))

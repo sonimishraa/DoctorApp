@@ -4,38 +4,47 @@ import com.google.gson.annotations.SerializedName
 
 data class UpdatePatientResponse(
 
-	@field:SerializedName("updatepatient")
-	val updatepatient: Updatepatient? = null
+	@field:SerializedName("updatedpatient")
+	val updatedpatient: Updatedpatient? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null,
+
+	@field:SerializedName("status")
+	val status: Boolean? = null
 )
 
-data class Updatepatient(
-
-	@field:SerializedName("patientname")
-	val patientname: String? = null,
+data class Updatedpatient(
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("password")
-	val password: String? = null,
+	@field:SerializedName("address")
+	val address: List<String?>? = null,
 
-	@field:SerializedName("phone")
-	val phone: String? = null,
+	@field:SerializedName("nextvisit")
+	val nextvisit: List<Any?>? = null,
+
+	@field:SerializedName("pphone")
+	val pphone: String? = null,
+
+	@field:SerializedName("prescription")
+	val prescription: List<Any?>? = null,
+
+	@field:SerializedName("doctorid")
+	val doctorid: String? = null,
+
+	@field:SerializedName("dayofvisit")
+	val dayofvisit: String? = null,
+
+	@field:SerializedName("pname")
+	val pname: String? = null,
 
 	@field:SerializedName("__v")
 	val V: Int? = null,
 
-	@field:SerializedName("adddress")
-	val adddress: List<Any?>? = null,
-
 	@field:SerializedName("_id")
 	val id: String? = null,
-
-	@field:SerializedName("clinichours")
-	val clinichours: List<Any?>? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null,
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null

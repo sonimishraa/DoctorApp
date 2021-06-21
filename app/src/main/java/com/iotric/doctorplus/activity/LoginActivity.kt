@@ -51,6 +51,11 @@ class LoginActivity : BaseActivity() {
                 snackBar(getString(R.string.login_fail_message), binding.root)
             }
         })
+        viewModel.loginError.observe(this, Observer {
+            it?.let {
+                snackBar("${it}",binding.root)
+            }
+        })
     }
 
     private fun loginDoctor() {

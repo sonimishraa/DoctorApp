@@ -1,39 +1,53 @@
 package com.iotric.doctorplus.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
 import com.iotric.doctorplus.model.request.UpdatePatientRequest
+import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.model.response.UpdatePatientResponse
-import java.util.*
+import com.iotric.doctorplus.networks.ServiceBuilder
+import dagger.hilt.android.lifecycle.HiltViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import javax.inject.Inject
 
-class PatientUpdateViewModel : ViewModel() {
-    var hr = 0
-    var min = 0
-    val updatePatient = MutableLiveData<UpdatePatientResponse>()
+@HiltViewModel
+class PatientUpdateViewModel @Inject constructor() : ViewModel() {
 
-    fun getUpdateApi(updatePatient: UpdatePatientRequest, application: Application) {
-        // ServiceBuilder.getRetrofit(application).updatePatient()
+    val updatePatientProfile = MutableLiveData<UpdatePatientResponse>()
+    val updateError = MutableLiveData<String>()
+
+    fun getUpdateApi(id: String?, updatePatient: UpdatePatientRequest, application: Application) {
+        ServiceBuilder.getRetrofit(application).updatePatient(id, updatePatient).enqueue(object :
+            Callback<UpdatePatientResponse> {
+            override fun onResponse(
+                call: Call<UpdatePatientResponse>,
+                response: Response<UpdatePatientResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        updatePatientProfile.postValue(it)
+                    }
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    Log.i("Error", "$errorMessage")
+                    val errorResponse =
+                        Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                    updateError.postValue(errorResponse?.error?.message ?: "")
+                }
+            }
+
+            override fun onFailure(call: Call<UpdatePatientResponse>, t: Throwable) {
+
+            }
+
+
+        })
 
     }
 
-   /* fun time1(hr: Int, min: Int): String {
-        val time1 = "$hr:$min" + timeFormate(hr)
-        return time1
-    }
-
-    fun timeFormate(hr: Int): String {
-        if (hr <= 12)
-            return "AM"
-        if (hr > 12)
-            return "PM"
-        else
-            return "AM"
-    }
-
-    fun getTimeCalender() {
-        val calendar = Calendar.getInstance()
-        hr = calendar.get(Calendar.HOUR_OF_DAY)
-        min = calendar.get(Calendar.MINUTE)
-    }*/
 }

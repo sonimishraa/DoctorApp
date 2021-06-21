@@ -7,6 +7,9 @@ data class UpdateDoctorRequest(
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
 
+	@field:SerializedName("type")
+	val type: String? = null,
+
 	@field:SerializedName("role")
 	val role: String? = null,
 

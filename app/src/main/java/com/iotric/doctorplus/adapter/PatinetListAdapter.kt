@@ -40,9 +40,10 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
+        val nextAppointment = item.nextvisit
         holder.tv_name.text = item.pname
         holder.tv_contact.text = item.pphone
-        holder.tv_nextVisitDate.text = item.nextvisit.toString()
+        holder.tv_nextVisitDate.text = nextAppointment.toString()
         holder.tv_date.text = item.createdAt
         val date = item.createdAt
         holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)

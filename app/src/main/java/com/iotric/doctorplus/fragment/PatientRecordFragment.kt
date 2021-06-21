@@ -17,9 +17,9 @@ import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PatientRecordFragment : Fragment() {
+class PatientRecordFragment : BaseFragment() {
 
-    val viewModel: PatientListViewModel by viewModels()
+    val viewModel: PatientRecordViewModel by viewModels()
     private lateinit var binding:PatientRecordFragmentBinding
 
     override fun onCreateView(

@@ -25,6 +25,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
+import com.iotric.doctorplus.model.response.Doctor
+import com.iotric.doctorplus.model.response.GetDoctorByidResponse
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
@@ -33,7 +35,7 @@ const val PICK_IMAGE_REQUEST = 1
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-
+    var doctorItem = Doctor()
     val viewModel: ProfileFragmentViewModel by viewModels()
     private lateinit var binding: ProfileFragmentBinding
     lateinit var sharePref: SharedPreferences
@@ -54,7 +56,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initView() {
-        sharePref = requireActivity().getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+        sharePref = requireActivity().getSharedPreferences(
+            getString(R.string.share_pref),
+            Context.MODE_PRIVATE
+        )
         val id = sharePref.getString("_id", "")
         viewModel.getDoctorApi(id, requireActivity().application)
         binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
@@ -62,7 +67,10 @@ class ProfileFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.btnEditProfile.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_profile_to_editDoctorProfileFragment)
+            val EditDocResult = doctorItem
+            val action =
+                ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(EditDocResult)
+            findNavController().navigate(action)
         }
         binding.ivProfile.setOnClickListener {
             chooseProfilePic()
@@ -72,7 +80,8 @@ class ProfileFragment : Fragment() {
     private fun initObserver() {
         val id = sharePref.getString("_id", "")
         viewModel.getDoctorById.observe(requireActivity(), Observer {
-            it?.doctor?.let {
+            doctorItem = it.doctor!!
+           doctorItem.let {
                 if (it.id == id) {
                     binding.tvName.text = it.doctorname
                     binding.tvType.text = it.role
