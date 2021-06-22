@@ -4,13 +4,8 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-data class GetDoctorByidResponse(
-
-	@field:SerializedName("doctor")
-	val doctor: Doctor? = null
-)
 @Parcelize
-data class Doctor(
+data class GetDoctorByidResponse(
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,

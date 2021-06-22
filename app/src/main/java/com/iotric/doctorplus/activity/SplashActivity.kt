@@ -2,18 +2,16 @@ package com.iotric.doctorplus.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.SplashActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashActivity:AppCompatActivity() {
-
-    lateinit var sharePref: SharedPreferences
+class SplashActivity : AppCompatActivity() {
 
     lateinit var binding: SplashActivityBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,21 +23,28 @@ class SplashActivity:AppCompatActivity() {
     }
 
     private fun initView() {
-        sharePref = getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
-        val token = sharePref.getString("authToken", "")
-        if(token != null){
-            Handler().postDelayed({
-                val mIntent = Intent(this@SplashActivity, HomeActivity::class.java)
+        Handler().postDelayed({
+            val authToken = checkAuthtoken()
+            Log.i("SplashActivity", "authToken:${authToken}")
+            if (authToken.isNullOrEmpty()) {
+                val mIntent = Intent( this@SplashActivity, LoginActivity::class.java)
                 startActivity(mIntent)
                 finish()
-            }, 200)
-        }else
-            Handler().postDelayed({
-                val mIntent = Intent(this@SplashActivity, LoginActivity::class.java)
-                startActivity(mIntent)
+            }
+            else {
+                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+                startActivity(intent)
                 finish()
-            }, 200)
+            }
 
+        }, 200)
+    }
+
+    private fun checkAuthtoken(): String? {
+        val sharedPreferences =
+            getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+        val authToken = sharedPreferences.getString("authToken", "")
+        return authToken
     }
 
 }

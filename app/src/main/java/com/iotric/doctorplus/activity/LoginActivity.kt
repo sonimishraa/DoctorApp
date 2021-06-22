@@ -40,10 +40,7 @@ class LoginActivity : BaseActivity() {
                 val sharedPreferences = getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString("authToken", it.authToken)
-                editor.putString("_id", it.id)
-               /* editor.putString("number", number)
-                editor.putString("password", password)
-                editor.putBoolean("CHECKBOX", checked)*/
+                editor.putString("DoctorID",it.id)
                 editor.apply()
                 startActivity(Intent(this, HomeActivity::class.java))
                 finish()

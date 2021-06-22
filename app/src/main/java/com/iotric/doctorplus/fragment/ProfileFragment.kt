@@ -6,13 +6,13 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
-import com.iotric.doctorplus.model.response.Doctor
 import com.iotric.doctorplus.model.response.GetDoctorByidResponse
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,10 +34,9 @@ const val PICK_IMAGE_REQUEST = 1
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
-    var doctorItem = Doctor()
+    lateinit var getDoctorId:GetDoctorByidResponse
     val viewModel: ProfileFragmentViewModel by viewModels()
     private lateinit var binding: ProfileFragmentBinding
-    lateinit var sharePref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,20 +54,16 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initView() {
-        sharePref = requireActivity().getSharedPreferences(
-            getString(R.string.share_pref),
-            Context.MODE_PRIVATE
-        )
-        val id = sharePref.getString("_id", "")
+        val id = getDoctorId()
         viewModel.getDoctorApi(id, requireActivity().application)
         binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.btnEditProfile.setOnClickListener {
-            val EditDocResult = doctorItem
-            val action =
-                ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(EditDocResult)
+            val  EditDocResult = getDoctorId
+            val action = ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(
+                    EditDocResult)
             findNavController().navigate(action)
         }
         binding.ivProfile.setOnClickListener {
@@ -78,11 +72,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initObserver() {
-        val id = sharePref.getString("_id", "")
+        val loginDrid = getDoctorId()
+        Log.i("ProfileFragment", "_id:${id}")
         viewModel.getDoctorById.observe(requireActivity(), Observer {
-            doctorItem = it.doctor!!
-           doctorItem.let {
-                if (it.id == id) {
+            getDoctorId = it
+            getDoctorId.let {
+                if ( it.id == loginDrid) {
                     binding.tvName.text = it.doctorname
                     binding.tvType.text = it.role
                     binding.tvEmail.text = it.email
@@ -90,6 +85,16 @@ class ProfileFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun getDoctorId(): String? {
+        val sharePref = requireActivity().getSharedPreferences(
+            getString(R.string.share_pref),
+            Context.MODE_PRIVATE
+        )
+        val id = sharePref.getString("DoctorID", "")
+        Log.i("ProfileFragment","${id}")
+        return id
     }
 
     private fun chooseProfilePic() {
