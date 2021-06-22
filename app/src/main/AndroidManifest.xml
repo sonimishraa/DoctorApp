@@ -18,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorPlus"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.SplashActivity"
+            android:label="DocCheck"
+            android:icon="@drawable/plus_sign"
+            android:theme="@style/Theme.DoctorPlus.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.SignUpActivity"
             android:label="@string/title_activity_sign_up"
@@ -35,12 +44,11 @@
             android:name=".activity.LoginActivity"
             android:icon="@drawable/plus_sign"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+            </intent-filter>-->
         </activity>
     </application>
 
