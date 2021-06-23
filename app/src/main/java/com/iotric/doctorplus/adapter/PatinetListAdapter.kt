@@ -40,10 +40,10 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        val nextAppointment = item.nextvisit
+        val nextAppointment = item.visit?.firstOrNull()
         holder.tv_name.text = item.pname
         holder.tv_contact.text = item.pphone
-        holder.tv_nextVisitDate.text = nextAppointment.toString()
+        holder.tv_nextVisitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
         holder.tv_date.text = item.createdAt
         val date = item.createdAt
         holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)
@@ -52,9 +52,9 @@ class PatinetListAdapter(val listener: ItemClickListener) :
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tv_name = binding.tvName
         val tv_contact = binding.tvContact
-        val tv_date = binding.tvVisitDate
-        val tv_nextVisitDate = binding.tvNextVisitDate
-        val iv_image = binding.ivImage
+        val tv_date = binding.tvLastVisitDate
+        val tv_nextVisitDate = binding.tvVisitDate
+        //val iv_image = binding.ivImage
         val item_layout = binding.lLayout
         val btnDelete = binding.btndelete
 

@@ -17,11 +17,11 @@ data class DataItem(
 	val V: Int? = null,
 	val iscaseopen: Boolean? = null,
 	val id: String? = null,
-	val visit: List<VisitItem?>? = null,
+	val visit: List<VisitItems?>? = null,
 	val updatedAt: String? = null
 )
 
-data class VisitItem(
+data class VisitItems(
 	val nextvisittime: String? = null,
 	val nextvisitdate: String? = null,
 	val id: String? = null,

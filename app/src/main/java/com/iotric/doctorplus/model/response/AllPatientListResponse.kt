@@ -24,14 +24,11 @@ data class PatientsItem(
 	@field:SerializedName("address")
 	val address: List<String?>? = null,
 
-	@field:SerializedName("nextvisit")
-	val nextvisit: List<List<String>?>? = null,
-
 	@field:SerializedName("pphone")
 	val pphone: String? = null,
 
 	@field:SerializedName("prescription")
-	val prescription: List<String>? = null,
+	val prescription: List<String?>? = null,
 
 	@field:SerializedName("doctorid")
 	val doctorid: String? = null,
@@ -45,9 +42,32 @@ data class PatientsItem(
 	@field:SerializedName("__v")
 	val V: Int? = null,
 
+	@field:SerializedName("iscaseopen")
+	val iscaseopen: Boolean? = null,
+
 	@field:SerializedName("_id")
 	val id: String? = null,
 
+	@field:SerializedName("visit")
+	val visit: List<VisitItem?>? = null,
+
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null
+) : Parcelable
+
+@Parcelize
+data class VisitItem(
+
+	@field:SerializedName("nextvisittime")
+	val nextvisittime: String? = null,
+
+	@field:SerializedName("nextvisitdate")
+	val nextvisitdate: String? = null,
+
+	@field:SerializedName("_id")
+	val id: String? = null,
+
+	@field:SerializedName("isvisted")
+	val isvisted: Boolean? = null
 ):Parcelable
+
