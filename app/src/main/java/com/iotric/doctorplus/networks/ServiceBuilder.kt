@@ -11,6 +11,9 @@ import okhttp3.Request
 import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 object ServiceBuilder {
 
@@ -22,12 +25,12 @@ object ServiceBuilder {
     // Add ".addInterceptor(MockInterceptor(application))" for mock interceptor
     // ".addInterceptor( ChuckerInterceptor(application)" for Response on your real device
 
-
     fun getRetrofit(application: Application): ApiService {
+
         val sharePref = application.getSharedPreferences("SHARED_PREF", Context.MODE_PRIVATE)
         val authToken = sharePref.getString("authToken","")
         val client =
-            OkHttpClient.Builder().addInterceptor(ChuckerInterceptor(application)).addInterceptor { chain -> chain.proceed(chain.request().newBuilder().also {reqBuilder->
+            OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).addInterceptor(ChuckerInterceptor(application)).addInterceptor { chain -> chain.proceed(chain.request().newBuilder().also { reqBuilder->
                 reqBuilder.addHeader("Authorization", "Barrer ${authToken}").header("Content-Type","application/json")
             }.build()) }.build()
         val retrofit = Retrofit.Builder()

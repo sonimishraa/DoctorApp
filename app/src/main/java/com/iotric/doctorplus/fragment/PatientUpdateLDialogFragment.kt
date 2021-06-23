@@ -88,6 +88,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         Log.i("PatientUpdateFragment", "${argsItem}")
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
+        binding.editAddress.setText(argsItem.address?.firstOrNull())
     }
 
     private fun initListener() {
@@ -132,13 +133,13 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         } else {
             binding.layoutEditName.setError(null)
         }
-        if (email.isEmpty()) {
+        /*if (email.isEmpty()) {
             binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
             binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
             isAllFieldValidate = false
-        } else binding.layoutEditEmail.setError(null)
+        } else binding.layoutEditEmail.setError(null)*/
         if (phone.isEmpty()) {
             binding.layoutEditContact.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false

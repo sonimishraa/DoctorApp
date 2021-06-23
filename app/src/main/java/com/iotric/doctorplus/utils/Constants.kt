@@ -16,4 +16,6 @@ object Constants {
     const val DOCTOR_LOGIN = "doctor/doctorlogin"
     const val All_PATIENT_LIST = "patient"
     const val MY_PATIENT_LIST = "patient/mypatient"
+    const val GET_WEEKLY_APPOINTMENT = "apointment/weekly"
+    const val GET_DAILY_APPOINTMENT = "apointment/daily"
 }

@@ -12,6 +12,7 @@ import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_ID
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_NUMBER
+import com.iotric.doctorplus.utils.Constants.GET_WEEKLY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
@@ -72,4 +73,9 @@ interface ApiService {
 
     @DELETE(DELETE_REPORT)
     fun deletReport()
+
+
+    // Appointment Apis
+    @GET(GET_WEEKLY_APPOINTMENT)
+    fun getWeeklyAppoint(): Call<WeeklyAppointmentListResponse>
 }

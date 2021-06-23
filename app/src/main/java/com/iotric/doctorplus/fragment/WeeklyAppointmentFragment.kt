@@ -1,33 +1,51 @@
 package com.iotric.doctorplus.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.adapter.WeeklyAppointmentAdapter
+import com.iotric.doctorplus.databinding.WeeklyAppointmentFragmentBinding
 import com.iotric.doctorplus.viewmodel.WeeklyAppointmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class WeeklyAppointmentFragment : Fragment() {
+@AndroidEntryPoint
+class WeeklyAppointmentFragment : BaseFragment() {
 
-    companion object {
-        fun newInstance() = WeeklyAppointmentFragment()
-    }
-
-    private lateinit var viewModel: WeeklyAppointmentViewModel
+    val viewModel: WeeklyAppointmentViewModel by viewModels()
+    lateinit var binding: WeeklyAppointmentFragmentBinding
+    lateinit var adapter: WeeklyAppointmentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.weekly_appointment_fragment, container, false)
+    ): View {
+        binding = WeeklyAppointmentFragmentBinding.inflate(layoutInflater)
+        val view = binding.root
+        return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(WeeklyAppointmentViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initObserver()
     }
 
+    private fun initView() {
+        adapter = WeeklyAppointmentAdapter()
+        binding.recyclerView.adapter = adapter
+        viewModel.getAppointmentApi(requireActivity().application)
+
+    }
+
+    private fun initObserver() {
+        viewModel.getWeeklyAppoint.observe(requireActivity(), Observer {
+            it?.let {
+                adapter.submitList(it.data)
+            }
+        })
+    }
 }

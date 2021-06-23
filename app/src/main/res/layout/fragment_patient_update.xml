@@ -59,6 +59,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/small_margin"
                 android:layout_marginBottom="@dimen/small_margin">
 
@@ -66,9 +67,8 @@
                     android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:editable="false"
-                    android:hint="Email*"
-                    android:inputType="number" />
+                    android:visibility="gone"
+                    android:hint="Email*" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

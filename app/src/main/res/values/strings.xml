@@ -65,4 +65,5 @@
     <string name="registered_profile_message">\"Registered Successfully \"</string>
     <string name="permission_granted_message">Permission Not Granted</string>
     <string name="login_fail_message">Login Failed</string>
+    <string name="weekly_appointment_fragment_title">WEEKLY APPOINTMENTS</string>
 </resources>

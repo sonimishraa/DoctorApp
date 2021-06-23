@@ -95,7 +95,6 @@ class AddPatientFragment : BaseFragment() {
         }
         binding.btnAdd.setOnClickListener {
             registerPatient()
-            findNavController().popBackStack()
         }
     }
 
@@ -103,7 +102,7 @@ class AddPatientFragment : BaseFragment() {
         if (validateFields()) {
             val multipartParams = MultipartParams.Builder()
             val filePath = File(uri?.path)
-            val patient = multipartParams.addFile("images", filePath).add("patientname ",name).add("email ",email).add("phone",phone).add("address",address).add("nextvisitdate", appointDate).add("nextvisittime", appointTime)
+            val patient = multipartParams.addFile("images", filePath).add("email ",email).add("patientname ",name).add("phone",phone).add("address",address).add("nextvisitdate", appointDate).add("nextvisittime", appointTime)
             viewModel.getApiResponse(patient, requireActivity().application)
 
         } else
