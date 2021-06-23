@@ -98,11 +98,8 @@ class EditDoctorProfileFragment : BaseFragment() {
             endTimePicker()
         }
         binding.btnSave.setOnClickListener {
-            if (validateFields()) {
                 EditDoctor()
                 findNavController().popBackStack()
-
-            }
         }
     }
 
@@ -114,7 +111,8 @@ class EditDoctorProfileFragment : BaseFragment() {
                 type = speciality
             )
             viewModel.getUpdateApi(doctor, requireActivity().application)
-        }
+        } else
+            snackBar(getString(R.string.mendatory_field_message), binding.root)
     }
 
     private fun validateFields(): Boolean {
@@ -184,7 +182,7 @@ class EditDoctorProfileFragment : BaseFragment() {
                     val time = UtilClass.time(hr, min)
                     binding.editStartTime.setText(time)
                 }
-            }, hr, min1, false)
+            }, hr, min, false)
         timePickerDialog.show()
     }
 

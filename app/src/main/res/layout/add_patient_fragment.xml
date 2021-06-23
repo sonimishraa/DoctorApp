@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_marginBottom="@dimen/small_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -90,39 +90,6 @@
                     android:hint="Phone Number*"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_edit_nextVisit"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/small_margin">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_nextVisit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Next Appointment*"
-                    android:inputType="datetime"/>
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_edit_doctorid"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/small_margin">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_doctorid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="DoctorId*" />
-            </com.google.android.material.textfield.TextInputLayout>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_edit_address"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -139,7 +106,45 @@
                     android:hint="Address*"
                     android:inputType="textPostalAddress" />
             </com.google.android.material.textfield.TextInputLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edit_date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_Date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                        android:drawablePadding="@dimen/small_padding"
+                        android:hint="Appoitment Date*" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_edit_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_Time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_baseline_access_time_24"
+                        android:drawablePadding="@dimen/small_padding"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="Appointment Time*"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 
     <Button

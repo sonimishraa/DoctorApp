@@ -3,6 +3,8 @@ package com.iotric.doctorplus.fragment
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,16 +13,24 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
+import android.widget.TimePicker
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
 import com.iotric.doctorplus.networks.MultipartParams
+import com.iotric.doctorplus.util.UtilClass
+import com.iotric.doctorplus.util.UtilClass.day
+import com.iotric.doctorplus.util.UtilClass.month
+import com.iotric.doctorplus.util.UtilClass.year
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -28,16 +38,26 @@ import java.io.IOException
 
 @AndroidEntryPoint
 class AddPatientFragment : BaseFragment() {
+    var hr = 0
+    var min = 0
+
+    var pickYear = 0
+    var pickMonth = 0
+    var pickDay = 0
 
     val viewModel: AddPatientViewModel by viewModels()
     private lateinit var binding: AddPatientFragmentBinding
+    lateinit var image: String
     lateinit var name: String
     lateinit var email: String
     lateinit var phone: String
     lateinit var address: String
-    lateinit var doctorid: String
-    lateinit var nextvisit: String
+    lateinit var appointDate: String
+    lateinit var appointTime: String
     lateinit var uri: Uri
+
+    lateinit var timePickerDialog:TimePickerDialog
+    lateinit var datePickerDialog:DatePickerDialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,18 +71,30 @@ class AddPatientFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         initObserver()
     }
 
     private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.add_patient_toolbar_title)
+
+    }
+
+    private fun initListener() {
+        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+            findNavController().popBackStack()
+        }
         binding.editUploadPris.setOnClickListener {
             pickImage()
         }
+        binding.editDate.setOnClickListener {
+            pickDate()
+        }
+        binding.editTime.setOnClickListener {
+            timePick()
+        }
         binding.btnAdd.setOnClickListener {
             registerPatient()
-        }
-        binding.appbar.toolbarTitle.text = getString(R.string.add_patient_toolbar_title)
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
     }
@@ -71,8 +103,7 @@ class AddPatientFragment : BaseFragment() {
         if (validateFields()) {
             val multipartParams = MultipartParams.Builder()
             val filePath = File(uri?.path)
-            val patient = multipartParams.addFile("images", filePath).add("patientname", name)
-                .add("phone", phone).add("address", address)
+            val patient = multipartParams.addFile("images", filePath).add("patientname ",name).add("email ",email).add("phone",phone).add("address",address).add("nextvisitdate", appointDate).add("nextvisittime", appointTime)
             viewModel.getApiResponse(patient, requireActivity().application)
 
         } else
@@ -98,20 +129,30 @@ class AddPatientFragment : BaseFragment() {
 
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
+        image = binding.editUploadPris.text.toString().trim()
         name = binding.editName.text.toString().trim()
         email = binding.editEmail.text.toString().trim()
         phone = binding.editPhone.text.toString().trim()
-        nextvisit = binding.editNextVisit.text.toString().trim()
+        appointDate = binding.editDate.text.toString().trim()
         address = binding.editAddress.text.toString().trim()
-        doctorid = binding.editDoctorid.text.toString().trim()
+        appointTime = binding.editTime.text.toString().trim()
 
+        if (image.isEmpty()) {
+            binding.layoutEditUploadPris.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else
+            binding.layoutEditUploadPris.setError(null)
 
-        /* if (doctorid.isEmpty()) {
-             binding.layoutEditDoctorid.setError(getString(R.string.empty_field_message))
-             isAllFieldValidate = false
-         } else {
-             binding.layoutEditName.setError(null)
-         }*/
+        if (appointDate.isEmpty()) {
+            binding.layoutEditDate.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else {
+            binding.layoutEditDate.setError(null)
+        }
+        if (appointTime.isEmpty()) {
+            binding.layoutEditTime.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else binding.layoutEditTime.setError(null)
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -120,13 +161,13 @@ class AddPatientFragment : BaseFragment() {
             binding.layoutEditName.setError(null)
         }
 
-        /*if (email.isEmpty()) {
+        if (email.isEmpty()) {
             binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
             binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
             isAllFieldValidate = false
-        } else binding.layoutEditEmail.setError(null)*/
+        } else binding.layoutEditEmail.setError(null)
 
         if (phone.isEmpty()) {
             binding.layoutEditPhone.setError(getString(R.string.empty_field_message))
@@ -136,17 +177,42 @@ class AddPatientFragment : BaseFragment() {
             isAllFieldValidate = false
         } else binding.layoutEditPhone.setError(null)
 
-        /*  if (nextvisit.isEmpty()) {
-              binding.layoutEditNextVisit.setError(getString(R.string.empty_field_message))
-              isAllFieldValidate = false
-          } else binding.layoutEditNextVisit.setError(null)
-  */
         if (address.isEmpty()) {
             binding.layoutEditAddress.setError("Field Can't be Empty")
             isAllFieldValidate = false
         } else binding.layoutEditAddress.setError(null)
 
         return isAllFieldValidate
+    }
+
+    private fun timePick() {
+        UtilClass.getTimeCalender()
+        timePickerDialog =
+            TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    hr = hourOfDay
+                    min = minute
+                    Log.i("start time", "$hourOfDay: $minute")
+                    val time = UtilClass.time(hr, min)
+                    binding.editTime.setText(time)
+                }
+            }, hr, min, false)
+        timePickerDialog.show()
+    }
+
+    private fun pickDate() {
+        UtilClass.getDateCalendarInstance()
+        datePickerDialog =
+            DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+                    pickYear = year
+                    pickMonth = month + 1
+                    pickDay = dayOfMonth
+                    val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
+                     binding.editDate.setText(date)
+                }
+            }, year, month, day)
+        datePickerDialog.show()
     }
 
     private fun pickImage() {
@@ -223,7 +289,7 @@ class AddPatientFragment : BaseFragment() {
         val intent = Intent()
         intent.setType("image/*")
         intent.setAction(Intent.ACTION_PICK).also {
-            it.type = "image/*"
+            it.type = "image/*,image/png,image/pdf"
             val mimeTypes =
                 arrayOf("image/jpg", "image/png", "image/pdf", "image/doc", "image/jpeg")
             it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)

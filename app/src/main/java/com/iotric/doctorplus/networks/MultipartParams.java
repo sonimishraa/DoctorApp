@@ -55,6 +55,15 @@ public final class MultipartParams {
          * @param value the value
          * @return the builder
          */
+        public Builder addmore(final String key, final ArrayList<String> value) {
+
+            if (value == null || String.valueOf(value).isEmpty()) {
+                return this;
+            }
+            map.put(key, RetrofitUtils.getRequestBodyFromString(String.valueOf(value)));
+            return this;
+        }
+
         public Builder add(final String key, final Object value) {
 
             if (value == null || String.valueOf(value).isEmpty()) {
@@ -71,7 +80,10 @@ public final class MultipartParams {
          * @param value        the value
          * @param isAllowEmpty the is allow empty
          * @return the builder
+         *
+         *
          */
+
         public Builder add(final String key, final Object value, final boolean isAllowEmpty) {
             if (!isAllowEmpty && (value == null || String.valueOf(value).isEmpty())) {
                 return this;
@@ -116,7 +128,6 @@ public final class MultipartParams {
             }
             return this;
         }
-
 
         /**
          * Build multipart params.
