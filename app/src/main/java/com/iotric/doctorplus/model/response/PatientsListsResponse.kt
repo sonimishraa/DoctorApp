@@ -1,39 +1,75 @@
 package com.iotric.doctorplus.model.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
-data class PatientsListResponse(
+data class PatientsListsResponse(
 
-	@field:SerializedName("patient")
-	val patient: List<PatientItem?>? = null
+	@field:SerializedName("patients")
+	val patients: List<PatientsItems?>? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null,
+
+	@field:SerializedName("status")
+	val status: Boolean? = null
 )
-
-data class PatientItem(
-
-	@field:SerializedName("patientname")
-	val patientname: String? = null,
+@Parcelize
+data class PatientsItems(
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("phone")
-	val phone: String? = null,
+	@field:SerializedName("address")
+	val address: List<String?>? = null,
+
+	@field:SerializedName("pphone")
+	val pphone: String? = null,
+
+	@field:SerializedName("prescription")
+	val prescription: List<String?>? = null,
+
+	@field:SerializedName("doctorid")
+	val doctorid: String? = null,
+
+	@field:SerializedName("dayofvisit")
+	val dayofvisit: String? = null,
 
 	@field:SerializedName("__v")
 	val V: Int? = null,
 
-	@field:SerializedName("adddress")
-	val adddress: List<Any?>? = null,
+	@field:SerializedName("iscaseopen")
+	val iscaseopen: Boolean? = null,
 
 	@field:SerializedName("_id")
 	val id: String? = null,
 
-	@field:SerializedName("clinichours")
-	val clinichours: List<Any?>? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null,
+	@field:SerializedName("visit")
+	val visit: List<VisitsItem?>? = null,
 
 	@field:SerializedName("updatedAt")
-	val updatedAt: String? = null
-)
+	val updatedAt: String? = null,
+
+	@field:SerializedName("pname")
+	val pname: String? = null,
+
+	@field:SerializedName("pemail")
+	val pemail: String? = null
+):Parcelable
+
+@Parcelize
+data class VisitsItem(
+
+	@field:SerializedName("nextvisittime")
+	val nextvisittime: String? = null,
+
+	@field:SerializedName("nextvisitdate")
+	val nextvisitdate: String? = null,
+
+	@field:SerializedName("_id")
+	val id: String? = null,
+
+	@field:SerializedName("isvisted")
+	val isvisted: Boolean? = null
+):Parcelable

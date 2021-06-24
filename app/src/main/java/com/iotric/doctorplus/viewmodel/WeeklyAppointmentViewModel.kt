@@ -1,6 +1,7 @@
 package com.iotric.doctorplus.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -36,6 +37,11 @@ class WeeklyAppointmentViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<WeeklyAppointmentListResponse>, t: Throwable) {
+                Toast.makeText(
+                    application.applicationContext,
+                    "${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
 
             }
 

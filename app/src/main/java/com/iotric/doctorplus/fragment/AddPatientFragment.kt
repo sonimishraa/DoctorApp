@@ -136,12 +136,12 @@ class AddPatientFragment : BaseFragment() {
         address = binding.editAddress.text.toString().trim()
         appointTime = binding.editTime.text.toString().trim()
 
-        if (image.isEmpty()) {
+       /* if (image.isEmpty()) {
             binding.layoutEditUploadPris.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else
             binding.layoutEditUploadPris.setError(null)
-
+*/
         if (appointDate.isEmpty()) {
             binding.layoutEditDate.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false

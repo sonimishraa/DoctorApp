@@ -1,5 +1,7 @@
 package com.iotric.doctorplus.networks;
 
+import com.iotric.doctorplus.utils.RetrofitUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,15 +57,6 @@ public final class MultipartParams {
          * @param value the value
          * @return the builder
          */
-        public Builder addmore(final String key, final ArrayList<String> value) {
-
-            if (value == null || String.valueOf(value).isEmpty()) {
-                return this;
-            }
-            map.put(key, RetrofitUtils.getRequestBodyFromString(String.valueOf(value)));
-            return this;
-        }
-
         public Builder add(final String key, final Object value) {
 
             if (value == null || String.valueOf(value).isEmpty()) {

@@ -31,13 +31,11 @@ class WeeklyAppointmentAdapter: ListAdapter<DataItem, WeeklyAppointmentAdapter.I
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
         val visitItem = item.visit?.firstOrNull()
-        if(item.iscaseopen == true) {
+        if(item.iscaseopen == true && visitItem?.isvisted == false) {
             holder.name.text = item.pname
             holder.phone.text = item.pphone
             holder.lastVisit.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
-            if (visitItem?.isvisted == false) {
-                holder.appointmentDate.text = visitItem.nextvisitdate + " " + visitItem.nextvisittime
-            }
+            holder.appointmentDate.text = visitItem.nextvisitdate + " " + visitItem.nextvisittime
         }
     }
     inner class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){

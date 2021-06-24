@@ -27,7 +27,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/medium_margin"
             android:orientation="vertical"
             android:clipToPadding="false"
             android:paddingBottom="16dp"

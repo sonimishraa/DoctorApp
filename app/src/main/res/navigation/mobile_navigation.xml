@@ -151,7 +151,8 @@
             app:destination="@id/patient_list_fragement" />
         <argument
             android:name="result"
-            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+
     </dialog>
 
     <fragment

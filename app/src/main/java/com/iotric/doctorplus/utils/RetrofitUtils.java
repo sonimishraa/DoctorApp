@@ -1,4 +1,4 @@
-package com.iotric.doctorplus.networks;
+package com.iotric.doctorplus.utils;
 
 import android.net.Uri;
 import android.util.Log;
@@ -32,7 +32,7 @@ public final class RetrofitUtils {
      * @param value content which need to convert into request body
      * @return formed request body object
      */
-    static RequestBody getRequestBodyFromString(final String value) {
+    public static RequestBody getRequestBodyFromString(final String value) {
         return RequestBody.create(MediaType.parse("text/plain"), value);
     }
 
@@ -62,7 +62,7 @@ public final class RetrofitUtils {
      * @param file file for which mime type is required
      * @return the mimeType of the passed file
      */
-    static String getMimeType(final File file) {
+    public static String getMimeType(final File file) {
         String mimeType = "image/png";
         try {
             Uri selectedUri = Uri.fromFile(file);
