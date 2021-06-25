@@ -2,22 +2,19 @@ package com.iotric.doctorplus.model.request
 
 import com.google.gson.annotations.SerializedName
 
+
+/*{
+	"pname":"Arya",
+	"pphone":"8360036009",
+	"nextvisitDate":"20/1/2021",
+	"nextvisittime":"12:00AM"
+}*/
 data class UpdatePatientRequest(
+	val pname: String?,
+	val pphone: String?,
+	val address:String?,
+	val nextvisitdate: String?,
+	val nextvisittime: String?
 
-	val address: List<String?>? = null,
-
-	@field:SerializedName("nextvisit")
-	val nextvisit: List<String>? = null,
-
-	@field:SerializedName("pphone")
-	val pphone: String? = null,
-
-	@field:SerializedName("prescription")
-	val prescription: List<String>? = null,
-
-	@field:SerializedName("doctorid")
-	val doctorid: String? = null,
-
-	@field:SerializedName("pname")
-	val pname: String? = null
 )
+

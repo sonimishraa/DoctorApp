@@ -21,7 +21,7 @@ class PatientUpdateViewModel @Inject constructor() : ViewModel() {
     val updatePatientProfile = MutableLiveData<UpdatePatientResponse>()
     val updateError = MutableLiveData<String>()
 
-    fun getUpdateApi(id: String?, updatePatient: UpdatePatientRequest, application: Application) {
+    fun getUpdateApi(id: String, updatePatient: UpdatePatientRequest, application: Application) {
         ServiceBuilder.getRetrofit(application).updatePatient(id, updatePatient).enqueue(object :
             Callback<UpdatePatientResponse> {
             override fun onResponse(

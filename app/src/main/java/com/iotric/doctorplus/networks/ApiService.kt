@@ -57,7 +57,7 @@ interface ApiService {
 
     @PUT(UPDATE_PATIENT)
     fun updatePatient(
-        @Path("id") id: String?,
+        @Path("id") id: String,
         @Body updatePatientRequest: UpdatePatientRequest
     ): Call<UpdatePatientResponse>
 

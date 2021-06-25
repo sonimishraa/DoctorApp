@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.util.UtilClass.day
 import com.iotric.doctorplus.util.UtilClass.month
 import com.iotric.doctorplus.util.UtilClass.year
-import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import com.iotric.doctorplus.viewmodel.PatientUpdateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +39,8 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     lateinit var phone: String
     lateinit var address: String
     lateinit var email: String
-    lateinit var nextVisit: String
+    lateinit var nextVisitDate: String
+    lateinit var nextVisitTime: String
     lateinit var timePickerDialog: TimePickerDialog
     lateinit var datePickerDialog: DatePickerDialog
 
@@ -85,10 +84,14 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
 
     private fun setArgs() {
         val argsItem = args.result
+        val visitItem = argsItem.visit?.firstOrNull()
         Log.i("PatientUpdateFragment", "${argsItem}")
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
         binding.editAddress.setText(argsItem.address?.firstOrNull())
+        binding.editNextAppointmentDate.setText(visitItem?.nextvisitdate)
+        binding.editNextAppointmentTime.setText(visitItem?.nextvisittime)
+
     }
 
     private fun initListener() {
@@ -111,9 +114,10 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
 
     private fun updatePatient() {
         if (validateFields()) {
-            val id = args.result.id
-            val updatePatient = UpdatePatientRequest(pname = name, pphone = phone, nextvisit = listOf(
-                nextVisit))
+            val id = args.result.id ?: ""
+            val updatePatient = UpdatePatientRequest(
+                pname = name, pphone = phone, address = address, nextVisitDate, nextVisitTime
+            )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
         }
     }
@@ -125,7 +129,8 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
         phone = binding.editContact.text.toString()
         address = binding.editAddress.text.toString()
         email = binding.editEmail.text.toString()
-        nextVisit = binding.editNextAppointmentTime.text.toString().trim()
+        nextVisitDate = binding.editNextAppointmentDate.text.toString().trim()
+        nextVisitTime = binding.editNextAppointmentTime.text.toString().trim()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
