@@ -8,7 +8,7 @@ import java.util.*
 object DateTimeUtil {
 
     private val UTC_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    private val LOCAL_FORMAT = "dd-MMM-yyyy HH:mm"
+    private val LOCAL_FORMAT = "dd-MM-yyyy HH:mm"
 
     fun getSimpleDateFromUtc(date: String?): String? {
         val f: DateFormat = SimpleDateFormat(UTC_FORMAT)
