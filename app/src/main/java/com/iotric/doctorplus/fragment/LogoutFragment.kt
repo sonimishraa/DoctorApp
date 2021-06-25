@@ -40,12 +40,12 @@ class LogoutFragment : DialogFragment() {
         builder.setTitle(title)
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
-                Toast.makeText(context, "Yes Button Cliked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "You are Logged Out", Toast.LENGTH_SHORT).show()
                 getLoginScreen()
 
             })
             .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-                Toast.makeText(context, "Cancel Button Cliked", Toast.LENGTH_SHORT).show()
+               // Toast.makeText(context, "Cancel Button Cliked", Toast.LENGTH_SHORT).show()
             })
 
         return builder.create()

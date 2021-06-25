@@ -21,20 +21,21 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
-import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.util.UtilClass.day
 import com.iotric.doctorplus.util.UtilClass.month
 import com.iotric.doctorplus.util.UtilClass.year
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
+
 
 @AndroidEntryPoint
 class AddPatientFragment : BaseFragment() {
@@ -77,16 +78,15 @@ class AddPatientFragment : BaseFragment() {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.add_patient_toolbar_title)
-
     }
 
     private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
-        binding.editUploadPris.setOnClickListener {
+       /* binding.editUploadPris.setOnClickListener {
             pickImage()
-        }
+        }*/
         binding.editDate.setOnClickListener {
             pickDate()
         }
@@ -100,10 +100,21 @@ class AddPatientFragment : BaseFragment() {
 
     private fun registerPatient() {
         if (validateFields()) {
-            val multipartParams = MultipartParams.Builder()
+            val patient: RequestBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("patientname", name)
+                .addFormDataPart("phone", phone)
+                .addFormDataPart("email", email)
+                .addFormDataPart("address",address)
+                .addFormDataPart("nextvisitdate",appointDate)
+                .addFormDataPart("nextvisittime",appointTime)
+                .build()
+            viewModel.getApi(patient, requireActivity().application)
+            findNavController().popBackStack()
+           /* val multipartParams = MultipartParams.Builder()
             val filePath = File(uri?.path)
             val patient = multipartParams.addFile("images", filePath).add("email ",email).add("patientname ",name).add("phone",phone).add("address",address).add("nextvisitdate", appointDate).add("nextvisittime", appointTime)
-            viewModel.getApiResponse(patient, requireActivity().application)
+            viewModel.getApiResponse(patient, requireActivity().application)*/
 
         } else
             snackBar(getString(R.string.mendatory_field_message), binding.root)
@@ -121,7 +132,6 @@ class AddPatientFragment : BaseFragment() {
             Log.i("Succellfully created ", "${it}")
             toastMessage(it.message.toString())
             if (it != null) {
-                findNavController().popBackStack()
             }
         })
     }
@@ -208,7 +218,7 @@ class AddPatientFragment : BaseFragment() {
                     pickMonth = month + 1
                     pickDay = dayOfMonth
                     val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
-                     binding.editDate.setText(date)
+                    binding.editDate.setText(date)
                 }
             }, year, month, day)
         datePickerDialog.show()

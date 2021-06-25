@@ -5,13 +5,15 @@ data class AddPatientRequest(
 
 	val images: String? = null,
 
-	val phone: String? = null,
+	val phone : String,
 
-	val patientname: String? = null,
+	val patientname : String,
 
-	val doctorid: String? = null,
+	val nextvisitdate: String? = null,
 
-	val nextvisit: String? = null,
+	val nextvisittime:String? = null,
+
+	val email: String,
 
 	val address: String? = null
 

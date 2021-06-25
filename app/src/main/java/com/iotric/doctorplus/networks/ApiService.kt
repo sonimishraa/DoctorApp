@@ -1,9 +1,6 @@
 package com.iotric.doctorplus.networks
 
-import com.iotric.doctorplus.model.request.DoctorLoginRequest
-import com.iotric.doctorplus.model.request.DoctorRegisterRequest
-import com.iotric.doctorplus.model.request.UpdateDoctorRequest
-import com.iotric.doctorplus.model.request.UpdatePatientRequest
+import com.iotric.doctorplus.model.request.*
 import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.All_PATIENT_LIST
@@ -16,6 +13,7 @@ import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_NUMBER
 import com.iotric.doctorplus.utils.Constants.GET_WEEKLY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
+import com.iotric.doctorplus.utils.Constants.REGISTER_PATIENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
 import okhttp3.RequestBody
@@ -51,9 +49,12 @@ interface ApiService {
     /*@POST(ADD_PATIENT)
     fun addPatient(@Body addPatientRequest: AddPatientRequest): Call<AddPatientResponse>*/
 
-    @Multipart
+   /* @Multipart
     @POST(ADD_PATIENT)
-    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientResponse>
+    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientResponse>*/
+
+    @POST(REGISTER_PATIENT)
+    fun addNewPatient(@Body body:RequestBody): Call<AddPatientResponse>
 
     @PUT(UPDATE_PATIENT)
     fun updatePatient(
