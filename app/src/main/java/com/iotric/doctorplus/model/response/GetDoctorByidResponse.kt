@@ -7,33 +7,26 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetDoctorByidResponse(
 
-	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
+	val createdAt: String?,
 
-	@field:SerializedName("role")
-	val role: String? = null,
+	val role: String?,
 
-	@field:SerializedName("phone")
+	val type: String?,
+
 	val phone: String? = null,
 
-	@field:SerializedName("__v")
-	val V: Int? = null,
+	val _V: Int? = null,
 
-	@field:SerializedName("adddress")
 	val adddress: List<String?>? = null,
 
-	@field:SerializedName("_id")
-	val id: String? = null,
+	val _id: String? = null,
 
-	@field:SerializedName("clinichours")
 	val clinichours: List<String?>? = null,
 
-	@field:SerializedName("doctorname")
 	val doctorname: String? = null,
 
-	@field:SerializedName("email")
 	val email: String? = null,
 
-	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null
+
 ):Parcelable

@@ -66,6 +66,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
+        binding.appbar.toolbar.navigationIcon?.setVisible(false,false)
         binding.appbar.toolbarTitle.text = getString(R.string.patient_update_toolbar_title)
     }
 
@@ -95,9 +96,9 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+       /* binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }
+        }*/
         binding.editNextAppointmentTime.setOnClickListener {
             pickAppointmentTime()
         }
@@ -105,10 +106,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
             pickDate()
         }
         binding.btnUpdate.setOnClickListener {
-            if (validateFields()) {
                 updatePatient()
-                findNavController().navigate(R.id.action_patient_list)
-            }
         }
     }
 
@@ -119,7 +117,9 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
                 pname = name, pphone = phone, address = address, nextVisitDate, nextVisitTime
             )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
-        }
+            findNavController().navigate(R.id.action_patient_list)
+        }else
+            Toast.makeText(requireContext(), getString(R.string.mendatory_field_message), Toast.LENGTH_SHORT).show()
     }
 
     private fun validateFields(): Boolean {

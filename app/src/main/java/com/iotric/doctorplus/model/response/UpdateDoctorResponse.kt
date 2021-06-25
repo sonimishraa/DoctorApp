@@ -1,24 +1,24 @@
 package com.iotric.doctorplus.model.response
 
-import com.google.gson.annotations.SerializedName
-
 data class UpdateDoctorResponse(
 
-	@field:SerializedName("updatedoctor")
-	val updatedoctor: Updatedoctor? = null
+	val status: Boolean,
+
+	val message: String,
+
+	val updatedoctor: Updatedoctor?
 )
 
 data class Updatedoctor(
 
-	@field:SerializedName("role")
-	val role: String? = null,
+	val role: String?,
 
-	@field:SerializedName("_id")
-	val id: String? = null,
+	val id: String?,
 
-	@field:SerializedName("doctorname")
-	val doctorname: String? = null,
+	val doctorname: String?,
 
-	@field:SerializedName("email")
-	val email: String? = null
+	val email: String?,
+
+	val type: String?
+
 )

@@ -10,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.EditDoctorProfileFragmentBinding
 import com.iotric.doctorplus.model.request.UpdateDoctorRequest
@@ -23,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class EditDoctorProfileFragment : BaseFragment() {
+class EditDoctorProfileFragment : BottomSheetDialogFragment(){
 
     val viewModel: EditDoctorProfileViewModel by viewModels()
     lateinit var binding: EditDoctorProfileFragmentBinding
@@ -61,6 +63,7 @@ class EditDoctorProfileFragment : BaseFragment() {
     }
 
     private fun initView() {
+        binding.appbar.toolbar.navigationIcon?.setVisible(false,true)
         binding.appbar.toolbarTitle.text = getString(R.string.edit_doctor_profile)
 
     }
@@ -68,12 +71,12 @@ class EditDoctorProfileFragment : BaseFragment() {
     private fun initObserver() {
         viewModel.updateDoctorProfile.observe(requireActivity(), Observer {
             it?.let {
-               toastMessage("${it.updatedoctor}")
+                Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
             }
         })
         viewModel.updateErrorMessage.observe(requireActivity(), Observer {
             it?.let {
-                toastMessage("${it}")
+                Toast.makeText(requireContext(), "${it}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -84,12 +87,14 @@ class EditDoctorProfileFragment : BaseFragment() {
         binding.editName.setText(args.doctorname)
         binding.editEmail.setText(args.email)
         binding.editPhone.setText(args.phone)
+        binding.editAddress.setText(args.adddress?.firstOrNull())
+        binding.editSpecialization.setText(args.type)
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+       /* binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }
+        }*/
         binding.editStartTime.setOnClickListener {
             startTimePicker()
         }
@@ -99,20 +104,22 @@ class EditDoctorProfileFragment : BaseFragment() {
         }
         binding.btnSave.setOnClickListener {
                 EditDoctor()
-                findNavController().popBackStack()
+
         }
     }
 
     private fun EditDoctor() {
         if (validateFields()) {
+            val clinicHr = startTime + " - " + endTime
             val doctor = UpdateDoctorRequest(
                 doctorname = name,
                 phone = phone,
-                type = speciality
-            )
+                type = speciality,
+                clinichours = clinicHr, adddress = address)
             viewModel.getUpdateApi(doctor, requireActivity().application)
+            findNavController().navigate(R.id.action_Drprofile_fragment)
         } else
-            snackBar(getString(R.string.mendatory_field_message), binding.root)
+            Toast.makeText(requireContext(), getString(R.string.mendatory_field_message), Toast.LENGTH_SHORT).show()
     }
 
     private fun validateFields(): Boolean {
@@ -153,7 +160,7 @@ class EditDoctorProfileFragment : BaseFragment() {
             isAllFieldValidate = false
         } else binding.layoutEditSpecialization.setError(null)
 
-        if (endTime.isEmpty()) {
+        /*if (endTime.isEmpty()) {
             binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditEndTime.setError(null)
@@ -162,12 +169,11 @@ class EditDoctorProfileFragment : BaseFragment() {
             binding.layoutEditClinicHr.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditClinicHr.setError(null)
-
-        /* if (address.isEmpty()) {
+*/
+         if (address.isEmpty()) {
              binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
              isAllFieldValidate = false
          } else binding.layoutEditAddress.setError(null)
-*/
         return isAllFieldValidate
     }
 

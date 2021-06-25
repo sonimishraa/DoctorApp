@@ -77,11 +77,13 @@ class ProfileFragment : Fragment() {
         viewModel.getDoctorById.observe(requireActivity(), Observer {
             getDoctorId = it
             getDoctorId.let {
-                if ( it.id == loginDrid) {
+                if ( it._id == loginDrid) {
                     binding.tvName.text = it.doctorname
                     binding.tvType.text = it.role
                     binding.tvEmail.text = it.email
                     binding.tvPhone.text = it.phone
+                    binding.tvAddress.text = it.adddress?.firstOrNull()
+                    binding.tvClinicHr.text = it.clinichours?.firstOrNull()
                 }
             }
         })
