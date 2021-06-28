@@ -1,10 +1,18 @@
 package com.iotric.doctorplus.fragment
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Layout
+import android.text.SpannableString
+import android.text.style.AlignmentSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
@@ -64,13 +72,33 @@ class PatientListFragment : BaseFragment() {
             }
 
             override fun onDeleteClick(result: PatientsItems) {
-                Log.i("PatientListFragment","id: ${result.id}")
-                result.id?.let{
-                    viewModel.getDeleteApiResponse(requireActivity().application, it)
-                }
+                showDeleteDilogue(result)
             }
         })
         binding.recyclerView.adapter = patientListAdapter
     }
 
+    private fun showDeleteDilogue(result:PatientsItems) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogeView = inflater.inflate(R.layout.delete_dialogue, null)
+        builder.setCancelable(false)
+        builder.setView(dialogeView)
+        val alertDialoge = builder.create()
+        alertDialoge.show()
+        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
+        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
+
+        tv_ok.setOnClickListener {
+            Log.i("PatientListFragment","id: ${result.id}")
+            result.id?.let {
+                viewModel.getDeleteApiResponse(requireActivity().application, it)
+                toastMessage("Patient Deleted")
+                alertDialoge.dismiss()
+            }
+        }
+        tv_cancel.setOnClickListener {
+            alertDialoge.dismiss()
+        }
+    }
 }

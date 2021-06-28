@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_primary"
+        android:layout_margin="@dimen/medium_margin"
         android:text="UPDATE"
         android:textColor="@color/white"
         android:textSize="20sp"

@@ -22,7 +22,7 @@ abstract class BaseActivity : AppCompatActivity() {
         alertDialoge.show()
     }
 
-    fun dismissProgressDialog() {
+    fun dismissLoading() {
         alertDialoge.dismiss()
     }
 

@@ -133,6 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/medium_margin"
         android:text="REGISTER DOCTOR"
         android:textSize="20sp"
         android:textStyle="bold" />

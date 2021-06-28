@@ -31,6 +31,17 @@ class LoginActivity : BaseActivity() {
         initObserver()
     }
 
+    private fun initView() {
+        binding.toolbarTitle.text = getString(R.string.login_toolbar_title)
+        binding.btnSignIn.setOnClickListener {
+            loginDoctor()
+        }
+        binding.tvNewRegister.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun initObserver() {
         viewModel.loginData.observe(this, Observer {
             Log.i("authToken ", "${it?.authToken }}")
@@ -56,23 +67,14 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun loginDoctor() {
+        showLoading()
         if (validateFields()) {
             // TODO need to add number and passsword accroding to auth request
                 val loginRequest = DoctorLoginRequest(number, password)
                 viewModel.fetchLoginRequest(loginRequest, application)
+            dismissLoading()
         } else
             snackBar(getString(R.string.mendatory_field_message), binding.root)
-    }
-
-    private fun initView() {
-        binding.toolbarTitle.text = getString(R.string.login_toolbar_title)
-        binding.btnSignIn.setOnClickListener {
-            loginDoctor()
-        }
-        binding.tvNewRegister.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun validateFields(): Boolean {
