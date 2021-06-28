@@ -21,15 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AppointmentFragment : Fragment() {
 
-    var year = 0
-    var month = 0
-    var day = 0
-
-    var pickYear = 0
-    var pickMonth = 0
-    var pickDay = 0
-
-    lateinit var datePickerDialog: DatePickerDialog
     private lateinit var binding: FragmentAppointentBinding
 
     val viewModel: AppointmentFragmentViewModel by viewModels()
@@ -47,7 +38,6 @@ class AppointmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
-       // pickDate()
     }
 
     private fun initView() {
@@ -62,21 +52,4 @@ class AppointmentFragment : Fragment() {
             findNavController().popBackStack()
         }
     }
-
-    private fun pickDate() {
-        UtilClass.getDateCalendarInstance()
-        datePickerDialog =
-            DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                    pickYear = year
-                    pickMonth = month + 1
-                    pickDay = dayOfMonth
-                    val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
-                   // binding.tvAppointmentDate.text = date
-                }
-
-            }, year, month, day)
-        datePickerDialog.show()
-    }
-
 }

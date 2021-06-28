@@ -26,7 +26,7 @@ object UtilClass {
     // get Calendar Instance for Date and and date formate
 
     fun makeDateString(year: Int, month: Int, day: Int): String {
-        val date = "$day-$month-$year"
+        val date = "$day/$month/$year"
         return date
     }
 

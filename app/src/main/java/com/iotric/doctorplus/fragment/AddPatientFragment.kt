@@ -99,6 +99,7 @@ class AddPatientFragment : BaseFragment() {
     }
 
     private fun registerPatient() {
+        showLoading()
         if (validateFields()) {
             val patient: RequestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)

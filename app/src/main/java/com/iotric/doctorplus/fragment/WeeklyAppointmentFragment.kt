@@ -35,10 +35,11 @@ class WeeklyAppointmentFragment : BaseFragment() {
     }
 
     private fun initView() {
+        showLoading()
         adapter = WeeklyAppointmentAdapter()
         binding.recyclerView.adapter = adapter
         viewModel.getAppointmentApi(requireActivity().application)
-
+        dismissLoading()
     }
 
     private fun initObserver() {

@@ -4,12 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ActivityHomeBinding
 import com.iotric.doctorplus.fragment.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.processNextEventInCurrentThread
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity() {

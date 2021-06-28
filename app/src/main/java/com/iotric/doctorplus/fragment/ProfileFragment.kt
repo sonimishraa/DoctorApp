@@ -33,7 +33,7 @@ import java.io.IOException
 const val PICK_IMAGE_REQUEST = 1
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
     lateinit var getDoctorId:GetDoctorByidResponse
     val viewModel: ProfileFragmentViewModel by viewModels()
     private lateinit var binding: ProfileFragmentBinding
@@ -50,20 +50,26 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         initObserver()
     }
 
     private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
         val id = getDoctorId()
         viewModel.getDoctorApi(id, requireActivity().application)
-        binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
+    }
+
+    private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.btnEditProfile.setOnClickListener {
-            val  EditDocResult = getDoctorId
-            val action = ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(
-                    EditDocResult)
+            val EditDocResult = getDoctorId
+            val action =
+                ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(
+                    EditDocResult
+                )
             findNavController().navigate(action)
         }
         binding.ivProfile.setOnClickListener {
@@ -72,6 +78,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initObserver() {
+        showLoading()
         val loginDrid = getDoctorId()
         Log.i("ProfileFragment", "_id:${id}")
         viewModel.getDoctorById.observe(requireActivity(), Observer {
@@ -86,6 +93,7 @@ class ProfileFragment : Fragment() {
                     binding.tvClinicHr.text = it.clinichours?.firstOrNull()
                 }
             }
+            dismissLoading()
         })
     }
 

@@ -37,13 +37,16 @@ class PatientListFragment : BaseFragment() {
     }
 
     private fun initiObserver() {
+        showLoading()
         viewModel.allUserList.observe(requireActivity(), {
             patientListAdapter.submitList(it.patients)
+            dismissLoading()
         })
 
         viewModel.deletePatient.observe(requireActivity(),{
             it.message?.let{
                 snackBar(it, binding.root)
+                dismissLoading()
             }
         })
     }

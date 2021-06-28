@@ -45,15 +45,18 @@ class DailyAppointmentFragment : BaseFragment() {
     }
 
     private fun initObserver() {
+        showLoading()
         viewModel.getDailyAppointment.observe(requireActivity(), Observer {
             Log.i("DailyFragment", "Success Message: ${it.message}")
             it.data?.let {
                 adapter.submitList(it)
             }
+            dismissLoading()
         })
 
         viewModel.getErrorMessage.observe(requireActivity(), Observer {
             snackBar("${it}", binding.root)
         })
+        dismissLoading()
     }
 }
