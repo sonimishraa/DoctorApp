@@ -32,6 +32,7 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" Soni Mishra"
@@ -54,6 +55,7 @@
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_contact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" 7234270424"
@@ -70,10 +72,11 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Age: "
+                android:text="Email: "
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="27"
@@ -94,6 +97,7 @@
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_lastVisit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="30/04/2021"

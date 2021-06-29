@@ -111,14 +111,17 @@ class AddPatientFragment : BaseFragment() {
                 .addFormDataPart("nextvisittime",appointTime)
                 .build()
             viewModel.getApi(patient, requireActivity().application)
+            dismissLoading()
             findNavController().popBackStack()
            /* val multipartParams = MultipartParams.Builder()
             val filePath = File(uri?.path)
             val patient = multipartParams.addFile("images", filePath).add("email ",email).add("patientname ",name).add("phone",phone).add("address",address).add("nextvisitdate", appointDate).add("nextvisittime", appointTime)
             viewModel.getApiResponse(patient, requireActivity().application)*/
 
-        } else
+        } else {
             snackBar(getString(R.string.mendatory_field_message), binding.root)
+            dismissLoading()
+        }
     }
 
     private fun initObserver() {

@@ -95,23 +95,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvType"
+            android:padding="@dimen/small_padding"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/small_padding"
                 android:drawableStart="@drawable/ic_baseline_access_time_24"
                 android:drawablePadding="@dimen/small_padding"
-                android:text="Clinic Hours - "
+                android:text="Clinic Hours:"
                 android:textSize="15sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_clinicHr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/small_padding"
-                android:text=" 10:00 AM to 4:00 PM"
+
+                android:text="10:00 AM to 4:00 PM"
                 android:textSize="15sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

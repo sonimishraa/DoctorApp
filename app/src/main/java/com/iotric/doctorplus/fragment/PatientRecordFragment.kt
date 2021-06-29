@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.iotric.doctorplus.R
@@ -20,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class PatientRecordFragment : BaseFragment() {
 
     val viewModel: PatientRecordViewModel by viewModels()
+    val args: PatientRecordFragmentArgs by navArgs()
     private lateinit var binding:PatientRecordFragmentBinding
 
     override fun onCreateView(
@@ -34,6 +36,7 @@ class PatientRecordFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        setArgs()
     }
 
     private fun initView() {
@@ -45,6 +48,15 @@ class PatientRecordFragment : BaseFragment() {
         val viewPager = binding.viewPager
         viewPager.adapter = pagerAdapter
         binding.tablayout.setupWithViewPager(viewPager)
+    }
+
+    private fun setArgs() {
+        val argsItem = args.result
+        val visitItem = argsItem.visit?.firstOrNull()
+        binding.tvName.text = argsItem.pname
+        binding.tvContact.text = argsItem.pphone
+        binding.tvEmail.text = argsItem.pemail
+        binding.tvLastVisit.text =visitItem?.nextvisitdate + " " + visitItem?.nextvisittime ?: ""
     }
 
 }

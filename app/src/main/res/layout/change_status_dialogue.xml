@@ -14,7 +14,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:text="Do You Want To Delete Patient?"
+        android:text="Do You Want To Change Patient Status?"
         android:textSize="20sp" />
 
     <androidx.appcompat.widget.LinearLayoutCompat

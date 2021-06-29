@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/iv_lab_report"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@id/floating_camera"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_margin="@dimen/medium_margin"
+        android:layout_above="@+id/btn_update_pris"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_camera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/small_margin"
         android:src="@drawable/ic_baseline_photo_camera_24"
         app:layout_constraintBottom_toTopOf="@id/btn_update_pris"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"/>-->
 
     <Button
         android:id="@+id/btn_update_pris"
@@ -29,9 +27,9 @@
         android:background="@color/color_primary"
         android:layout_margin="@dimen/medium_margin"
         android:text="UPDATE"
+        android:layout_alignParentBottom="true"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

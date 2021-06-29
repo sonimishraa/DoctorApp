@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DashboardFragmentBinding
+import com.iotric.doctorplus.model.response.PatientsItems
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,9 +38,11 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
         binding.dashboardFrame.lLayoutAddPatient.setOnClickListener {
             findNavController().navigate(R.id.action_add_patient)
         }
-        binding.dashboardFrame.lLayoutPatientRecord.setOnClickListener {
-            findNavController().navigate(R.id.action_patient_record_Fragment)
-        }
+      /*  binding.dashboardFrame.lLayoutPatientRecord.setOnClickListener {
+            val records = PatientsItems()
+            val action = DashboardFragmentsDirections.actionPatientRecordFragment(records)
+            findNavController().navigate(action)
+        }*/
         binding.dashboardFrame.menubar.setOnClickListener {
             val drawer = binding.drawerLayout
             drawer.open()

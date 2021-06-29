@@ -26,7 +26,7 @@ import com.iotric.doctorplus.viewmodel.PatientUpdateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
+class PatientUpdateFragment : BaseFragment() {
 
     var hr = 0
     var min = 0
@@ -45,7 +45,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     lateinit var datePickerDialog: DatePickerDialog
 
     private lateinit var binding: FragmentPatientUpdateBinding
-    val args: PatientUpdateLDialogFragmentArgs by navArgs()
+    val args: PatientUpdateFragmentArgs by navArgs()
     val viewModel: PatientUpdateViewModel by viewModels()
 
     override fun onCreateView(
@@ -66,7 +66,6 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initView() {
-        binding.appbar.toolbar.navigationIcon?.setVisible(false,false)
         binding.appbar.toolbarTitle.text = getString(R.string.patient_update_toolbar_title)
     }
 
@@ -96,9 +95,9 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun initListener() {
-       /* binding.appbar.toolbar.setNavigationOnClickListener { view ->
+        binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }*/
+        }
         binding.editNextAppointmentTime.setOnClickListener {
             pickAppointmentTime()
         }
@@ -117,7 +116,7 @@ class PatientUpdateLDialogFragment : BottomSheetDialogFragment() {
                 pname = name, pphone = phone, address = address, nextVisitDate, nextVisitTime
             )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
-            findNavController().navigate(R.id.action_patient_list)
+            findNavController().popBackStack()
         }else
             Toast.makeText(requireContext(), getString(R.string.mendatory_field_message), Toast.LENGTH_SHORT).show()
     }

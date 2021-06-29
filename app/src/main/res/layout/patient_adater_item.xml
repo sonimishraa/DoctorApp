@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Soni Mishra"
-                android:padding="@dimen/small_padding"
+                android:padding="4dp"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -32,17 +32,15 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_email_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:text="Email: "
-                    android:padding="4dp"
+                    android:text="Email:"
                     android:textColor="@color/black"
                     android:visibility="visible" />
 
@@ -50,10 +48,9 @@
                     android:id="@+id/tv_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:padding="4dp"
                     android:textColor="@color/black"
+                    android:layout_marginStart="@dimen/small_margin"
                     android:visibility="visible"
                     tools:text="soni@gamil.com" />
 
@@ -62,26 +59,23 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_phone_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:padding="4dp"
-                    android:text="Phone: "
+                    android:text="Phone:"
                     android:textColor="@color/black" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_contact"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:layout_marginStart="@dimen/small_margin"
                     android:textColor="@color/black"
                     tools:text="1234567890" />
 
@@ -90,26 +84,23 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_LastVisit_titel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginEnd="4dp"
                     android:layout_weight="1"
-                    android:padding="4dp"
-                    android:text="Last Visit: "
+                    android:text="Last Visit:"
                     android:textColor="@color/black" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_LastVisitDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:layout_marginStart="@dimen/small_margin"
                     android:textColor="@color/black"
                     tools:text="12/12/2021" />
 
@@ -154,12 +145,12 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/btndelete"
+        android:id="@+id/more_option"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/small_margin"
         android:padding="4dp"
-        android:src="@drawable/ic_baseline_delete_24" />
+        android:src="@drawable/ic_baseline_more_vert_24" />
 </RelativeLayout>

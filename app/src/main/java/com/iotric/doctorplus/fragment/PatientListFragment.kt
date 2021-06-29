@@ -1,19 +1,14 @@
 package com.iotric.doctorplus.fragment
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.text.Layout
-import android.text.SpannableString
-import android.text.style.AlignmentSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
@@ -47,15 +42,26 @@ class PatientListFragment : BaseFragment() {
     private fun initiObserver() {
         showLoading()
         viewModel.allUserList.observe(requireActivity(), {
-            patientListAdapter.submitList(it.patients)
             dismissLoading()
+            patientListAdapter.submitList(it.patients)
+
         })
 
-        viewModel.deletePatient.observe(requireActivity(),{
-            it.message?.let{
+        viewModel.deletePatient.observe(requireActivity(), {
+            dismissLoading()
+            it.message?.let {
                 snackBar(it, binding.root)
-                dismissLoading()
             }
+        })
+        viewModel.patientStatusChange.observe(requireActivity(),  {
+            dismissLoading()
+            it.message?.let {
+                snackBar(it, binding.root)
+            }
+        })
+        viewModel.apiErrorMessage.observe(requireActivity(),  {
+            dismissLoading()
+            snackBar(it, binding.root)
         })
     }
 
@@ -66,10 +72,24 @@ class PatientListFragment : BaseFragment() {
         }
         viewModel.getApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
-            override fun onItemLayoutClick(result: PatientsItems) {
+            override fun onPatientProfileClick(result: PatientsItems) {
+                val action = PatientListFragmentDirections.actionPatientRecordFragment(result)
+                findNavController().navigate(action)
+            }
+
+            override fun onUpdateProfile(result: PatientsItems) {
                 val action = PatientListFragmentDirections.actionUpdatePatientFragment(result)
                 findNavController().navigate(action)
             }
+
+            override fun onChangeStatus(result: PatientsItems) {
+                showChangeStatusDilogue(result)
+            }
+
+            /* override fun onItemLayoutClick(result: PatientsItems) {
+                 val action = PatientListFragmentDirections.actionUpdatePatientFragment(result)
+                 findNavController().navigate(action)
+             }*/
 
             override fun onDeleteClick(result: PatientsItems) {
                 showDeleteDilogue(result)
@@ -78,7 +98,7 @@ class PatientListFragment : BaseFragment() {
         binding.recyclerView.adapter = patientListAdapter
     }
 
-    private fun showDeleteDilogue(result:PatientsItems) {
+    private fun showDeleteDilogue(result: PatientsItems) {
         val builder = AlertDialog.Builder(requireContext())
         val inflater = layoutInflater
         val dialogeView = inflater.inflate(R.layout.delete_dialogue, null)
@@ -90,10 +110,9 @@ class PatientListFragment : BaseFragment() {
         val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
 
         tv_ok.setOnClickListener {
-            Log.i("PatientListFragment","id: ${result.id}")
+            Log.i("PatientListFragment", "id: ${result.id}")
             result.id?.let {
                 viewModel.getDeleteApiResponse(requireActivity().application, it)
-                toastMessage("Patient Deleted")
                 alertDialoge.dismiss()
             }
         }
@@ -101,4 +120,28 @@ class PatientListFragment : BaseFragment() {
             alertDialoge.dismiss()
         }
     }
+
+    private fun showChangeStatusDilogue(result: PatientsItems) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogeView = inflater.inflate(R.layout.change_status_dialogue, null)
+        builder.setCancelable(false)
+        builder.setView(dialogeView)
+        val alertDialoge = builder.create()
+        alertDialoge.show()
+        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
+        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
+
+        tv_ok.setOnClickListener {
+            Log.i("PatientListFragment", "id: ${result.id}")
+            result.id?.let {
+                viewModel.getStatusChangeApi(requireActivity().application, it)
+                alertDialoge.dismiss()
+            }
+        }
+        tv_cancel.setOnClickListener {
+            alertDialoge.dismiss()
+        }
+    }
+
 }

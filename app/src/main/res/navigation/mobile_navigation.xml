@@ -57,6 +57,7 @@
         <action
             android:id="@+id/action_patient_record_Fragment"
             app:destination="@id/patientRecordFragment" />
+
     </fragment>
 
     <fragment
@@ -121,6 +122,11 @@
         <action
             android:id="@+id/action_Update_patient_fragment"
             app:destination="@id/patientUpdateLDialogFragment" />
+
+        <action
+            android:id="@+id/action_patient_record_Fragment"
+            app:destination="@+id/patientRecordFragment"/>
+
     </fragment>
 
     <fragment
@@ -130,7 +136,7 @@
         tools:layout="@layout/add_patient_fragment">
         <action
             android:id="@+id/action_addfragment_to_patient_list"
-            app:destination="@+id/patient_list_fragement"/>
+            app:destination="@+id/patient_list_fragement" />
     </fragment>
     <fragment
         android:id="@+id/baseFragment"
@@ -141,11 +147,17 @@
         android:id="@+id/patientRecordFragment"
         android:name="com.iotric.doctorplus.fragment.PatientRecordFragment"
         android:label="PAST RECORDS"
-        tools:layout="@layout/patient_record_fragment" />
-    <dialog
+        tools:layout="@layout/patient_record_fragment">
+
+        <argument
+            android:name="result"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+
+    </fragment>
+    <fragment
         android:id="@+id/patientUpdateLDialogFragment"
-        android:name="com.iotric.doctorplus.fragment.PatientUpdateLDialogFragment"
-        android:label="PatientUpdateLDialogFragment" >
+        android:name="com.iotric.doctorplus.fragment.PatientUpdateFragment"
+        android:label="PatientUpdateLDialogFragment">
         <action
             android:id="@+id/action_patient_list"
             app:destination="@id/patient_list_fragement" />
@@ -153,16 +165,17 @@
             android:name="result"
             app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
 
-    </dialog>
+    </fragment>
 
     <dialog
         android:id="@+id/editDoctorProfileFragment"
         android:name="com.iotric.doctorplus.fragment.EditDoctorProfileFragment"
         android:label="edit_doctor_profile_fragment"
-        tools:layout="@layout/edit_doctor_profile_fragment" >
+        tools:layout="@layout/edit_doctor_profile_fragment">
 
-        <action android:id="@+id/action_Drprofile_fragment"
-            app:destination="@+id/navigation_profile"/>
+        <action
+            android:id="@+id/action_Drprofile_fragment"
+            app:destination="@+id/navigation_profile" />
 
         <argument
             android:name="EditDocResult"

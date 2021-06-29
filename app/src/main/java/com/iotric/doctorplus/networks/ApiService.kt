@@ -4,6 +4,7 @@ import com.iotric.doctorplus.model.request.*
 import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.All_PATIENT_LIST
+import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
@@ -63,13 +64,16 @@ interface ApiService {
     ): Call<UpdatePatientResponse>
 
     @DELETE(DELETE_PATIENT)
-    fun deletePatient(@Path("id") id: String?): Call<DeletePatientResponse>
+    fun deletePatient(@Path("id") id: String): Call<DeletePatientResponse>
 
     /*@GET(All_PATIENT_LIST)
     fun getAllPatientList(): Call<AllPatientListResponse>*/
 
     @GET(MY_PATIENT_LIST)
     fun getMyPatientList(): Call<MyPAtientListResponse>
+
+    @PUT(CHANGE_PATIENT_STATUS)
+    fun changePatientStatus(@Path("id")id:String):Call<PatientStatusChangeResponse>
 
     // Patient Report Apis
 
