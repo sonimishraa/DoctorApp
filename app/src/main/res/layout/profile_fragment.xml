@@ -110,7 +110,7 @@
                 android:id="@+id/tv_clinicHr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_marginStart="@dimen/small_margin"
                 android:text="10:00 AM to 4:00 PM"
                 android:textSize="15sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>

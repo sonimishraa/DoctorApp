@@ -89,8 +89,8 @@ class ProfileFragment : BaseFragment() {
                     binding.tvType.text = it.role
                     binding.tvEmail.text = it.email
                     binding.tvPhone.text = it.phone
-                    binding.tvAddress.text = it.adddress?.firstOrNull()
-                    binding.tvClinicHr.text = it.clinichours?.firstOrNull()
+                    binding.tvAddress.text = it.adddress?.firstOrNull() ?: "Address"
+                    binding.tvClinicHr.text = it.clinichours?.firstOrNull() ?: "10:00 -16:00"
                 }
             }
             dismissLoading()

@@ -67,12 +67,10 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun loginDoctor() {
-        showLoading()
         if (validateFields()) {
             // TODO need to add number and passsword accroding to auth request
                 val loginRequest = DoctorLoginRequest(number, password)
                 viewModel.fetchLoginRequest(loginRequest, application)
-            dismissLoading()
         } else
             snackBar(getString(R.string.mendatory_field_message), binding.root)
     }

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
@@ -43,8 +42,13 @@ class PatientListFragment : BaseFragment() {
         showLoading()
         viewModel.allUserList.observe(requireActivity(), {
             dismissLoading()
-            patientListAdapter.submitList(it.patients)
-
+            if (it.patients?.size == 0) {
+                binding.layoutNoitem.visibility = View.VISIBLE
+                patientListAdapter.submitList(it.patients)
+            } else {
+                binding.layoutNoitem.visibility = View.GONE
+                patientListAdapter.submitList(it.patients)
+            }
         })
 
         viewModel.deletePatient.observe(requireActivity(), {
@@ -53,13 +57,13 @@ class PatientListFragment : BaseFragment() {
                 snackBar(it, binding.root)
             }
         })
-        viewModel.patientStatusChange.observe(requireActivity(),  {
+        viewModel.patientStatusChange.observe(requireActivity(), {
             dismissLoading()
             it.message?.let {
                 snackBar(it, binding.root)
             }
         })
-        viewModel.apiErrorMessage.observe(requireActivity(),  {
+        viewModel.apiErrorMessage.observe(requireActivity(), {
             dismissLoading()
             snackBar(it, binding.root)
         })
