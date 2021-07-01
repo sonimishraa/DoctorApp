@@ -47,11 +47,17 @@ class DailyAppointmentFragment : BaseFragment() {
     private fun initObserver() {
         showLoading()
         viewModel.getDailyAppointment.observe(requireActivity(), Observer {
-            Log.i("DailyFragment", "Success Message: ${it.message}")
-            it.data?.let {
-                adapter.submitList(it)
-            }
             dismissLoading()
+            Log.i("DailyFragment", "Success Message: ${it.message}")
+            if(it.data?.size == 0){
+                binding.layoutNoitem.visibility = View.VISIBLE
+            }else {
+                dismissLoading()
+                binding.layoutNoitem.visibility =View.GONE
+                it.data?.let {
+                    adapter.submitList(it)
+                }
+            }
         })
 
         viewModel.getErrorMessage.observe(requireActivity(), Observer {

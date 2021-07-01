@@ -43,9 +43,18 @@ class WeeklyAppointmentFragment : BaseFragment() {
     }
 
     private fun initObserver() {
+        showLoading()
         viewModel.getWeeklyAppoint.observe(requireActivity(), Observer {
-            it?.let {
-                adapter.submitList(it.data)
+            dismissLoading()
+            if (it.data?.size == 0){
+                binding.layoutNoitem.visibility =View.VISIBLE
+            }
+            else {
+                dismissLoading()
+                binding.layoutNoitem.visibility = View.GONE
+                it?.let {
+                    adapter.submitList(it.data)
+                }
             }
         })
     }
