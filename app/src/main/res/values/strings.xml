@@ -66,4 +66,5 @@
     <string name="permission_granted_message">Permission Not Granted</string>
     <string name="login_fail_message">Login Failed</string>
     <string name="weekly_appointment_fragment_title">WEEKLY APPOINTMENTS</string>
+    <string name="my_patient_list_toolbar_title">MY PATIENT LIST</string>
 </resources>

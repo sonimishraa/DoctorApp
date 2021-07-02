@@ -70,8 +70,7 @@ object UtilClass {
     // for time get Calendar Instance and Time formate
 
     fun time(hr: Int, min: Int): String {
-        val time1 = "$hr:$min"
-        //+ timeFormate(hr)
+        val time1 = "$hr:$min" + timeFormate(hr)
         return time1
     }
 

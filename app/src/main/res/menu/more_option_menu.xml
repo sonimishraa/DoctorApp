@@ -17,7 +17,7 @@
     <item
         android:id="@+id/Update_Status"
         android:orderInCategory="100"
-        android:title="Change Status"
+        android:title="Close Case"
         app:showAsAction="never" />
 
     <item

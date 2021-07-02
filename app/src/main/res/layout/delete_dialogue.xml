@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cancel"
+            android:textColor="@color/black"
             android:layout_marginStart="@dimen/small_margin"
             android:layout_gravity="start"
-            android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginEnd="@dimen/small_margin"/>
 
@@ -40,6 +40,7 @@
             android:id="@+id/tv_ok"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/color_primaryDark"
             android:text=" Yes"
             android:layout_weight="1"
             android:layout_gravity="end"

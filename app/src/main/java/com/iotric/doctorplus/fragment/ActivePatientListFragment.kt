@@ -17,7 +17,7 @@ import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PatientListFragment : BaseFragment() {
+class ActivePatientListFragment : BaseFragment() {
 
     val viewModel: PatientListViewModel by viewModels()
     lateinit var patientListAdapter: PatinetListAdapter
@@ -35,10 +35,10 @@ class PatientListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initiObserver()
+        initObserver()
     }
 
-    private fun initiObserver() {
+    private fun initObserver() {
         showLoading()
         viewModel.allUserList.observe(requireActivity(), {
             dismissLoading()
@@ -70,19 +70,19 @@ class PatientListFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
+       /* binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }
+        }*/
         viewModel.getApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onPatientProfileClick(result: PatientsItems) {
-                val action = PatientListFragmentDirections.actionPatientRecordFragment(result)
+                val action = MyPatientListFragmentDirections.actionPatientRecordsFragment(result)
                 findNavController().navigate(action)
             }
 
             override fun onUpdateProfile(result: PatientsItems) {
-                val action = PatientListFragmentDirections.actionUpdatePatientFragment(result)
+                val action = MyPatientListFragmentDirections.actionUpdatePatientFragment(result)
                 findNavController().navigate(action)
             }
 

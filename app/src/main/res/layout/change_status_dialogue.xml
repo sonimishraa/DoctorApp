@@ -32,7 +32,7 @@
             android:text="Cancel"
             android:layout_marginStart="@dimen/small_margin"
             android:layout_gravity="start"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:layout_marginEnd="@dimen/small_margin"/>
 
@@ -43,6 +43,7 @@
             android:text=" Yes"
             android:layout_weight="1"
             android:layout_gravity="end"
+            android:textColor="@color/color_primaryDark"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginStart="@dimen/small_margin"/>

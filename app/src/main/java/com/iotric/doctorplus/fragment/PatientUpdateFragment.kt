@@ -14,7 +14,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPatientUpdateBinding
 import com.iotric.doctorplus.model.request.UpdatePatientRequest
@@ -105,7 +104,7 @@ class PatientUpdateFragment : BaseFragment() {
             pickDate()
         }
         binding.btnUpdate.setOnClickListener {
-                updatePatient()
+            updatePatient()
         }
     }
 
@@ -117,8 +116,12 @@ class PatientUpdateFragment : BaseFragment() {
             )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
             findNavController().popBackStack()
-        }else
-            Toast.makeText(requireContext(), getString(R.string.mendatory_field_message), Toast.LENGTH_SHORT).show()
+        } else
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.mendatory_field_message),
+                Toast.LENGTH_SHORT
+            ).show()
     }
 
     private fun validateFields(): Boolean {

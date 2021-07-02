@@ -12,6 +12,7 @@
         android:id="@+id/update_report"
         android:orderInCategory="100"
         android:title="Update Report"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:tooltipText="@string/title"/>
 
 </menu>

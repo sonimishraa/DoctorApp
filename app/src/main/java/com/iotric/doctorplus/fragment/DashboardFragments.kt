@@ -33,7 +33,7 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
 
     private fun initView() {
         binding.dashboardFrame.lLayoutPatient.setOnClickListener {
-            findNavController().navigate(R.id.action_patient_list)
+            findNavController().navigate(R.id.action_myPatientList_fragment)
         }
         binding.dashboardFrame.lLayoutAddPatient.setOnClickListener {
             findNavController().navigate(R.id.action_add_patient)
