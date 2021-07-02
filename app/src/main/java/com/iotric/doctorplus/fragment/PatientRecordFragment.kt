@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.adapter.PatientReportAdapter
 import com.iotric.doctorplus.databinding.PatientRecordFragmentBinding
 import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +18,7 @@ class PatientRecordFragment : BaseFragment() {
 
     val viewModel: PatientRecordViewModel by viewModels()
     val args: PatientRecordFragmentArgs by navArgs()
+    lateinit var patientReportAdapter: PatientReportAdapter
     private lateinit var binding: PatientRecordFragmentBinding
 
     override fun onCreateView(
@@ -32,15 +34,22 @@ class PatientRecordFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         setArgs()
+        initObserver()
     }
-
     private fun initView() {
         binding.toolbarTitle.text = getString(R.string.patient_record)
-        binding.toolbar.setNavigationOnClickListener { view ->
-            findNavController().popBackStack()
+        val id = args.result.id
+        patientReportAdapter = PatientReportAdapter()
+        binding.recyclerView.adapter = patientReportAdapter
+        if(id != null){
+            viewModel.getPatientReportApi(id, requireActivity().application)
         }
-        binding.toolbar.inflateMenu(R.menu.main)
+
+
+
+      /*  binding.toolbar.inflateMenu(R.menu.main)
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.add_new_report -> {
@@ -50,56 +59,15 @@ class PatientRecordFragment : BaseFragment() {
 
                 }
             }
-
-
             true
-        }
-        /*  val pagerAdapter = PatientRecordPagerAdapter(childFragmentManager)
-          val viewPager = binding.viewPager
-          viewPager.adapter = pagerAdapter
-          binding.tablayout.setupWithViewPager(viewPager)*/
+        }*/
     }
-/*
-override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-    inflater.inflate(R.menu.report_option_menu, menu)
 
-}*/
-
-/*  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-      inflater.inflate(R.menu.report_option_menu, menu)
-
-  }
-*/
-/*override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    super.onOptionsItemSelected(item)
-    when (item.itemId) {
-        R.id.add_new_report -> {
-
-        }
-        R.id.update_report -> {
-
+    private fun initListener() {
+        binding.toolbar.setNavigationOnClickListener { view ->
+            findNavController().popBackStack()
         }
     }
-    return true
-}*/
-
-/*  private fun optionMenuOpen() {
-      val popup = PopupMenu(requireContext(), view)
-      popup.menuInflater.inflate(R.menu.report_option_menu, popup.menu)
-      popup.setOnMenuItemClickListener {
-          when (it.itemId) {
-              R.id.add_new_report -> {
-
-              }
-              R.id.update_report -> {
-
-              }
-          }
-          true
-      }
-      popup.show()
-
-  }*/
 
     private fun setArgs() {
         val argsItem = args.result
@@ -109,6 +77,21 @@ override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         binding.tvEmail.text = argsItem.pemail
         binding.tvLastVisit.text = visitItem?.nextvisitdate + " " + visitItem?.nextvisittime ?: ""
     }
+
+    private fun initObserver() {
+        showLoading()
+        viewModel.patientRecord.observe(requireActivity(), {
+            dismissLoading()
+            patientReportAdapter.submitList(it.report)
+
+        })
+        viewModel.getErrorMessage.observe(requireActivity(), {
+            dismissLoading()
+            snackBar("${it}", binding.root)
+        })
+    }
+
+
 
 }
 

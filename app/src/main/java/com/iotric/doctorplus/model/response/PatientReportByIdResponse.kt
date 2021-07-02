@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class PatientReportByIdResponse(
 
 	@field:SerializedName("report")
-	val report: List<ReportItem?>? = null,
+	val report: List<ReportItem>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null

@@ -5,12 +5,14 @@ import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.All_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
+import com.iotric.doctorplus.utils.Constants.CLOSE_CASE_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
 import com.iotric.doctorplus.utils.Constants.GET_DAILY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_ID
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_NUMBER
+import com.iotric.doctorplus.utils.Constants.GET_PATIENT_REPORT_BY_ID
 import com.iotric.doctorplus.utils.Constants.GET_WEEKLY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
@@ -74,6 +76,13 @@ interface ApiService {
 
     @PUT(CHANGE_PATIENT_STATUS)
     fun changePatientStatus(@Path("id")id:String):Call<PatientStatusChangeResponse>
+
+    @GET(CLOSE_CASE_PATIENT_LIST)
+    fun closecasePatient():Call<CloseCasePatientListResponse>
+
+    @GET(GET_PATIENT_REPORT_BY_ID)
+    fun getPatientReport(@Path("id")id:String):Call<PatientReportByIdResponse>
+
 
     // Patient Report Apis
 

@@ -7,21 +7,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.databinding.InactivePatientAdapterItemBinding
+import com.iotric.doctorplus.model.response.Patient
 import com.iotric.doctorplus.model.response.PatientsItems
 import com.iotric.doctorplus.util.DateTimeUtil
 
-class InActivePatientListAdapter(val listener: PatinetListAdapter.ItemClickListener) :
-    ListAdapter<PatientsItems, InActivePatientListAdapter.ItemViewHolder>(
+class InActivePatientListAdapter(val listener: ItemClickListener) :
+    ListAdapter<Patient, InActivePatientListAdapter.ItemViewHolder>(
         object :
-            DiffUtil.ItemCallback<PatientsItems>() {
+            DiffUtil.ItemCallback<Patient>() {
             override fun areContentsTheSame(
-                oldItem: PatientsItems,
-                newItem: PatientsItems
+                oldItem: Patient,
+                newItem: Patient
             ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: PatientsItems, newItem: PatientsItems): Boolean {
+            override fun areItemsTheSame(oldItem: Patient, newItem: Patient): Boolean {
                 return oldItem == newItem
             }
         }) {
@@ -40,13 +41,13 @@ class InActivePatientListAdapter(val listener: PatinetListAdapter.ItemClickListe
         val item = getItem(position)
         val nextAppointment = item.visit?.firstOrNull()
         val date = item.createdAt
-        if (item.iscaseopen == true) {
+        if (item.iscaseopen == false) {
             holder.tv_name.text = item.pname
             holder.tv_contact.text = item.pphone
             holder.email.text = item.pemail
-            holder.tv_nextVisitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
+            /*holder.tv_nextVisitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
             holder.tv_date.text = item.createdAt
-            holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)
+            holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)*/
         }
     }
 
@@ -57,24 +58,23 @@ class InActivePatientListAdapter(val listener: PatinetListAdapter.ItemClickListe
         val tv_date = binding.tvLastVisitDate
         val tv_nextVisitDate = binding.tvVisitDate
         val item_layout = binding.lLayout
-        val moreOption = binding.moreOption
+        val changeStatusToggle = binding.changeStatusToggle
 
-        /* init {
-             item_layout.setOnClickListener {
-                 listener.onItemLayoutClick(getItem(position))
+         init {
+             changeStatusToggle.setOnClickListener {
+                 listener.onChangeStatus(getItem(position))
              }
-             moreOption.setOnClickListener {
+            /* moreOption.setOnClickListener {
                  //listener.onDeleteClick(getItem(position))
-             }
-         }*/
+             }*/
+         }
 
     }
 
     interface ItemClickListener {
-        fun onDeleteClick(result: PatientsItems)
-        fun onPatientProfileClick(result: PatientsItems)
-        fun onUpdateProfile(result: PatientsItems)
-        fun onChangeStatus(result: PatientsItems)
-
+       /* fun onDeleteClick(result: Patient)
+        fun onPatientProfileClick(result: Patient)
+        fun onUpdateProfile(result: Patient)*/
+        fun onChangeStatus(result: Patient)
     }
 }

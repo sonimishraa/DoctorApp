@@ -37,6 +37,9 @@ data class Patient(
 	@field:SerializedName("pname")
 	val pname: String? = null,
 
+	@field:SerializedName("pemail")
+	val pemail: String? = null,
+
 	@field:SerializedName("__v")
 	val V: Int? = null,
 
