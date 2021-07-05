@@ -2,10 +2,10 @@ package com.iotric.doctorplus.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class PatientReportByIdResponse(
+data class PatientReportByPatientIdResponse(
 
 	@field:SerializedName("report")
-	val report: List<ReportItem>? = null,
+	val report: List<ReportItem?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null

@@ -24,6 +24,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.DrProfileFragmentBinding
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
 import com.iotric.doctorplus.model.response.GetDoctorByidResponse
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
@@ -36,13 +37,13 @@ const val PICK_IMAGE_REQUEST = 1
 class ProfileFragment : BaseFragment() {
     lateinit var getDoctorId:GetDoctorByidResponse
     val viewModel: ProfileFragmentViewModel by viewModels()
-    private lateinit var binding: ProfileFragmentBinding
+    private lateinit var binding: DrProfileFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ProfileFragmentBinding.inflate(layoutInflater)
+        binding = DrProfileFragmentBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }
@@ -64,7 +65,7 @@ class ProfileFragment : BaseFragment() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
-        binding.btnEditProfile.setOnClickListener {
+        binding.editProfile.setOnClickListener {
             val EditDocResult = getDoctorId
             val action =
                 ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(
@@ -72,7 +73,7 @@ class ProfileFragment : BaseFragment() {
                 )
             findNavController().navigate(action)
         }
-        binding.ivProfile.setOnClickListener {
+        binding.ivProfilePic.setOnClickListener {
             chooseProfilePic()
         }
     }
@@ -88,7 +89,7 @@ class ProfileFragment : BaseFragment() {
                     binding.tvName.text = it.doctorname
                     binding.tvType.text = it.role
                     binding.tvEmail.text = it.email
-                    binding.tvPhone.text = it.phone
+                    binding.tvContact.text = it.phone
                     binding.tvAddress.text = it.adddress?.firstOrNull() ?: "Address"
                     binding.tvClinicHr.text = it.clinichours?.firstOrNull() ?: "10:00 -16:00"
                 }
@@ -193,7 +194,7 @@ class ProfileFragment : BaseFragment() {
 
             try {
                 val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
-                binding.ivProfile.setImageBitmap(bitmap)
+                binding.ivProfilePic.setImageBitmap(bitmap)
 
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -203,7 +204,7 @@ class ProfileFragment : BaseFragment() {
 
             try {
                 val imageBitmap = data.extras?.get("data") as Bitmap
-                binding.ivProfile.setImageBitmap(imageBitmap)
+                binding.ivProfilePic.setImageBitmap(imageBitmap)
 
             } catch (e: IOException) {
                 e.printStackTrace()

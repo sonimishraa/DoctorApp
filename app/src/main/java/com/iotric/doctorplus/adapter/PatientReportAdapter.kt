@@ -3,23 +3,24 @@ package com.iotric.doctorplus.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.iotric.doctorplus.databinding.PatientReportAdapterItemBinding
-import com.iotric.doctorplus.model.response.ReportItem
+import com.iotric.doctorplus.model.response.LabreportsItem
+import okhttp3.HttpUrl.Companion.toHttpUrl
 
-class PatientReportAdapter : ListAdapter<ReportItem, PatientReportAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<ReportItem>() {
-        override fun areItemsTheSame(oldItem: ReportItem, newItem: ReportItem): Boolean {
+class PatientReportAdapter : ListAdapter<LabreportsItem, PatientReportAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<LabreportsItem>() {
+        override fun areItemsTheSame(oldItem: LabreportsItem, newItem: LabreportsItem): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ReportItem, newItem: ReportItem): Boolean {
+        override fun areContentsTheSame(oldItem: LabreportsItem, newItem: LabreportsItem): Boolean {
             return oldItem == newItem
         }
-
     }
 ) {
     lateinit var binding: PatientReportAdapterItemBinding
@@ -32,10 +33,11 @@ class PatientReportAdapter : ListAdapter<ReportItem, PatientReportAdapter.ItemVi
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        val report = item.labreports?.firstOrNull()
-        Glide.with(binding.root).load(report?.images).into(holder.imageView);
+        val image = item.images?.firstOrNull()?.toString()
+        Glide.with(this.binding.root).load(image).into(holder.imageView)
     }
+
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-       val imageView = binding.ivReport
+        val imageView = binding.ivReport
     }
 }

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/app_bar_main" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/edit_profile"
+        android:layout_below="@id/appbar">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:orientation="vertical">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivProfilePic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/appbar"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/small_margin"
+                android:src="@drawable/dr_image" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivProfilePic"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="Soni Mishra"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginEnd="@dimen/medium_margin"
+                android:background="@color/color_primaryDark" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/medium_padding">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_baseline_location_on_24"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:ellipsize="marquee"
+                    android:gravity="start"
+                    android:singleLine="true"
+                    android:text="Address"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_primaryDark" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:padding="@dimen/medium_padding">
+
+                <!--<androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Contact Number :"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"/>
+    -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    tools:text="soni@gmail.com" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_primaryDark" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:padding="@dimen/medium_padding">
+
+                <!--  <androidx.appcompat.widget.AppCompatTextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="Email :"
+                      android:gravity="start"
+                      android:textColor="@color/black"
+                      android:textSize="15sp" />
+    -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_baseline_call_24"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    tools:text="1234567890" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_primaryDark" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:padding="@dimen/medium_padding">
+
+                <!-- <androidx.appcompat.widget.AppCompatTextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="Age :"
+                     android:gravity="start"
+                     android:textColor="@color/black"
+                     android:textSize="15sp" />-->
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_baseline_medical_services_24"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:gravity="start"
+                    android:text="Doctor"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_primaryDark" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:padding="@dimen/medium_padding">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_baseline_access_time_24"
+                    android:drawablePadding="@dimen/medium_padding"
+                    android:gravity="start"
+                    android:text="Clinic Hr :"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_clinicHr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="10:00AM - 2:00PM"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_primaryDark" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="@color/color_primaryDark"
+        android:padding="@dimen/small_padding"
+        android:text="UPDATE PROFILE"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

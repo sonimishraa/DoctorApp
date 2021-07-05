@@ -8,13 +8,13 @@ import androidx.fragment.app.viewModels
 import com.iotric.doctorplus.adapter.InActivePatientListAdapter
 import com.iotric.doctorplus.databinding.ClosePatientListBinding
 import com.iotric.doctorplus.model.response.Patient
-import com.iotric.doctorplus.viewmodel.InActivePatientViewModel
+import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
 class CloseCasePatientList : BaseFragment() {
-    val viewModel: InActivePatientViewModel by viewModels()
+    val viewModel: PatientListViewModel by viewModels()
     lateinit var closePatientListAdapter: InActivePatientListAdapter
 
     // val args: CloseCasePatientListArgs by navArgs()
@@ -37,14 +37,15 @@ class CloseCasePatientList : BaseFragment() {
 
     private fun initView() {
         viewModel.getClosePatientApi(requireActivity().application)
-        closePatientListAdapter = InActivePatientListAdapter(object : InActivePatientListAdapter.ItemClickListener {
-            override fun onChangeStatus(result: Patient) {
-                val id = result.id
-                if (id != null) {
-                    viewModel.getStatusChangeApi(requireActivity().application, id)
+        closePatientListAdapter =
+            InActivePatientListAdapter(object : InActivePatientListAdapter.ItemClickListener {
+                override fun onChangeStatus(result: Patient) {
+                    val id = result.id
+                    if (id != null) {
+                        viewModel.closeStatusApi(requireActivity().application, id)
+                    }
                 }
-            }
-        })
+            })
         binding.recyclerView.adapter = closePatientListAdapter
     }
 
@@ -62,7 +63,7 @@ class CloseCasePatientList : BaseFragment() {
             dismissLoading()
             snackBar("${it.message}", binding.root)
         })
-        viewModel.getErrorMessage.observe(requireActivity(), {
+        viewModel.apiErrorMessage.observe(requireActivity(), {
             dismissLoading()
             snackBar("${it}", binding.root)
         })

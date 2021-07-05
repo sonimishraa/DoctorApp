@@ -6,10 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.iotric.doctorplus.model.response.DeletePatientResponse
-import com.iotric.doctorplus.model.response.ErrorResponse
-import com.iotric.doctorplus.model.response.MyPAtientListResponse
-import com.iotric.doctorplus.model.response.PatientStatusChangeResponse
+import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -24,8 +21,10 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
     val apiErrorMessage = MutableLiveData<String>()
     val deletePatient = MutableLiveData<DeletePatientResponse>()
     val patientStatusChange = MutableLiveData<PatientStatusChangeResponse>()
+    val closePatientList = MutableLiveData<CloseCasePatientListResponse>()
+    val changeStatus = MutableLiveData<PatientStatusChangeResponse>()
 
-    fun getApiResponse(application: Application) {
+    fun getActivePatientApiResponse(application: Application) {
         ServiceBuilder.getRetrofit(application).getMyPatientList().enqueue(object :
             Callback<MyPAtientListResponse> {
             override fun onResponse(
@@ -66,7 +65,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let {
                         deletePatient.postValue(it)
-                        getApiResponse(application)
+                        getActivePatientApiResponse(application)
                     }
                 } else {
                     val errorMessage = response.errorBody()?.string()
@@ -88,35 +87,95 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
         })
     }
 
-    fun getStatusChangeApi(application: Application, id: String){
-        ServiceBuilder.getRetrofit(application).changePatientStatus(id).enqueue(object : Callback<PatientStatusChangeResponse> {
-            override fun onResponse(
-                call: Call<PatientStatusChangeResponse>,
-                response: Response<PatientStatusChangeResponse>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let {
-                        patientStatusChange.postValue(it)
-                        getApiResponse(application)
+    fun getStatusChangeApi(application: Application, id: String) {
+        ServiceBuilder.getRetrofit(application).changePatientStatus(id)
+            .enqueue(object : Callback<PatientStatusChangeResponse> {
+                override fun onResponse(
+                    call: Call<PatientStatusChangeResponse>,
+                    response: Response<PatientStatusChangeResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            patientStatusChange.postValue(it)
+                            getActivePatientApiResponse(application)
+                        }
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Log.i("Error", "$errorMessage")
+                        val errorResponse =
+                            Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                        apiErrorMessage.postValue(errorResponse?.error?.message ?: "")
                     }
                 }
-                else {
-                    val errorMessage = response.errorBody()?.string()
-                    Log.i("Error", "$errorMessage")
-                    val errorResponse =
-                        Gson().fromJson(errorMessage, ErrorResponse::class.java)
-                    apiErrorMessage.postValue(errorResponse?.error?.message ?: "")
+
+                override fun onFailure(call: Call<PatientStatusChangeResponse>, t: Throwable) {
+                    Toast.makeText(
+                        application.applicationContext,
+                        "${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            }
 
-            override fun onFailure(call: Call<PatientStatusChangeResponse>, t: Throwable) {
-                Toast.makeText(
-                    application.applicationContext,
-                    "${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+            })
+    }
 
-        })
+    fun getClosePatientApi(application: Application) {
+        ServiceBuilder.getRetrofit(application).closecasePatient()
+            .enqueue(object : Callback<CloseCasePatientListResponse> {
+                override fun onResponse(
+                    call: Call<CloseCasePatientListResponse>,
+                    response: Response<CloseCasePatientListResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            closePatientList.postValue(it)
+                        }
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        val errorResponse = Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                        apiErrorMessage.postValue(errorResponse?.error?.message ?: "")
+                    }
+                }
+
+                override fun onFailure(call: Call<CloseCasePatientListResponse>, t: Throwable) {
+                    Toast.makeText(
+                        application.applicationContext,
+                        "${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+    }
+
+    fun closeStatusApi(application: Application, id: String) {
+        ServiceBuilder.getRetrofit(application).changePatientStatus(id)
+            .enqueue(object : Callback<PatientStatusChangeResponse> {
+                override fun onResponse(
+                    call: Call<PatientStatusChangeResponse>,
+                    response: Response<PatientStatusChangeResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            changeStatus.postValue(it)
+                            getClosePatientApi(application)
+                        }
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Log.i("Error", "$errorMessage")
+                        val errorResponse =
+                            Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                        apiErrorMessage.postValue(errorResponse?.error?.message ?: "")
+                    }
+                }
+
+                override fun onFailure(call: Call<PatientStatusChangeResponse>, t: Throwable) {
+                    Toast.makeText(
+                        application.applicationContext,
+                        "${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
     }
 }

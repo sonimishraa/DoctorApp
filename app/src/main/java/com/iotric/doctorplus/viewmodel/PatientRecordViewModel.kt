@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.iotric.doctorplus.model.response.ErrorResponse
-import com.iotric.doctorplus.model.response.PatientReportByIdResponse
+import com.iotric.doctorplus.model.response.PatientReportByPatientIdResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -18,39 +18,40 @@ import javax.inject.Inject
 @HiltViewModel
 class PatientRecordViewModel @Inject constructor() : ViewModel() {
 
-    val patientRecord = MutableLiveData<PatientReportByIdResponse>()
+    val patientRecord = MutableLiveData<PatientReportByPatientIdResponse>()
     val getErrorMessage = MutableLiveData<String>()
 
-    fun getPatientReportApi(id: String, application: Application){
-        ServiceBuilder.getRetrofit(application).getPatientReport(id).enqueue(object : Callback<PatientReportByIdResponse> {
-            override fun onResponse(
-                call: Call<PatientReportByIdResponse>,
-                response: Response<PatientReportByIdResponse>
-            ) {
-                if(response.isSuccessful){
-                    response.body()?.let {
-                        patientRecord.postValue(it)
+    fun getPatientReportApi(id: String, application: Application) {
+        ServiceBuilder.getRetrofit(application).getPatientReport(id)
+            .enqueue(object : Callback<PatientReportByPatientIdResponse> {
+                override fun onResponse(
+                    call: Call<PatientReportByPatientIdResponse>,
+                    response: Response<PatientReportByPatientIdResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            patientRecord.postValue(it)
+                        }
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Log.i("Error", "$errorMessage")
+                        val errorResponse =
+                            Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                        getErrorMessage.postValue(errorResponse?.error?.message ?: "")
                     }
-                } else {
-                    val errorMessage = response.errorBody()?.string()
-                    Log.i("Error", "$errorMessage")
-                    val errorResponse =
-                        Gson().fromJson(errorMessage, ErrorResponse::class.java)
-                    getErrorMessage.postValue(errorResponse?.error?.message ?: "")
+
                 }
 
-            }
-
-            override fun onFailure(call: Call<PatientReportByIdResponse>, t: Throwable) {
-                Toast.makeText(
-                    application.applicationContext,
-                    "${t.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+                override fun onFailure(call: Call<PatientReportByPatientIdResponse>, t: Throwable) {
+                    Toast.makeText(
+                        application.applicationContext,
+                        "${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
 
-        })
+            })
     }
 
 }

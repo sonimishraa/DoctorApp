@@ -74,7 +74,7 @@ class ActivePatientListFragment : BaseFragment() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }*/
-        viewModel.getApiResponse(requireActivity().application)
+        viewModel.getActivePatientApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onPatientProfileClick(result: PatientsItems) {
                 val action = MyPatientListFragmentDirections.actionPatientRecordsFragment(result)
