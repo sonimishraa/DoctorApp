@@ -9,6 +9,7 @@ object Constants {
     const val REGISTER_DOCTOR = "doctor/registerdoctor"
     const val UPDATE_PATIENT = "patient/{id}"
     const val ADD_PATIENT = "patient/addpatient"
+    const val ADD_PATIENT_REPORT = "report"
     const val CHANGE_PATIENT_STATUS = "patient/changestatus/{id}"
     const val CLOSE_CASE_PATIENT_LIST = "patient/myclosecase"
     const val REGISTER_PATIENT = "patient/addpatient"

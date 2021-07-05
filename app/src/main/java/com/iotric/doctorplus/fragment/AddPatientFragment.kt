@@ -25,6 +25,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
+import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.util.UtilClass.day
 import com.iotric.doctorplus.util.UtilClass.month

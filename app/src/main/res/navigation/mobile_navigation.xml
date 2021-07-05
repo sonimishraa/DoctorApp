@@ -182,6 +182,9 @@
         <argument
             android:name="result"
             app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_uploadPatientReportFragment"
+            app:destination="@id/uploadPatientReportFragment" />
 
     </fragment>
     <fragment
@@ -211,5 +214,13 @@
             android:name="EditDocResult"
             app:argType="com.iotric.doctorplus.model.response.GetDoctorByidResponse" />
     </dialog>
+    <fragment
+        android:id="@+id/uploadPatientReportFragment"
+        android:name="com.iotric.doctorplus.fragment.UploadPatientReportFragment"
+        android:label="UploadPatientReportFragment" >
+        <argument
+            android:name="patientId"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+    </fragment>
 
 </navigation>

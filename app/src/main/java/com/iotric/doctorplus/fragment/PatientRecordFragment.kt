@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatientReportAdapter
-import com.iotric.doctorplus.databinding.PatientRecordFragmentBinding
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
 import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,34 +38,39 @@ class PatientRecordFragment : BaseFragment() {
         setArgs()
         initObserver()
     }
+
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_record)
         val id = args.result.id
         patientReportAdapter = PatientReportAdapter()
         //binding.recyclerView.adapter = patientReportAdapter
-        if(id != null){
+        if (id != null) {
             viewModel.getPatientReportApi(id, requireActivity().application)
         }
 
 
+        /*  binding.toolbar.inflateMenu(R.menu.main)
+          binding.toolbar.setOnMenuItemClickListener {
+              when (it.itemId) {
+                  R.id.add_new_report -> {
 
-      /*  binding.toolbar.inflateMenu(R.menu.main)
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.add_new_report -> {
+                  }
+                  R.id.update_report -> {
 
-                }
-                R.id.update_report -> {
-
-                }
-            }
-            true
-        }*/
+                  }
+              }
+              true
+          }*/
     }
 
     private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
+        }
+        binding.tvAddReport.setOnClickListener {
+            val patientId = args.result
+            val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToUploadPatientReportFragment(patientId)
+            findNavController().navigate(action)
         }
     }
 
@@ -76,7 +80,7 @@ class PatientRecordFragment : BaseFragment() {
         binding.tvName.text = argsItem.pname
         binding.tvContact.text = argsItem.pphone
         binding.tvEmail.text = argsItem.pemail
-       // binding.tvLastVisit.text = visitItem?.nextvisitdate + " " + visitItem?.nextvisittime ?: ""
+        // binding.tvLastVisit.text = visitItem?.nextvisitdate + " " + visitItem?.nextvisittime ?: ""
     }
 
     private fun initObserver() {
@@ -92,7 +96,6 @@ class PatientRecordFragment : BaseFragment() {
             snackBar("${it}", binding.root)
         })
     }
-
 
 
 }

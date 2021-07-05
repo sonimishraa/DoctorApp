@@ -43,7 +43,7 @@ data class PatientsItems(
 	val iscaseopen: Boolean? = null,
 
 	@field:SerializedName("_id")
-	val id: String? = null,
+	val id: String,
 
 	@field:SerializedName("visit")
 	val visit: List<VisitsItem?>? = null,

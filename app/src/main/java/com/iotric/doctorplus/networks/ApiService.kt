@@ -3,6 +3,7 @@ package com.iotric.doctorplus.networks
 import com.iotric.doctorplus.model.request.*
 import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
+import com.iotric.doctorplus.utils.Constants.ADD_PATIENT_REPORT
 import com.iotric.doctorplus.utils.Constants.All_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
 import com.iotric.doctorplus.utils.Constants.CLOSE_CASE_PATIENT_LIST
@@ -52,9 +53,7 @@ interface ApiService {
     /*@POST(ADD_PATIENT)
     fun addPatient(@Body addPatientRequest: AddPatientRequest): Call<AddPatientResponse>*/
 
-   /* @Multipart
-    @POST(ADD_PATIENT)
-    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientResponse>*/
+
 
     @POST(REGISTER_PATIENT)
     fun addNewPatient(@Body body:RequestBody): Call<AddPatientResponse>
@@ -85,6 +84,10 @@ interface ApiService {
 
 
     // Patient Report Apis
+
+    @Multipart
+    @POST(ADD_PATIENT_REPORT)
+    fun addPatientReport(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>
 
     @DELETE(DELETE_REPORT)
     fun deletReport()
