@@ -185,6 +185,9 @@
         <action
             android:id="@+id/action_patientRecordFragment_to_uploadPatientReportFragment"
             app:destination="@id/uploadPatientReportFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_viewPatientReportFragment"
+            app:destination="@id/viewPatientReportFragment" />
 
     </fragment>
     <fragment
@@ -221,6 +224,16 @@
         <argument
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPatientReportFragment"
+        android:name="com.iotric.doctorplus.fragment.ViewPatientReportFragment"
+        android:label="view_patient_report_fragment"
+        tools:layout="@layout/view_patient_report_fragment" >
+
+        <argument
+            android:name="labReport"
+            app:argType="com.iotric.doctorplus.model.response.LabreportsItem" />
     </fragment>
 
 </navigation>

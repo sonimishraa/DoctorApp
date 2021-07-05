@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatientReportAdapter
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
+import com.iotric.doctorplus.model.response.ReportItem
 import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,11 +43,8 @@ class PatientRecordFragment : BaseFragment() {
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_record)
         val id = args.result.id
-        patientReportAdapter = PatientReportAdapter()
+        //patientReportAdapter = PatientReportAdapter()
         //binding.recyclerView.adapter = patientReportAdapter
-        if (id != null) {
-            viewModel.getPatientReportApi(id, requireActivity().application)
-        }
 
 
         /*  binding.toolbar.inflateMenu(R.menu.main)
@@ -69,8 +67,15 @@ class PatientRecordFragment : BaseFragment() {
         }
         binding.tvAddReport.setOnClickListener {
             val patientId = args.result
-            val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToUploadPatientReportFragment(patientId)
+            val action =
+                PatientRecordFragmentDirections.actionPatientRecordFragmentToUploadPatientReportFragment(
+                    patientId
+                )
             findNavController().navigate(action)
+        }
+        binding.tvViewReport.setOnClickListener {
+            val patienId = args.result.id
+            viewModel.getPatientReportApi(patienId, requireActivity().application)
         }
     }
 
@@ -84,11 +89,11 @@ class PatientRecordFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        showLoading()
         viewModel.patientRecord.observe(requireActivity(), {
-            dismissLoading()
-            it.report?.forEach {
-                //patientReportAdapter.submitList(it?.labreports)
+            it.report?.firstOrNull()?.labreports?.firstOrNull()?.let {
+                val labReport = it
+                val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(labReport)
+                findNavController().navigate(action)
             }
         })
         viewModel.getErrorMessage.observe(requireActivity(), {
