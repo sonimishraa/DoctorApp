@@ -41,9 +41,8 @@ class SignUpActivity : BaseActivity() {
         })
 
         viewModel.addDoctorLiveData.observe(this, {
-            Log.i("Succellfully created ", "${it}")
-            toastMessage(getString(R.string.registered_profile_message))
             if (it != null) {
+                toastMessage("${it.message}")
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }

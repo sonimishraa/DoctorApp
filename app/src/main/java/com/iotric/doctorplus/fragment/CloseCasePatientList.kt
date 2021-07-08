@@ -50,21 +50,23 @@ class CloseCasePatientList : BaseFragment() {
     }
 
     private fun initObserver() {
-        showLoading()
         viewModel.closePatientList.observe(requireActivity(), {
-            dismissLoading()
-            val list = ArrayList<Patient>()
-            it.patient?.let {
-                list.add(it)
+            if (it.patient != null) {
+                binding.layoutNoitem.visibility = View.GONE
+                val list = ArrayList<Patient>()
+                it.patient.let {
+                    list.add(it)
+                    closePatientListAdapter.submitList(list)
+                }
+
+            } else {
+                binding.layoutNoitem.visibility = View.VISIBLE
             }
-            closePatientListAdapter.submitList(list)
         })
         viewModel.changeStatus.observe(requireActivity(), {
-            dismissLoading()
             snackBar("${it.message}", binding.root)
         })
         viewModel.apiErrorMessage.observe(requireActivity(), {
-            dismissLoading()
             snackBar("${it}", binding.root)
         })
     }

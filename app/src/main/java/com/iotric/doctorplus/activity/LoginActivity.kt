@@ -6,10 +6,13 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.LoginActivityBinding
 import com.iotric.doctorplus.fragment.BaseActivity
+import com.iotric.doctorplus.fragment.DashboardFragments
 import com.iotric.doctorplus.model.request.DoctorLoginRequest
 import com.iotric.doctorplus.viewmodel.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,16 +47,22 @@ class LoginActivity : BaseActivity() {
 
     private fun initObserver() {
         viewModel.loginData.observe(this, Observer {
-            Log.i("authToken ", "${it?.authToken }}")
-            Log.i("id ", "${it?.id }}")
+            Log.i("authToken ", "${it?.authToken}}")
+            Log.i("id ", "${it?.id}}")
             if (it != null) {
                 // Save data into sharedPref
-                val sharedPreferences = getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+                val sharedPreferences = getSharedPreferences(
+                    getString(R.string.share_pref),
+                    Context.MODE_PRIVATE
+                )
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString("authToken", it.authToken)
-                editor.putString("DoctorID",it.id)
+                editor.putString("DoctorID", it.id)
                 editor.apply()
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, DrDashboardActivity::class.java))
+               /* val newFragment: Fragment = DashboardFragments()
+                val ft = fragmentManager.beginTransaction()
+                ft.add(R.id.nav_view, newFragment).commit()*/
                 finish()
             } else {
                 snackBar(getString(R.string.login_fail_message), binding.root)
@@ -61,7 +70,7 @@ class LoginActivity : BaseActivity() {
         })
         viewModel.loginError.observe(this, Observer {
             it?.let {
-                snackBar("${it}",binding.root)
+                snackBar("${it}", binding.root)
             }
         })
     }

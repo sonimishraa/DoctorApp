@@ -20,6 +20,7 @@ import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.REGISTER_PATIENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +41,7 @@ interface ApiService {
 
 
     @POST(REGISTER_DOCTOR)
-    fun registerDoctor(@Body doctorrequest: DoctorRegisterRequest): Call<DoctorSignUpResponse>
+    fun registerDoctor(@Body doctorrequest: DoctorRegisterRequest): Call<DrSignUpResponse>
 
     @PUT(UPDATE_DOCTOR_PROFILE)
     fun updateDoctor(
@@ -55,8 +56,8 @@ interface ApiService {
 
 
 
-    @POST(REGISTER_PATIENT)
-    fun addNewPatient(@Body body:RequestBody): Call<AddPatientResponse>
+  /*  @POST(REGISTER_PATIENT)
+    fun addNewPatient(@Body body:RequestBody): Call<AddPatientResponse>*/
 
     @PUT(UPDATE_PATIENT)
     fun updatePatient(
@@ -71,7 +72,7 @@ interface ApiService {
     fun getAllPatientList(): Call<AllPatientListResponse>*/
 
     @GET(MY_PATIENT_LIST)
-    fun getMyPatientList(): Call<MyPAtientListResponse>
+    fun getMyPatientList(): Call<MyPatientListResponse>
 
     @PUT(CHANGE_PATIENT_STATUS)
     fun changePatientStatus(@Path("id")id:String):Call<PatientStatusChangeResponse>
@@ -87,7 +88,11 @@ interface ApiService {
 
     @Multipart
     @POST(ADD_PATIENT_REPORT)
-    fun addPatientReport(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>
+    fun addPatientReport(@Part images: MultipartBody.Part, @Part ("patientid") patientId: RequestBody): Call<AddPatientReportResponse>
+
+    /*@Multipart
+    @POST(ADD_PATIENT_REPORT)
+    fun addPatientReport(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>*/
 
     @DELETE(DELETE_REPORT)
     fun deletReport()

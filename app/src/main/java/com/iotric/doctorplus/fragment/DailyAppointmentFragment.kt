@@ -61,8 +61,9 @@ class DailyAppointmentFragment : BaseFragment() {
         })
 
         viewModel.getErrorMessage.observe(requireActivity(), Observer {
+            dismissLoading()
             snackBar("${it}", binding.root)
         })
-        dismissLoading()
+
     }
 }

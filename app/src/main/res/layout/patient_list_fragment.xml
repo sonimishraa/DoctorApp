@@ -35,16 +35,13 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/medium_margin"
-        android:layout_marginEnd="@dimen/medium_margin"
-        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_margin="@dimen/medium_margin"
         android:orientation="vertical">
 
         <SearchView
             android:id="@+id/searchDoctor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
             android:background="@drawable/outline_background"
             android:iconifiedByDefault="false"
             android:queryHint="Search by Name/Phone"

@@ -25,7 +25,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
-import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.util.UtilClass.day
 import com.iotric.doctorplus.util.UtilClass.month
@@ -54,8 +53,8 @@ class AddPatientFragment : BaseFragment() {
     lateinit var email: String
     lateinit var phone: String
     lateinit var address: String
-    lateinit var appointDate: String
-    lateinit var appointTime: String
+    lateinit var age: String
+    lateinit var gender: String
     lateinit var uri: Uri
 
     lateinit var timePickerDialog:TimePickerDialog
@@ -88,11 +87,14 @@ class AddPatientFragment : BaseFragment() {
        /* binding.editUploadPris.setOnClickListener {
             pickImage()
         }*/
-        binding.editDate.setOnClickListener {
+       /* binding.editDate.setOnClickListener {
             pickDate()
         }
         binding.editTime.setOnClickListener {
             timePick()
+        }*/
+        binding.btnCancle.setOnClickListener {
+            findNavController().popBackStack()
         }
         binding.btnAdd.setOnClickListener {
             registerPatient()
@@ -100,25 +102,18 @@ class AddPatientFragment : BaseFragment() {
     }
 
     private fun registerPatient() {
-        showLoading()
         if (validateFields()) {
-            val patient: RequestBody = MultipartBody.Builder()
+            val requestBody: RequestBody = MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("patientname", name)
-                .addFormDataPart("phone", phone)
-                .addFormDataPart("email", email)
+                .addFormDataPart("patientname  ", name)
+                .addFormDataPart("phone ", phone)
+                .addFormDataPart("email ", email)
                 .addFormDataPart("address",address)
-                .addFormDataPart("nextvisitdate",appointDate)
-                .addFormDataPart("nextvisittime",appointTime)
+                .addFormDataPart("age  ",age)
+                .addFormDataPart("gender  ",gender)
                 .build()
-            viewModel.getApi(patient, requireActivity().application)
-            dismissLoading()
+            //viewModel.getApi(requestBody, requireActivity().application)
             findNavController().popBackStack()
-           /* val multipartParams = MultipartParams.Builder()
-            val filePath = File(uri?.path)
-            val patient = multipartParams.addFile("images", filePath).add("email ",email).add("patientname ",name).add("phone",phone).add("address",address).add("nextvisitdate", appointDate).add("nextvisittime", appointTime)
-            viewModel.getApiResponse(patient, requireActivity().application)*/
-
         } else {
             snackBar(getString(R.string.mendatory_field_message), binding.root)
             dismissLoading()
@@ -147,9 +142,9 @@ class AddPatientFragment : BaseFragment() {
         name = binding.editName.text.toString().trim()
         email = binding.editEmail.text.toString().trim()
         phone = binding.editPhone.text.toString().trim()
-        appointDate = binding.editDate.text.toString().trim()
+        age = binding.editAge.text.toString().trim()
         address = binding.editAddress.text.toString().trim()
-        appointTime = binding.editTime.text.toString().trim()
+        gender = binding.editGender.text.toString().trim()
 
        /* if (image.isEmpty()) {
             binding.layoutEditUploadPris.setError(getString(R.string.empty_field_message))
@@ -157,16 +152,16 @@ class AddPatientFragment : BaseFragment() {
         } else
             binding.layoutEditUploadPris.setError(null)
 */
-        if (appointDate.isEmpty()) {
-            binding.layoutEditDate.setError(getString(R.string.empty_field_message))
+        if (age.isEmpty()) {
+            binding.layoutEditAge.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else {
-            binding.layoutEditDate.setError(null)
+            binding.layoutEditAge.setError(null)
         }
-        if (appointTime.isEmpty()) {
-            binding.layoutEditTime.setError(getString(R.string.empty_field_message))
+        if (gender.isEmpty()) {
+            binding.layoutEditGender.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditTime.setError(null)
+        } else binding.layoutEditGender.setError(null)
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -208,7 +203,7 @@ class AddPatientFragment : BaseFragment() {
                     min = minute
                     Log.i("start time", "$hourOfDay: $minute")
                     val time = UtilClass.time(hr, min)
-                    binding.editTime.setText(time)
+                    //binding.editTime.setText(time)
                 }
             }, hr, min, false)
         timePickerDialog.show()
@@ -223,7 +218,7 @@ class AddPatientFragment : BaseFragment() {
                     pickMonth = month + 1
                     pickDay = dayOfMonth
                     val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
-                    binding.editDate.setText(date)
+                   // binding.editDate.setText(date)
                 }
             }, year, month, day)
         datePickerDialog.show()

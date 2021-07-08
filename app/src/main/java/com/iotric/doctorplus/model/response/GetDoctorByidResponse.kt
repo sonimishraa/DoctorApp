@@ -7,6 +7,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GetDoctorByidResponse(
 
+	val profilepic:String,
+
 	val createdAt: String?,
 
 	val role: String?,
@@ -21,7 +23,9 @@ data class GetDoctorByidResponse(
 
 	val _id: String? = null,
 
-	val clinichours: List<String?>? = null,
+	val clinicstarttime:String,
+
+	val clinicendtime: String,
 
 	val doctorname: String? = null,
 

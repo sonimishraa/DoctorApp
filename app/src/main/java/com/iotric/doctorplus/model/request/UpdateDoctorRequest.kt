@@ -9,7 +9,9 @@ data class UpdateDoctorRequest(
 
 	val adddress: String?,
 
-	val clinichours: String?,
+	val clinicstarttime:String,
+
+	val clinicendtime: String,
 
 	val doctorname: String?,
 

@@ -19,10 +19,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DrProfileFragmentBinding
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
@@ -86,12 +88,14 @@ class ProfileFragment : BaseFragment() {
             getDoctorId = it
             getDoctorId.let {
                 if ( it._id == loginDrid) {
+                    Glide.with(requireContext()).load(it.profilepic).into(binding.ivProfilePic)
                     binding.tvName.text = it.doctorname
-                    binding.tvType.text = it.role
+                    binding.tvType.text = it.type
                     binding.tvEmail.text = it.email
                     binding.tvContact.text = it.phone
                     binding.tvAddress.text = it.adddress?.firstOrNull() ?: "Address"
-                    binding.tvClinicHr.text = it.clinichours?.firstOrNull() ?: "10:00 -16:00"
+                    binding.tvStartTime.text = it.clinicstarttime
+                    binding.tvEndTime.text = it.clinicstarttime
                 }
             }
             dismissLoading()

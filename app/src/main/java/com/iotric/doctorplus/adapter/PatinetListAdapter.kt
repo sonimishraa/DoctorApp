@@ -9,22 +9,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.PatientAdaterItemBinding
-import com.iotric.doctorplus.model.response.PatientsItems
+import com.iotric.doctorplus.model.response.PatientsItem
 import com.iotric.doctorplus.util.DateTimeUtil
 
 
 class PatinetListAdapter(val listener: ItemClickListener) :
-    ListAdapter<PatientsItems, PatinetListAdapter.ItemViewHolder>(
+    ListAdapter<PatientsItem, PatinetListAdapter.ItemViewHolder>(
         object :
-            DiffUtil.ItemCallback<PatientsItems>() {
+            DiffUtil.ItemCallback<PatientsItem>() {
             override fun areContentsTheSame(
-                oldItem: PatientsItems,
-                newItem: PatientsItems
+                oldItem: PatientsItem,
+                newItem: PatientsItem
             ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: PatientsItems, newItem: PatientsItems): Boolean {
+            override fun areItemsTheSame(oldItem: PatientsItem, newItem: PatientsItem): Boolean {
                 return oldItem == newItem
             }
         }) {
@@ -41,15 +41,18 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        val nextAppointment = item.visit?.firstOrNull()
-        val date = item.createdAt
+        //val nextAppointment = item.visit?.firstOrNull()
+       // val date = item.createdAt
         if (item.iscaseopen == true) {
             holder.tv_name.text = item.pname
             holder.tv_contact.text = item.pphone
             holder.email.text = item.pemail
-            holder.tv_nextVisitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
-            holder.tv_date.text = item.createdAt
-            holder.tv_date.text = DateTimeUtil.getSimpleDateFromUtc(date)
+            holder.age.text = item.age + " " + "Years"
+            if(item.gender == "m"){
+              holder.gender.text = "Male"
+            }else
+            holder.gender.text = "Female"
+            holder.patientId.text = item.uniqueid
         }
         holder.moreOption.setOnClickListener {
             val popup = PopupMenu(it.context, holder.moreOption)
@@ -80,10 +83,14 @@ class PatinetListAdapter(val listener: ItemClickListener) :
         val tv_name = binding.tvName
         val tv_contact = binding.tvContact
         val email = binding.tvEmail
+        val gender = binding.tvGender
+        val age = binding.tvAge
+        val patientId = binding.tvPatientId
         val tv_date = binding.tvLastVisitDate
         val tv_nextVisitDate = binding.tvVisitDate
         val item_layout = binding.lLayout
         val moreOption = binding.moreOption
+
 
         /* init {
              item_layout.setOnClickListener {
@@ -97,10 +104,10 @@ class PatinetListAdapter(val listener: ItemClickListener) :
     }
 
     interface ItemClickListener {
-        fun onDeleteClick(result: PatientsItems)
-        fun onPatientProfileClick(result: PatientsItems)
-        fun onUpdateProfile(result: PatientsItems)
-        fun onChangeStatus(result: PatientsItems)
+        fun onDeleteClick(result: PatientsItem)
+        fun onPatientProfileClick(result: PatientsItem)
+        fun onUpdateProfile(result: PatientsItem)
+        fun onChangeStatus(result: PatientsItem)
 
     }
 

@@ -80,8 +80,6 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment(){
             }
         })
     }
-
-
     private fun setArgs() {
         val args = args.EditDocResult
         binding.editName.setText(args.doctorname)
@@ -102,20 +100,24 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment(){
         binding.editEndTime.setOnClickListener {
             endTimePicker()
         }
+        binding.btnCancle.setOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.btnSave.setOnClickListener {
                 EditDoctor()
-
         }
     }
 
     private fun EditDoctor() {
         if (validateFields()) {
-            val clinicHr = startTime + " - " + endTime
+            //val clinicHr = startTime + " - " + endTime
             val doctor = UpdateDoctorRequest(
                 doctorname = name,
                 phone = phone,
                 type = speciality,
-                clinichours = clinicHr, adddress = address)
+                clinicstarttime = startTime,
+                clinicendtime = endTime,
+                adddress = address)
             viewModel.getUpdateApi(doctor, requireActivity().application)
             findNavController().navigate(R.id.action_Drprofile_fragment)
         } else
@@ -160,16 +162,15 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment(){
             isAllFieldValidate = false
         } else binding.layoutEditSpecialization.setError(null)
 
-        /*if (endTime.isEmpty()) {
+        if (endTime.isEmpty()) {
             binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditEndTime.setError(null)
-
         if (startTime.isEmpty()) {
             binding.layoutEditClinicHr.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditClinicHr.setError(null)
-*/
+
          if (address.isEmpty()) {
              binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
              isAllFieldValidate = false

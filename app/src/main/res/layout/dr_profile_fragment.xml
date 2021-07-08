@@ -139,6 +139,8 @@
                     android:drawableStart="@drawable/ic_baseline_call_24"
                     android:drawablePadding="@dimen/medium_padding"
                     android:gravity="start"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     tools:text="1234567890" />
@@ -186,6 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/small_margin"
+                android:orientation="horizontal"
                 android:padding="@dimen/medium_padding">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -199,15 +202,33 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_clinicHr"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="start"
-                    android:text="10:00AM - 2:00PM"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_startTime"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="10:00AM "
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_endTime"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="10:00AM"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
@@ -222,10 +243,10 @@
         android:id="@+id/edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
+        android:layout_margin="@dimen/medium_margin"
         android:background="@color/color_primaryDark"
+        android:gravity="center"
         android:padding="@dimen/small_padding"
         android:text="UPDATE PROFILE"
         android:textColor="@color/white"

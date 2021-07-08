@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_medical_records">
 
-    <fragment
+   <!-- <fragment
         android:id="@+id/navigation_home"
         android:name="com.iotric.doctorplus.fragment.HomeFragment"
         android:label="@string/navigation_home"
@@ -23,7 +23,7 @@
         android:name="com.iotric.doctorplus.fragment.NotificationFragment"
         android:label="@string/notifications"
         tools:layout="@layout/notification_fragment" />
-
+-->
     <fragment
         android:id="@+id/navigation_medical_records"
         android:name="com.iotric.doctorplus.fragment.DashboardFragments"
@@ -57,9 +57,6 @@
             android:id="@+id/action_logout_fragment"
             app:destination="@+id/navigation_logout" />
 
-        <action
-            android:id="@+id/action_patient_record_Fragment"
-            app:destination="@id/patientRecordFragment" />
 
     </fragment>
 
@@ -86,7 +83,7 @@
 
         <argument
             android:name="result"
-            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
 
 
@@ -181,7 +178,7 @@
 
         <argument
             android:name="result"
-            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
         <action
             android:id="@+id/action_patientRecordFragment_to_uploadPatientReportFragment"
             app:destination="@id/uploadPatientReportFragment" />
@@ -199,7 +196,7 @@
             app:destination="@id/patient_list_fragement" />
         <argument
             android:name="result"
-            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
 
     </fragment>
 
@@ -223,7 +220,7 @@
         android:label="UploadPatientReportFragment" >
         <argument
             android:name="patientId"
-            app:argType="com.iotric.doctorplus.model.response.PatientsItems" />
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
     <fragment
         android:id="@+id/viewPatientReportFragment"
@@ -232,8 +229,8 @@
         tools:layout="@layout/view_patient_report_fragment" >
 
         <argument
-            android:name="labReport"
-            app:argType="com.iotric.doctorplus.model.response.LabreportsItem" />
+            android:name="patientId"
+            app:argType="com.iotric.doctorplus.model.response.ReportItem" />
     </fragment>
 
 </navigation>

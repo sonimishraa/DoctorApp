@@ -17,7 +17,7 @@ abstract class BaseFragment : Fragment() {
         val builder = AlertDialog.Builder(requireContext())
         val inflater = layoutInflater
         val dialogeView = inflater.inflate(R.layout.custom_progressbar, null)
-        val dialogColor = ColorDrawable( Color.BLACK);
+        val dialogColor = ColorDrawable(Color.BLACK);
         dialogColor.setAlpha(0); //(0-255) 0 means fully transparent, and 255 means fully opaque
         builder.setCancelable(false)
         builder.setView(dialogeView)
@@ -27,7 +27,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     fun dismissLoading() {
-        alertDialoge.dismiss()
+       alertDialoge.dismiss()
     }
 
     fun snackBar(message: String, view: View) {

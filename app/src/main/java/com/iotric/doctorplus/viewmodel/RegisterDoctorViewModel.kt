@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
 import com.iotric.doctorplus.model.response.DoctorSignUpResponse
+import com.iotric.doctorplus.model.response.DrSignUpResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,17 +19,17 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterDoctorViewModel @Inject constructor() : ViewModel() {
 
-    val addDoctorLiveData = MutableLiveData<DoctorSignUpResponse?>()
+    val addDoctorLiveData = MutableLiveData<DrSignUpResponse>()
     val addDoctorErrorMessage = MutableLiveData<String>()
 
     fun getApiResponse(doctorRequest: DoctorRegisterRequest, application: Application) {
 
         ServiceBuilder.getRetrofit(application).registerDoctor(doctorRequest)
             .enqueue(
-                object : Callback<DoctorSignUpResponse> {
+                object : Callback<DrSignUpResponse> {
                     override fun onResponse(
-                        call: Call<DoctorSignUpResponse>,
-                        response: Response<DoctorSignUpResponse>
+                        call: Call<DrSignUpResponse>,
+                        response: Response<DrSignUpResponse>
                     ) {
                         if (response.isSuccessful) {
                             Log.i("ResisterDoctor", "${response.body()}")
@@ -44,7 +45,7 @@ class RegisterDoctorViewModel @Inject constructor() : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<DoctorSignUpResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<DrSignUpResponse>, t: Throwable) {
                         Log.e("ResisterDoctor", "${t.message}")
                     }
                 })

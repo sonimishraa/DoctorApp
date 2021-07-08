@@ -74,14 +74,16 @@ class PatientRecordFragment : BaseFragment() {
             findNavController().navigate(action)
         }
         binding.tvViewReport.setOnClickListener {
-            val patienId = args.result.id
-            viewModel.getPatientReportApi(patienId, requireActivity().application)
+            val patientId = args.result.id
+            if (patientId != null) {
+                viewModel.getPatientReportApi(patientId, requireActivity().application)
+            }
         }
     }
 
     private fun setArgs() {
         val argsItem = args.result
-        val visitItem = argsItem.visit?.firstOrNull()
+        //val visitItem = argsItem.visit?.firstOrNull()
         binding.tvName.text = argsItem.pname
         binding.tvContact.text = argsItem.pphone
         binding.tvEmail.text = argsItem.pemail
@@ -90,9 +92,9 @@ class PatientRecordFragment : BaseFragment() {
 
     private fun initObserver() {
         viewModel.patientRecord.observe(requireActivity(), {
-            it.report?.firstOrNull()?.labreports?.firstOrNull()?.let {
-                val labReport = it
-                val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(labReport)
+            it.report?.firstOrNull()?.let {
+                val id = it
+                val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(id)
                 findNavController().navigate(action)
             }
         })
@@ -101,7 +103,5 @@ class PatientRecordFragment : BaseFragment() {
             snackBar("${it}", binding.root)
         })
     }
-
-
 }
 

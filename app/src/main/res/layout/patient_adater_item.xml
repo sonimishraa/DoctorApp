@@ -4,7 +4,6 @@
     android:id="@+id/lLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp"
     android:orientation="horizontal">
 
@@ -19,67 +18,93 @@
             android:gravity="start"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_name"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Soni Mishra"
-                android:layout_marginStart="@dimen/small_margin"
-                android:padding="4dp"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="Soni Mishra"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_Age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:padding="4dp"
+                    android:background="@drawable/outline_background"
+                    android:text="27 Years"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:padding="4dp"
+                    android:background="@drawable/outline_background"
+                    android:text="Female"
+                    android:drawableStart="@drawable/gender"
+                    android:drawablePadding="4dp"
+                    android:textSize="10dp"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-              <!--  <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/tv_email_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Email:"
-                    android:textColor="@color/black"
-                    android:visibility="visible" />
--->
+                  <androidx.appcompat.widget.AppCompatTextView
+                      android:id="@+id/tv_phone_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:padding="4dp"
+                      android:layout_marginStart="@dimen/small_margin"
+                      android:text="PatientId:"
+                      android:textColor="@color/black" />
+
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_email"
+                    android:id="@+id/tv_patientId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_baseline_email_24"
-                    android:drawablePadding="@dimen/small_padding"
-                    android:textColor="@color/black"
                     android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:visibility="visible"
-                    tools:text="soni@gamil.com" />
+                    tools:text="s012345" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-              <!--  <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_phone_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Phone:"
-                    android:textColor="@color/black" />-->
+                <!--  <androidx.appcompat.widget.AppCompatTextView
+                      android:id="@+id/tv_phone_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="Phone:"
+                      android:textColor="@color/black" />-->
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:drawableStart="@drawable/ic_baseline_call_24"
                     android:drawablePadding="@dimen/small_padding"
                     android:textColor="@color/black"
@@ -91,27 +116,58 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-               <!-- <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_LastVisit_titel"
-                    android:layout_width="0dp"
+                <!--  <androidx.appcompat.widget.AppCompatImageView
+                      android:id="@+id/tv_email_title"
+                      android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:text="Email:"
+                      android:textColor="@color/black"
+                      android:visibility="visible" />
+  -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin"
                     android:layout_weight="1"
-                    android:text="Last Visit:"
-                    android:textColor="@color/black" />-->
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:visibility="visible"
+                    tools:text="soni@gamil.com" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:padding="4dp">
+
+                <!-- <androidx.appcompat.widget.AppCompatTextView
+                     android:id="@+id/tv_LastVisit_titel"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"
+                     android:text="Last Visit:"
+                     android:textColor="@color/black" />-->
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_LastVisitDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:drawableStart="@drawable/ic_baseline_calendar_today_24"
                     android:drawablePadding="@dimen/small_padding"
-                    android:textSize="15sp"
                     android:textColor="@color/black"
+                    android:textSize="15sp"
                     tools:text="12/12/2021" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>

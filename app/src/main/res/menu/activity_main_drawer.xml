@@ -12,11 +12,22 @@
             android:id="@+id/navigation_profile"
             android:icon="@drawable/ic_baseline_face_24"
             android:title="@string/menu_profile" />
-        <item
-            android:id="@+id/navigation_appointment"
-            android:icon="@drawable/ic_baseline_date_range_24"
-            android:title="@string/menu_appointment" />
 
+        <item
+            android:id="@+id/navigation_lab"
+            android:icon="@drawable/ic_baseline_science_24"
+            android:title="@string/lab_tests"/>
+
+        <item
+            android:id="@+id/navigation_notifications"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="@string/title_notifications" />
+
+        <!--  <item
+              android:id="@+id/navigation_appointment"
+              android:icon="@drawable/ic_baseline_date_range_24"
+              android:title="@string/menu_appointment" />
+  -->
         <item
             android:id="@+id/navigation_privacy"
             android:icon="@drawable/ic_baseline_privacy_tip_24"

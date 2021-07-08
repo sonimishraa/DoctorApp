@@ -4,21 +4,22 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
+        android:visible="false"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_lab"
         android:icon="@drawable/ic_baseline_science_24"
+        android:visible="false"
         android:title="@string/lab_tests"/>
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications_black_24dp"
+        android:visible="false"
         android:title="@string/title_notifications" />
-
     <item
         android:id="@+id/navigation_medical_records"
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title="@string/account" />
-
 </menu>

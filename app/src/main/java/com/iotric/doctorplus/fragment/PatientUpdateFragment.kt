@@ -83,13 +83,13 @@ class PatientUpdateFragment : BaseFragment() {
 
     private fun setArgs() {
         val argsItem = args.result
-        val visitItem = argsItem.visit?.firstOrNull()
+        //val visitItem = argsItem.visit?.firstOrNull()
         Log.i("PatientUpdateFragment", "${argsItem}")
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
         binding.editAddress.setText(argsItem.address?.firstOrNull())
-        binding.editNextAppointmentDate.setText(visitItem?.nextvisitdate)
-        binding.editNextAppointmentTime.setText(visitItem?.nextvisittime)
+       // binding.editNextAppointmentDate.setText(visitItem?.nextvisitdate)
+       // binding.editNextAppointmentTime.setText(visitItem?.nextvisittime)
 
     }
 

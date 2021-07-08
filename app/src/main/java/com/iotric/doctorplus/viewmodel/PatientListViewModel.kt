@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PatientListViewModel @Inject constructor() : ViewModel() {
 
-    val allUserList = MutableLiveData<MyPAtientListResponse>()
+    val allUserList = MutableLiveData<MyPatientListResponse>()
     val apiErrorMessage = MutableLiveData<String>()
     val deletePatient = MutableLiveData<DeletePatientResponse>()
     val patientStatusChange = MutableLiveData<PatientStatusChangeResponse>()
@@ -26,10 +26,10 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
 
     fun getActivePatientApiResponse(application: Application) {
         ServiceBuilder.getRetrofit(application).getMyPatientList().enqueue(object :
-            Callback<MyPAtientListResponse> {
+            Callback<MyPatientListResponse> {
             override fun onResponse(
-                call: Call<MyPAtientListResponse>,
-                response: Response<MyPAtientListResponse>
+                call: Call<MyPatientListResponse>,
+                response: Response<MyPatientListResponse>
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
@@ -44,7 +44,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<MyPAtientListResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MyPatientListResponse>, t: Throwable) {
                 Toast.makeText(
                     application.applicationContext,
                     "${t.message}",
@@ -138,6 +138,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<CloseCasePatientListResponse>, t: Throwable) {
+                    Log.i("CloseCaseFragment", "closeCaseListError:${t.message}")
                     Toast.makeText(
                         application.applicationContext,
                         "${t.message}",

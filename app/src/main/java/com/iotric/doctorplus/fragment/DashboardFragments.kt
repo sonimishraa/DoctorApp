@@ -10,18 +10,19 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.navigation.NavigationView
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DashboardFragmentBinding
+import com.iotric.doctorplus.databinding.DashboardFragmentItemBinding
 import com.iotric.doctorplus.model.response.PatientsItems
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedListener {
-    private lateinit var binding: DashboardFragmentBinding
+class DashboardFragments : Fragment(){
+    private lateinit var binding: DashboardFragmentItemBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DashboardFragmentBinding.inflate(inflater, container, false)
+        binding = DashboardFragmentItemBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -32,28 +33,19 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
     }
 
     private fun initView() {
-        binding.dashboardFrame.lLayoutPatient.setOnClickListener {
+        binding.lLayoutPatient.setOnClickListener {
             findNavController().navigate(R.id.action_myPatientList_fragment)
         }
-        binding.dashboardFrame.lLayoutAddPatient.setOnClickListener {
+        binding.lLayoutAddPatient.setOnClickListener {
             findNavController().navigate(R.id.action_add_patient)
         }
-      /*  binding.dashboardFrame.lLayoutPatientRecord.setOnClickListener {
-            val records = PatientsItems()
-            val action = DashboardFragmentsDirections.actionPatientRecordFragment(records)
+        binding.lLayoutPatientAppoitments.setOnClickListener {
+            val action = DashboardFragmentsDirections.actionAppointmentFragment()
             findNavController().navigate(action)
-        }*/
-        binding.dashboardFrame.menubar.setOnClickListener {
-            val drawer = binding.drawerLayout
-            drawer.open()
         }
-        if (binding.drawerLayout != null) {
-            binding.navView.setNavigationItemSelectedListener(this)
-        }
-
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+   /* override fun onNavigationItemSelected(item: MenuItem): Boolean {
         binding.drawerLayout.close()
         val id = item.itemId
         when (id) {
@@ -61,10 +53,10 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
                 findNavController().navigate(R.id.action_profile_fragment)
 
             }
-            R.id.navigation_appointment -> {
+           *//* R.id.navigation_appointment -> {
                 findNavController().navigate(R.id.action_appointment_fragment)
 
-            }
+            }*//*
             R.id.navigation_privacy -> {
                 findNavController().navigate(R.id.action_privacy_fragment)
             }
@@ -74,6 +66,6 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
         }
         return true
 
-    }
+    }*/
 
 }
