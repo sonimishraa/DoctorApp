@@ -21,7 +21,7 @@ class DrDashboardActivity: AppCompatActivity() {
     lateinit var binding: DashboardActivityBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   /* override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DashboardActivityBinding.inflate(layoutInflater)
         val view = binding.root
@@ -42,5 +42,5 @@ class DrDashboardActivity: AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
+    }*/
 }

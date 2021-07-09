@@ -50,9 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/tv_name"
-                android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/medium_margin"
-                android:layout_marginEnd="@dimen/medium_margin"
                 android:background="@color/color_primaryDark" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -250,7 +248,7 @@
         android:padding="@dimen/small_padding"
         android:text="UPDATE PROFILE"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
 </RelativeLayout>

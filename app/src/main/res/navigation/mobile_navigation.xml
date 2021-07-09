@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_medical_records">
+    app:startDestination="@+id/navigation_home">
 
-   <!-- <fragment
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.iotric.doctorplus.fragment.HomeFragment"
         android:label="@string/navigation_home"
@@ -23,7 +23,7 @@
         android:name="com.iotric.doctorplus.fragment.NotificationFragment"
         android:label="@string/notifications"
         tools:layout="@layout/notification_fragment" />
--->
+
     <fragment
         android:id="@+id/navigation_medical_records"
         android:name="com.iotric.doctorplus.fragment.DashboardFragments"

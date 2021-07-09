@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-   <!-- <include
-        android:id="@+id/dashboardFrame"
-        layout="@layout/dashboard_fragment_item" />-->
-
     <include
+        android:id="@+id/dashboardFrame"
+        layout="@layout/dashboard_fragment_item" />
+
+ <!--   <include
         android:id="@+id/appbar"
-        layout="@layout/appbar_naviagtion_main"/>
+        layout="@layout/appbar_naviagtion_main"/>-->
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
