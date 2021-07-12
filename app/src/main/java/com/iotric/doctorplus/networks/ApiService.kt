@@ -2,6 +2,7 @@ package com.iotric.doctorplus.networks
 
 import com.iotric.doctorplus.model.request.*
 import com.iotric.doctorplus.model.response.*
+import com.iotric.doctorplus.utils.Constants.ADD_NEW_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT_REPORT
 import com.iotric.doctorplus.utils.Constants.All_PATIENT_LIST
@@ -18,6 +19,7 @@ import com.iotric.doctorplus.utils.Constants.GET_WEEKLY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.REGISTER_PATIENT
+import com.iotric.doctorplus.utils.Constants.UPDATE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
 import okhttp3.MultipartBody
@@ -105,4 +107,12 @@ interface ApiService {
 
     @GET(GET_WEEKLY_APPOINTMENT)
     fun getWeeklyAppoint(): Call<WeeklyAppointmentListResponse>
+
+    @POST(ADD_NEW_APPOINTMENT)
+    fun addNewAppointment(@Body newAppointment: AddNewAppointmentRequest):Call<AddNewAppointmentResponse>
+
+    @PUT(UPDATE_APPOINTMENT)
+    fun updateAppointment(@Path("id")id:String, @Body updateAppoitment: UpdateAppointmentRequest):Call<AddNewAppointmentResponse>
+
+
 }

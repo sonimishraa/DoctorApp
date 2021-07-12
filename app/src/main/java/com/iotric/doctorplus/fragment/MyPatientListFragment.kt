@@ -37,8 +37,8 @@ class MyPatientListFragment : Fragment() {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.my_patient_list_toolbar_title)
-        binding.viewPager.adapter = MyPatientPagerAdapter(childFragmentManager)
-        binding.tablayout.setupWithViewPager(binding.viewPager)
+        //binding.viewPager.adapter = MyPatientPagerAdapter(childFragmentManager)
+        //binding.tablayout.setupWithViewPager(binding.viewPager)
         binding.tablayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFF00"))
     }
 

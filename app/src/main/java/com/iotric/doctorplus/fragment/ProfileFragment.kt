@@ -29,6 +29,9 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DrProfileFragmentBinding
 import com.iotric.doctorplus.databinding.ProfileFragmentBinding
 import com.iotric.doctorplus.model.response.GetDoctorByidResponse
+import com.iotric.doctorplus.util.UtilClass
+import com.iotric.doctorplus.util.UtilClass.hr
+import com.iotric.doctorplus.util.UtilClass.min
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException

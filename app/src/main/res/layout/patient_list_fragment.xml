@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<include
+    <include
         android:id="@+id/appbar"
-        layout="@layout/app_bar_main" />-->
+        layout="@layout/app_bar_main" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_noitem"

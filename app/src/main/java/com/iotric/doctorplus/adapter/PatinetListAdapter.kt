@@ -71,6 +71,9 @@ class PatinetListAdapter(val listener: ItemClickListener) :
                     R.id.delete_Profile -> {
                         listener.onDeleteClick(getItem(position))
                     }
+                    R.id.book_appointment ->{
+                        listener.onBookAppointmentClick(getItem(position))
+                    }
                 }
 
                 true
@@ -108,7 +111,7 @@ class PatinetListAdapter(val listener: ItemClickListener) :
         fun onPatientProfileClick(result: PatientsItem)
         fun onUpdateProfile(result: PatientsItem)
         fun onChangeStatus(result: PatientsItem)
-
+        fun onBookAppointmentClick(result: PatientsItem)
     }
 
 }

@@ -162,14 +162,14 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment(){
             isAllFieldValidate = false
         } else binding.layoutEditSpecialization.setError(null)
 
-        if (endTime.isEmpty()) {
+      /*  if (endTime.isEmpty()) {
             binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditEndTime.setError(null)
         if (startTime.isEmpty()) {
             binding.layoutEditClinicHr.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditClinicHr.setError(null)
+        } else binding.layoutEditClinicHr.setError(null)*/
 
          if (address.isEmpty()) {
              binding.layoutEditAddress.setError(getString(R.string.empty_field_message))

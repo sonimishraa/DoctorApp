@@ -37,12 +37,11 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
         if (binding.drawerLayout != null) {
             binding.navView.setNavigationItemSelectedListener(this)
         }
-
     }
 
     private fun initListener() {
         binding.dashboardFrame.lLayoutPatient.setOnClickListener {
-            findNavController().navigate(R.id.action_myPatientList_fragment)
+            findNavController().navigate(R.id.action_patientList_fragment)
         }
         binding.dashboardFrame.lLayoutAddPatient.setOnClickListener {
             findNavController().navigate(R.id.action_add_patient)
@@ -51,9 +50,13 @@ class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedLi
             val action = DashboardFragmentsDirections.actionAppointmentFragment()
             findNavController().navigate(action)
         }
-        binding.dashboardFrame.lLayoutPatientAddAppoitments.setOnClickListener {
-            /* val action = DashboardFragmentsDirections.actionAppointmentFragment()
-            findNavController().navigate(action)*/
+        binding.dashboardFrame.lLayoutPatientCloseCase.setOnClickListener {
+             val action = DashboardFragmentsDirections.actionCloseCaseFragment()
+            findNavController().navigate(action)
+        }
+        binding.dashboardFrame.menubar.setOnClickListener {
+            val drawer = binding.drawerLayout
+            drawer.open()
         }
     }
 

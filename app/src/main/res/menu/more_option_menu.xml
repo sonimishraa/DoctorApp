@@ -21,6 +21,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/book_appointment"
+        android:orderInCategory="100"
+        android:title="Book Appointment"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/delete_Profile"
         android:orderInCategory="100"
         android:title="Delete Profile"

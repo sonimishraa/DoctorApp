@@ -13,7 +13,6 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.PatientListFragmentBinding
 import com.iotric.doctorplus.model.response.PatientsItem
-import com.iotric.doctorplus.model.response.PatientsItems
 import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +36,41 @@ class ActivePatientListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initObserver()
+    }
+
+    private fun initView() {
+        binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
+        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+            findNavController().popBackStack()
+        }
+        viewModel.getActivePatientApiResponse(requireActivity().application)
+        patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
+            override fun onPatientProfileClick(result: PatientsItem) {
+                val action = ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
+                findNavController().navigate(action)
+            }
+
+            override fun onUpdateProfile(result: PatientsItem) {
+                val action = ActivePatientListFragmentDirections.actionUpdatePatientFragment(result)
+                findNavController().navigate(action)
+            }
+
+            override fun onChangeStatus(result: PatientsItem) {
+                showChangeStatusDilogue(result)
+            }
+
+            override fun onBookAppointmentClick(result: PatientsItem) {
+                val patientId = result
+                val action = ActivePatientListFragmentDirections.actionPatientListFragementToBookAppointentFragment(patientId)
+                findNavController().navigate(action)
+            }
+
+            override fun onDeleteClick(result: PatientsItem) {
+                showDeleteDilogue(result)
+            }
+
+        })
+        binding.recyclerView.adapter = patientListAdapter
     }
 
     private fun initObserver() {
@@ -63,39 +97,6 @@ class ActivePatientListFragment : BaseFragment() {
         viewModel.apiErrorMessage.observe(requireActivity(), {
             snackBar(it, binding.root)
         })
-    }
-
-    private fun initView() {
-       /* binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
-            findNavController().popBackStack()
-        }*/
-        viewModel.getActivePatientApiResponse(requireActivity().application)
-        patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
-            override fun onPatientProfileClick(result: PatientsItem) {
-                val action = MyPatientListFragmentDirections.actionPatientRecordsFragment(result)
-                findNavController().navigate(action)
-            }
-
-            override fun onUpdateProfile(result: PatientsItem) {
-                val action = MyPatientListFragmentDirections.actionUpdatePatientFragment(result)
-                findNavController().navigate(action)
-            }
-
-            override fun onChangeStatus(result: PatientsItem) {
-                showChangeStatusDilogue(result)
-            }
-
-            /* override fun onItemLayoutClick(result: PatientsItems) {
-                 val action = PatientListFragmentDirections.actionUpdatePatientFragment(result)
-                 findNavController().navigate(action)
-             }*/
-
-            override fun onDeleteClick(result: PatientsItem) {
-                showDeleteDilogue(result)
-            }
-        })
-        binding.recyclerView.adapter = patientListAdapter
     }
 
     private fun showDeleteDilogue(result: PatientsItem) {

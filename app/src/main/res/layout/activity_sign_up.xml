@@ -128,17 +128,43 @@
                 android:hint="Address*"
                 android:inputType="textPostalAddress" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/small_padding">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Already Have An Account?"
+                android:textSize="15sp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Login Here"
+                android:layout_weight=".7"
+                android:textColor="@color/purple_200"
+                android:layout_gravity="end"
+                android:textSize="15sp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
-        android:id="@+id/btnAddDoctor"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:layout_below="@id/lLayout"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="REGISTER DOCTOR"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnAddDoctor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lLayout"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:text="REGISTER"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
 </RelativeLayout>
 

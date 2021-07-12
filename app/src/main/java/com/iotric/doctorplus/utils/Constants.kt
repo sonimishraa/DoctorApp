@@ -21,5 +21,7 @@ object Constants {
     const val MY_PATIENT_LIST = "patient/mypatient"
     const val GET_WEEKLY_APPOINTMENT = "apointment/weekly"
     const val GET_DAILY_APPOINTMENT = "apointment/daily"
+    const val ADD_NEW_APPOINTMENT = "apointment"
+    const val UPDATE_APPOINTMENT = "apointment/{id}"
     const val GET_PATIENT_REPORT_BY_ID = "report/patientreport/{id}"
 }

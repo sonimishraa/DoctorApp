@@ -27,12 +27,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PatientUpdateFragment : BaseFragment() {
 
-    var hr = 0
-    var min = 0
-    var pickYear = 0
-    var pickMonth = 0
-    var pickDay = 0
-
     lateinit var name: String
     lateinit var report: String
     lateinit var phone: String
@@ -40,8 +34,6 @@ class PatientUpdateFragment : BaseFragment() {
     lateinit var email: String
     lateinit var nextVisitDate: String
     lateinit var nextVisitTime: String
-    lateinit var timePickerDialog: TimePickerDialog
-    lateinit var datePickerDialog: DatePickerDialog
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateFragmentArgs by navArgs()
@@ -97,12 +89,12 @@ class PatientUpdateFragment : BaseFragment() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
-        binding.editNextAppointmentTime.setOnClickListener {
+      /*  binding.editNextAppointmentTime.setOnClickListener {
             pickAppointmentTime()
         }
         binding.editNextAppointmentDate.setOnClickListener {
             pickDate()
-        }
+        }*/
         binding.btnUpdate.setOnClickListener {
             updatePatient()
         }
@@ -112,8 +104,7 @@ class PatientUpdateFragment : BaseFragment() {
         if (validateFields()) {
             val id = args.result.id ?: ""
             val updatePatient = UpdatePatientRequest(
-                pname = name, pphone = phone, address = address, nextVisitDate, nextVisitTime
-            )
+                pname = name, pphone = phone, address = address)
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
             findNavController().popBackStack()
         } else
@@ -127,12 +118,12 @@ class PatientUpdateFragment : BaseFragment() {
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
         name = binding.editName.text.toString()
-        report = binding.editReport.text.toString()
+       // report = binding.editReport.text.toString()
         phone = binding.editContact.text.toString()
         address = binding.editAddress.text.toString()
-        email = binding.editEmail.text.toString()
-        nextVisitDate = binding.editNextAppointmentDate.text.toString().trim()
-        nextVisitTime = binding.editNextAppointmentTime.text.toString().trim()
+        //email = binding.editEmail.text.toString()
+       // nextVisitDate = binding.editNextAppointmentDate.text.toString().trim()
+       // nextVisitTime = binding.editNextAppointmentTime.text.toString().trim()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -161,36 +152,6 @@ class PatientUpdateFragment : BaseFragment() {
         } else binding.layoutEditAddress.setError(null)
 
         return isAllFieldValidate
-    }
-
-    private fun pickAppointmentTime() {
-        UtilClass.getTimeCalender()
-        timePickerDialog =
-            TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
-                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-                    hr = hourOfDay
-                    min = minute
-                    Log.i("start time", "$hourOfDay: $minute")
-                    val time = UtilClass.time(hr, min)
-                    binding.editNextAppointmentTime.setText(time)
-                }
-            }, hr, min, false)
-        timePickerDialog.show()
-    }
-
-    private fun pickDate() {
-        UtilClass.getDateCalendarInstance()
-        datePickerDialog =
-            DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                    pickYear = year
-                    pickMonth = month + 1
-                    pickDay = dayOfMonth
-                    val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
-                    binding.editNextAppointmentDate.setText(date)
-                }
-            }, year, month, day)
-        datePickerDialog.show()
     }
 
 }

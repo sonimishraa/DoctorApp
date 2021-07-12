@@ -25,17 +25,23 @@
         tools:layout="@layout/notification_fragment" />
 
     <fragment
-        android:id="@+id/navigation_medical_records"
+        android:id="@+id/navigation_dashboard"
         android:name="com.iotric.doctorplus.fragment.DashboardFragments"
         android:label="Account"
         tools:layout="@layout/dashboard_fragment">
 
-      <!--  <action
-            android:id="@+id/action_patient_list"
-            app:destination="@+id/patient_list_fragement" />-->
         <action
+            android:id="@+id/action_closeCase_fragment"
+            app:destination="@+id/closePatient_fragment" />
+
+       <!-- <action
             android:id="@+id/action_myPatientList_fragment"
-            app:destination="@+id/myPatientList_fragment" />
+            app:destination="@+id/myPatientList_fragment" />-->
+
+        <action
+            android:id="@+id/action_patientList_fragment"
+            app:destination="@+id/patient_list_fragement" />
+
 
         <action
             android:id="@+id/action_add_patient"
@@ -66,13 +72,17 @@
         android:label="My Patient List"
         tools:layout="@layout/my_patient_list_fragment">
 
-        <action
+       <!-- <action
             android:id="@+id/action_patientRecords_fragment"
             app:destination="@id/patientRecordFragment" />
 
         <action
             android:id="@+id/action_Update_patient_fragment"
             app:destination="@id/patientUpdateLDialogFragment" />
+
+        <action
+            android:id="@+id/action_appointment_fragment"
+            app:destination="@+id/bookAppointentFragment"/>-->
     </fragment>
 
     <fragment
@@ -81,9 +91,6 @@
         android:label="Close Patient List"
         tools:layout="@layout/close_patient_list">
 
-        <argument
-            android:name="result"
-            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
 
 
@@ -146,14 +153,17 @@
         android:label="@string/patient_list"
         tools:layout="@layout/patient_list_fragment">
 
-      <!--  <action
+        <action
+            android:id="@+id/action_patientRecords_fragment"
+            app:destination="@id/patientRecordFragment" />
+
+        <action
             android:id="@+id/action_Update_patient_fragment"
             app:destination="@id/patientUpdateLDialogFragment" />
 
         <action
-            android:id="@+id/action_patient_record_Fragment"
-            app:destination="@+id/patientRecordFragment"/>
--->
+            android:id="@+id/action_patient_list_fragement_to_bookAppointentFragment"
+            app:destination="@id/bookAppointentFragment" />
     </fragment>
 
     <fragment
@@ -232,5 +242,15 @@
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.ReportItem" />
     </fragment>
+    <fragment
+        android:id="@+id/bookAppointentFragment"
+        android:name="com.iotric.doctorplus.fragment.BookAppointentFragment"
+        android:label="BookAppointentFragment">
+
+        <argument
+            android:name="patientId"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+    </fragment>
+
 
 </navigation>

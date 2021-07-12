@@ -29,7 +29,7 @@ object UtilClass {
     // get Calendar Instance for Date and and date formate
 
     fun makeDateString(year: Int, month: Int, day: Int): String {
-        val date = "$day/$month/$year"
+        val date = "$day/${monthFormat(month)}/$year"
         return date
     }
 
@@ -43,38 +43,42 @@ object UtilClass {
 
     private fun monthFormat(month: Int): String {
         if (month == 1)
-            return "JAN"
+            return "01"
         if (month == 2)
-            return "FEB"
+            return "02"
         if (month == 3)
-            return "MAR"
+            return "03"
         if (month == 4)
-            return "APR"
+            return "04"
         if (month == 5)
-            return "MAY"
+            return "05"
         if (month == 6)
-            return "JUN"
+            return "06"
         if (month == 7)
-            return "JUL"
+            return "07"
         if (month == 8)
-            return "AUG"
+            return "08"
         if (month == 9)
-            return "SEP"
+            return "09"
         if (month == 10)
-            return "OCT"
+            return "10"
         if (month == 11)
-            return "NOV"
+            return "11"
         if (month == 12)
-            return "DEC"
+            return "12"
 
-        return "JAN"
+        return "01"
     }
 
     // for time get Calendar Instance and Time formate
 
     fun time(hr: Int, min: Int): String {
-        val time1 = "$hr:$min" + timeFormate(hr)
+        val time1 = "$hr:$min"
         return time1
+    }
+    fun time2(hr: Int, min: Int): String {
+        val time2 = "$hr:$min" + timeFormate(hr)
+        return time2
     }
 
     fun timeFormate(hr: Int): String {

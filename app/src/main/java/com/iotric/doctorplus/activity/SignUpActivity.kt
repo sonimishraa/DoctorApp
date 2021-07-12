@@ -54,6 +54,10 @@ class SignUpActivity : BaseActivity() {
         binding.btnAddDoctor.setOnClickListener {
             createUser()
         }
+        binding.tvLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun createUser() {
