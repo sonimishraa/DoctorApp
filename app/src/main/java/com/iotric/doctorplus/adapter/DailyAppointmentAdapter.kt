@@ -3,14 +3,16 @@ package com.iotric.doctorplus.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DailyAppointmetAdapterItemBinding
 import com.iotric.doctorplus.model.response.DataItem
 import com.iotric.doctorplus.util.DateTimeUtil
 
-class DailyAppointmentAdapter: ListAdapter<DataItem, DailyAppointmentAdapter.ItemViewHolder>(object :
+class DailyAppointmentAdapter(val listener: ItemClickListener): ListAdapter<DataItem, DailyAppointmentAdapter.ItemViewHolder>(object :
     DiffUtil.ItemCallback<DataItem>()
      {
          override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
@@ -38,6 +40,23 @@ class DailyAppointmentAdapter: ListAdapter<DataItem, DailyAppointmentAdapter.Ite
                 holder.phone.text = it.pphone
             }
             holder.visitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.nextvisitdate) + " " + item.nextvisittime
+            holder.moreOption.setOnClickListener {
+                val popup = PopupMenu(it.context, holder.moreOption)
+                popup.menuInflater.inflate(R.menu.apointment_more_option_menu, popup.menu)
+                popup.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.update_appoint -> {
+                            listener.onUpadetAppointClick(item)
+                        }
+                        R.id.delete_appoint -> {
+                            listener.onDeleteAppointClick(item)
+                        }
+                    }
+
+                    true
+                }
+                popup.show()
+            }
 
         }
     }
@@ -46,7 +65,14 @@ class DailyAppointmentAdapter: ListAdapter<DataItem, DailyAppointmentAdapter.Ite
         val uniqueId = binding.tvName
         val phone = binding.tvContact
         val visitDate = binding.tvVisitDate
-       // val nextvisitTime = binding.tvVisitDate
+        val moreOption = binding.moreOption
+    }
+
+    interface ItemClickListener{
+        fun onUpadetAppointClick(item: DataItem)
+       fun onDeleteAppointClick(item: DataItem)
+
+
     }
 
 }

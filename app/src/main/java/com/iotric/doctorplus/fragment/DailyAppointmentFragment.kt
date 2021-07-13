@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.DailyAppointmentAdapter
 import com.iotric.doctorplus.databinding.DailyAppointmentFragmentBinding
+import com.iotric.doctorplus.model.response.DataItem
 import com.iotric.doctorplus.viewmodel.DailyAppointmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +40,17 @@ class DailyAppointmentFragment : BaseFragment() {
     }
 
     private fun initView() {
-        adapter = DailyAppointmentAdapter()
+        adapter = DailyAppointmentAdapter(object : DailyAppointmentAdapter.ItemClickListener {
+            override fun onUpadetAppointClick(item: DataItem) {
+
+            }
+
+            override fun onDeleteAppointClick(item: DataItem) {
+
+            }
+
+
+        })
         binding.recyclerView.adapter = adapter
         viewModel.getAppointApi(requireActivity().application)
     }
