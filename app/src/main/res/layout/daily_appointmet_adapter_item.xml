@@ -88,11 +88,11 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:text="Last Visit: "
+                android:text="Appointment Date: "
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_LastVisitDate"
+                android:id="@+id/tv_VisitDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -105,7 +105,8 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_Visit"

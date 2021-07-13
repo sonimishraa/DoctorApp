@@ -2,10 +2,10 @@ package com.iotric.doctorplus.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class CloseCasePatientListResponse(
+data class DailyAppointmentResponse(
 
-	@field:SerializedName("patient")
-	val patient: List<CloseCasePatientItem?>? = null,
+	@field:SerializedName("data")
+	val data: List<DataItem?>? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
@@ -14,7 +14,7 @@ data class CloseCasePatientListResponse(
 	val status: Boolean? = null
 )
 
-data class CloseCasePatientItem(
+data class Patientid(
 
 	@field:SerializedName("address")
 	val address: List<String?>? = null,
@@ -25,38 +25,41 @@ data class CloseCasePatientItem(
 	@field:SerializedName("gender")
 	val gender: String? = null,
 
-	@field:SerializedName("dayofvisit")
-	val dayofvisit: String? = null,
+	@field:SerializedName("_id")
+	val id: String? = null,
 
-	@field:SerializedName("pname")
-	val pname: String? = null,
+	@field:SerializedName("age")
+	val age: String? = null
+)
 
-	@field:SerializedName("iscaseopen")
-	val iscaseopen: Boolean? = null,
-
-	@field:SerializedName("pemail")
-	val pemail: String? = null,
+data class DataItem(
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
 
-	@field:SerializedName("prescription")
-	val prescription: List<Any?>? = null,
+	@field:SerializedName("nextvisittime")
+	val nextvisittime: String? = null,
 
 	@field:SerializedName("doctorid")
 	val doctorid: String? = null,
 
+	@field:SerializedName("patientid")
+	val patientid: Patientid? = null,
+
 	@field:SerializedName("__v")
 	val V: Int? = null,
 
+	@field:SerializedName("nextvisitdate")
+	val nextvisitdate: String? = null,
+
+	@field:SerializedName("description")
+	val description: String? = null,
+
+	@field:SerializedName("isvisited")
+	val isvisited: Boolean? = null,
+
 	@field:SerializedName("_id")
 	val id: String? = null,
-
-	@field:SerializedName("uniqueid")
-	val uniqueid: String? = null,
-
-	@field:SerializedName("age")
-	val age: String? = null,
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null

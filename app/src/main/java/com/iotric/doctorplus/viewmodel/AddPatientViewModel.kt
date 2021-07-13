@@ -22,7 +22,7 @@ class AddPatientViewModel @Inject constructor() : ViewModel() {
     val registerPatientItem = MutableLiveData<AddPatientResponse>()
     val registerPatientError = MutableLiveData<String>()
 
-    /*fun getApi(requestBody: RequestBody, application: Application){
+    fun getApi(requestBody: RequestBody, application: Application){
         ServiceBuilder.getRetrofit(application).addNewPatient(requestBody).enqueue(object : Callback<AddPatientResponse> {
             override fun onResponse(
                 call: Call<AddPatientResponse>,
@@ -50,7 +50,7 @@ class AddPatientViewModel @Inject constructor() : ViewModel() {
             }
         })
     }
-   *//* fun getApiResponse( patient: MultipartParams.Builder, application: Application) {
+   /* fun getApiResponse( patient: MultipartParams.Builder, application: Application) {
         val patientBuilder = patient.build().map
         ServiceBuilder.getRetrofit(application).addPatient(patientBuilder)
             .enqueue(object : Callback<AddPatientResponse> {
@@ -79,7 +79,6 @@ class AddPatientViewModel @Inject constructor() : ViewModel() {
                     ).show()
                 }
             })
-    }
-*/
+    }*/
 }
 

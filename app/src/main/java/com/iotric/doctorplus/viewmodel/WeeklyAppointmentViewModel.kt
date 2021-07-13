@@ -5,8 +5,8 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.iotric.doctorplus.model.response.DailyAppointmentResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
-import com.iotric.doctorplus.model.response.WeeklyAppointmentListResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,14 +14,14 @@ import retrofit2.Response
 
 class WeeklyAppointmentViewModel : ViewModel() {
 
-    val getWeeklyAppoint = MutableLiveData<WeeklyAppointmentListResponse>()
+    val getWeeklyAppoint = MutableLiveData<DailyAppointmentResponse>()
     val getErrorMessage = MutableLiveData<String>()
 
     fun getAppointmentApi(application: Application){
-        ServiceBuilder.getRetrofit(application).getWeeklyAppoint().enqueue(object : Callback<WeeklyAppointmentListResponse> {
+        ServiceBuilder.getRetrofit(application).getWeeklyAppoint().enqueue(object : Callback<DailyAppointmentResponse> {
             override fun onResponse(
-                call: Call<WeeklyAppointmentListResponse>,
-                response: Response<WeeklyAppointmentListResponse>
+                call: Call<DailyAppointmentResponse>,
+                response: Response<DailyAppointmentResponse>
             ) {
                 if (response.isSuccessful){
                     response.body()?.let {
@@ -36,7 +36,7 @@ class WeeklyAppointmentViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<WeeklyAppointmentListResponse>, t: Throwable) {
+            override fun onFailure(call: Call<DailyAppointmentResponse>, t: Throwable) {
                 Toast.makeText(
                     application.applicationContext,
                     "${t.message}",

@@ -21,7 +21,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
     val apiErrorMessage = MutableLiveData<String>()
     val deletePatient = MutableLiveData<DeletePatientResponse>()
     val patientStatusChange = MutableLiveData<PatientStatusChangeResponse>()
-    val closePatientList = MutableLiveData<CloseCasePatientListResponse>()
+    //val closePatientList = MutableLiveData<CloseCasePatientListResponse>()
     val changeStatus = MutableLiveData<PatientStatusChangeResponse>()
 
     fun getActivePatientApiResponse(application: Application) {
@@ -119,7 +119,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
             })
     }
 
-    fun getClosePatientApi(application: Application) {
+    /*fun getClosePatientApi(application: Application) {
         ServiceBuilder.getRetrofit(application).closecasePatient()
             .enqueue(object : Callback<CloseCasePatientListResponse> {
                 override fun onResponse(
@@ -146,9 +146,9 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
                     ).show()
                 }
             })
-    }
+    }*/
 
-    fun closeStatusApi(application: Application, id: String) {
+    /*fun closeStatusApi(application: Application, id: String) {
         ServiceBuilder.getRetrofit(application).changePatientStatus(id)
             .enqueue(object : Callback<PatientStatusChangeResponse> {
                 override fun onResponse(
@@ -178,5 +178,5 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
                 }
 
             })
-    }
+    }*/
 }

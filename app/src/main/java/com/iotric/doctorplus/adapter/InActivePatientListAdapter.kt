@@ -7,22 +7,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.iotric.doctorplus.databinding.InactivePatientAdapterItemBinding
-import com.iotric.doctorplus.model.response.Patient
-import com.iotric.doctorplus.model.response.PatientsItems
-import com.iotric.doctorplus.util.DateTimeUtil
+import com.iotric.doctorplus.model.response.CloseCasePatientItem
 
 class InActivePatientListAdapter(val listener: ItemClickListener) :
-    ListAdapter<Patient, InActivePatientListAdapter.ItemViewHolder>(
+    ListAdapter<CloseCasePatientItem, InActivePatientListAdapter.ItemViewHolder>(
         object :
-            DiffUtil.ItemCallback<Patient>() {
+            DiffUtil.ItemCallback<CloseCasePatientItem>() {
             override fun areContentsTheSame(
-                oldItem: Patient,
-                newItem: Patient
+                oldItem: CloseCasePatientItem,
+                newItem: CloseCasePatientItem
             ): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: Patient, newItem: Patient): Boolean {
+            override fun areItemsTheSame(
+                oldItem: CloseCasePatientItem,
+                newItem: CloseCasePatientItem
+            ): Boolean {
                 return oldItem == newItem
             }
         }) {
@@ -39,7 +40,6 @@ class InActivePatientListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        val nextAppointment = item.visit?.firstOrNull()
         val date = item.createdAt
         if (item.iscaseopen == false) {
             holder.tv_name.text = item.pname
@@ -60,21 +60,21 @@ class InActivePatientListAdapter(val listener: ItemClickListener) :
         val item_layout = binding.lLayout
         val changeStatusToggle = binding.changeStatusToggle
 
-         init {
-             changeStatusToggle.setOnClickListener {
-                 listener.onChangeStatus(getItem(position))
-             }
+        init {
+            changeStatusToggle.setOnClickListener {
+                listener.onChangeStatus(getItem(position))
+            }
             /* moreOption.setOnClickListener {
                  //listener.onDeleteClick(getItem(position))
              }*/
-         }
+        }
 
     }
 
     interface ItemClickListener {
-       /* fun onDeleteClick(result: Patient)
-        fun onPatientProfileClick(result: Patient)
-        fun onUpdateProfile(result: Patient)*/
-        fun onChangeStatus(result: Patient)
+        /* fun onDeleteClick(result: Patient)
+         fun onPatientProfileClick(result: Patient)
+         fun onUpdateProfile(result: Patient)*/
+        fun onChangeStatus(result: CloseCasePatientItem)
     }
 }

@@ -91,7 +91,7 @@ class BookAppointentFragment : BaseFragment() {
     }
     private fun initObserver() {
       viewModel.newAppointment.observe(requireActivity(),{
-          snackBar(it.message.toString(), binding.root)
+          toastMessage("${it.message}")
           findNavController().popBackStack()
 
       })

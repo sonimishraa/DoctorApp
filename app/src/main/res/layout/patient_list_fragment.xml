@@ -12,21 +12,20 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layout_noitem"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/medium_margin"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:orientation="vertical"
+        android:gravity="center"
         android:visibility="gone">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_baseline_report_problem_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="No Patient Available"
             android:textSize="20sp"
             android:textStyle="bold" />

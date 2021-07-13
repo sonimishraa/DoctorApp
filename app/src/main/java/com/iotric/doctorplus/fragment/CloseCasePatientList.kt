@@ -8,11 +8,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.adapter.InActivePatientListAdapter
 import com.iotric.doctorplus.databinding.ClosePatientListBinding
-import com.iotric.doctorplus.model.response.Patient
+import com.iotric.doctorplus.model.response.CloseCasePatientItem
 import com.iotric.doctorplus.viewmodel.InActivePatientViewModel
-import com.iotric.doctorplus.viewmodel.PatientListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class CloseCasePatientList : BaseFragment() {
@@ -35,44 +33,50 @@ class CloseCasePatientList : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initObserver()
+        initListener()
     }
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = "INACTIVE PATIENT LIST"
-        binding.appbar.toolbar.setOnClickListener{
-            findNavController().popBackStack()
-        }
         viewModel.getClosePatientApi(requireActivity().application)
         closePatientListAdapter =
             InActivePatientListAdapter(object : InActivePatientListAdapter.ItemClickListener {
-                override fun onChangeStatus(result: Patient) {
+                override fun onChangeStatus(result: CloseCasePatientItem) {
                     val id = result.id
                     if (id != null) {
-                        viewModel.getClosePatientApi(requireActivity().application)
+                        viewModel.getStatusChangeApi(requireActivity().application,id)
                     }
                 }
             })
         binding.recyclerView.adapter = closePatientListAdapter
     }
 
+    private fun initListener() {
+        binding.appbar.toolbar.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
     private fun initObserver() {
+        showLoading()
         viewModel.closePatientList.observe(requireActivity(), {
-            if (it.patient != null) {
+            dismissLoading()
+            if (it.patient.isNullOrEmpty()) {
+                binding.layoutNoitem.visibility = View.VISIBLE
+            } else {
                 binding.layoutNoitem.visibility = View.GONE
-                val list = ArrayList<Patient>()
-                it.patient.let {
-                    list.add(it)
-                    closePatientListAdapter.submitList(list)
+                it.patient.let{
+                    closePatientListAdapter.submitList(it)
                 }
 
-            } else {
-                binding.layoutNoitem.visibility = View.VISIBLE
             }
         })
         viewModel.changeStatus.observe(requireActivity(), {
+            dismissLoading()
             snackBar("${it.message}", binding.root)
         })
         viewModel.getErrorMessage.observe(requireActivity(), {
+            dismissLoading()
             snackBar("${it}", binding.root)
         })
     }

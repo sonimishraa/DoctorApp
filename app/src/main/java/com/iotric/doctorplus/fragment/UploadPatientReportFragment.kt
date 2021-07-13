@@ -36,7 +36,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 @AndroidEntryPoint
-class UploadPatientReportFragment : BaseFragment(), UploadReportRequestBody.UploadCallback {
+class UploadPatientReportFragment : BaseFragment() {
 
     val viewModel: UploadPatientReportViewModel by viewModels()
     lateinit var binding: UploadPatientReportFragmentBinding
@@ -73,7 +73,7 @@ class UploadPatientReportFragment : BaseFragment(), UploadReportRequestBody.Uplo
             pickImage()
         }
         binding.uploadReport.setOnClickListener {
-            reportUpload()
+            //reportUpload()
         }
     }
 
@@ -114,21 +114,21 @@ class UploadPatientReportFragment : BaseFragment(), UploadReportRequestBody.Uplo
            // inputStream.copyTo(outputStream, DEFAULT_BUFFER_SIZE)
             binding.progressbar.progress = 0
             Log.i("Upload", "patientId:${args.patientId.id}")
-            val body = UploadReportRequestBody(file, "images", this)
-            val patientReportImage = MultipartBody.Part.createFormData("images", file.name, body)
-            val patientid = RequestBody.create("patientid".toMediaTypeOrNull(), args.patientId.id!!)
+           /* val body = UploadReportRequestBody(file, "images", this)
+            val patientReportImage = MultipartBody.Part.createFormData("images", file.name, body)*/
+           /* val patientid = RequestBody.create("patientid".toMediaTypeOrNull(), args.patientId.id!!)
             viewModel.getUploadReportApi(
                 patientReportImage,
                 patientid,
                 requireActivity().application
-            )
+            )*/
         }
     }
 
-    override fun onProgressUpdate(percentage: Int) {
+   /* override fun onProgressUpdate(percentage: Int) {
         binding.progressbar.progress = percentage
     }
-
+*/
     private fun pickImage() {
         val builder = AlertDialog.Builder(requireContext())
         val inflater = layoutInflater

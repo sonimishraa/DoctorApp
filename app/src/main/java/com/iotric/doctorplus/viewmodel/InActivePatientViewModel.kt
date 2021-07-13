@@ -51,7 +51,7 @@ class InActivePatientViewModel @Inject constructor() : ViewModel() {
             })
     }
 
-   /* fun getStatusChangeApi(application: Application, id: String){
+    fun getStatusChangeApi(application: Application, id: String){
         ServiceBuilder.getRetrofit(application).changePatientStatus(id).enqueue(object : Callback<PatientStatusChangeResponse> {
             override fun onResponse(
                 call: Call<PatientStatusChangeResponse>,
@@ -82,5 +82,4 @@ class InActivePatientViewModel @Inject constructor() : ViewModel() {
 
         })
     }
-*/
 }

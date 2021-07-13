@@ -10,11 +10,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.iotric.doctorplus.R
 
 abstract class BaseFragment : Fragment() {
-
-    lateinit var alertDialoge: AlertDialog
+    lateinit var alertDialoge:AlertDialog
 
     fun showLoading() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = AlertDialog.Builder(requireActivity())
         val inflater = layoutInflater
         val dialogeView = inflater.inflate(R.layout.custom_progressbar, null)
         val dialogColor = ColorDrawable(Color.BLACK);

@@ -69,6 +69,7 @@ class PatientUpdateFragment : BaseFragment() {
         viewModel.updatePatientProfile.observe(requireActivity(), Observer {
             if (it != null) {
                 Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()
             }
         })
     }
@@ -106,7 +107,7 @@ class PatientUpdateFragment : BaseFragment() {
             val updatePatient = UpdatePatientRequest(
                 pname = name, pphone = phone, address = address)
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
-            findNavController().popBackStack()
+
         } else
             Toast.makeText(
                 requireContext(),

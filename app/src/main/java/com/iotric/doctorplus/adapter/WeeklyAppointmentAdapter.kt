@@ -30,12 +30,12 @@ class WeeklyAppointmentAdapter: ListAdapter<DataItem, WeeklyAppointmentAdapter.I
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        val visitItem = item.visit?.firstOrNull()
-        if(item.iscaseopen == true && visitItem?.isvisted == false) {
-            holder.name.text = item.pname
-            holder.phone.text = item.pphone
-            holder.lastVisit.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
-            holder.appointmentDate.text = visitItem.nextvisitdate + " " + visitItem.nextvisittime
+        if(item.isvisited == false) {
+            item.patientid?.let{
+                holder.name.text = it.id
+                holder.phone.text = it.pphone
+            }
+            holder.visitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.nextvisitdate) + " " + item.nextvisittime
         }
     }
     inner class ItemViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
@@ -43,8 +43,8 @@ class WeeklyAppointmentAdapter: ListAdapter<DataItem, WeeklyAppointmentAdapter.I
         val name = binding.tvName
         val email = binding.tvEmail
         val phone = binding.tvContact
-        val lastVisit = binding.tvLastVisitDate
-        val appointmentDate = binding.tvVisitDate
+        //val visitDate = binding.tvLastVisitDate
+        val visitDate = binding.tvVisitDate
 
     }
 

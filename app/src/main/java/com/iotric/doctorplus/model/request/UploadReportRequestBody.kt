@@ -13,9 +13,9 @@ import java.io.FileInputStream
 data class UploadReportRequestBody(
     val file : File,
     val contentType: String?,
-    val callback: UploadCallback
+    //val callback: UploadCallback
 
-):RequestBody(){
+)/*:RequestBody(){
 
     interface UploadCallback{
         fun onProgressUpdate(percentage:Int)
@@ -57,3 +57,4 @@ data class UploadReportRequestBody(
         private const val DEFAULT_BUFFER_SIZE = 1048
     }
 }
+*/

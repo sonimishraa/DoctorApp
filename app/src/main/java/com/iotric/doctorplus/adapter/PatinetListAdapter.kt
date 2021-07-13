@@ -60,19 +60,19 @@ class PatinetListAdapter(val listener: ItemClickListener) :
             popup.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.patient_profile -> {
-                        listener.onPatientProfileClick(getItem(position))
+                        listener.onPatientProfileClick(item)
                     }
                     R.id.update_profile -> {
-                        listener.onUpdateProfile(getItem(position))
+                        listener.onUpdateProfile(item)
                     }
                     R.id.Update_Status -> {
-                        listener.onChangeStatus(getItem(position))
+                        listener.onChangeStatus(item)
                     }
                     R.id.delete_Profile -> {
-                        listener.onDeleteClick(getItem(position))
+                        listener.onDeleteClick(item)
                     }
-                    R.id.book_appointment ->{
-                        listener.onBookAppointmentClick(getItem(position))
+                    R.id.book_appointment -> {
+                        listener.onBookAppointmentClick(item)
                     }
                 }
 

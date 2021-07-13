@@ -1,13 +1,11 @@
 package com.iotric.doctorplus.adapter
 
-import android.telecom.Call
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.iotric.doctorplus.databinding.DailyAppointmentFragmentBinding
 import com.iotric.doctorplus.databinding.DailyAppointmetAdapterItemBinding
 import com.iotric.doctorplus.model.response.DataItem
 import com.iotric.doctorplus.util.DateTimeUtil
@@ -34,20 +32,21 @@ class DailyAppointmentAdapter: ListAdapter<DataItem, DailyAppointmentAdapter.Ite
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        val nextvisit = item.visit?.firstOrNull()
-        if(item.iscaseopen == true && nextvisit?.isvisted == false) {
-            holder.name.text = item.pname
-            holder.phone.text = item.pphone
-            holder.lastVisitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.dayofvisit)
-            holder.nextvisitTime.text = nextvisit.nextvisittime
+        if(item.isvisited == false){
+            item.patientid?.let {
+                holder.uniqueId.text = it.id
+                holder.phone.text = it.pphone
+            }
+            holder.visitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.nextvisitdate) + " " + item.nextvisittime
+
         }
     }
 
     inner class ItemViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-        val name = binding.tvName
+        val uniqueId = binding.tvName
         val phone = binding.tvContact
-        val lastVisitDate = binding.tvLastVisitDate
-        val nextvisitTime = binding.tvVisitDate
+        val visitDate = binding.tvVisitDate
+       // val nextvisitTime = binding.tvVisitDate
     }
 
 }

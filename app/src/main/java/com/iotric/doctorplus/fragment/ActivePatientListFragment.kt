@@ -74,27 +74,33 @@ class ActivePatientListFragment : BaseFragment() {
     }
 
     private fun initObserver() {
+        showLoading()
         viewModel.allUserList.observe(requireActivity(), {
-            if (it.patients?.size == 0) {
+            dismissLoading()
+            if (it.patients.isNullOrEmpty()) {
                 binding.layoutNoitem.visibility = View.VISIBLE
-                patientListAdapter.submitList(it.patients)
             } else {
                 binding.layoutNoitem.visibility = View.GONE
-                patientListAdapter.submitList(it.patients)
+                it.patients?.let {
+                    patientListAdapter.submitList(it)
+                }
             }
         })
 
         viewModel.deletePatient.observe(requireActivity(), {
+            dismissLoading()
             it.message?.let {
                 snackBar(it, binding.root)
             }
         })
         viewModel.patientStatusChange.observe(requireActivity(), {
+            dismissLoading()
             it.message?.let {
                 snackBar(it, binding.root)
             }
         })
         viewModel.apiErrorMessage.observe(requireActivity(), {
+            dismissLoading()
             snackBar(it, binding.root)
         })
     }

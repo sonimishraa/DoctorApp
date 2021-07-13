@@ -24,11 +24,10 @@ class UploadPatientReportViewModel @Inject constructor() : ViewModel() {
 
     fun getUploadReportApi(
         patientReportImage: MultipartBody.Part,
-        patientid: RequestBody,
         application: Application
     ){
 
-        ServiceBuilder.getRetrofit(application).addPatientReport(patientReportImage,patientid).enqueue(object : Callback<AddPatientReportResponse> {
+        ServiceBuilder.getRetrofit(application).addPatientReport(patientReportImage).enqueue(object : Callback<AddPatientReportResponse> {
             override fun onResponse(
                 call: Call<AddPatientReportResponse>,
                 response: Response<AddPatientReportResponse>
