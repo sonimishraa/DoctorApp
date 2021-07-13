@@ -77,13 +77,13 @@ class AddPatientFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.appbar.toolbarTitle.text = getString(R.string.add_patient_toolbar_title)
+        //binding.appbar.toolbarTitle.text = getString(R.string.add_patient_toolbar_title)
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+       /* binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }
+        }*/
         /* binding.editUploadPris.setOnClickListener {
              pickImage()
          }*/

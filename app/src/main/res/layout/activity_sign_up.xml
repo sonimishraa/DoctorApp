@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:text="Login Here"
                 android:layout_weight=".7"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/purple_500"
                 android:layout_gravity="end"
                 android:textSize="15sp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>

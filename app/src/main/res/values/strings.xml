@@ -17,7 +17,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="patient_list">MY PATIENT LIST</string>
-    <string name="add_patient">ADD RECORD</string>
+    <string name="add_patient">ADD NEW PATIENT</string>
     <string name="permission_not_granted">PermissionGranted</string>
     <string name="some_err">Some Error Found</string>
     <string name="select_capture_image">Select_Image</string>

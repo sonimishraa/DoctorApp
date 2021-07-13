@@ -59,7 +59,7 @@ class LoginActivity : BaseActivity() {
                 editor.putString("authToken", it.authToken)
                 editor.putString("DoctorID", it.id)
                 editor.apply()
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, DrDashboardActivity::class.java))
                /* val newFragment: Fragment = DashboardFragments()
                 val ft = fragmentManager.beginTransaction()
                 ft.add(R.id.nav_view, newFragment).commit()*/

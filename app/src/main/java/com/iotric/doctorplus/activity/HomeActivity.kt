@@ -36,7 +36,7 @@ class HomeActivity : BaseActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_home, R.id.navigation_lab, R.id.navigation_notifications -> showBottomNav()
-                R.id.navigation_medical_records -> hideBottomNav()
+                R.id.navigation_dashboard -> hideBottomNav()
                 else -> hideBottomNav()
             }
         }

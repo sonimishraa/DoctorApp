@@ -5,7 +5,8 @@
 
     <include
         android:id="@+id/appbar"
-        layout="@layout/app_bar_main"/>
+        layout="@layout/app_bar_main"
+        android:visibility="gone"/>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -36,15 +36,15 @@ class AppointmentFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.appbar.toolbarTitle.text = getString(R.string.appointment_toolbar_title)
+       // binding.appbar.toolbarTitle.text = getString(R.string.appointment_toolbar_title)
         binding.viewPager.adapter = AppointmentPagerAdapter(childFragmentManager)
         binding.tablayout.setupWithViewPager(binding.viewPager)
         binding.tablayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFF00"))
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+        /*binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }
+        }*/
     }
 }

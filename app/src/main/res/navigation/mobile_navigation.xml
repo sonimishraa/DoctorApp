@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_dashboard">
 
-    <fragment
+  <!--  <fragment
         android:id="@+id/navigation_home"
         android:name="com.iotric.doctorplus.fragment.HomeFragment"
         android:label="@string/navigation_home"
@@ -23,12 +23,12 @@
         android:name="com.iotric.doctorplus.fragment.NotificationFragment"
         android:label="@string/notifications"
         tools:layout="@layout/notification_fragment" />
-
+-->
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.iotric.doctorplus.fragment.DashboardFragments"
-        android:label="Account"
-        tools:layout="@layout/dashboard_fragment">
+        android:name="com.iotric.doctorplus.fragment.DashFragment"
+        android:label="DASHBOARD"
+        tools:layout="@layout/dashboard_fragment_item">
 
         <action
             android:id="@+id/action_closeCase_fragment"
@@ -69,7 +69,7 @@
     <fragment
         android:id="@+id/myPatientList_fragment"
         android:name="com.iotric.doctorplus.fragment.MyPatientListFragment"
-        android:label="My Patient List"
+        android:label="MY PATIENT LIST"
         tools:layout="@layout/my_patient_list_fragment">
 
        <!-- <action
@@ -88,7 +88,7 @@
     <fragment
         android:id="@+id/closePatient_fragment"
         android:name="com.iotric.doctorplus.fragment.CloseCasePatientList"
-        android:label="Close Patient List"
+        android:label="INACTIVE PATIENT LIST"
         tools:layout="@layout/close_patient_list">
 
     </fragment>
@@ -183,7 +183,7 @@
     <fragment
         android:id="@+id/patientRecordFragment"
         android:name="com.iotric.doctorplus.fragment.PatientRecordFragment"
-        android:label="PAST RECORDS"
+        android:label="PATIENT DETAILS"
         tools:layout="@layout/patient_record_fragment">
 
         <argument
@@ -200,7 +200,7 @@
     <fragment
         android:id="@+id/patientUpdateLDialogFragment"
         android:name="com.iotric.doctorplus.fragment.PatientUpdateFragment"
-        android:label="PatientUpdateLDialogFragment">
+        android:label="UPDATE PATIENT RECORD">
         <action
             android:id="@+id/action_patient_list"
             app:destination="@id/patient_list_fragement" />
@@ -213,7 +213,7 @@
     <dialog
         android:id="@+id/editDoctorProfileFragment"
         android:name="com.iotric.doctorplus.fragment.EditDoctorProfileFragment"
-        android:label="edit_doctor_profile_fragment"
+        android:label=" UPDATE PROFILE"
         tools:layout="@layout/edit_doctor_profile_fragment">
 
         <action
@@ -227,7 +227,7 @@
     <fragment
         android:id="@+id/uploadPatientReportFragment"
         android:name="com.iotric.doctorplus.fragment.UploadPatientReportFragment"
-        android:label="UploadPatientReportFragment" >
+        android:label="ADD PATIENT REPORTS" >
         <argument
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
@@ -235,7 +235,7 @@
     <fragment
         android:id="@+id/viewPatientReportFragment"
         android:name="com.iotric.doctorplus.fragment.ViewPatientReportFragment"
-        android:label="view_patient_report_fragment"
+        android:label="VIEW PATIENT REPORT"
         tools:layout="@layout/view_patient_report_fragment" >
 
         <argument
@@ -245,7 +245,7 @@
     <fragment
         android:id="@+id/bookAppointentFragment"
         android:name="com.iotric.doctorplus.fragment.BookAppointentFragment"
-        android:label="BookAppointentFragment">
+        android:label="BOOK NEW APPOINTMENT">
 
         <argument
             android:name="patientId"
