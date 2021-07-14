@@ -25,14 +25,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
+import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.util.UtilClass.day
 import com.iotric.doctorplus.util.UtilClass.month
 import com.iotric.doctorplus.util.UtilClass.year
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
 
@@ -103,7 +102,7 @@ class AddPatientFragment : BaseFragment() {
 
     private fun registerPatient() {
         if (validateFields()) {
-              val requestBody: RequestBody = MultipartBody.Builder()
+            /*  val requestBody: RequestBody = MultipartBody.Builder()
                   .setType(MultipartBody.FORM)
                   .addFormDataPart("patientname  ", name)
                   .addFormDataPart("phone ", phone)
@@ -111,14 +110,18 @@ class AddPatientFragment : BaseFragment() {
                   .addFormDataPart("age  ",age)
                   .addFormDataPart("gender  ",gender)
                   .build()
-          /*  val fields = HashMap<String, String>()
+            val fields = HashMap<String, String>()
             fields.put("patientname",name)
             fields.put("phone", phone)
             fields.put("address", address)
             fields.put("email", email)
             fields.put("age", age)
             fields.put("gender", gender)*/
-            viewModel.getApi(requestBody, requireActivity().application)
+            val multipartParams = MultipartParams.Builder()
+            //val filePath = File(uri?.path)
+            val patient = multipartParams.add("patientname", name)
+                .add("phone", phone).add("address", address).add("email",email).add("age",age).add("gender",gender)
+            viewModel.getApi(patient, requireActivity().application)
         } else {
             snackBar(getString(R.string.mendatory_field_message), binding.root)
         }

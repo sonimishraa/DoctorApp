@@ -55,10 +55,15 @@ interface ApiService {
     @POST(ADD_PATIENT)
     fun addNewPatient(@FieldMap fields: HashMap<String,String>): Call<AddPatientResponse>*/
 
-    @POST(ADD_PATIENT)
-    fun addNewPatient(@Body requestBody: RequestBody):Call<AddPatientResponse>
+   /* @POST(ADD_PATIENT)
+    fun addNewPatient(@Body requestBody: RequestBody):Call<AddPatientResponse>*/
 
-   /* @Multipart
+    @Multipart
+    @POST(ADD_PATIENT)
+    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody> ): Call<AddPatientResponse>
+
+
+    /* @Multipart
     @POST("XXXX")
     fun myPlans(
         @Part(Constants.ACTION_ID) actionId: RequestBody?,
