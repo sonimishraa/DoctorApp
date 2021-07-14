@@ -109,7 +109,13 @@
         android:id="@+id/navigation_appointment"
         android:name="com.iotric.doctorplus.fragment.AppointmentFragment"
         android:label="@string/menu_appointment"
-        tools:layout="@layout/fragment_appointent" />
+        tools:layout="@layout/fragment_appointent">
+
+        <action
+            android:id="@+id/action_navigation_appointment_to_updateAppointmentFragment"
+            app:destination="@id/updateAppointmentFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/navigation_privacy"
@@ -251,6 +257,13 @@
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
-
+    <fragment
+        android:id="@+id/updateAppointmentFragment"
+        android:name="com.iotric.doctorplus.fragment.UpdateAppointmentFragment"
+        android:label="UpdateAppointmentFragment" >
+        <argument
+            android:name="AppointItem"
+            app:argType="com.iotric.doctorplus.model.response.DataItem" />
+    </fragment>
 
 </navigation>

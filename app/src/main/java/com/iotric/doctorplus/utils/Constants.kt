@@ -23,5 +23,6 @@ object Constants {
     const val GET_DAILY_APPOINTMENT = "apointment/daily"
     const val ADD_NEW_APPOINTMENT = "apointment"
     const val UPDATE_APPOINTMENT = "apointment/{id}"
+    const val DELETE_APPOINTMENT = "apointment/{id}"
     const val GET_PATIENT_REPORT_BY_ID = "report/patientreport/{id}"
 }

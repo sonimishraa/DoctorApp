@@ -140,6 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Already Have An Account?"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="15sp"/>
 
             <androidx.appcompat.widget.AppCompatTextView

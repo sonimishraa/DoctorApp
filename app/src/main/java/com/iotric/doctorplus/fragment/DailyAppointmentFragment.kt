@@ -1,14 +1,15 @@
 package com.iotric.doctorplus.fragment
 
-import androidx.lifecycle.ViewModelProvider
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.DailyAppointmentAdapter
 import com.iotric.doctorplus.databinding.DailyAppointmentFragmentBinding
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DailyAppointmentFragment : BaseFragment() {
 
     val viewModel: DailyAppointmentViewModel by viewModels()
-    lateinit var binding:DailyAppointmentFragmentBinding
+    lateinit var binding: DailyAppointmentFragmentBinding
     lateinit var adapter: DailyAppointmentAdapter
 
     override fun onCreateView(
@@ -42,11 +43,15 @@ class DailyAppointmentFragment : BaseFragment() {
     private fun initView() {
         adapter = DailyAppointmentAdapter(object : DailyAppointmentAdapter.ItemClickListener {
             override fun onUpadetAppointClick(item: DataItem) {
-
+                val action =
+                    AppointmentFragmentDirections.actionNavigationAppointmentToUpdateAppointmentFragment(
+                        item
+                    )
+                findNavController().navigate(action)
             }
 
             override fun onDeleteAppointClick(item: DataItem) {
-
+                showDeleteDilogue(item)
             }
 
 
@@ -60,11 +65,11 @@ class DailyAppointmentFragment : BaseFragment() {
         viewModel.getDailyAppointment.observe(requireActivity(), Observer {
             dismissLoading()
             Log.i("DailyFragment", "Success Message: ${it.message}")
-            if(it.data?.size == 0){
+            if (it.data?.size == 0) {
                 binding.layoutNoitem.visibility = View.VISIBLE
-            }else {
+            } else {
                 dismissLoading()
-                binding.layoutNoitem.visibility =View.GONE
+                binding.layoutNoitem.visibility = View.GONE
                 it.data?.let {
                     adapter.submitList(it)
                 }
@@ -76,5 +81,33 @@ class DailyAppointmentFragment : BaseFragment() {
             snackBar("${it}", binding.root)
         })
 
+        viewModel.deleteAppointment.observe(requireActivity(), {
+            dismissLoading()
+            snackBar("${it.message}", binding.root)
+        })
+
+    }
+
+    private fun showDeleteDilogue(item: DataItem) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogeView = inflater.inflate(R.layout.delete_appoint_dialogue, null)
+        builder.setCancelable(false)
+        builder.setView(dialogeView)
+        val alertDialoge = builder.create()
+        alertDialoge.show()
+        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
+        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
+
+        tv_ok.setOnClickListener {
+            item.id?.let {
+                viewModel.deleteAppointApi(requireActivity().application, it)
+                alertDialoge.dismiss()
+            }
+        }
+        tv_cancel.setOnClickListener {
+            alertDialoge.dismiss()
+        }
     }
 }
+

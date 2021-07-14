@@ -1,13 +1,11 @@
 package com.iotric.doctorplus.model.response
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
-data class DailyAppointmentResponse(
+data class DeleteAppointResponse(
 
-	@field:SerializedName("data")
-	val data: List<DataItem?>? = null,
+	@field:SerializedName("resp")
+	val resp: Resp? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null,
@@ -15,8 +13,8 @@ data class DailyAppointmentResponse(
 	@field:SerializedName("status")
 	val status: Boolean? = null
 )
-@Parcelize
-data class DataItem(
+
+/*data class Resp(
 
 	@field:SerializedName("createdAt")
 	val createdAt: String? = null,
@@ -28,7 +26,7 @@ data class DataItem(
 	val doctorid: String? = null,
 
 	@field:SerializedName("patientid")
-	val patientid: Patientid? = null,
+	val patientid: String? = null,
 
 	@field:SerializedName("__v")
 	val V: Int? = null,
@@ -47,23 +45,4 @@ data class DataItem(
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null
-):Parcelable
-
-@Parcelize
-data class Patientid(
-
-	@field:SerializedName("address")
-	val address: List<String?>? = null,
-
-	@field:SerializedName("pphone")
-	val pphone: String? = null,
-
-	@field:SerializedName("gender")
-	val gender: String? = null,
-
-	@field:SerializedName("_id")
-	val id: String? = null,
-
-	@field:SerializedName("age")
-	val age: String? = null
-):Parcelable
+)*/

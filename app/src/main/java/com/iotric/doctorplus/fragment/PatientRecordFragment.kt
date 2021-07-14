@@ -92,7 +92,7 @@ class PatientRecordFragment : BaseFragment() {
 
     private fun initObserver() {
         viewModel.patientRecord.observe(requireActivity(), {
-            it.report?.firstOrNull()?.let {
+            it.report?.lastOrNull()?.let {
                 val id = it
                 val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(id)
                 findNavController().navigate(action)

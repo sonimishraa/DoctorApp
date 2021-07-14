@@ -32,7 +32,7 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
             else {
-                val intent = Intent(this@SplashActivity, HomeActivity::class.java)
+                val intent = Intent(this@SplashActivity, DrDashboardActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -10,21 +10,15 @@
         layout="@layout/app_bar_main"
         android:visibility="gone"/>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/appbar">
-
-
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/Layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_margin"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_edit_name"
+                android:id="@+id/layout_visitDate"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,15 +26,15 @@
                 android:layout_marginBottom="@dimen/small_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_name"
+                    android:id="@+id/visitDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name*"
+                    android:hint="Visit Date*"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_edit_contact"
+                android:id="@+id/layout_visitTime"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,28 +42,28 @@
                 android:layout_marginBottom="@dimen/small_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_contact"
+                    android:id="@+id/visitTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contact*"
+                    android:hint="Visit Time*"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_edit_email"
+                android:id="@+id/layout_description"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
                 android:layout_marginBottom="@dimen/small_margin"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_email"
+                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email*"
-                    android:visibility="gone" />
+                    android:hint="Description*"
+                    android:visibility="visible" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -78,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
+                android:visibility="gone"
                 android:layout_marginBottom="@dimen/small_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -86,48 +81,32 @@
                     android:layout_height="wrap_content"
                     android:hint="Address*" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_healthIssue"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/healthIssue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Health Issue*" />
-            </com.google.android.material.textfield.TextInputLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/layoutbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/nested_scroll">
+        android:layout_below="@+id/Layout1">
 
-    <Button
-        android:id="@+id/btnCancle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="CANCLE"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="UPDATE"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnCancle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/medium_margin"
+            android:text="CANCLE"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:text="UPDATE"
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

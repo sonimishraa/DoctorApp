@@ -22,10 +22,10 @@
             android:label="DocCheck"
             android:icon="@drawable/plus_sign"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
-           <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.SignUpActivity"
@@ -51,11 +51,11 @@
             android:name=".activity.LoginActivity"
             android:icon="@drawable/plus_sign"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
-            <intent-filter>
+          <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
     </application>
 

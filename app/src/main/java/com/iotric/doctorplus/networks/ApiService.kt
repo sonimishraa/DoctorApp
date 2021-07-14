@@ -7,6 +7,7 @@ import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT_REPORT
 import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
 import com.iotric.doctorplus.utils.Constants.CLOSE_CASE_PATIENT_LIST
+import com.iotric.doctorplus.utils.Constants.DELETE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
@@ -20,7 +21,6 @@ import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.UPDATE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -103,9 +103,14 @@ interface ApiService {
 /*    @Multipart
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReport(@Part images: MultipartBody.Part, @Part ("patientid") patientId: RequestBody): Call<AddPatientReportResponse>*/
-    @Multipart
+    /*@Multipart
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReport(@Part images: MultipartBody.Part): Call<AddPatientReportResponse>
+*/
+    @Multipart
+    @POST(ADD_PATIENT_REPORT)
+    fun addPatientReport(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody> ): Call<AddPatientReportResponse>
+
 
 
     /*@Multipart
@@ -128,7 +133,11 @@ interface ApiService {
     fun addNewAppointment(@Body newAppointment: AddNewAppointmentRequest):Call<AddNewAppointmentResponse>
 
     @PUT(UPDATE_APPOINTMENT)
-    fun updateAppointment(@Path("id") id: String, @Body updateAppoitment: UpdateAppointmentRequest):Call<AddNewAppointmentResponse>
+    fun updateAppointment(@Path("id") id: String, @Body updateAppoitment: UpdateAppointmentRequest):Call<UpdateAppointmentResponse>
+
+    @DELETE(DELETE_APPOINTMENT)
+    fun deleteAppointment(@Path("id") id: String):Call<DeleteAppointResponse>
+
 
 
 }

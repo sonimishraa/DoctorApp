@@ -13,6 +13,7 @@
    <androidx.appcompat.widget.AppCompatImageView
        android:id="@+id/patient_report"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+       android:layout_height="match_parent"
+       android:src="@drawable/rose"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

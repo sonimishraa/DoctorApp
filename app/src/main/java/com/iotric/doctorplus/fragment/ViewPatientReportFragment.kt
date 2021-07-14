@@ -1,5 +1,6 @@
 package com.iotric.doctorplus.fragment
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ViewPatientReportFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,10 +40,8 @@ class ViewPatientReportFragment : BaseFragment() {
         binding.appbar.toolbar.setOnClickListener {
             findNavController().popBackStack()
         }
-        val image = args.patientId.labreports?.firstOrNull()?.images?.firstOrNull()
-        binding.patientReport.setImageURI(image?.toUri())
-
-
+        val image = args.patientId.labreports?.firstOrNull()?.images
+        Glide.with(requireContext()).load(image).into(binding.patientReport)
     }
 
 
