@@ -22,11 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LogoutFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initView()
-    }
-
-    private fun initView() {
-
+        //initView()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

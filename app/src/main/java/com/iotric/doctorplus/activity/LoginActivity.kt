@@ -1,11 +1,14 @@
 package com.iotric.doctorplus.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -43,6 +46,32 @@ class LoginActivity : BaseActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+        binding.forgetPassword.setOnClickListener {
+            openAlertDialogue()
+        }
+    }
+
+    private fun openAlertDialogue() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogeView = inflater.inflate(R.layout.change_password_dialogue, null)
+        builder.setCancelable(false)
+        builder.setView(dialogeView)
+        val alertDialoge = builder.create()
+        alertDialoge.show()
+        val  btnCancel= dialogeView.findViewById<Button>(R.id.bt_cancel)
+        val btnSend = dialogeView.findViewById<Button>(R.id.bt_send)
+
+        btnSend.setOnClickListener {
+            alertDialoge.dismiss()
+           /* result.id?.let {
+                viewModel.getDeleteApiResponse(requireActivity().application, it)
+                alertDialoge.dismiss()
+            }*/
+        }
+        btnCancel.setOnClickListener {
+            alertDialoge.dismiss()
+        }
     }
 
     private fun initObserver() {
@@ -77,7 +106,6 @@ class LoginActivity : BaseActivity() {
 
     private fun loginDoctor() {
         if (validateFields()) {
-            // TODO need to add number and passsword accroding to auth request
                 val loginRequest = DoctorLoginRequest(number, password)
                 viewModel.fetchLoginRequest(loginRequest, application)
         } else

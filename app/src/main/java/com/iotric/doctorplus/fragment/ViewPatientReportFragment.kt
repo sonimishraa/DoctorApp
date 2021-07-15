@@ -37,11 +37,11 @@ class ViewPatientReportFragment : BaseFragment() {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = "PATIENT REPORT"
-        binding.appbar.toolbar.setOnClickListener {
+        binding.appbar.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-        val image = args.patientId.labreports?.firstOrNull()?.images
-        Glide.with(requireContext()).load(image).into(binding.patientReport)
+       /* val image = args.patientId.labreports?.firstOrNull()?.images
+        Glide.with(requireContext()).load(image).into(binding.patientReport)*/
     }
 
 

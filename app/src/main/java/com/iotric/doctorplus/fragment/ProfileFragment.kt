@@ -91,7 +91,7 @@ class ProfileFragment : BaseFragment() {
             getDoctorId = it
             getDoctorId.let {
                 if ( it._id == loginDrid) {
-                    Glide.with(requireContext()).load(it.profilepic).into(binding.ivProfilePic)
+                    Glide.with(requireContext()).load("http://3.108.56.211/profile/defaultavtar.png").into(binding.ivProfilePic)
                     binding.tvName.text = it.doctorname
                     binding.tvType.text = it.type
                     binding.tvEmail.text = it.email

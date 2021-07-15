@@ -241,8 +241,7 @@
     <fragment
         android:id="@+id/viewPatientReportFragment"
         android:name="com.iotric.doctorplus.fragment.ViewPatientReportFragment"
-        android:label="VIEW PATIENT REPORT"
-        tools:layout="@layout/view_patient_report_fragment" >
+        android:label="VIEW PATIENT REPORT">
 
         <argument
             android:name="patientId"

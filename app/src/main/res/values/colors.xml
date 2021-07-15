@@ -11,6 +11,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#DC143C</color>
+    <color name="blue_Dark">#241571</color>
+    <color name="blue">#00008B</color>
+
     <color name="tab_selected_color">#FFFACD</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#3AAE3C</color>
 </resources>

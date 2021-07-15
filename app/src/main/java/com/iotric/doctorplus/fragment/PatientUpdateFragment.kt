@@ -96,9 +96,13 @@ class PatientUpdateFragment : BaseFragment() {
         binding.editNextAppointmentDate.setOnClickListener {
             pickDate()
         }*/
+        binding.btnCancle.setOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.btnUpdate.setOnClickListener {
             updatePatient()
         }
+
     }
 
     private fun updatePatient() {

@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatientReportAdapter
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
-import com.iotric.doctorplus.model.response.ReportItem
 import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -83,18 +82,25 @@ class PatientRecordFragment : BaseFragment() {
 
     private fun setArgs() {
         val argsItem = args.result
-        //val visitItem = argsItem.visit?.firstOrNull()
+        binding.tvPatientId.text = argsItem.uniqueid
         binding.tvName.text = argsItem.pname
         binding.tvContact.text = argsItem.pphone
         binding.tvEmail.text = argsItem.pemail
-        // binding.tvLastVisit.text = visitItem?.nextvisitdate + " " + visitItem?.nextvisittime ?: ""
+        binding.tvAge.text = argsItem.age + " " + "Years"
+        if (argsItem.gender == "m") {
+            binding.tvGender.text = "Male"
+        } else
+            binding.tvGender.text = "Female"
     }
 
     private fun initObserver() {
         viewModel.patientRecord.observe(requireActivity(), {
             it.report?.lastOrNull()?.let {
                 val id = it
-                val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(id)
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(
+                        id
+                    )
                 findNavController().navigate(action)
             }
         })
