@@ -9,7 +9,6 @@ import android.text.style.AlignmentSpan
 import java.util.*
 
 object UtilClass {
-
     var year = 0
     var month = 0
     var day = 0

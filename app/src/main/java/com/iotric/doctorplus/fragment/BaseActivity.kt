@@ -10,8 +10,7 @@ import com.iotric.doctorplus.R
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    lateinit var alertDialoge: AlertDialog
-
+   lateinit var alertDialoge:AlertDialog
     fun showLoading() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater

@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,10 @@ import com.iotric.doctorplus.model.request.AddNewAppointmentRequest
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.BookAppointentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.time.milliseconds
+
 
 @AndroidEntryPoint
 class BookAppointentFragment : BaseFragment() {
@@ -28,6 +31,9 @@ class BookAppointentFragment : BaseFragment() {
     var pickYear = 0
     var pickMonth = 0
     var pickDay = 0
+    var year= 0
+    var month = 0
+    var day = 0
 
     val viewModel: BookAppointentViewModel by viewModels()
     val args: BookAppointentFragmentArgs by navArgs()
@@ -37,6 +43,7 @@ class BookAppointentFragment : BaseFragment() {
     lateinit var visitDate: String
     lateinit var visitTime:String
     lateinit var description:String
+
 
 
     override fun onCreateView(
@@ -61,7 +68,7 @@ class BookAppointentFragment : BaseFragment() {
 
 
     private fun initListener() {
-       /* binding.appbar.toolbar.setOnClickListener {
+      /*  binding.appbar.toolbar.setOnClickListener {
             findNavController().popBackStack()
         }*/
         binding.editNextAppointmentTime.setOnClickListener {
@@ -83,14 +90,16 @@ class BookAppointentFragment : BaseFragment() {
         val patientId = args.patientId.id
         if (validateFields()){
             patientId?.let {
-                val request =  AddNewAppointmentRequest(patientid = it, nextvisitdate = visitDate,
-                    nextvisittime = visitTime,description = description)
-                viewModel.getNewAppointmentApi(request,requireActivity().application)
+                val request =  AddNewAppointmentRequest(
+                    patientid = it, nextvisitdate = visitDate,
+                    nextvisittime = visitTime, description = description
+                )
+                viewModel.getNewAppointmentApi(request, requireActivity().application)
             }
         }
     }
     private fun initObserver() {
-      viewModel.newAppointment.observe(requireActivity(),{
+      viewModel.newAppointment.observe(requireActivity(), {
           toastMessage("${it.message}")
           findNavController().popBackStack()
 
@@ -131,6 +140,7 @@ class BookAppointentFragment : BaseFragment() {
 
     private fun pickAppointmentTime() {
         UtilClass.getTimeCalender()
+
         timePickerDialog =
             TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
                 override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
@@ -145,7 +155,11 @@ class BookAppointentFragment : BaseFragment() {
     }
 
     private fun pickDate() {
-        UtilClass.getDateCalendarInstance()
+        val calendar = Calendar.getInstance()
+        year = calendar.get(Calendar.YEAR)
+        month = calendar.get(Calendar.MONTH)
+        day = calendar.get(Calendar.DAY_OF_MONTH)
+        val now = calendar.timeInMillis
         datePickerDialog =
             DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -155,7 +169,8 @@ class BookAppointentFragment : BaseFragment() {
                     val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
                     binding.editNextAppointmentDate.setText(date)
                 }
-            }, UtilClass.year, UtilClass.month, UtilClass.day)
+            }, year, month, day)
+        datePickerDialog.datePicker.minDate = now
         datePickerDialog.show()
     }
 

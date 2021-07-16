@@ -48,7 +48,6 @@ interface ApiService {
         @Body updateDoctorRequest: UpdateDoctorRequest
     ): Call<UpdateDoctorResponse>
 
-
     // Patients Api
 
    /* @FormUrlEncoded

@@ -7,9 +7,10 @@
     android:gravity="start"
     android:orientation="vertical">
 
-  <!--  <include
+    <include
         android:id="@+id/appbar"
-        layout="@layout/app_bar_main" />-->
+        layout="@layout/app_bar_main"
+        android:visibility="gone"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"

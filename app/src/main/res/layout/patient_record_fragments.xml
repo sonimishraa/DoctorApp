@@ -220,6 +220,7 @@
             android:gravity="center"
             android:padding="@dimen/small_padding"
             android:text="View Report"
+            android:textSize="15sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

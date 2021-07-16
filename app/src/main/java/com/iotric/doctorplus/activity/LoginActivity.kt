@@ -54,23 +54,24 @@ class LoginActivity : BaseActivity() {
     private fun openAlertDialogue() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
-        val dialogeView = inflater.inflate(R.layout.change_password_dialogue, null)
+        val dialogueView = inflater.inflate(R.layout.change_password_dialogue, null)
         builder.setCancelable(false)
-        builder.setView(dialogeView)
-        val alertDialoge = builder.create()
-        alertDialoge.show()
-        val  btnCancel= dialogeView.findViewById<Button>(R.id.bt_cancel)
-        val btnSend = dialogeView.findViewById<Button>(R.id.bt_send)
+        builder.setView(dialogueView)
+        val alertDialogue = builder.create()
+        alertDialogue.show()
+        val  btnCancel= dialogueView.findViewById<Button>(R.id.bt_cancel)
+        val btnSend = dialogueView.findViewById<Button>(R.id.bt_send)
 
         btnSend.setOnClickListener {
-            alertDialoge.dismiss()
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
+            startActivity(intent)
            /* result.id?.let {
                 viewModel.getDeleteApiResponse(requireActivity().application, it)
                 alertDialoge.dismiss()
             }*/
         }
         btnCancel.setOnClickListener {
-            alertDialoge.dismiss()
+            alertDialogue.dismiss()
         }
     }
 

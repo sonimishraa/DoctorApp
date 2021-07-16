@@ -30,6 +30,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Visit Date*"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:drawableStart="@drawable/ic_baseline_calendar_today_24"
+                    android:drawablePadding="@dimen/medium_padding"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,6 +49,10 @@
                     android:id="@+id/visitTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
+                    android:drawableStart="@drawable/ic_baseline_access_time_24"
+                    android:drawablePadding="@dimen/medium_padding"
                     android:hint="Visit Time*"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="@dimen/medium_margin"
-            android:text="CANCLE"
+            android:text="CANCEL"
             android:textSize="15sp"
             android:textStyle="bold" />
         <Button
