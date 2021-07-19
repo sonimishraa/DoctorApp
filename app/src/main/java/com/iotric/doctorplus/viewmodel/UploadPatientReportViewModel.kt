@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.iotric.doctorplus.model.response.AddPatientReportResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
-import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,11 +22,10 @@ class UploadPatientReportViewModel @Inject constructor() : ViewModel() {
     val apiErrorMessage = MutableLiveData<String>()
 
     fun getUploadReportApi(
-        report: MultipartParams.Builder,
+        report: MultipartBody.Part,
         application: Application
     ){
-        val reportBuilder = report.build().map
-        ServiceBuilder.getRetrofit(application).addPatientReport(reportBuilder).enqueue(object : Callback<AddPatientReportResponse> {
+        ServiceBuilder.getRetrofit(application).addPatientReport(report).enqueue(object : Callback<AddPatientReportResponse> {
             override fun onResponse(
                 call: Call<AddPatientReportResponse>,
                 response: Response<AddPatientReportResponse>

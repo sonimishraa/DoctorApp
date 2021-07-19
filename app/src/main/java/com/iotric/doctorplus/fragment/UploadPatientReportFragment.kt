@@ -9,9 +9,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,13 +20,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.UploadPatientReportFragmentBinding
-import com.iotric.doctorplus.networks.MultipartParams
-import com.iotric.doctorplus.util.UtilClass.getFileName
 import com.iotric.doctorplus.viewmodel.UploadPatientReportViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.io.IOException
 
 @AndroidEntryPoint
@@ -71,7 +68,7 @@ class UploadPatientReportFragment : BaseFragment() {
             pickImage()
         }
         binding.uploadReport.setOnClickListener {
-            reportUpload()
+            viewModel.getUploadReportApi(reportUpload(),requireActivity().application)
         }
     }
 
@@ -85,27 +82,29 @@ class UploadPatientReportFragment : BaseFragment() {
             }
         })
         viewModel.apiErrorMessage.observe(requireActivity(), {
-
             toastMessage("${it}")
         })
     }
 
-    private fun reportUpload() {
-        if (selectedImage == null) {
-            snackBar("Select An Image", binding.root)
-        } else {
-            if (validateFields()) {
-                //imageUpload()
-                val multipartParams = MultipartParams.Builder()
-                val filePath = File(selectedImage?.path)
-                val report =
-                    multipartParams.addFile("images", filePath).add("patientid", args.patientId.id)
-                        .add("reportname", repoName)
-                        .add("dateofreport", reportDate)
-                viewModel.getUploadReportApi(report, requireActivity().application)
-            }
-        }
+    private fun reportUpload(): MultipartBody.Part {
+        /*  val multipartBody = MultipartBody.Part
+          if (selectedImage == null) {
+              snackBar("Select An Image", binding.root)
+          } else {
+              if (validateFields()) {*/
+        /*  val reportName: RequestBody =
+          RequestBody.create("reportname".toMediaTypeOrNull(), file.name)*/
+        val file = File(selectedImage?.path)
+        val requestbody = RequestBody.create("images".toMediaTypeOrNull(),file.name)
+        val patientId: RequestBody =
+            RequestBody.create("patientid".toMediaTypeOrNull(), args.patientId.id!!)
+        val dateofreport: RequestBody =
+            RequestBody.create("dateofreport".toMediaTypeOrNull(), reportDate)
+        return MultipartBody.Part.createFormData(
+            "images", file.name, requestbody)
+
     }
+
 
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
@@ -124,123 +123,6 @@ class UploadPatientReportFragment : BaseFragment() {
         } else binding.layoutReoprtDate.setError(null)
 
         return isAllFieldValidate
-    }
-
-
-    private fun imageUpload() {
-        val contentResolver = requireContext().contentResolver
-        val parcelFileDescriptor =
-            contentResolver.openFileDescriptor(selectedImage!!, "r", null) ?: return
-        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
-        val file = File(
-            Environment.getRootDirectory(),
-            contentResolver.getFileName(selectedImage!!)
-        )
-        Log.i("UploadPatientFragment", "file${file}")
-        val outputStream = FileOutputStream(file)
-        val inchannel = inputStream.channel
-        val outchannel = outputStream.channel
-        inchannel.transferTo(0, inchannel.size(), outchannel)
-        inputStream.close()
-        outputStream.close()
-        Log.i("UploadPatientFragment", "outpustream${outputStream}")
-        inputStream.copyTo(outputStream, DEFAULT_BUFFER_SIZE)
-        //binding.progressbar.progress = 0
-        Log.i("Upload", "patientId:${args.patientId.id}")
-        /* val body = UploadReportRequestBody(file, "images", this)
-         val patientReportImage = MultipartBody.Part.createFormData("images", file.name, body)
-         val patientid = RequestBody.create("patientid".toMediaTypeOrNull(), args.patientId.id!!)
-         viewModel.getUploadReportApi(
-             patientReportImage,
-             patientid,
-             requireActivity().application
-         )*/
-    }
-
-    /* override fun onProgressUpdate(percentage: Int) {
-         binding.progressbar.progress = percentage
-     }
- */
-    private fun pickImage() {
-        val builder = AlertDialog.Builder(requireContext())
-        val inflater = layoutInflater
-        val dialogeView = inflater.inflate(R.layout.alter_dialoge_profile, null)
-        builder.setCancelable(false)
-        builder.setView(dialogeView)
-        val alertDialoge = builder.create()
-        alertDialoge.show()
-        val ivCamera = dialogeView.findViewById<AppCompatTextView>(R.id.ivCamera)
-        val ivImage = dialogeView.findViewById<AppCompatTextView>(R.id.ivImage)
-        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
-        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
-
-        tv_cancel.setOnClickListener {
-            alertDialoge.dismiss()
-        }
-        tv_ok.setOnClickListener {
-            chooseImage()
-            alertDialoge.cancel()
-        }
-        ivImage.setOnClickListener {
-            chooseImage()
-            alertDialoge.cancel()
-
-        }
-        ivCamera.setOnClickListener {
-            if (checkRequestPermission())
-                takePictureFromCamera()
-            alertDialoge.cancel()
-        }
-    }
-
-    private fun checkRequestPermission(): Boolean {
-        if (Build.VERSION.SDK_INT >= 23) {
-            val cameraPermission =
-                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-            if (cameraPermission == PackageManager.PERMISSION_DENIED) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(), arrayOf(Manifest.permission.CAMERA),
-                    2
-                )
-                return false
-            }
-        }
-        return true
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            takePictureFromCamera()
-
-        } else
-            toastMessage(getString(R.string.permission_granted_message))
-    }
-
-    private fun takePictureFromCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(intent, 2)
-        } catch (e: ActivityNotFoundException) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun chooseImage() {
-        val intent = Intent()
-        //intent.setType("image/*")
-        intent.setAction(Intent.ACTION_PICK).also {
-            it.type = "image/png"
-            val mimeTypes =
-                arrayOf("image/png")
-            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-        }
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -22,6 +22,7 @@ import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
 import com.iotric.doctorplus.utils.Constants.UPDATE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -112,7 +113,7 @@ interface ApiService {
 */
     @Multipart
     @POST(ADD_PATIENT_REPORT)
-    fun addPatientReport(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody> ): Call<AddPatientReportResponse>
+    fun addPatientReport(@Part part: MultipartBody.Part): Call<AddPatientReportResponse>
 
 
 

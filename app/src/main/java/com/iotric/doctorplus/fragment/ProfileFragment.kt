@@ -79,7 +79,7 @@ class ProfileFragment : BaseFragment() {
             findNavController().navigate(action)
         }
         binding.ivProfilePic.setOnClickListener {
-            chooseProfilePic()
+            pickImage()
         }
     }
 
@@ -115,82 +115,6 @@ class ProfileFragment : BaseFragment() {
         return id
     }
 
-    private fun chooseProfilePic() {
-        val builder = AlertDialog.Builder(requireContext())
-        val inflater = layoutInflater
-        val dialogeView = inflater.inflate(R.layout.alter_dialoge_profile, null)
-        builder.setCancelable(false)
-        builder.setView(dialogeView)
-        val alertDialoge = builder.create()
-        alertDialoge.show()
-        val ivCamera = dialogeView.findViewById<AppCompatTextView>(R.id.ivCamera)
-        val ivImage = dialogeView.findViewById<AppCompatTextView>(R.id.ivImage)
-        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
-        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
-
-        tv_cancel.setOnClickListener {
-            alertDialoge.dismiss()
-        }
-        tv_ok.setOnClickListener {
-            chooseImageReq()
-            alertDialoge.cancel()
-        }
-        ivImage.setOnClickListener {
-            chooseImageReq()
-            alertDialoge.cancel()
-
-        }
-        ivCamera.setOnClickListener {
-            if (checkRequestPermission())
-                takePictureFromCamera()
-            alertDialoge.cancel()
-        }
-    }
-
-    private fun checkRequestPermission(): Boolean {
-        if (Build.VERSION.SDK_INT >= 23) {
-            val cameraPermission =
-                ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
-            if (cameraPermission == PackageManager.PERMISSION_DENIED) {
-                ActivityCompat.requestPermissions(
-                    requireActivity(), arrayOf(Manifest.permission.CAMERA),
-                    2
-                )
-                return false
-            }
-        }
-        return true
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            takePictureFromCamera()
-
-        } else
-            Toast.makeText(requireContext(), "Permission Not Granted", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun takePictureFromCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(intent, 2)
-        } catch (e: ActivityNotFoundException) {
-            e.printStackTrace()
-        }
-    }
-
-    private fun chooseImageReq() {
-        val intent = Intent()
-        intent.setType("image/*")
-        intent.setAction(Intent.ACTION_GET_CONTENT)
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST)
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -218,6 +142,4 @@ class ProfileFragment : BaseFragment() {
             }
         }
     }
-
-
 }
