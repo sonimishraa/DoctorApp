@@ -14,9 +14,7 @@
             android:textAlignment="center"
             android:gravity="center"
             app:title="@string/title"
-            android:pointerIcon="arrow"
-            android:layout_gravity="center_horizontal"
-            app:titleTextColor="@color/white"
+            android:layout_gravity="center"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary">
         </androidx.appcompat.widget.Toolbar>

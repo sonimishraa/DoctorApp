@@ -18,6 +18,7 @@ class ForgetPasswordActivity: BaseActivity() {
         val view = binding.root
         setContentView(view)
         initview()
+        initObsever()
     }
 
     private fun initview() {
@@ -26,4 +27,9 @@ class ForgetPasswordActivity: BaseActivity() {
             startActivity(intent)
         }
     }
+
+    private fun initObsever() {
+
+    }
+
 }

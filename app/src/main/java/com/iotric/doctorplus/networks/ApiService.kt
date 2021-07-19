@@ -11,6 +11,7 @@ import com.iotric.doctorplus.utils.Constants.DELETE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
+import com.iotric.doctorplus.utils.Constants.FORGET_PASSWORD_OTP
 import com.iotric.doctorplus.utils.Constants.GET_DAILY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_ID
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_NUMBER
@@ -48,6 +49,12 @@ interface ApiService {
         @Body updateDoctorRequest: UpdateDoctorRequest
     ): Call<UpdateDoctorResponse>
 
+    @POST(FORGET_PASSWORD_OTP)
+    fun forgetPasswordOtp(@Body forgetPassword: ForgetPasswordOtpRequest):Call<ForgetPasswordOtpResponse>
+
+
+
+
     // Patients Api
 
    /* @FormUrlEncoded
@@ -80,9 +87,6 @@ interface ApiService {
 
     @DELETE(DELETE_PATIENT)
     fun deletePatient(@Path("id") id: String): Call<DeletePatientResponse>
-
-    /*@GET(All_PATIENT_LIST)
-    fun getAllPatientList(): Call<AllPatientListResponse>*/
 
     @GET(MY_PATIENT_LIST)
     fun getMyPatientList(): Call<MyPatientListResponse>

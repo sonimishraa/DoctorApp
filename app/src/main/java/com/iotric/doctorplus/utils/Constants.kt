@@ -25,4 +25,5 @@ object Constants {
     const val UPDATE_APPOINTMENT = "apointment/{id}"
     const val DELETE_APPOINTMENT = "apointment/{id}"
     const val GET_PATIENT_REPORT_BY_ID = "report/patientreport/{id}"
+    const val FORGET_PASSWORD_OTP = "doctor/sendotp"
 }

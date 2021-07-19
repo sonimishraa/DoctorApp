@@ -9,7 +9,9 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Layout
 import android.text.SpannableString
+import android.text.TextPaint
 import android.text.style.AlignmentSpan
+import android.text.style.TextAppearanceSpan
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment

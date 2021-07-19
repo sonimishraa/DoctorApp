@@ -8,15 +8,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.viewModels
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.LoginActivityBinding
 import com.iotric.doctorplus.fragment.BaseActivity
-import com.iotric.doctorplus.fragment.DashboardFragments
 import com.iotric.doctorplus.model.request.DoctorLoginRequest
+import com.iotric.doctorplus.model.request.ForgetPasswordOtpRequest
 import com.iotric.doctorplus.viewmodel.LoginActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -63,15 +60,17 @@ class LoginActivity : BaseActivity() {
         val btnSend = dialogueView.findViewById<Button>(R.id.bt_send)
 
         btnSend.setOnClickListener {
-            val intent = Intent(this, ForgetPasswordActivity::class.java)
-            startActivity(intent)
-           /* result.id?.let {
-                viewModel.getDeleteApiResponse(requireActivity().application, it)
-                alertDialoge.dismiss()
-            }*/
+            sendOtpRequest()
         }
         btnCancel.setOnClickListener {
             alertDialogue.dismiss()
+        }
+    }
+
+    private fun sendOtpRequest() {
+        if (validateFields()) {
+            val otpRequest = ForgetPasswordOtpRequest(phone = number)
+            viewModel.getOtpApi(otpRequest,application)
         }
     }
 
@@ -90,9 +89,6 @@ class LoginActivity : BaseActivity() {
                 editor.putString("DoctorID", it.id)
                 editor.apply()
                 startActivity(Intent(this, DrDashboardActivity::class.java))
-               /* val newFragment: Fragment = DashboardFragments()
-                val ft = fragmentManager.beginTransaction()
-                ft.add(R.id.nav_view, newFragment).commit()*/
                 finish()
             } else {
                 snackBar(getString(R.string.login_fail_message), binding.root)
@@ -101,6 +97,13 @@ class LoginActivity : BaseActivity() {
         viewModel.loginError.observe(this, Observer {
             it?.let {
                 snackBar("${it}", binding.root)
+            }
+        })
+        viewModel.forgetPasswordOtp.observe(this, {
+            it?.let {
+                toastMessage("${it.verification?.sendCodeAttempts}")
+                val intent = Intent(this, ForgetPasswordActivity::class.java)
+                startActivity(intent)
             }
         })
     }

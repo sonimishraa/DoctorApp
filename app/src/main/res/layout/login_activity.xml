@@ -67,7 +67,7 @@
                 android:drawableStart="@drawable/ic_baseline_call_24"
                 android:drawablePadding="@dimen/medium_padding"
                 android:hint="Phone Number"
-                android:text= "8360036001"
+                android:text= "7985239810"
                 android:inputType="number"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>
