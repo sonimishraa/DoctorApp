@@ -17,8 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_primary"
-        app:tabGravity="fill"
-        app:tabTextColor="@color/white" />
+        app:tabTextColor="@color/white"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="bottom"
+        app:tabGravity="fill" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
