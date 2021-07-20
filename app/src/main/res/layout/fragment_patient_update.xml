@@ -111,23 +111,30 @@
         android:orientation="horizontal"
         android:layout_below="@+id/nested_scroll">
 
-    <Button
-        android:id="@+id/btnCancle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="CANCEL"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-    <Button
-        android:id="@+id/btnUpdate"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
-        android:text="UPDATE"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCancle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="1"
+            android:background="@color/gray"
+            android:visibility="visible"
+            android:textColor="@color/white"
+            android:text="CANCEL"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:background="@color/color_primaryDark"
+            android:layout_weight="1"
+            android:text="SAVE"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

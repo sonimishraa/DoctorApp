@@ -67,7 +67,7 @@ class UpdateAppointmentFragment : BaseFragment() {
     }
 
     private fun initListener() {
-        binding.btnUpdate.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             updateAppoint()
         }
         binding.visitDate.setOnClickListener {

@@ -32,8 +32,6 @@ class PatientUpdateFragment : BaseFragment() {
     lateinit var phone: String
     lateinit var address: String
     lateinit var email: String
-    lateinit var nextVisitDate: String
-    lateinit var nextVisitTime: String
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateFragmentArgs by navArgs()
@@ -76,13 +74,10 @@ class PatientUpdateFragment : BaseFragment() {
 
     private fun setArgs() {
         val argsItem = args.result
-        //val visitItem = argsItem.visit?.firstOrNull()
         Log.i("PatientUpdateFragment", "${argsItem}")
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
         binding.editAddress.setText(argsItem.address?.firstOrNull())
-       // binding.editNextAppointmentDate.setText(visitItem?.nextvisitdate)
-       // binding.editNextAppointmentTime.setText(visitItem?.nextvisittime)
 
     }
 
@@ -90,16 +85,10 @@ class PatientUpdateFragment : BaseFragment() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
-      /*  binding.editNextAppointmentTime.setOnClickListener {
-            pickAppointmentTime()
-        }
-        binding.editNextAppointmentDate.setOnClickListener {
-            pickDate()
-        }*/
         binding.btnCancle.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.btnUpdate.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             updatePatient()
         }
 
@@ -123,12 +112,8 @@ class PatientUpdateFragment : BaseFragment() {
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
         name = binding.editName.text.toString()
-       // report = binding.editReport.text.toString()
         phone = binding.editContact.text.toString()
         address = binding.editAddress.text.toString()
-        //email = binding.editEmail.text.toString()
-       // nextVisitDate = binding.editNextAppointmentDate.text.toString().trim()
-       // nextVisitTime = binding.editNextAppointmentTime.text.toString().trim()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -136,13 +121,6 @@ class PatientUpdateFragment : BaseFragment() {
         } else {
             binding.layoutEditName.setError(null)
         }
-        /*if (email.isEmpty()) {
-            binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
-            isAllFieldValidate = false
-        } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
-            binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
-            isAllFieldValidate = false
-        } else binding.layoutEditEmail.setError(null)*/
         if (phone.isEmpty()) {
             binding.layoutEditContact.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
