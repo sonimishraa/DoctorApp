@@ -67,7 +67,7 @@ interface ApiService {
 
     @Multipart
     @POST(ADD_PATIENT)
-    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody> ): Call<AddPatientResponse>
+    fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientResponse>
 
 
     /* @Multipart
@@ -111,15 +111,29 @@ interface ApiService {
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReport(@Part images: MultipartBody.Part): Call<AddPatientReportResponse>
 */
-    @Multipart
+  /*  @Multipart
     @POST(ADD_PATIENT_REPORT)
-    fun addPatientReport(@Part part: MultipartBody.Part): Call<AddPatientReportResponse>
+    fun addPatientReport(@Part part: MultipartBody.Part): Call<AddPatientReportResponse>*/
 
 
 
     /*@Multipart
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReport(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>*/
+
+    @Multipart
+    @POST(ADD_PATIENT_REPORT)
+    fun addReport(
+        @Part file: MultipartBody.Part,
+        @Part("reportname") fname: RequestBody?,
+        @Part("patientid") id: RequestBody?,
+        @Part("dateofreport") date: RequestBody?
+    ): Call<AddPatientReportResponse>?
+
+    @Multipart
+    @POST(ADD_PATIENT_REPORT)
+    fun addPatientReprt(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>
+
 
     @DELETE(DELETE_REPORT)
     fun deletReport()

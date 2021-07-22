@@ -170,6 +170,13 @@
         <action
             android:id="@+id/action_patient_list_fragement_to_bookAppointentFragment"
             app:destination="@id/bookAppointentFragment" />
+
+        <action
+            android:id="@+id/action_re"
+            app:destination="@id/bookAppointentFragment" />
+        <action
+            android:id="@+id/action_patient_list_fragement_to_reportUploadFragment"
+            app:destination="@id/reportUploadFragment" />
     </fragment>
 
     <fragment
@@ -263,6 +270,15 @@
         <argument
             android:name="AppointItem"
             app:argType="com.iotric.doctorplus.model.response.DataItem" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reportUploadFragment"
+        android:name="com.iotric.doctorplus.fragment.ReportUploadFragment"
+        android:label="REPORT UPLOAD " >
+        <argument
+            android:name="patientId"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
 
 </navigation>

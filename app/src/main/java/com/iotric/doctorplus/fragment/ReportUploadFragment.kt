@@ -13,22 +13,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.FragmentReportUploadBinding
 import com.iotric.doctorplus.databinding.UploadPatientReportFragmentBinding
 import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.viewmodel.UploadPatientReportViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 import java.io.IOException
 
 
-@AndroidEntryPoint
-class UploadPatientReportFragment : BaseFragment() {
+class ReportUploadFragment : BaseFragment() {
 
     val viewModel: UploadPatientReportViewModel by viewModels()
-    lateinit var binding: UploadPatientReportFragmentBinding
+    lateinit var binding: FragmentReportUploadBinding
     var selectedImage: Uri? = null
     val args: UploadPatientReportFragmentArgs by navArgs()
     lateinit var repoName: String
@@ -38,7 +34,7 @@ class UploadPatientReportFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = UploadPatientReportFragmentBinding.inflate(layoutInflater)
+        binding = FragmentReportUploadBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }
@@ -84,39 +80,14 @@ class UploadPatientReportFragment : BaseFragment() {
     }
 
     private fun reportUpload() {
-        if (selectedImage == null) {
-            snackBar("Select An Image", binding.root)
-        } else {
-            if (validateFields()) {
-                val imageFile = File(selectedImage!!.path)
-                val fileName = imageFile.name
-                val reqBody: RequestBody =
-                    RequestBody.create("multipart/form-file".toMediaTypeOrNull(), imageFile)
-                val partImage =
-                    MultipartBody.Part.createFormData("file", imageFile.name, reqBody)
+        if (validateFields()) {
+            val multipartParams = MultipartParams.Builder()
+            val filePath = File(selectedImage?.path)
+            val patient =
+                multipartParams.addFile("images", filePath).add("patientid", args.patientId.id)
+                    .add("dateofreport", reportDate).add("reportname", filePath.name)
 
-              /*  val file: RequestBody = RequestBody.create(
-                    "multipart/form-data".toMediaTypeOrNull(),
-                    imageFile
-                )
-*/
-                val fname: RequestBody = RequestBody.create(
-                    "reportname".toMediaTypeOrNull(),
-                    fileName
-                )
-
-                val id: RequestBody = RequestBody.create(
-                    "patientid".toMediaTypeOrNull(),
-                    args.patientId.id!!
-                )
-
-                val date: RequestBody = RequestBody.create(
-                    "dateofreport".toMediaTypeOrNull(),
-                    reportDate
-                )
-
-                viewModel.getUploadReportApi(partImage, fname, id, date, requireActivity().application)
-            }
+            viewModel.getreportUloadApi(patient, requireActivity().application)
         }
     }
 
@@ -168,4 +139,5 @@ class UploadPatientReportFragment : BaseFragment() {
             }
         }
     }
+
 }

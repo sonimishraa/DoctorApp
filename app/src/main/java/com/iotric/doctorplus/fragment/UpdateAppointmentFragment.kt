@@ -67,6 +67,9 @@ class UpdateAppointmentFragment : BaseFragment() {
     }
 
     private fun initListener() {
+        binding.btnCancle.setOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.btnSave.setOnClickListener {
             updateAppoint()
         }
