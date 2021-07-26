@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/patientList"
                     android:layout_gravity="center"
-                    android:text="Active Patients"
+                    android:text=" PATIENTS"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:text="InActive Patients"
+                    android:text="CLOSE CASES"
                     android:textSize="15sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -131,7 +131,6 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/small_margin"
                     android:src="@drawable/ic_baseline_person_add_24" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -139,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Add Patients"
+                    android:text=" REGISTER"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -166,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Appoitments"
+                    android:text="APPOINTMENTS"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 

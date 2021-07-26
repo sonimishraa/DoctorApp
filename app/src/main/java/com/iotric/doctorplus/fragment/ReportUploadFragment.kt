@@ -25,10 +25,9 @@ import okhttp3.RequestBody
 class ReportUploadFragment : BaseFragment() {
     val viewModel: UploadPatientReportViewModel by viewModels()
     lateinit var binding: FragmentReportUploadBinding
-    val args: UploadPatientReportFragmentArgs by navArgs()
+    val args: ReportUploadFragmentArgs by navArgs()
     lateinit var repoName: String
     lateinit var reportDate: String
-    private val permissions = arrayOf(Manifest.permission.CAMERA)
     lateinit var multiPartImageBody: MultipartBody.Part
 
     override fun onCreateView(
@@ -68,7 +67,6 @@ class ReportUploadFragment : BaseFragment() {
 
     private fun initObserver() {
         viewModel.uploadReport.observe(requireActivity(), {
-
             it?.let {
                 toastMessage("${it.message}")
                 findNavController().popBackStack()

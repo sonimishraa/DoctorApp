@@ -10,15 +10,14 @@ import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.adapter.PatientReportAdapter
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
-import com.iotric.doctorplus.viewmodel.PatientRecordViewModel
+import com.iotric.doctorplus.viewmodel.ViewPatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PatientRecordFragment : BaseFragment() {
 
-    val viewModel: PatientRecordViewModel by viewModels()
     val args: PatientRecordFragmentArgs by navArgs()
-    lateinit var patientReportAdapter: PatientReportAdapter
+
     private lateinit var binding: PatientRecordFragmentsBinding
 
     override fun onCreateView(
@@ -36,28 +35,10 @@ class PatientRecordFragment : BaseFragment() {
         initView()
         initListener()
         setArgs()
-        initObserver()
     }
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_record)
-        val id = args.result.id
-        //patientReportAdapter = PatientReportAdapter()
-        //binding.recyclerView.adapter = patientReportAdapter
-
-
-        /*  binding.toolbar.inflateMenu(R.menu.main)
-          binding.toolbar.setOnMenuItemClickListener {
-              when (it.itemId) {
-                  R.id.add_new_report -> {
-
-                  }
-                  R.id.update_report -> {
-
-                  }
-              }
-              true
-          }*/
     }
 
     private fun initListener() {
@@ -67,16 +48,18 @@ class PatientRecordFragment : BaseFragment() {
         binding.tvAddReport.setOnClickListener {
             val patientId = args.result
             val action =
-                PatientRecordFragmentDirections.actionPatientRecordFragmentToUploadPatientReportFragment(
+                PatientRecordFragmentDirections.actionPatientRecordFragmentToReportUploadFragment(
                     patientId
                 )
             findNavController().navigate(action)
         }
         binding.tvViewReport.setOnClickListener {
-            val patientId = args.result.id
-            if (patientId != null) {
-                viewModel.getPatientReportApi(patientId, requireActivity().application)
-            }
+            val id = args.result
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(
+                        patientId = id
+                    )
+                findNavController().navigate(action)
         }
     }
 
@@ -93,21 +76,5 @@ class PatientRecordFragment : BaseFragment() {
             binding.tvGender.text = "Female"
     }
 
-    private fun initObserver() {
-        viewModel.patientRecord.observe(requireActivity(), {
-            it.report?.lastOrNull()?.let {
-                val id = it
-                val action =
-                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(
-                        id
-                    )
-                findNavController().navigate(action)
-            }
-        })
-        viewModel.getErrorMessage.observe(requireActivity(), {
-            dismissLoading()
-            snackBar("${it}", binding.root)
-        })
-    }
 }
 

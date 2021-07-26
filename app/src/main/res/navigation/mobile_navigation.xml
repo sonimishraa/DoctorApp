@@ -203,8 +203,8 @@
             android:name="result"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
         <action
-            android:id="@+id/action_patientRecordFragment_to_uploadPatientReportFragment"
-            app:destination="@id/uploadPatientReportFragment" />
+            android:id="@+id/action_patientRecordFragment_to_reportUploadFragment"
+            app:destination="@id/reportUploadFragment" />
         <action
             android:id="@+id/action_patientRecordFragment_to_viewPatientReportFragment"
             app:destination="@id/viewPatientReportFragment" />
@@ -237,14 +237,14 @@
             android:name="EditDocResult"
             app:argType="com.iotric.doctorplus.model.response.GetDoctorByidResponse" />
     </dialog>
-    <fragment
+   <!-- <fragment
         android:id="@+id/uploadPatientReportFragment"
         android:name="com.iotric.doctorplus.fragment.UploadPatientReportFragment"
         android:label="ADD PATIENT REPORTS" >
         <argument
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
-    </fragment>
+    </fragment>-->
     <fragment
         android:id="@+id/viewPatientReportFragment"
         android:name="com.iotric.doctorplus.fragment.ViewPatientReportFragment"
@@ -252,7 +252,7 @@
 
         <argument
             android:name="patientId"
-            app:argType="com.iotric.doctorplus.model.response.ReportItem" />
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
     <fragment
         android:id="@+id/bookAppointentFragment"
@@ -266,7 +266,7 @@
     <fragment
         android:id="@+id/updateAppointmentFragment"
         android:name="com.iotric.doctorplus.fragment.UpdateAppointmentFragment"
-        android:label="UpdateAppointmentFragment" >
+        android:label="UPDATE APPOINTMENT" >
         <argument
             android:name="AppointItem"
             app:argType="com.iotric.doctorplus.model.response.DataItem" />

@@ -99,7 +99,7 @@ interface ApiService {
     fun closecasePatient():Call<CloseCasePatientListResponse>
 
     @GET(GET_PATIENT_REPORT_BY_ID)
-    fun getPatientReport(@Path("id") id: String):Call<PatientReportByPatientIdResponse>
+    fun getPatientReport(@Path("id") id: String?):Call<PatientReportByPatientIdResponse>
 
 
     // Patient Report Apis

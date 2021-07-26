@@ -16,13 +16,13 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class PatientRecordViewModel @Inject constructor() : ViewModel() {
+class ViewPatientRecordViewModel @Inject constructor() : ViewModel() {
 
     val patientRecord = MutableLiveData<PatientReportByPatientIdResponse>()
     val getErrorMessage = MutableLiveData<String>()
 
-    fun getPatientReportApi(id: String, application: Application) {
-        ServiceBuilder.getRetrofit(application).getPatientReport(id)
+    fun getPatientReportApi(patientId: String?, application: Application) {
+        ServiceBuilder.getRetrofit(application).getPatientReport(patientId)
             .enqueue(object : Callback<PatientReportByPatientIdResponse> {
                 override fun onResponse(
                     call: Call<PatientReportByPatientIdResponse>,

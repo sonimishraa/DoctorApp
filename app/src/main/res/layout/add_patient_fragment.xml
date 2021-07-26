@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name*"
-                    android:inputType="text" />
+                    android:inputType="textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -105,7 +105,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="@dimen/small_padding"
-                    android:hint="Age*" />
+                    android:hint="Age*"
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +122,8 @@
                     android:id="@+id/edit_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Gender*"/>
+                    android:hint="Gender*"
+                    android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_edit_address"
@@ -137,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="NOTE*"
-                    android:inputType="textPostalAddress" />
+                    android:inputType="textAutoCorrect" />
             </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>

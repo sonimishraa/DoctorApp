@@ -46,7 +46,7 @@ class ActivePatientListFragment : BaseFragment() {
         viewModel.getActivePatientApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onPatientProfileClick(result: PatientsItem) {
-                val action = ActivePatientListFragmentDirections.actionPatientListFragementToReportUploadFragment(result)
+                val action = ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
                 findNavController().navigate(action)
             }
 

@@ -39,7 +39,7 @@ class AppointmentFragment : Fragment() {
         binding.appbar.toolbarTitle.text = getString(R.string.appointment_toolbar_title)
         binding.viewPager.adapter = AppointmentPagerAdapter(childFragmentManager)
         binding.tablayout.setupWithViewPager(binding.viewPager)
-        binding.tablayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFF00"))
+       // binding.tablayout.setSelectedTabIndicatorColor(Color.parseColor("#FFFF00"))
     }
 
     private fun initListener() {

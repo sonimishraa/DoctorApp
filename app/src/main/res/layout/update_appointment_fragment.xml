@@ -98,28 +98,23 @@
         android:orientation="horizontal"
         android:layout_below="@+id/Layout1">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btnCancle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
             android:layout_weight="1"
-            android:background="@color/gray"
-            android:visibility="visible"
-            android:textColor="@color/white"
-            android:text="CANCEL"
+            android:layout_margin="@dimen/medium_margin"
+            android:text="Cancel"
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
-            android:background="@color/color_primaryDark"
             android:layout_weight="1"
-            android:text="SAVE"
-            android:textColor="@color/white"
+            android:layout_margin="@dimen/medium_margin"
+            android:text="Save"
             android:textSize="15sp"
             android:textStyle="bold" />
 
