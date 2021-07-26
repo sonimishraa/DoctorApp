@@ -16,13 +16,14 @@ object UtilClass {
     var hr = 0
     var min = 0
 
-    fun alterDialogPosition(){
+    fun alterDialogPosition() {
         val title = SpannableString("Logout?")
         title.setSpan(
             AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
             0,
             title.length,
-            0)
+            0
+        )
     }
 
     // get Calendar Instance for Date and and date formate
@@ -75,6 +76,7 @@ object UtilClass {
         val time1 = "$hr:$min"
         return time1
     }
+
     fun time2(hr: Int, min: Int): String {
         val time2 = "$hr:$min" + timeFormate(hr)
         return time2
@@ -97,11 +99,13 @@ object UtilClass {
 
     fun ContentResolver.getFileName(uri: Uri): String {
         var name = ""
-        val cursor = query(uri,null,null,null,null)
+        val cursor = query(uri, null, null, null, null)
         cursor?.use {
             it.moveToFirst()
             name = cursor.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
         }
         return name
     }
+
+
 }

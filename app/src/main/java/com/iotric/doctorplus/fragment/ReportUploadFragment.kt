@@ -1,10 +1,10 @@
 package com.iotric.doctorplus.fragment
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,29 +14,29 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentReportUploadBinding
-import com.iotric.doctorplus.databinding.UploadPatientReportFragmentBinding
-import com.iotric.doctorplus.networks.MultipartParams
+import com.iotric.doctorplus.util.FileUtil
 import com.iotric.doctorplus.viewmodel.UploadPatientReportViewModel
-import java.io.File
-import java.io.IOException
+import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
-
+@AndroidEntryPoint
 class ReportUploadFragment : BaseFragment() {
-
     val viewModel: UploadPatientReportViewModel by viewModels()
     lateinit var binding: FragmentReportUploadBinding
-    var selectedImage: Uri? = null
     val args: UploadPatientReportFragmentArgs by navArgs()
     lateinit var repoName: String
     lateinit var reportDate: String
+    private val permissions = arrayOf(Manifest.permission.CAMERA)
+    lateinit var multiPartImageBody: MultipartBody.Part
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentReportUploadBinding.inflate(layoutInflater)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,10 +60,11 @@ class ReportUploadFragment : BaseFragment() {
             pickImage()
         }
         binding.uploadReport.setOnClickListener {
-            reportUpload()
+            if (validateFields()) {
+                reportUpload()
+            }
         }
     }
-
 
     private fun initObserver() {
         viewModel.uploadReport.observe(requireActivity(), {
@@ -77,18 +78,6 @@ class ReportUploadFragment : BaseFragment() {
             Log.i("UploadImage", "Error Message:${it}")
             toastMessage("${it}")
         })
-    }
-
-    private fun reportUpload() {
-        if (validateFields()) {
-            val multipartParams = MultipartParams.Builder()
-            val filePath = File(selectedImage?.path)
-            val patient =
-                multipartParams.addFile("images", filePath).add("patientid", args.patientId.id)
-                    .add("dateofreport", reportDate).add("reportname", filePath.name)
-
-            viewModel.getreportUloadApi(patient, requireActivity().application)
-        }
     }
 
     private fun validateFields(): Boolean {
@@ -107,37 +96,48 @@ class ReportUploadFragment : BaseFragment() {
             isAllFieldValidate = false
         } else binding.layoutReoprtDate.setError(null)
 
+        if (::multiPartImageBody.isInitialized.not()) {
+            isAllFieldValidate = false
+        }
         return isAllFieldValidate
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            selectedImage = data.getData()!!
-            val file = File(selectedImage?.path).absolutePath
-
-            try {
-                val bitmap =
-                    MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedImage)
-                binding.image.setImageURI(selectedImage)
-                binding.reportName.setText(file)
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            // Result for Image Selection
+            data?.data?.let {
+                setImageUriOnPick(it)
+                binding.image.setImageURI(it)
+            } ?: toastMessage("image invalid selection")
         }
+    }
 
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            try {
-                selectedImage = data.extras?.get("data") as Uri
-                val file = File(selectedImage?.path).absolutePath
-                binding.reportName.setText(file)
-                binding.image.setImageURI(selectedImage)
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+    private fun setImageUriOnPick(uri: Uri) {
+        val body = FileUtil.selectFileName(requireContext(), uri)
+        body?.let {
+            multiPartImageBody = it
         }
+    }
+
+    private fun reportUpload() {
+        // add another part within the multipart request
+        val fullName =
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), binding.reportName.text.toString())
+        val patientId =
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                args.patientId.id.orEmpty()
+            )
+        val date =
+            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), binding.reportDate.text.toString())
+        viewModel.getUploadReportApi(
+            multiPartImageBody,
+            fullName,
+            patientId,
+            date,
+            requireActivity().application
+        )
     }
 
 }

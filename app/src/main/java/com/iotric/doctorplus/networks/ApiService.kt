@@ -130,6 +130,8 @@ interface ApiService {
         @Part("dateofreport") date: RequestBody?
     ): Call<AddPatientReportResponse>?
 
+
+
     @Multipart
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReprt(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>

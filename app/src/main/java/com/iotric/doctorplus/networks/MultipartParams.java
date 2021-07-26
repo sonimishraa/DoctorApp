@@ -115,7 +115,7 @@ public final class MultipartParams {
             for (int i = 0; i < mFileArrayList.size(); i++) {
                 if (mFileArrayList.get(i) != null) {
                     map.put(key + "\"; filename=\"" + mFileArrayList.get(i).getName(),
-                            RequestBody.create(MediaType.parse(RetrofitUtils.getMimeType(mFileArrayList.get(i))),
+                            RequestBody.create(MediaType.parse("image/*"/*RetrofitUtils.getMimeType(mFileArrayList.get(i))*/),
                                     mFileArrayList.get(i)));
                 }
             }

@@ -37,6 +37,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
 const val PICK_IMAGE_REQUEST = 1
+const val CAPTURE_IMAGE_REQUEST = 2
+
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {

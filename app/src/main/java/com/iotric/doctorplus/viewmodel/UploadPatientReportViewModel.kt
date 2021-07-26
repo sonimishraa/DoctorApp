@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.iotric.doctorplus.model.response.AddPatientReportResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
-import com.iotric.doctorplus.networks.MultipartParams
 import com.iotric.doctorplus.networks.ServiceBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import okhttp3.MultipartBody
@@ -16,6 +15,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.HashMap
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,11 +64,11 @@ class UploadPatientReportViewModel @Inject constructor() : ViewModel() {
     }
 
     fun getreportUloadApi(
-        patient: MultipartParams.Builder,
+        patient: HashMap<String, RequestBody>,
         application: Application
     ) {
-        val patientBuilder = patient.build().map
-        ServiceBuilder.getRetrofit(application).addPatientReprt(patientBuilder)
+        //val patientBuilder = patient.build().map
+        ServiceBuilder.getRetrofit(application).addPatientReprt(patient)
             .enqueue(object : Callback<AddPatientReportResponse> {
                 override fun onResponse(
                     call: Call<AddPatientReportResponse>,
