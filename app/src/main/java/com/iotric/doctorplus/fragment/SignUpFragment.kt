@@ -1,61 +1,65 @@
-package com.iotric.doctorplus.activity
+package com.iotric.doctorplus.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import androidx.activity.viewModels
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
-import com.iotric.doctorplus.databinding.ActivitySignUpBinding
+import com.iotric.doctorplus.databinding.SignUpFragmentBinding
 import com.iotric.doctorplus.model.request.DoctorRegisterRequest
 import com.iotric.doctorplus.viewmodel.RegisterDoctorViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class SignUpActivity : BaseActivity() {
+class SignUpFragment : BaseFragment() {
 
-    lateinit var binding: ActivitySignUpBinding
+    lateinit var binding: SignUpFragmentBinding
+    val viewModel by viewModels<RegisterDoctorViewModel>()
     lateinit var name: String
     lateinit var email: String
     lateinit var phone: String
     lateinit var password: String
     lateinit var address: String
 
-    val viewModel by viewModels<RegisterDoctorViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySignUpBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = SignUpFragmentBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView()
         initObserver()
     }
 
     private fun initObserver() {
-        viewModel.addDoctorErrorMessage.observe(this, {
+        viewModel.addDoctorErrorMessage.observe(viewLifecycleOwner, {
             Log.i("Error Message", "${it}")
             if (it != null) {
                 snackBar("${it}", binding.root)
             }
         })
 
-        viewModel.addDoctorLiveData.observe(this, {
+        viewModel.addDoctorLiveData.observe(viewLifecycleOwner, {
             if (it != null) {
                 toastMessage("${it.message}")
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                findNavController().popBackStack()
             }
         })
     }
 
     private fun initView() {
-        setActionBar(binding.toolbar)
         binding.btnAddDoctor.setOnClickListener {
             createUser()
         }
         binding.tvLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            val action = SignUpFragmentDirections.actionLoginFragment()
+            findNavController().navigate(action)
         }
     }
 
@@ -67,7 +71,7 @@ class SignUpActivity : BaseActivity() {
                 name = name,
                 email = email
             )
-            viewModel.getApiResponse(doctor, application)
+            viewModel.getApiResponse(doctor, requireActivity().application)
         } else
             snackBar(getString(R.string.mendatory_field_message), binding.root)
     }
@@ -108,13 +112,11 @@ class SignUpActivity : BaseActivity() {
             isAllFieldValidate = false
         } else binding.layoutEditPassword.setError(null)
 
-       /* if (address.isEmpty()) {
-            binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
-            isAllFieldValidate = false
-        } else binding.layoutEditAddress.setError(null)
-*/
+        /* if (address.isEmpty()) {
+             binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
+             isAllFieldValidate = false
+         } else binding.layoutEditAddress.setError(null)
+ */
         return isAllFieldValidate
     }
 }
-
-

@@ -9,7 +9,7 @@
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar_main"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -240,7 +240,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/edit_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

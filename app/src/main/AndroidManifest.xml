@@ -2,13 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iotric.doctorplus">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.PICK" />
+
+            <data android:mimeType="image/*" />
+        </intent>
+    </queries>
 
     <application
         android:name=".AppApplication"
@@ -19,12 +31,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorPlus"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SplashActivity"
-            android:label="DocCheck"
-            android:icon="@drawable/plus_sign"
+        <activity android:name=".activity.HomeActivity1"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
+          <!--  <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:icon="@drawable/plus_sign"
+            android:label="DocCheck"
+            android:theme="@style/Theme.DoctorPlus.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,30 +61,28 @@
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
             <intent-filter>
                 <action android:name="android.media.action.IMAGE_CAPTURE" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.DrDashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
-        </activity>
 
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
             android:icon="@drawable/plus_sign"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
-          <!--  <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
-        <activity
-            android:name=".activity.ForgetPasswordActivity"
-            android:theme="@style/Theme.DoctorPlus.NoActionBar">
-
+            </intent-filter>
+            -->
         </activity>
 
         <provider
@@ -69,19 +90,10 @@
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
-
-    <queries>
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE" />
-        </intent>
-        <intent>
-            <action android:name="android.intent.action.PICK" />
-            <data android:mimeType="image/*" />
-        </intent>
-    </queries>
 
 </manifest>

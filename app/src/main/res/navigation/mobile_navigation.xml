@@ -25,10 +25,50 @@
         tools:layout="@layout/notification_fragment" />
 -->
     <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.iotric.doctorplus.fragment.LoginFragment"
+        android:label="SIGN UP"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_SignUpFragment"
+            app:destination="@+id/signUp_fragment" />
+        <action
+            android:id="@+id/action_ForgetPassword"
+            app:destination="@+id/forget_password_fragment" />
+
+        <action
+            android:id="@+id/action_DashboardFragment"
+            app:destination="@+id/navigation_dashboard" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/signUp_fragment"
+        android:name="com.iotric.doctorplus.fragment.SignUpFragment"
+        android:label="SIGN UP"
+        tools:layout="@layout/sign_up_fragment">
+
+        <action
+            android:id="@+id/action_loginFragment"
+            app:destination="@+id/login_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forget_password_fragment"
+        android:name="com.iotric.doctorplus.fragment.ForgetPasswordFragment"
+        android:label="FORGET PASSWORD"
+        tools:layout="@layout/forget_password_fragment">
+
+        <action
+            android:id="@+id/action_loginFragment"
+            app:destination="@+id/login_fragment" />
+
+    </fragment>
+    <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.iotric.doctorplus.fragment.DashFragment"
+        android:name="com.iotric.doctorplus.fragment.DashboardFragments"
         android:label="DASHBOARD"
-        tools:layout="@layout/dashboard_fragment_item">
+        tools:layout="@layout/dashboard_fragment">
 
         <action
             android:id="@+id/action_closeCase_fragment"
@@ -150,7 +190,12 @@
     <dialog
         android:id="@+id/navigation_logout"
         android:name="com.iotric.doctorplus.fragment.LogoutFragment"
-        android:label="@string/nav_logout" />
+        android:label="@string/nav_logout">
+        <action
+            android:id="@+id/action_loginFragment"
+            app:destination="@id/login_fragment" />
+
+    </dialog>
 
 
     <fragment

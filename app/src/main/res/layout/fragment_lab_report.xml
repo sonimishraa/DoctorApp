@@ -11,15 +11,6 @@
         android:layout_margin="@dimen/medium_margin"
         android:layout_above="@+id/btn_update_pris"/>
 
-   <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_margin"
-        android:src="@drawable/ic_baseline_photo_camera_24"
-        app:layout_constraintBottom_toTopOf="@id/btn_update_pris"
-        app:layout_constraintEnd_toEndOf="parent"/>-->
-
     <Button
         android:id="@+id/btn_update_pris"
         android:layout_width="match_parent"

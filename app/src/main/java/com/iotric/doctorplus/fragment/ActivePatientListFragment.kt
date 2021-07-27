@@ -39,10 +39,10 @@ class ActivePatientListFragment : BaseFragment() {
     }
 
     private fun initView() {
-      /*  binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
+        binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
-        }*/
+        }
         viewModel.getActivePatientApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onPatientProfileClick(result: PatientsItem) {

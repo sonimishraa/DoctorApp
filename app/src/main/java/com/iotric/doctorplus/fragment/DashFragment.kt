@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DashFragment : Fragment() {
-    lateinit var binding: DashboardFragmentItemBinding
+   /* lateinit var binding: DashboardFragmentItemBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,5 +45,5 @@ class DashFragment : Fragment() {
             val action = DashFragmentDirections.actionCloseCaseFragment()
             findNavController().navigate(action)
         }
-    }
+    }*/
 }

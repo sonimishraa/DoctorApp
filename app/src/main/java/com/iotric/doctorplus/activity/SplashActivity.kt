@@ -32,12 +32,12 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
             else {
-                val intent = Intent(this@SplashActivity, DrDashboardActivity::class.java)
+                val intent = Intent(this@SplashActivity, HomeActivity1::class.java)
                 startActivity(intent)
                 finish()
             }
 
-        }, 200)
+        }, 500)
     }
 
     private fun checkAuthtoken(): String? {

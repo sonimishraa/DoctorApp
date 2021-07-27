@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.LoginActivityBinding
-import com.iotric.doctorplus.fragment.BaseActivity
 import com.iotric.doctorplus.model.request.DoctorLoginRequest
 import com.iotric.doctorplus.model.request.ForgetPasswordOtpRequest
 import com.iotric.doctorplus.viewmodel.LoginActivityViewModel

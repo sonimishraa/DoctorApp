@@ -49,7 +49,6 @@ class ReportUploadFragment : BaseFragment() {
         binding.appbar.toolbarTitle.text = getString(R.string.upload_report_fragment_title)
     }
 
-
     private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()

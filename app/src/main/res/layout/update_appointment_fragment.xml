@@ -8,13 +8,14 @@
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar_main"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/Layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_margin"
+            android:layout_below="@id/appbar"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout

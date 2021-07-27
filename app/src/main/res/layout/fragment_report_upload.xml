@@ -7,11 +7,12 @@
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar_main"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/appbar"
         android:orientation="vertical"
         android:layout_above="@+id/uploadReport">
 

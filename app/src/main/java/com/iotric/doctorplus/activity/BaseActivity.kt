@@ -1,4 +1,4 @@
-package com.iotric.doctorplus.fragment
+package com.iotric.doctorplus.activity
 
 import android.app.AlertDialog
 import android.view.View

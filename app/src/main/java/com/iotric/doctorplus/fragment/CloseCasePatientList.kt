@@ -37,7 +37,7 @@ class CloseCasePatientList : BaseFragment() {
     }
 
     private fun initView() {
-        //binding.appbar.toolbarTitle.text = "INACTIVE PATIENT LIST"
+        binding.appbar.toolbarTitle.text = "INACTIVE PATIENT LIST"
         viewModel.getClosePatientApi(requireActivity().application)
         closePatientListAdapter =
             InActivePatientListAdapter(object : InActivePatientListAdapter.ItemClickListener {
@@ -52,9 +52,9 @@ class CloseCasePatientList : BaseFragment() {
     }
 
     private fun initListener() {
-       /* binding.appbar.toolbar.setOnClickListener {
+        binding.appbar.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
-        }*/
+        }
     }
 
     private fun initObserver() {

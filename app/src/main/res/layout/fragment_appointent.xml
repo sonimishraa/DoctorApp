@@ -10,7 +10,7 @@
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar_main"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"

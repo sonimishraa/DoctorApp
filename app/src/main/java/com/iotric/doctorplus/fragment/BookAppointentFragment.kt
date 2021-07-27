@@ -63,14 +63,14 @@ class BookAppointentFragment : BaseFragment() {
     }
 
     private fun initView() {
-        //binding.appbar.toolbarTitle.text = "NEW APPOINTMENT"
+        binding.appbar.toolbarTitle.text = "NEW APPOINTMENT"
     }
 
 
     private fun initListener() {
-      /*  binding.appbar.toolbar.setOnClickListener {
+        binding.appbar.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
-        }*/
+        }
         binding.editNextAppointmentTime.setOnClickListener {
             pickAppointmentTime()
         }

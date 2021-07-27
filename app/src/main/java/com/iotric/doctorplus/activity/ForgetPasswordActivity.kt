@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.iotric.doctorplus.databinding.ForgetPasswordActivityBinding
-import com.iotric.doctorplus.fragment.BaseActivity
 import com.iotric.doctorplus.viewmodel.ForgetPasswordViewModel
 
 class ForgetPasswordActivity: BaseActivity() {

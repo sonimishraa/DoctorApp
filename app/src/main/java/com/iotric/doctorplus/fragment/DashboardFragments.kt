@@ -15,8 +15,8 @@ import com.iotric.doctorplus.model.response.PatientsItems
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DashboardFragments : Fragment() {
-   /* private lateinit var binding: DashboardFragmentBinding
+class DashboardFragments : Fragment(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var binding: DashboardFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,7 @@ class DashboardFragments : Fragment() {
     }
 
     private fun initListener() {
-       *//* binding.dashboardFrame.lLayoutPatient.setOnClickListener {
+        binding.dashboardFrame.lLayoutPatient.setOnClickListener {
             findNavController().navigate(R.id.action_patientList_fragment)
         }
         binding.dashboardFrame.lLayoutAddPatient.setOnClickListener {
@@ -53,7 +53,7 @@ class DashboardFragments : Fragment() {
         binding.dashboardFrame.lLayoutPatientCloseCase.setOnClickListener {
              val action = DashboardFragmentsDirections.actionCloseCaseFragment()
             findNavController().navigate(action)
-        }*//*
+        }
         binding.dashboardFrame.menubar.setOnClickListener {
             val drawer = binding.drawerLayout
             drawer.open()
@@ -82,5 +82,4 @@ class DashboardFragments : Fragment() {
         return true
 
     }
-*/
 }

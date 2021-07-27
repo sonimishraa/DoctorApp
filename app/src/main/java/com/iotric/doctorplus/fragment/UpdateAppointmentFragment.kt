@@ -60,6 +60,7 @@ class UpdateAppointmentFragment : BaseFragment() {
     }
 
     private fun initView() {
+        binding.appbar.toolbarTitle.setText("UPDATE APPOINTMENT")
         val visitdate = args.AppointItem.nextvisitdate
         binding.visitDate.setText(DateTimeUtil.getSimpleDateFromUtc(visitdate))
         binding.visitTime.setText(args.AppointItem.nextvisittime)
@@ -67,6 +68,9 @@ class UpdateAppointmentFragment : BaseFragment() {
     }
 
     private fun initListener() {
+        binding.appbar.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         binding.btnCancle.setOnClickListener {
             findNavController().popBackStack()
         }

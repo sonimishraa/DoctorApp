@@ -15,6 +15,7 @@ import android.text.style.TextAppearanceSpan
 import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.activity.LoginActivity
 import com.iotric.doctorplus.util.UtilClass
@@ -34,7 +35,8 @@ class LogoutFragment : DialogFragment() {
             AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
             0,
             title.length,
-            0)
+            0
+        )
         builder.setTitle(title)
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
@@ -43,7 +45,7 @@ class LogoutFragment : DialogFragment() {
 
             })
             .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-               // Toast.makeText(context, "Cancel Button Cliked", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(context, "Cancel Button Cliked", Toast.LENGTH_SHORT).show()
             })
 
         return builder.create()
@@ -51,12 +53,16 @@ class LogoutFragment : DialogFragment() {
 
     private fun getLoginScreen() {
         val sharedPreferences =
-            requireActivity().getSharedPreferences(getString(R.string.share_pref), Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences(
+                getString(R.string.share_pref),
+                Context.MODE_PRIVATE
+            )
         val authToken = sharedPreferences.getString("authToken", "")
         Log.i("LogoutFragment", "authTokenbefore:${authToken}")
         sharedPreferences.edit().clear().commit()
         Log.i("LogoutFragment", "authTokenafter:${authToken}")
-        requireActivity().startActivity(Intent(requireContext(), LoginActivity::class.java))
-        requireActivity().finish()
+        val action = LogoutFragmentDirections.actionLoginFragment()
+        findNavController().navigate(action)
+
     }
 }

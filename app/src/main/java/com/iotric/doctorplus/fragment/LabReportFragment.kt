@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class LabReportFragment : Fragment() {
+class LabReportFragment : BaseFragment() {
 
     lateinit var binding: FragmentLabReportBinding
     val viewModel: LabReportViewodel by viewModels()

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.iotric.doctorplus.databinding.ViewPatientReportFragmentBinding
@@ -32,6 +33,10 @@ class ViewPatientReportFragment : BaseFragment() {
     }
 
     private fun initview() {
+        binding.appbar.toolbarTitle.setText(" REPORTS")
+        binding.appbar.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
         val patientId = args.patientId.id
         viewModelView.getPatientReportApi(patientId,requireActivity().application)
     }
