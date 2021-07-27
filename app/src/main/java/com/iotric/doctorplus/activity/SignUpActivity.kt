@@ -42,8 +42,8 @@ class SignUpActivity : BaseActivity() {
         viewModel.addDoctorLiveData.observe(this, {
             if (it != null) {
                 toastMessage("${it.message}")
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                val intent = Intent(this,CompleteProfileActivity::class.java)
+                startActivity(intent)
             }
         })
     }
@@ -52,6 +52,7 @@ class SignUpActivity : BaseActivity() {
         setActionBar(binding.toolbar)
         binding.btnAddDoctor.setOnClickListener {
             createUser()
+
         }
         binding.tvLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

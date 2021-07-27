@@ -87,7 +87,7 @@ class LoginActivity : BaseActivity() {
                 editor.putString("authToken", it.authToken)
                 editor.putString("DoctorID", it.id)
                 editor.apply()
-                startActivity(Intent(this, DrDashboardActivity::class.java))
+                startActivity(Intent(this, HomeActivity1::class.java))
                 finish()
             } else {
                 snackBar(getString(R.string.login_fail_message), binding.root)
