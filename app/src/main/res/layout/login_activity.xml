@@ -42,6 +42,7 @@
             android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
+            android:layout_marginTop="-30dp"
             app:srcCompat="@drawable/doc_logo" />
 
         <androidx.appcompat.widget.AppCompatImageView
