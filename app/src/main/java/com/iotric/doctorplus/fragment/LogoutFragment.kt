@@ -61,8 +61,7 @@ class LogoutFragment : DialogFragment() {
         Log.i("LogoutFragment", "authTokenbefore:${authToken}")
         sharedPreferences.edit().clear().commit()
         Log.i("LogoutFragment", "authTokenafter:${authToken}")
-        val action = LogoutFragmentDirections.actionLoginFragment()
-        findNavController().navigate(action)
-
+        val intent = Intent(requireContext(),LoginActivity::class.java)
+        startActivity(intent)
     }
 }

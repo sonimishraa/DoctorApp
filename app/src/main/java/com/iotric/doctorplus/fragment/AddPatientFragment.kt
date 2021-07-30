@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPatientFragmentBinding
-import com.iotric.doctorplus.networks.MultipartParams
+import com.iotric.doctorplus.model.request.AddPatientRequest
 import com.iotric.doctorplus.viewmodel.AddPatientViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +28,8 @@ class AddPatientFragment : BaseFragment() {
     lateinit var address: String
     lateinit var age: String
     lateinit var gender: String
-    lateinit var uri: Uri
+    lateinit var bloodgroup: String
+    lateinit var symptoms:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,11 +65,12 @@ class AddPatientFragment : BaseFragment() {
 
     private fun registerPatient() {
         if (validateFields()) {
-            val multipartParams = MultipartParams.Builder()
+           /* val multipartParams = MultipartParams.Builder()
             //val filePath = File(uri?.path)
             val patient = multipartParams.add("patientname", name)
                 .add("phone", phone).add("address", address).add("email", email).add("age", age)
-                .add("gender", gender)
+                .add("gender", gender)*/
+            val patient = AddPatientRequest(patientname = name,email = email,phone = phone,address = address,gender = gender,age = age,bloodgroup = bloodgroup,symptoms = symptoms)
             viewModel.getApi(patient, requireActivity().application)
         } else {
             snackBar(getString(R.string.mendatory_field_message), binding.root)
@@ -97,8 +99,10 @@ class AddPatientFragment : BaseFragment() {
         email = binding.editEmail.text.toString().trim()
         phone = binding.editPhone.text.toString().trim()
         age = binding.editAge.text.toString().trim()
-        address = binding.editAddress.text.toString().trim()
+        //address = binding.editAddress.text.toString().trim()
         gender = binding.editGender.text.toString().trim()
+        bloodgroup = binding.editBloodgroup.text.toString().trim()
+        symptoms = binding.editSymptoms.text.toString().trim()
 
         if (age.isEmpty()) {
             binding.layoutEditAge.setError(getString(R.string.empty_field_message))

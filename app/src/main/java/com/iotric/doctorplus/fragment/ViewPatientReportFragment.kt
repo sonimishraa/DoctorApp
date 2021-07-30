@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.iotric.doctorplus.adapter.PatientReportAdapter
+import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.ViewPatientReportFragmentBinding
 import com.iotric.doctorplus.viewmodel.ViewPatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ViewPatientReportFragment : BaseFragment() {
     val viewModelView: ViewPatientRecordViewModel by viewModels()
+    lateinit var patientReportAdapter: PatientReportAdapter
     lateinit var binding: ViewPatientReportFragmentBinding
     val args: ViewPatientReportFragmentArgs by navArgs()
 
@@ -29,28 +33,30 @@ class ViewPatientReportFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initview()
+        initListener()
         initObserver()
     }
 
     private fun initview() {
         binding.appbar.toolbarTitle.setText(" REPORTS")
+        patientReportAdapter = PatientReportAdapter()
+        binding.recyclerView.adapter = patientReportAdapter
+        val patientId = args.patientId.id
+        viewModelView.getPatientReportApi(patientId,requireActivity().application)
+    }
+
+    private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
-        val patientId = args.patientId.id
-        viewModelView.getPatientReportApi(patientId,requireActivity().application)
     }
 
     private fun initObserver() {
         showLoading()
        viewModelView.patientRecord.observe(viewLifecycleOwner,{
            dismissLoading()
-           it.report?.firstOrNull()?.let {
-               it.labreports?.firstOrNull()?.let {
-                   it.images?.firstOrNull()?.let {
-                      Glide.with(requireContext()).load("http://3.108.56.211/reports/1627289798632-hello.jpg").into(binding.patientReport)
-                   }
-               }
+           it.let {
+               patientReportAdapter.submitList(it.report)
            }
        })
     }

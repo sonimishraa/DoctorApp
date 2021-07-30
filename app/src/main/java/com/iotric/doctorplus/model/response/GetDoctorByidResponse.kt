@@ -3,7 +3,6 @@ package com.iotric.doctorplus.model.response
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-
 @Parcelize
 data class GetDoctorByidResponse(
 
@@ -15,22 +14,32 @@ data class GetDoctorByidResponse(
 
 	val type: String?,
 
-	val phone: String? = null,
+	val phone: String?,
 
-	val _V: Int? = null,
+	val _V: Int?,
 
-	val adddress: List<String?>? = null,
+	val adddress: List<String?>?,
 
-	val _id: String? = null,
+	val _id: String?,
 
 	val clinicstarttime:String,
 
 	val clinicendtime: String,
 
-	val doctorname: String? = null,
+	val doctorname: String?,
 
-	val email: String? = null,
+	val email: String?,
 
-	val updatedAt: String? = null
+	val education: String,
+
+	val experience:String,
+
+	val updatedAt: String?,
+
+	val gender:String?,
+
+	val hospital:String?,
+
+	val title: String
 
 ):Parcelable

@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top"
+    android:layout_gravity="top"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -42,7 +44,7 @@
             android:layout_width="300dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-30dp"
+            android:layout_marginTop="-35dp"
             app:srcCompat="@drawable/doc_logo" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -69,7 +71,7 @@
                 android:drawableStart="@drawable/ic_baseline_call_24"
                 android:drawablePadding="@dimen/medium_padding"
                 android:hint="Phone Number"
-                android:text= "7985239810"
+                android:text= "8360036001"
                 android:inputType="number"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>

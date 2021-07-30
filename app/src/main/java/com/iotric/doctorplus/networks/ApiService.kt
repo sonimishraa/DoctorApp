@@ -65,21 +65,13 @@ interface ApiService {
    /* @POST(ADD_PATIENT)
     fun addNewPatient(@Body requestBody: RequestBody):Call<AddPatientResponse>*/
 
+    @POST(ADD_PATIENT)
+    fun registerPatient(@Body addPatientRequest: AddPatientRequest): Call<AddPatientResponse>
+
     @Multipart
     @POST(ADD_PATIENT)
     fun addPatient(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientResponse>
 
-
-    /* @Multipart
-    @POST("XXXX")
-    fun myPlans(
-        @Part(Constants.ACTION_ID) actionId: RequestBody?,
-        @Part(Constants.OFFER_CODE) offerCode: RequestBody?
-    ): Call<PlanResponse?>?
-
-    var somevalue = "somevalue"
-    var body: RequestBody = create(MediaType.parse("text/plain"), somevalue)
-*/
     @PUT(UPDATE_PATIENT)
     fun updatePatient(
         @Path("id") id: String,

@@ -6,10 +6,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.ChangePasswordDialogueBinding
 import com.iotric.doctorplus.databinding.LoginActivityBinding
 import com.iotric.doctorplus.model.request.DoctorLoginRequest
 import com.iotric.doctorplus.model.request.ForgetPasswordOtpRequest
@@ -21,8 +21,11 @@ class LoginActivity : BaseActivity() {
 
     private lateinit var binding: LoginActivityBinding
     val viewModel by viewModels<LoginActivityViewModel>()
+    lateinit var binding1: ChangePasswordDialogueBinding
+    lateinit var alertDialogue: AlertDialog
     lateinit var number: String
     lateinit var password: String
+    lateinit var editNumber: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +52,14 @@ class LoginActivity : BaseActivity() {
 
     private fun openAlertDialogue() {
         val builder = AlertDialog.Builder(this)
-        val inflater = layoutInflater
-        val dialogueView = inflater.inflate(R.layout.change_password_dialogue, null)
+        binding1 = ChangePasswordDialogueBinding.inflate(layoutInflater)
+        val view = binding1.root
         builder.setCancelable(false)
-        builder.setView(dialogueView)
-        val alertDialogue = builder.create()
+        builder.setView(view)
+        alertDialogue = builder.create()
         alertDialogue.show()
-        val  btnCancel= dialogueView.findViewById<Button>(R.id.bt_cancel)
-        val btnSend = dialogueView.findViewById<Button>(R.id.bt_send)
+        val btnCancel = binding1.btCancel
+        val btnSend = binding1.btSend
 
         btnSend.setOnClickListener {
             sendOtpRequest()
@@ -67,10 +70,11 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun sendOtpRequest() {
-        if (validateFields()) {
-            val otpRequest = ForgetPasswordOtpRequest(phone = number)
-            viewModel.getOtpApi(otpRequest,application)
-        }
+        if (validateDialogue()) {
+            val otpRequest = ForgetPasswordOtpRequest(phone = editNumber)
+            viewModel.getOtpApi(otpRequest, application)
+        } else
+            snackBar(getString(R.string.mendatory_field_message), binding.root)
     }
 
     private fun initObserver() {
@@ -87,7 +91,7 @@ class LoginActivity : BaseActivity() {
                 editor.putString("authToken", it.authToken)
                 editor.putString("DoctorID", it.id)
                 editor.apply()
-                startActivity(Intent(this, HomeActivity1::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
                 snackBar(getString(R.string.login_fail_message), binding.root)
@@ -103,14 +107,19 @@ class LoginActivity : BaseActivity() {
                 toastMessage("${it.verification?.sendCodeAttempts}")
                 val intent = Intent(this, ForgetPasswordActivity::class.java)
                 startActivity(intent)
+                alertDialogue.dismiss()
             }
+        })
+        viewModel.apiErrorMessage.observe(this, {
+            alertDialogue.dismiss()
+            snackBar("${it}", binding.root)
         })
     }
 
     private fun loginDoctor() {
         if (validateFields()) {
-                val loginRequest = DoctorLoginRequest(number, password)
-                viewModel.fetchLoginRequest(loginRequest, application)
+            val loginRequest = DoctorLoginRequest(number, password)
+            viewModel.fetchLoginRequest(loginRequest, application)
         } else
             snackBar(getString(R.string.mendatory_field_message), binding.root)
     }
@@ -135,6 +144,22 @@ class LoginActivity : BaseActivity() {
             isAllFieldValidate = false
         } else binding.layoutEditPassword.setError(null)
 
+        return isAllFieldValidate
+    }
+
+    private fun validateDialogue(): Boolean {
+        var isAllFieldValidate = true
+        editNumber = binding1.editNumber.text.toString().trim()
+
+        if (editNumber.isEmpty()) {
+            binding1.layoutEditNumber.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else if (editNumber.length < 10) {
+            binding1.layoutEditNumber.setError(getString(R.string.Phone_number_validation))
+            isAllFieldValidate = false
+        } else {
+            binding1.layoutEditNumber.setError(null)
+        }
         return isAllFieldValidate
     }
 }

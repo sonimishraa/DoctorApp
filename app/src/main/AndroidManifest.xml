@@ -31,7 +31,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorPlus"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.HomeActivity1"
+        <activity android:name=".activity.MainActivity"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
           <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +42,8 @@
         <activity android:name=".activity.CompleteProfileActivity"
             android:theme="@style/Theme.DoctorPlus.NoActionBar">
         </activity>
+        <activity android:name=".activity.ForgetPasswordActivity"
+            android:theme="@style/Theme.DoctorPlus.NoActionBar"/>
         <activity
             android:name=".activity.SplashActivity"
             android:icon="@drawable/plus_sign"

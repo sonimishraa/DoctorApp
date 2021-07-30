@@ -3,17 +3,19 @@ package com.iotric.doctorplus.model.request
 
 data class UpdateDoctorRequest(
 
-	val type: String?,
+	val title: String?,
 
-	val phone: String?,
+	val gender: String?,
 
-	val adddress: String?,
+	val clinicstarttime:String?,
 
-	val clinicstarttime:String,
+	val clinicendtime: String?,
 
-	val clinicendtime: String,
+	val education: String?,
 
-	val doctorname: String?,
+	val hospital:String?,
+
+	val experience:String?
 
 
 )

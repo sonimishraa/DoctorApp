@@ -1,26 +1,33 @@
 package com.iotric.doctorplus.activity
 
+import android.app.TimePickerDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.CompleteProfileActivityBinding
 import com.iotric.doctorplus.model.request.UpdateDoctorRequest
+import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.EditDoctorProfileViewModel
 
 class CompleteProfileActivity : BaseActivity() {
+    var hr = 0
+    var min = 0
+    var hr1 = 0
+    var min1 = 0
     val viewModel: EditDoctorProfileViewModel by viewModels()
     lateinit var binding: CompleteProfileActivityBinding
-    lateinit var name: String
-    lateinit var email: String
-    lateinit var phone: String
-    lateinit var speciality: String
+    lateinit var timePickerDialog: TimePickerDialog
     lateinit var startTime: String
     lateinit var endTime: String
-    lateinit var address: String
-    lateinit var sharePref: SharedPreferences
+    lateinit var hospital: String
+    lateinit var experience: String
+    lateinit var education: String
+    lateinit var title: String
+    lateinit var gender: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = CompleteProfileActivityBinding.inflate(layoutInflater)
@@ -36,10 +43,21 @@ class CompleteProfileActivity : BaseActivity() {
 
     }
 
-    private fun initObserver() {
+    private fun initListener() {
         binding.appbar.toolbar.setNavigationOnClickListener {
-
         }
+        binding.editStartTime.setOnClickListener {
+            startTimePicker()
+        }
+        binding.editEndTime.setOnClickListener {
+            endTimePicker()
+        }
+        binding.btnSave.setOnClickListener {
+            EditDoctor()
+        }
+    }
+
+    private fun initObserver() {
         viewModel.updateDoctorProfile.observe(this, {
             it?.let {
                 Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
@@ -54,24 +72,17 @@ class CompleteProfileActivity : BaseActivity() {
             }
         })
     }
-
-    private fun initListener() {
-        binding.btnSave.setOnClickListener {
-            EditDoctor()
-        }
-    }
-
     private fun EditDoctor() {
         if (validateFields()) {
             //val clinicHr = startTime + " - " + endTime
             val doctor = UpdateDoctorRequest(
-                doctorname = name,
-                phone = phone,
-                type = speciality,
+                title = title,
+                education = education,
+                gender = gender,
+                hospital = hospital,
+                experience = experience,
                 clinicstarttime = startTime,
-                clinicendtime = endTime,
-                adddress = address
-            )
+                clinicendtime = endTime)
             viewModel.getUpdateApi(doctor, application)
         } else
             Toast.makeText(this, getString(R.string.mendatory_field_message), Toast.LENGTH_SHORT)
@@ -80,56 +91,75 @@ class CompleteProfileActivity : BaseActivity() {
 
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
-        name = binding.editName.text.toString().trim()
-        email = binding.editEmail.text.toString().trim()
-        phone = binding.editPhone.text.toString().trim()
-        speciality = binding.editSpecialization.text.toString().trim()
-        address = binding.editAddress.text.toString().trim()
+        hospital = binding.editHospital.text.toString().trim()
+        title = binding.editTitle.text.toString().trim()
+        experience = binding.editExperience.text.toString().trim()
+        education = binding.editEducation.text.toString().trim()
+        gender = binding.editGender.text.toString().trim()
         startTime = binding.editStartTime.text.toString().trim()
         endTime = binding.editEndTime.text.toString().trim()
 
-        if (name.isEmpty()) {
-            binding.layoutEditName.setError(getString(R.string.empty_field_message))
+        if (gender.isEmpty()) {
+            binding.layoutEditGender.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else {
-            binding.layoutEditName.setError(null)
+            binding.layoutEditGender.setError(null)
         }
-        if (phone.isEmpty()) {
-            binding.layoutEditPhone.setError(getString(R.string.empty_field_message))
+        if (title.isEmpty()) {
+            binding.layoutEditTitle.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else if (phone.length < 10) {
-            binding.layoutEditPhone.setError(getString(R.string.Phone_number_validation))
+        } else binding.layoutEditTitle.setError(null)
+
+        if (education.isEmpty()) {
+            binding.layoutEditEducation.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditPhone.setError(null)
+        } else binding.layoutEditEducation.setError(null)
 
-        /* if (email.isEmpty()) {
-             binding.layoutEditEmail.setError(getString(R.string.empty_field_message))
-             isAllFieldValidate = false
-
-         } else if (!email.matches(Patterns.EMAIL_ADDRESS.toRegex())) {
-             binding.layoutEditEmail.setError(getString(R.string.invalid_email_message))
-             isAllFieldValidate = false
-         } else binding.layoutEditEmail.setError(null)
- */
-        if (speciality.isEmpty()) {
-            binding.layoutEditSpecialization.setError(getString(R.string.empty_field_message))
+        if (endTime.isEmpty()) {
+            binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditSpecialization.setError(null)
+        } else binding.layoutEditEndTime.setError(null)
 
-        /*  if (endTime.isEmpty()) {
-              binding.layoutEditEndTime.setError(getString(R.string.empty_field_message))
-              isAllFieldValidate = false
-          } else binding.layoutEditEndTime.setError(null)
-          if (startTime.isEmpty()) {
-              binding.layoutEditClinicHr.setError(getString(R.string.empty_field_message))
-              isAllFieldValidate = false
-          } else binding.layoutEditClinicHr.setError(null)*/
-
-        if (address.isEmpty()) {
-            binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
+        if (startTime.isEmpty()) {
+            binding.layoutEditClinicHr.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutEditAddress.setError(null)
+        } else binding.layoutEditClinicHr.setError(null)
+
+        if (hospital.isEmpty()) {
+            binding.layoutEditHospital.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else binding.layoutEditHospital.setError(null)
         return isAllFieldValidate
+    }
+    private fun startTimePicker() {
+        UtilClass.getTimeCalender()
+        timePickerDialog =
+            TimePickerDialog(this, object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    hr = hourOfDay
+                    min = minute
+                    Log.i("start time", "$hourOfDay: $minute")
+                    val time = UtilClass.time(hr, min)
+                    binding.editStartTime.setText(time)
+                }
+            }, hr, min, false)
+        timePickerDialog.show()
+    }
+
+    private fun endTimePicker() {
+        UtilClass.getTimeCalender()
+        timePickerDialog =
+            TimePickerDialog(this, object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                    hr1 = hourOfDay
+                    min1 = minute
+                    Log.i("End time", "$hourOfDay: $minute")
+                    val time = UtilClass.time(hr1, min1)
+                    binding.editEndTime.setText(time)
+                }
+            }, hr1, min1, false)
+
+        timePickerDialog.show()
     }
 
 }
