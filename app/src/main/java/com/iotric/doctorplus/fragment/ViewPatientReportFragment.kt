@@ -1,5 +1,6 @@
 package com.iotric.doctorplus.fragment
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,16 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
-import com.bumptech.glide.Glide
 import com.iotric.doctorplus.adapter.PatientReportAdapter
-import com.iotric.doctorplus.adapter.PatinetListAdapter
 import com.iotric.doctorplus.databinding.ViewPatientReportFragmentBinding
+import com.iotric.doctorplus.model.response.ReportItem
+import com.iotric.doctorplus.util.FileUtil
 import com.iotric.doctorplus.viewmodel.ViewPatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ViewPatientReportFragment : BaseFragment() {
+    var myDownloadId: Long = 0
     val viewModelView: ViewPatientRecordViewModel by viewModels()
     lateinit var patientReportAdapter: PatientReportAdapter
     lateinit var binding: ViewPatientReportFragmentBinding
@@ -25,7 +26,7 @@ class ViewPatientReportFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View{
+    ): View {
         binding = ViewPatientReportFragmentBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -39,10 +40,16 @@ class ViewPatientReportFragment : BaseFragment() {
 
     private fun initview() {
         binding.appbar.toolbarTitle.setText(" REPORTS")
-        patientReportAdapter = PatientReportAdapter()
+        patientReportAdapter =
+            PatientReportAdapter(object : PatientReportAdapter.ItemClickListener {
+                override fun onImageViewClick(item: ReportItem) {
+                   val action = ViewPatientReportFragmentDirections.actionViewPatientReportFragmentToViewReportFragment(item)
+                    findNavController().navigate(action)
+                }
+            })
         binding.recyclerView.adapter = patientReportAdapter
         val patientId = args.patientId.id
-        viewModelView.getPatientReportApi(patientId,requireActivity().application)
+        viewModelView.getPatientReportApi(patientId, requireActivity().application)
     }
 
     private fun initListener() {
@@ -53,11 +60,11 @@ class ViewPatientReportFragment : BaseFragment() {
 
     private fun initObserver() {
         showLoading()
-       viewModelView.patientRecord.observe(viewLifecycleOwner,{
-           dismissLoading()
-           it.let {
-               patientReportAdapter.submitList(it.report)
-           }
-       })
+        viewModelView.patientRecord.observe(viewLifecycleOwner, {
+            dismissLoading()
+            it.let {
+                patientReportAdapter.submitList(it.report)
+            }
+        })
     }
 }

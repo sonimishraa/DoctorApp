@@ -4,7 +4,7 @@ data class AddPatientRequest(
 	val phone : String,
 	val patientname : String,
 	val email: String,
-	val address: String?,
+	val address: String? =null,
 	val age: String,
 	val gender:String,
 	val bloodgroup: String,

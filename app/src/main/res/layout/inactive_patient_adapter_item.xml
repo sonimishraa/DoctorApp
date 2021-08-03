@@ -42,15 +42,18 @@
                     android:layout_weight="1"
                     android:text="Email:"
                     android:textColor="@color/black"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_email"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
                     android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_baseline_email_24"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
                     android:visibility="visible"
                     tools:text="soni@gamil.com" />
 
@@ -65,6 +68,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_phone_title"
                     android:layout_width="0dp"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Phone:"
@@ -72,13 +76,15 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_contact"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_baseline_call_24"
+                    android:drawablePadding="@dimen/small_padding"
                     android:textColor="@color/black"
+                    android:textSize="15sp"
                     tools:text="1234567890" />
-
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat

@@ -70,7 +70,7 @@ class AddPatientFragment : BaseFragment() {
             val patient = multipartParams.add("patientname", name)
                 .add("phone", phone).add("address", address).add("email", email).add("age", age)
                 .add("gender", gender)*/
-            val patient = AddPatientRequest(patientname = name,email = email,phone = phone,address = address,gender = gender,age = age,bloodgroup = bloodgroup,symptoms = symptoms)
+            val patient = AddPatientRequest(patientname = name,email = email,phone = phone,gender = gender,age = age,bloodgroup = bloodgroup,symptoms = symptoms)
             viewModel.getApi(patient, requireActivity().application)
         } else {
             snackBar(getString(R.string.mendatory_field_message), binding.root)

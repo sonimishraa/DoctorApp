@@ -25,46 +25,6 @@
         tools:layout="@layout/notification_fragment" />
 -->
     <fragment
-        android:id="@+id/login_fragment"
-        android:name="com.iotric.doctorplus.fragment.LoginFragment"
-        android:label="SIGN UP"
-        tools:layout="@layout/login_fragment">
-        <action
-            android:id="@+id/action_SignUpFragment"
-            app:destination="@+id/signUp_fragment" />
-        <action
-            android:id="@+id/action_ForgetPassword"
-            app:destination="@+id/forget_password_fragment" />
-
-        <action
-            android:id="@+id/action_DashboardFragment"
-            app:destination="@+id/navigation_dashboard" />
-
-    </fragment>
-    <fragment
-        android:id="@+id/signUp_fragment"
-        android:name="com.iotric.doctorplus.fragment.SignUpFragment"
-        android:label="SIGN UP"
-        tools:layout="@layout/sign_up_fragment">
-
-        <action
-            android:id="@+id/action_loginFragment"
-            app:destination="@+id/login_fragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/forget_password_fragment"
-        android:name="com.iotric.doctorplus.fragment.ForgetPasswordFragment"
-        android:label="FORGET PASSWORD"
-        tools:layout="@layout/forget_password_fragment">
-
-        <action
-            android:id="@+id/action_loginFragment"
-            app:destination="@+id/login_fragment" />
-
-    </fragment>
-    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.iotric.doctorplus.fragment.DashboardFragments"
         android:label="DASHBOARD"
@@ -191,10 +151,6 @@
         android:id="@+id/navigation_logout"
         android:name="com.iotric.doctorplus.fragment.LogoutFragment"
         android:label="@string/nav_logout">
-        <action
-            android:id="@+id/action_loginFragment"
-            app:destination="@id/login_fragment" />
-
     </dialog>
 
 
@@ -298,6 +254,9 @@
         <argument
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+        <action
+            android:id="@+id/action_viewPatientReportFragment_to_viewReportFragment"
+            app:destination="@id/viewReportFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookAppointentFragment"
@@ -324,6 +283,16 @@
         <argument
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/viewReportFragment"
+        android:name="com.iotric.doctorplus.fragment.ViewReportFragment"
+        android:label="REPORT"
+        tools:layout="@layout/fragment_view_report" >
+        <argument
+            android:name="reportItem"
+            app:argType="com.iotric.doctorplus.model.response.ReportItem" />
     </fragment>
 
 </navigation>

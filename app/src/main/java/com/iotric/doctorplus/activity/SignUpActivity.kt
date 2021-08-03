@@ -42,7 +42,7 @@ class SignUpActivity : BaseActivity() {
         viewModel.addDoctorLiveData.observe(this, {
             if (it != null) {
                 toastMessage("${it.message}")
-                val intent = Intent(this,CompleteProfileActivity::class.java)
+                val intent = Intent(this,LoginActivity::class.java)
                 startActivity(intent)
             }
         })

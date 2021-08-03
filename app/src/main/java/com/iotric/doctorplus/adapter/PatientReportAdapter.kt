@@ -11,17 +11,18 @@ import com.iotric.doctorplus.databinding.PatientReportAdapterItemBinding
 import com.iotric.doctorplus.model.response.ReportItem
 import com.iotric.doctorplus.util.DateTimeUtil
 
-class PatientReportAdapter : ListAdapter<ReportItem, PatientReportAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<ReportItem>() {
-        override fun areItemsTheSame(oldItem: ReportItem, newItem: ReportItem): Boolean {
-            return oldItem == newItem
-        }
+class PatientReportAdapter(val listener: ItemClickListener) :
+    ListAdapter<ReportItem, PatientReportAdapter.ItemViewHolder>(
+        object : DiffUtil.ItemCallback<ReportItem>() {
+            override fun areItemsTheSame(oldItem: ReportItem, newItem: ReportItem): Boolean {
+                return oldItem == newItem
+            }
 
-        override fun areContentsTheSame(oldItem: ReportItem, newItem: ReportItem): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: ReportItem, newItem: ReportItem): Boolean {
+                return oldItem == newItem
+            }
         }
-    }
-) {
+    ) {
     lateinit var binding: PatientReportAdapterItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -35,15 +36,33 @@ class PatientReportAdapter : ListAdapter<ReportItem, PatientReportAdapter.ItemVi
         item.labreports?.forEach {
             holder.name.text = it?.reportname
             holder.date.text = DateTimeUtil.getSimpleDateFromUtc(it?.dateofreport)
-                it?.images?.forEach {
+            it?.images?.forEach {
                 Glide.with(this.binding.root).load(it).into(holder.imageView)
             }
         }
+       /* holder.btnDownload.setOnClickListener {
+            listener.onDownloadBtnClick(item.labreports)
+        }*/
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView = binding.ivReport
         val date = binding.reportDate
         val name = binding.reportName
+        val btnDelete = binding.ivDelete
+
+        init {
+            imageView.setOnClickListener {
+                listener.onImageViewClick(getItem(position))
+            }
+            /* moreOption.setOnClickListener {
+                 //listener.onDeleteClick(getItem(position))
+             }*/
+        }
+    }
+
+
+    interface ItemClickListener {
+        fun onImageViewClick(item: ReportItem)
     }
 }
