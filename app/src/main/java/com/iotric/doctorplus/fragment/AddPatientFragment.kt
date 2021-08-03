@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.core.view.MenuCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
@@ -17,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AddPatientFragment : BaseFragment() {
+class AddPatientFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener {
 
     val viewModel: AddPatientViewModel by viewModels()
     private lateinit var binding: AddPatientFragmentBinding
@@ -60,6 +63,9 @@ class AddPatientFragment : BaseFragment() {
         }
         binding.btnAdd.setOnClickListener {
             registerPatient()
+        }
+        binding.editGender.setOnClickListener {
+            showDropDown()
         }
     }
 
@@ -141,4 +147,27 @@ class AddPatientFragment : BaseFragment() {
         return isAllFieldValidate
     }
 
+    private fun showDropDown() {
+        val popup = PopupMenu(requireContext(), binding.layoutEditGender)
+        popup.getMenuInflater().inflate(R.menu.gender_drop_down, popup.getMenu())
+        MenuCompat.setGroupDividerEnabled(popup.menu, true)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+
+    }
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        val id = item?.itemId
+       when(id){
+           R.id.female ->{
+               binding.editGender.setText("f")
+           }
+           R.id.male ->{
+               binding.editGender.setText("m")
+           }
+           R.id.others ->{
+               binding.editGender.setText("others")
+           }
+       }
+        return super.onOptionsItemSelected(item!!)
+    }
 }
