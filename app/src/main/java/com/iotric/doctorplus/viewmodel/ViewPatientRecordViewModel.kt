@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.iotric.doctorplus.model.response.DeleteReportResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.model.response.PatientReportByPatientIdResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
@@ -20,6 +21,7 @@ class ViewPatientRecordViewModel @Inject constructor() : ViewModel() {
 
     val patientRecord = MutableLiveData<PatientReportByPatientIdResponse>()
     val getErrorMessage = MutableLiveData<String>()
+    val deleteReport = MutableLiveData<DeleteReportResponse>()
 
     fun getPatientReportApi(patientId: String?, application: Application) {
         ServiceBuilder.getRetrofit(application).getPatientReport(patientId)
@@ -50,8 +52,39 @@ class ViewPatientRecordViewModel @Inject constructor() : ViewModel() {
                     ).show()
                 }
 
-
             })
     }
 
+    fun deleteReportApi(patientId: String?, reportId: String, application: Application) {
+        ServiceBuilder.getRetrofit(application).deleteReport(reportId)
+            .enqueue(object : Callback<DeleteReportResponse> {
+                override fun onResponse(
+                    call: Call<DeleteReportResponse>,
+                    response: Response<DeleteReportResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        response.body()?.let {
+                            deleteReport.postValue(it)
+                            getPatientReportApi(patientId, application)
+                        }
+                    } else {
+                        val errorMessage = response.errorBody()?.string()
+                        Log.i("Error", "$errorMessage")
+                        val errorResponse =
+                            Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                        getErrorMessage.postValue(errorResponse?.error?.message ?: "")
+                    }
+
+                }
+
+                override fun onFailure(call: Call<DeleteReportResponse>, t: Throwable) {
+                    Toast.makeText(
+                        application.applicationContext,
+                        "${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
+    }
 }

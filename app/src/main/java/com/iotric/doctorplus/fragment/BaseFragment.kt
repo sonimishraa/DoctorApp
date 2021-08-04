@@ -12,6 +12,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -51,33 +52,23 @@ abstract class BaseFragment : Fragment() {
     fun pickImage() {
         val builder = AlertDialog.Builder(requireContext())
         val inflater = layoutInflater
-        val dialogeView = inflater.inflate(R.layout.alter_dialoge_profile, null)
+        val dialogeView = inflater.inflate(R.layout.pick_image_dialogue, null)
         builder.setCancelable(false)
         builder.setView(dialogeView)
         val alertDialoge = builder.create()
         alertDialoge.show()
-        val ivCamera = dialogeView.findViewById<AppCompatTextView>(R.id.ivCamera)
-        val ivImage = dialogeView.findViewById<AppCompatTextView>(R.id.ivImage)
-        val tv_cancel = dialogeView.findViewById<AppCompatTextView>(R.id.tv_cancel)
-        val tv_ok = dialogeView.findViewById<AppCompatTextView>(R.id.tv_ok)
-
-        tv_cancel.setOnClickListener {
-            alertDialoge.dismiss()
-        }
-        tv_ok.setOnClickListener {
-            chooseImage()
-            alertDialoge.cancel()
-        }
+        val ivCamera = dialogeView.findViewById<LinearLayoutCompat>(R.id.layout_camera)
+        val ivImage = dialogeView.findViewById<LinearLayoutCompat>(R.id.Layout_gallery)
         ivImage.setOnClickListener {
             chooseImage()
             alertDialoge.cancel()
-
         }
         ivCamera.setOnClickListener {
             if (checkRequestPermission())
                 takePictureFromCamera()
             alertDialoge.cancel()
         }
+        alertDialoge.setCanceledOnTouchOutside(true)
     }
 
     fun takePictureFromCamera() {

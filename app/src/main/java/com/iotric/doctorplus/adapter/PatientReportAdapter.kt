@@ -35,7 +35,7 @@ class PatientReportAdapter(val listener: ItemClickListener) :
         val item = getItem(position)
         item.labreports?.forEach {
             holder.name.text = it?.reportname
-            holder.date.text = DateTimeUtil.getSimpleDateFromUtc(it?.dateofreport)
+            //holder.date.text = DateTimeUtil.getSimpleDateFromUtc(it?.dateofreport)
             it?.images?.forEach {
                 Glide.with(this.binding.root).load(it).into(holder.imageView)
             }
@@ -47,7 +47,7 @@ class PatientReportAdapter(val listener: ItemClickListener) :
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView = binding.ivReport
-        val date = binding.reportDate
+        //val date = binding.reportDate
         val name = binding.reportName
         val btnDelete = binding.ivDelete
 
@@ -55,14 +55,15 @@ class PatientReportAdapter(val listener: ItemClickListener) :
             imageView.setOnClickListener {
                 listener.onImageViewClick(getItem(position))
             }
-            /* moreOption.setOnClickListener {
-                 //listener.onDeleteClick(getItem(position))
-             }*/
+             btnDelete.setOnClickListener {
+                 listener.onDeleteClick(getItem(position))
+             }
         }
     }
 
 
     interface ItemClickListener {
         fun onImageViewClick(item: ReportItem)
+         fun onDeleteClick(item: ReportItem?)
     }
 }

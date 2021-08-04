@@ -44,7 +44,7 @@
           android:background="@drawable/outline_background"
           android:layout_margin="@dimen/medium_margin"
           android:iconifiedByDefault="false"
-          android:queryHint="Search by Name/Phone"
+          android:queryHint="Search Report By Name"
           android:searchIcon="@drawable/ic_baseline_search_24" />
 
       <androidx.recyclerview.widget.RecyclerView
@@ -54,7 +54,7 @@
           android:clipToPadding="false"
           android:orientation="vertical"
           android:paddingBottom="16dp"
-          app:spanCount="1"
+          app:spanCount="2"
           app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

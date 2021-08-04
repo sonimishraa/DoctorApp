@@ -217,6 +217,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/small_margin"
-        android:padding="4dp"
+        android:padding="@dimen/small_padding"
         android:src="@drawable/more_option" />
 </RelativeLayout>

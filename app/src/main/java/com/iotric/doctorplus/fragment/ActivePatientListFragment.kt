@@ -35,16 +35,25 @@ class ActivePatientListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         initObserver()
     }
 
-    private fun initView() {
+    private fun initListener() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
+    }
+
+    private fun initView() {
         viewModel.getActivePatientApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
+            override fun onItemLayoutClick(result: PatientsItem) {
+                val action = ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
+                findNavController().navigate(action)
+            }
+
             override fun onPatientProfileClick(result: PatientsItem) {
                 val action = ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
                 findNavController().navigate(action)
@@ -81,7 +90,7 @@ class ActivePatientListFragment : BaseFragment() {
                 binding.layoutNoitem.visibility = View.VISIBLE
             } else {
                 binding.layoutNoitem.visibility = View.GONE
-                it.patients?.let {
+                it.patients.let {
                     patientListAdapter.submitList(it)
                 }
             }

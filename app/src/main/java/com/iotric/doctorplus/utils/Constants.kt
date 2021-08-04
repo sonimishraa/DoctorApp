@@ -15,7 +15,7 @@ object Constants {
     const val REGISTER_PATIENT = "patient/addpatient"
     const val DELETE_PATIENT = "patient/{id}"
     const val GET_PATIENT_LIST = "doctor/getall"
-    const val DELETE_REPORT = "patient/deletereport"
+    const val DELETE_REPORT = "report/{id}"
     const val DOCTOR_LOGIN = "doctor/doctorlogin"
     const val All_PATIENT_LIST = "patient"
     const val MY_PATIENT_LIST = "patient/mypatient"

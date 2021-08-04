@@ -41,8 +41,6 @@ class PatinetListAdapter(val listener: ItemClickListener) :
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
-        //val nextAppointment = item.visit?.firstOrNull()
-       // val date = item.createdAt
         if (item.iscaseopen == true) {
             holder.tv_name.text = item.pname
             holder.tv_contact.text = item.pphone
@@ -89,29 +87,23 @@ class PatinetListAdapter(val listener: ItemClickListener) :
         val gender = binding.tvGender
         val age = binding.tvAge
         val patientId = binding.tvPatientId
-        val tv_date = binding.tvLastVisitDate
-        val tv_nextVisitDate = binding.tvVisitDate
         val item_layout = binding.lLayout
         val moreOption = binding.moreOption
 
 
-        /* init {
+         init {
              item_layout.setOnClickListener {
                  listener.onItemLayoutClick(getItem(position))
              }
-             moreOption.setOnClickListener {
-                 //listener.onDeleteClick(getItem(position))
-             }
-         }*/
-
+         }
     }
-
     interface ItemClickListener {
         fun onDeleteClick(result: PatientsItem)
         fun onPatientProfileClick(result: PatientsItem)
         fun onUpdateProfile(result: PatientsItem)
         fun onChangeStatus(result: PatientsItem)
         fun onBookAppointmentClick(result: PatientsItem)
+        fun onItemLayoutClick(result: PatientsItem)
     }
 
 }

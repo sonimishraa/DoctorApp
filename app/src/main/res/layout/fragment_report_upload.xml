@@ -72,6 +72,8 @@
                     android:id="@+id/reportDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false"
                     android:hint="ReportDate*" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>

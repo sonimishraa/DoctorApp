@@ -1,6 +1,5 @@
 package com.iotric.doctorplus.fragment
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.adapter.PatientReportAdapter
 import com.iotric.doctorplus.databinding.ViewPatientReportFragmentBinding
 import com.iotric.doctorplus.model.response.ReportItem
-import com.iotric.doctorplus.util.FileUtil
 import com.iotric.doctorplus.viewmodel.ViewPatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,6 +44,15 @@ class ViewPatientReportFragment : BaseFragment() {
                    val action = ViewPatientReportFragmentDirections.actionViewPatientReportFragmentToViewReportFragment(item)
                     findNavController().navigate(action)
                 }
+
+                override fun onDeleteClick(item: ReportItem?) {
+                    val patientId = args.patientId.id
+                    val reportId = item?.id
+                        if (reportId != null) {
+                            viewModelView.deleteReportApi(patientId,reportId,requireActivity().application)
+                        }
+                    }
+
             })
         binding.recyclerView.adapter = patientReportAdapter
         val patientId = args.patientId.id
@@ -65,6 +72,15 @@ class ViewPatientReportFragment : BaseFragment() {
             it.let {
                 patientReportAdapter.submitList(it.report)
             }
+        })
+        viewModelView.getErrorMessage.observe(viewLifecycleOwner,{
+            dismissLoading()
+            snackBar("${it}",binding.root)
+        })
+
+        viewModelView.deleteReport.observe(viewLifecycleOwner,{
+            dismissLoading()
+            toastMessage("${it.message}")
         })
     }
 }

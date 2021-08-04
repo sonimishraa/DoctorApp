@@ -130,7 +130,7 @@ interface ApiService {
 
 
     @DELETE(DELETE_REPORT)
-    fun deletReport()
+    fun deleteReport(@Path("id") id: String):Call<DeleteReportResponse>
 
 
     // Appointment Apis
