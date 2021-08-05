@@ -19,6 +19,7 @@ import com.iotric.doctorplus.utils.Constants.GET_PATIENT_REPORT_BY_ID
 import com.iotric.doctorplus.utils.Constants.GET_WEEKLY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
+import com.iotric.doctorplus.utils.Constants.SEARCH_PATIENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.UPDATE_DOCTOR_PROFILE
 import com.iotric.doctorplus.utils.Constants.UPDATE_PATIENT
@@ -51,19 +52,17 @@ interface ApiService {
     ): Call<UpdateDoctorResponse>
 
     @POST(FORGET_PASSWORD_OTP)
-    fun forgetPasswordOtp(@Body forgetPassword: ForgetPasswordOtpRequest):Call<ForgetPasswordOtpResponse>
-
-
+    fun forgetPasswordOtp(@Body forgetPassword: ForgetPasswordOtpRequest): Call<ForgetPasswordOtpResponse>
 
 
     // Patients Api
 
-   /* @FormUrlEncoded
-    @POST(ADD_PATIENT)
-    fun addNewPatient(@FieldMap fields: HashMap<String,String>): Call<AddPatientResponse>*/
+    /* @FormUrlEncoded
+     @POST(ADD_PATIENT)
+     fun addNewPatient(@FieldMap fields: HashMap<String,String>): Call<AddPatientResponse>*/
 
-   /* @POST(ADD_PATIENT)
-    fun addNewPatient(@Body requestBody: RequestBody):Call<AddPatientResponse>*/
+    /* @POST(ADD_PATIENT)
+     fun addNewPatient(@Body requestBody: RequestBody):Call<AddPatientResponse>*/
 
     @POST(ADD_PATIENT)
     fun registerPatient(@Body addPatientRequest: AddPatientRequest): Call<AddPatientResponse>
@@ -85,13 +84,18 @@ interface ApiService {
     fun getMyPatientList(): Call<MyPatientListResponse>
 
     @PUT(CHANGE_PATIENT_STATUS)
-    fun changePatientStatus(@Path("id") id: String):Call<PatientStatusChangeResponse>
+    fun changePatientStatus(@Path("id") id: String): Call<PatientStatusChangeResponse>
 
     @GET(CLOSE_CASE_PATIENT_LIST)
-    fun closecasePatient():Call<CloseCasePatientListResponse>
+    fun closecasePatient(): Call<CloseCasePatientListResponse>
 
     @GET(GET_PATIENT_REPORT_BY_ID)
-    fun getPatientReport(@Path("id") id: String?):Call<PatientReportByPatientIdResponse>
+    fun getPatientReport(@Path("id") id: String?): Call<PatientReportByPatientIdResponse>
+
+    @GET(SEARCH_PATIENT)
+    fun searchPatient(
+        @Query("q") sortBy: String
+    ):Call<SearchPatientResponse>
 
 
     // Patient Report Apis
@@ -103,10 +107,9 @@ interface ApiService {
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReport(@Part images: MultipartBody.Part): Call<AddPatientReportResponse>
 */
-  /*  @Multipart
-    @POST(ADD_PATIENT_REPORT)
-    fun addPatientReport(@Part part: MultipartBody.Part): Call<AddPatientReportResponse>*/
-
+    /*  @Multipart
+      @POST(ADD_PATIENT_REPORT)
+      fun addPatientReport(@Part part: MultipartBody.Part): Call<AddPatientReportResponse>*/
 
 
     /*@Multipart
@@ -123,14 +126,13 @@ interface ApiService {
     ): Call<AddPatientReportResponse>?
 
 
-
     @Multipart
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReprt(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>
 
 
     @DELETE(DELETE_REPORT)
-    fun deleteReport(@Path("id") id: String):Call<DeleteReportResponse>
+    fun deleteReport(@Path("id") id: String): Call<DeleteReportResponse>
 
 
     // Appointment Apis
@@ -142,14 +144,16 @@ interface ApiService {
     fun getWeeklyAppoint(): Call<DailyAppointmentResponse>
 
     @POST(ADD_NEW_APPOINTMENT)
-    fun addNewAppointment(@Body newAppointment: AddNewAppointmentRequest):Call<AddNewAppointmentResponse>
+    fun addNewAppointment(@Body newAppointment: AddNewAppointmentRequest): Call<AddNewAppointmentResponse>
 
     @PUT(UPDATE_APPOINTMENT)
-    fun updateAppointment(@Path("id") id: String, @Body updateAppoitment: UpdateAppointmentRequest):Call<UpdateAppointmentResponse>
+    fun updateAppointment(
+        @Path("id") id: String,
+        @Body updateAppoitment: UpdateAppointmentRequest
+    ): Call<UpdateAppointmentResponse>
 
     @DELETE(DELETE_APPOINTMENT)
-    fun deleteAppointment(@Path("id") id: String):Call<DeleteAppointResponse>
-
+    fun deleteAppointment(@Path("id") id: String): Call<DeleteAppointResponse>
 
 
 }

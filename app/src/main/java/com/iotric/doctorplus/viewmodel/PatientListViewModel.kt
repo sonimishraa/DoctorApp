@@ -21,6 +21,7 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
     val apiErrorMessage = MutableLiveData<String>()
     val deletePatient = MutableLiveData<DeletePatientResponse>()
     val patientStatusChange = MutableLiveData<PatientStatusChangeResponse>()
+    val searchQuery = MutableLiveData<SearchPatientResponse>()
     //val closePatientList = MutableLiveData<CloseCasePatientListResponse>()
     val changeStatus = MutableLiveData<PatientStatusChangeResponse>()
 
@@ -118,6 +119,39 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
 
             })
     }
+
+    fun getSearchQueryApi(query: String, application: Application) {
+        ServiceBuilder.getRetrofit(application).searchPatient(query).enqueue(object :
+            Callback<SearchPatientResponse> {
+            override fun onResponse(
+                call: Call<SearchPatientResponse>,
+                response: Response<SearchPatientResponse>
+            ) {
+                if (response.isSuccessful) {
+                    response.body().let {
+                        searchQuery.postValue(it)
+                        getActivePatientApiResponse(application)
+                    }
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    Log.i("Error", "$errorMessage")
+                    val errorResponse =
+                        Gson().fromJson(errorMessage, ErrorResponse::class.java)
+                    apiErrorMessage.postValue(errorResponse?.error?.message ?: "")
+                }
+            }
+
+            override fun onFailure(call: Call<SearchPatientResponse>, t: Throwable) {
+                Toast.makeText(
+                    application.applicationContext,
+                    "${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+    }
+
 
     /*fun getClosePatientApi(application: Application) {
         ServiceBuilder.getRetrofit(application).closecasePatient()

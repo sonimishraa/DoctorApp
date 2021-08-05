@@ -14,7 +14,7 @@ import com.iotric.doctorplus.util.DateTimeUtil
 
 
 class PatinetListAdapter(val listener: ItemClickListener) :
-    ListAdapter<PatientsItem, PatinetListAdapter.ItemViewHolder>(
+    ListAdapter<PatientsItem, PatinetListAdapter.ItemViewHolder> (
         object :
             DiffUtil.ItemCallback<PatientsItem>() {
             override fun areContentsTheSame(

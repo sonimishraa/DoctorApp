@@ -26,5 +26,6 @@ object Constants {
     const val DELETE_APPOINTMENT = "apointment/{id}"
     const val GET_PATIENT_REPORT_BY_ID = "report/patientreport/{id}"
     const val FORGET_PASSWORD_OTP = "doctor/sendotp"
+    const val SEARCH_PATIENT = "patient/search"
     const val UPLOAD_IMAGE_SIZE = 10* 1024*1024
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
@@ -47,6 +48,17 @@ class ActivePatientListFragment : BaseFragment() {
     }
 
     private fun initView() {
+        binding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.getSearchQueryApi(query,requireActivity().application)
+                return true
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
+
         viewModel.getActivePatientApiResponse(requireActivity().application)
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onItemLayoutClick(result: PatientsItem) {
@@ -111,6 +123,12 @@ class ActivePatientListFragment : BaseFragment() {
         viewModel.apiErrorMessage.observe(requireActivity(), {
             dismissLoading()
             snackBar(it, binding.root)
+        })
+
+        viewModel.searchQuery.observe(viewLifecycleOwner,{
+            dismissLoading()
+            patientListAdapter.submitList(it.data)
+            snackBar("${it.message}",binding.root)
         })
     }
 
