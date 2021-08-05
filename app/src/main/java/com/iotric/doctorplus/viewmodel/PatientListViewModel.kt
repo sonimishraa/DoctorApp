@@ -130,7 +130,6 @@ class PatientListViewModel @Inject constructor() : ViewModel() {
                 if (response.isSuccessful) {
                     response.body().let {
                         searchQuery.postValue(it)
-                        getActivePatientApiResponse(application)
                     }
                 } else {
                     val errorMessage = response.errorBody()?.string()
