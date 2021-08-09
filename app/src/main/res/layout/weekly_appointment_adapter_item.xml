@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Soni Mishra"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.LinearLayoutCompat

@@ -51,11 +51,11 @@ class ActivePatientListFragment : BaseFragment() {
         binding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                viewModel.getSearchQueryApi(query,requireActivity().application)
-                return true
+               return false
             }
             override fun onQueryTextChange(newText: String): Boolean {
-                return false
+                viewModel.getSearchQueryApi(newText,requireActivity().application)
+                return true
             }
         })
 

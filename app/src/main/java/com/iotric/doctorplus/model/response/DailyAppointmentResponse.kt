@@ -15,6 +15,7 @@ data class DailyAppointmentResponse(
 	@field:SerializedName("status")
 	val status: Boolean? = null
 )
+
 @Parcelize
 data class DataItem(
 
@@ -47,7 +48,7 @@ data class DataItem(
 
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null
-):Parcelable
+) : Parcelable
 
 @Parcelize
 data class Patientid(
@@ -65,5 +66,11 @@ data class Patientid(
 	val id: String? = null,
 
 	@field:SerializedName("age")
-	val age: String? = null
-):Parcelable
+	val age: String? = null,
+
+	@field:SerializedName("pname")
+	val pname: String? = null,
+
+	@field:SerializedName("pemail")
+	val pemail: String? = null
+) : Parcelable

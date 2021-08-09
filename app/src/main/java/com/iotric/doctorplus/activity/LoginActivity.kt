@@ -67,6 +67,7 @@ class LoginActivity : BaseActivity() {
         btnCancel.setOnClickListener {
             alertDialogue.dismiss()
         }
+        alertDialogue.setCanceledOnTouchOutside(true)
     }
 
     private fun sendOtpRequest() {

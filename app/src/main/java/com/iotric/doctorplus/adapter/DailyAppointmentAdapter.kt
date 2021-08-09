@@ -36,7 +36,7 @@ class DailyAppointmentAdapter(val listener: ItemClickListener): ListAdapter<Data
         val item = getItem(position)
         if(item.isvisited == false){
             item.patientid?.let {
-                holder.uniqueId.text = it.id
+                holder.name.text = it.pname
                 holder.phone.text = it.pphone
             }
             holder.visitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.nextvisitdate) + " " + item.nextvisittime
@@ -62,7 +62,7 @@ class DailyAppointmentAdapter(val listener: ItemClickListener): ListAdapter<Data
     }
 
     inner class ItemViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-        val uniqueId = binding.tvName
+        val name = binding.tvName
         val phone = binding.tvContact
         val visitDate = binding.tvVisitDate
         val moreOption = binding.moreOption

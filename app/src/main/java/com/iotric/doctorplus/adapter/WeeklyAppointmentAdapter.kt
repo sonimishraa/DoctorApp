@@ -37,7 +37,7 @@ class WeeklyAppointmentAdapter(val listener: ItemClickListener): ListAdapter<Dat
         if(item.isvisited == false) {
             item.patientid?.let{
                 //Log.i("PatientId","${it.id}")
-                holder.name.text = it.id
+                holder.name.text = it.pname
                 holder.phone.text = it.pphone
             }
             holder.visitDate.text = DateTimeUtil.getSimpleDateFromUtc(item.nextvisitdate) + " " + item.nextvisittime
@@ -53,7 +53,6 @@ class WeeklyAppointmentAdapter(val listener: ItemClickListener): ListAdapter<Dat
                             listener.onDeleteAppointClick(item)
                         }
                     }
-
                     true
                 }
                 popup.show()
