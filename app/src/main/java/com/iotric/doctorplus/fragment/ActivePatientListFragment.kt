@@ -45,29 +45,41 @@ class ActivePatientListFragment : BaseFragment() {
         binding.appbar.toolbar.setNavigationOnClickListener { view ->
             findNavController().popBackStack()
         }
-    }
-
-    private fun initView() {
         binding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-               return false
+                return false
             }
-            override fun onQueryTextChange(newText: String): Boolean {
-                viewModel.getSearchQueryApi(newText,requireActivity().application)
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Log.i("jaishriram" , " text = $newText")
+                newText?.let {
+                    if(it.length > 2) {
+                        viewModel.getSearchQueryApi(it, requireActivity().application)
+                    }
+                    /*else
+                        viewModel.getActivePatientApiResponse(requireActivity().application)*/
+                }
                 return true
             }
         })
+    }
 
+    private fun initView() {
+        initAdapter()
         viewModel.getActivePatientApiResponse(requireActivity().application)
+    }
+
+    private fun initAdapter() {
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onItemLayoutClick(result: PatientsItem) {
-                val action = ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
+                val action =
+                    ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
                 findNavController().navigate(action)
             }
 
             override fun onPatientProfileClick(result: PatientsItem) {
-                val action = ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
+                val action =
+                    ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
                 findNavController().navigate(action)
             }
 
@@ -82,7 +94,10 @@ class ActivePatientListFragment : BaseFragment() {
 
             override fun onBookAppointmentClick(result: PatientsItem) {
                 val patientId = result
-                val action = ActivePatientListFragmentDirections.actionPatientListFragementToBookAppointentFragment(patientId)
+                val action =
+                    ActivePatientListFragmentDirections.actionPatientListFragementToBookAppointentFragment(
+                        patientId
+                    )
                 findNavController().navigate(action)
             }
 

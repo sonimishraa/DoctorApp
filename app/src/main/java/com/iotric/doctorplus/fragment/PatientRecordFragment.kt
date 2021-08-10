@@ -7,20 +7,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import android.widget.PopupMenu
+import androidx.core.view.MenuCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
-import com.iotric.doctorplus.adapter.PatientReportAdapter
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
-import com.iotric.doctorplus.viewmodel.ViewPatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
 @AndroidEntryPoint
-class PatientRecordFragment : BaseFragment() {
+class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener {
 
     val args: PatientRecordFragmentArgs by navArgs()
 
@@ -54,22 +54,31 @@ class PatientRecordFragment : BaseFragment() {
         binding.ivProfilePic.setOnClickListener {
             pickImage()
         }
-        binding.tvAddReport.setOnClickListener {
-            val patientId = args.result
-            val action =
-                PatientRecordFragmentDirections.actionPatientRecordFragmentToReportUploadFragment(
-                    patientId
-                )
-            findNavController().navigate(action)
+        binding.tvPrescription.setOnClickListener {
+            prisDropDown()
+
         }
-        binding.tvViewReport.setOnClickListener {
-            val id = args.result
-                val action =
-                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(
-                        patientId = id
-                    )
-                findNavController().navigate(action)
+        binding.tvReport.setOnClickListener {
+            reportDropdown()
         }
+    }
+
+    private fun reportDropdown() {
+        val popup = PopupMenu(requireContext(), binding.tvReport)
+        popup.getMenuInflater().inflate(R.menu.report_dropdown, popup.getMenu())
+        MenuCompat.setGroupDividerEnabled(popup.menu, true)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+
+    }
+
+    private fun prisDropDown() {
+        val popup = PopupMenu(requireContext(), binding.tvPrescription)
+        popup.getMenuInflater().inflate(R.menu.prescription_dropdown, popup.getMenu())
+        MenuCompat.setGroupDividerEnabled(popup.menu, true)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+
     }
 
     private fun setArgs() {
@@ -84,6 +93,7 @@ class PatientRecordFragment : BaseFragment() {
         } else
             binding.tvGender.text = "Female"
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
@@ -110,5 +120,34 @@ class PatientRecordFragment : BaseFragment() {
             }
         }
     }
-}
 
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        val id = item?.itemId
+        when(id){
+            R.id.add_prescrip ->{
+
+            }
+            R.id.view_prescrip ->{
+
+            }
+           R.id.add_report -> {
+               val patientId = args.result
+               val action =
+                   PatientRecordFragmentDirections.actionPatientRecordFragmentToReportUploadFragment(
+                       patientId
+                   )
+               findNavController().navigate(action)
+           }
+            R.id.view_report ->{
+                val id = args.result
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPatientReportFragment(
+                        patientId = id
+                    )
+                findNavController().navigate(action)
+
+            }
+        }
+        return super.onOptionsItemSelected(item!!)
+    }
+}

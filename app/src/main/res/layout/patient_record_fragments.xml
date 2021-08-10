@@ -179,7 +179,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/small_margin"
             android:padding="@dimen/small_padding">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -212,31 +211,29 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_view_report"
+            android:id="@+id/tv_prescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
+            android:layout_margin="@dimen/small_margin"
             android:layout_weight="1"
             android:background="@color/color_primaryDark"
-           android:drawableStart="@drawable/view_photos"
             android:padding="@dimen/small_padding"
             android:gravity="center"
-            android:text="View Report"
+            android:text="Prescription"
             android:textSize="15sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_addReport"
+            android:id="@+id/tv_report"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
+            android:layout_margin="@dimen/small_margin"
             android:layout_weight="1"
             android:background="@color/color_primaryDark"
-            android:drawableStart="@drawable/add_photos"
             android:padding="@dimen/small_padding"
             android:gravity="center"
-            android:text="Add Report"
+            android:text="Report"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
