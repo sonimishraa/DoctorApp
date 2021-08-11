@@ -46,8 +46,9 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/reportName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/small_margin"
                     android:drawableStart="@drawable/ic_baseline_file_copy_24"
@@ -62,9 +63,10 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_delete"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight=".3"
                     android:layout_marginStart="@dimen/medium_margin"
                     android:src="@drawable/ic_baseline_delete_24" />
             </androidx.appcompat.widget.LinearLayoutCompat>

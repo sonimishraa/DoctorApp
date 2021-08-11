@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.iotric.doctorplus.model.response.AddPatientReportResponse
+import com.iotric.doctorplus.model.response.AddPrescripResponse
 import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import okhttp3.MultipartBody
@@ -16,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AddPrescripViewModel : ViewModel() {
-    val uploadPrescrip = MutableLiveData<AddPatientReportResponse>()
+    val uploadPrescrip = MutableLiveData<AddPrescripResponse>()
     val apiErrorMessage = MutableLiveData<String>()
 
     fun getUploadPrescripApi(
@@ -27,10 +28,10 @@ class AddPrescripViewModel : ViewModel() {
         application: Application
     ) {
         ServiceBuilder.getRetrofit(application).addPrescrip(partImage, fname, id, date)
-            ?.enqueue(object : Callback<AddPatientReportResponse> {
+            ?.enqueue(object : Callback<AddPrescripResponse> {
                 override fun onResponse(
-                    call: Call<AddPatientReportResponse>,
-                    response: Response<AddPatientReportResponse>
+                    call: Call<AddPrescripResponse>,
+                    response: Response<AddPrescripResponse>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
@@ -46,7 +47,7 @@ class AddPrescripViewModel : ViewModel() {
 
                 }
 
-                override fun onFailure(call: Call<AddPatientReportResponse>, t: Throwable) {
+                override fun onFailure(call: Call<AddPrescripResponse>, t: Throwable) {
                     Log.i("UploadImage", "Error Message:${t.message}")
                     Toast.makeText(
                         application.applicationContext,

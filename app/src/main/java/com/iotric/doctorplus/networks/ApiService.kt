@@ -144,7 +144,7 @@ interface ApiService {
         @Part("title") fname: RequestBody?,
         @Part("patientid") id: RequestBody?,
         @Part("description") date: RequestBody?
-    ): Call<AddPatientReportResponse>?
+    ): Call<AddPrescripResponse>?
 
     @GET(GET_PRESCRIPTION_PATIENT_ID)
     fun getPrescription(@Path("id") id: String?): Call<GetPrescriptionBypatientIdResponse>

@@ -2,7 +2,7 @@ package com.iotric.doctorplus.utils
 
 object Constants {
 
-    const val BASE_URL = "http://3.108.56.211/api/"
+    const val BASE_URL = "http://3.7.124.53/api/"
     const val GET_DOCTOR_NUMBER = "doctor/getdoctorbynumber/{number}"
     const val UPDATE_DOCTOR_PROFILE = "doctor"
     const val GET_DOCTOR_ID = "doctor/{id}"

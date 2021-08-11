@@ -40,8 +40,8 @@ class ViewPatientPrescripFragment : BaseFragment() {
         viewPrescripAdapter =
             ViewPrescripAdapter(object : ViewPrescripAdapter.ItemClickListener {
                 override fun onImageViewClick(item: PrecriptionItem) {
-                    val action = ViewPatientPrescripFragmentDirections.actionViewPatientPrescripFragmentToPrescriptionFragment(item)
-                    findNavController().navigate(action)
+                   /* val action = ViewPatientPrescripFragmentDirections.actionViewPatientPrescripFragmentToPrescriptionFragment(item)
+                    findNavController().navigate(action)*/
                 }
 
                 override fun onDeleteClick(item: PrecriptionItem) {
