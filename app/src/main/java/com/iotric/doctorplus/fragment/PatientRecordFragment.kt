@@ -125,9 +125,18 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         val id = item?.itemId
         when(id){
             R.id.add_prescrip ->{
-
+                val patientId = args.result
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToAddPrescripFragment(
+                        patientId
+                    )
+                findNavController().navigate(action)
             }
             R.id.view_prescrip ->{
+                val id = args.result
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPrescripFragment(id)
+                findNavController().navigate(action)
 
             }
            R.id.add_report -> {

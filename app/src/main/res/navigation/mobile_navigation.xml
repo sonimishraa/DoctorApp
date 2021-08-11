@@ -209,6 +209,15 @@
         <action
             android:id="@+id/action_patientRecordFragment_to_viewPatientReportFragment"
             app:destination="@id/viewPatientReportFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_addPrescripFragment"
+            app:destination="@id/addPrescripFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_viewPrescripFragment"
+            app:destination="@id/viewPatientPrescripFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_viewPatientPrescripFragment"
+            app:destination="@id/viewPatientPrescripFragment" />
 
     </fragment>
     <fragment
@@ -292,7 +301,34 @@
         tools:layout="@layout/fragment_view_report" >
         <argument
             android:name="reportItem"
-            app:argType="com.iotric.doctorplus.model.response.ReportItem" />
+            app:argType="com.iotric.doctorplus.model.response.ReportItem">
+        </argument>
     </fragment>
-
+    <fragment
+        android:id="@+id/addPrescripFragment"
+        android:name="com.iotric.doctorplus.fragment.AddPrescripFragment"
+        android:label="ADD PRESCRIPTION">
+        <argument
+            android:name="patientId"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPatientPrescripFragment"
+        android:name="com.iotric.doctorplus.fragment.ViewPatientPrescripFragment"
+        android:label="ViewPrescripFragment" >
+        <argument
+            android:name="patientId"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+        <action
+            android:id="@+id/action_viewPatientPrescripFragment_to_prescriptionFragment"
+            app:destination="@id/prescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prescriptionFragment"
+        android:name="com.iotric.doctorplus.fragment.PrescriptionFragment"
+        android:label="PrescriptionFragment" >
+        <argument
+            android:name="prescriptionItem"
+            app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />
+    </fragment>
 </navigation>

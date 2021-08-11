@@ -28,4 +28,6 @@ object Constants {
     const val FORGET_PASSWORD_OTP = "doctor/sendotp"
     const val SEARCH_PATIENT = "patient/search"
     const val UPLOAD_IMAGE_SIZE = 10* 1024*1024
+    const val ADD_PRESCRIPTION = "precription"
+    const val GET_PRESCRIPTION_PATIENT_ID = "precription/{id}"
 }

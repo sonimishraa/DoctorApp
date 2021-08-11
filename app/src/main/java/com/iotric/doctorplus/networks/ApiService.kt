@@ -5,6 +5,7 @@ import com.iotric.doctorplus.model.response.*
 import com.iotric.doctorplus.utils.Constants.ADD_NEW_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT_REPORT
+import com.iotric.doctorplus.utils.Constants.ADD_PRESCRIPTION
 import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
 import com.iotric.doctorplus.utils.Constants.CLOSE_CASE_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.DELETE_APPOINTMENT
@@ -16,6 +17,7 @@ import com.iotric.doctorplus.utils.Constants.GET_DAILY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_ID
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_NUMBER
 import com.iotric.doctorplus.utils.Constants.GET_PATIENT_REPORT_BY_ID
+import com.iotric.doctorplus.utils.Constants.GET_PRESCRIPTION_PATIENT_ID
 import com.iotric.doctorplus.utils.Constants.GET_WEEKLY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.MY_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.REGISTER_DOCTOR
@@ -125,7 +127,6 @@ interface ApiService {
         @Part("dateofreport") date: RequestBody?
     ): Call<AddPatientReportResponse>?
 
-
     @Multipart
     @POST(ADD_PATIENT_REPORT)
     fun addPatientReprt(@PartMap map: Map<String, @JvmSuppressWildcards RequestBody>): Call<AddPatientReportResponse>
@@ -133,6 +134,21 @@ interface ApiService {
 
     @DELETE(DELETE_REPORT)
     fun deleteReport(@Path("id") id: String): Call<DeleteReportResponse>
+
+    //Priscription Apis
+
+    @Multipart
+    @POST(ADD_PRESCRIPTION)
+    fun addPrescrip(
+        @Part file: MultipartBody.Part,
+        @Part("title") fname: RequestBody?,
+        @Part("patientid") id: RequestBody?,
+        @Part("description") date: RequestBody?
+    ): Call<AddPatientReportResponse>?
+
+    @GET(GET_PRESCRIPTION_PATIENT_ID)
+    fun getPrescription(@Path("id") id: String?): Call<GetPrescriptionBypatientIdResponse>
+
 
 
     // Appointment Apis
