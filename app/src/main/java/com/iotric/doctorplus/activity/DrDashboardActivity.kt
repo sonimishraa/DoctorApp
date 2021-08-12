@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import com.iotric.doctorplus.R
 import dagger.hilt.android.AndroidEntryPoint
 
+// Not in Use right now
 @AndroidEntryPoint
 class DrDashboardActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration

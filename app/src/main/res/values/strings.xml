@@ -68,4 +68,5 @@
     <string name="weekly_appointment_fragment_title">WEEKLY APPOINTMENTS</string>
     <string name="my_patient_list_toolbar_title">MY PATIENT LIST</string>
     <string name="upload_report_fragment_title">ADD NEW REPORT</string>
+    <string name="visit_date_time"><![CDATA[Visit Date & Time:]]></string>
 </resources>

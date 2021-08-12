@@ -1,4 +1,4 @@
-package com.iotric.doctorplus.fragment
+package com.iotric.doctorplus.viewmodel
 
 import androidx.lifecycle.ViewModel
 

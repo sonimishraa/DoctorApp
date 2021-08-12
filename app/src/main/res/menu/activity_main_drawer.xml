@@ -28,7 +28,7 @@
               android:icon="@drawable/ic_baseline_date_range_24"
               android:title="@string/menu_appointment" />
   -->
-        <item
+       <!-- <item
             android:id="@+id/navigation_privacy"
             android:icon="@drawable/ic_baseline_privacy_tip_24"
             android:title="@string/menu_privacy" />
@@ -40,7 +40,7 @@
             android:id="@+id/navigation_terms"
             android:icon="@drawable/ic_baseline_policy_24"
             android:title="@string/menu_terms" />
-
+-->
         <item
             android:id="@+id/navigation_logout"
             android:icon="@drawable/ic_baseline_logout_24"

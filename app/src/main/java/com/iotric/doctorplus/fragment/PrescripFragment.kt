@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.viewmodel.PrescripViewModel
 
 class PrescripFragment : Fragment() {
     private lateinit var viewModel: PrescripViewModel
@@ -15,7 +16,7 @@ class PrescripFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.prescrip_fragment, container, false)
+        return inflater.inflate(R.layout.prescription_form, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

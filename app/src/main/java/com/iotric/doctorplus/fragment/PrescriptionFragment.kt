@@ -18,29 +18,29 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPrescriptionBinding
+import com.iotric.doctorplus.databinding.PrescriptionFormBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 
 @AndroidEntryPoint
 class PrescriptionFragment : BaseFragment() {
 
-    private lateinit var binding: FragmentPrescriptionBinding
+    private lateinit var binding: PrescriptionFormBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPrescriptionBinding.inflate(layoutInflater, container, false)
+        binding = PrescriptionFormBinding.inflate(layoutInflater, container, false)
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
     }
 
-    private fun initView() {
+   /* private fun initView() {
         binding.floatingCamera.setOnClickListener {
             pickImage()
         }
@@ -69,5 +69,5 @@ class PrescriptionFragment : BaseFragment() {
                 e.printStackTrace()
             }
         }
-    }
+    }*/
 }

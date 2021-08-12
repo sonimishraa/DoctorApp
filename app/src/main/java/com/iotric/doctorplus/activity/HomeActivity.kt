@@ -10,6 +10,8 @@ import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+// Not in USE wright now
+
 @AndroidEntryPoint
 class HomeActivity : BaseActivity() {
    private lateinit var binding: ActivityHomeBinding

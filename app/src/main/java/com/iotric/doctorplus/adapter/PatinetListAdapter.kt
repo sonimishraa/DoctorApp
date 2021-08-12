@@ -57,9 +57,9 @@ class PatinetListAdapter(val listener: ItemClickListener) :
             popup.menuInflater.inflate(R.menu.more_option_menu, popup.menu)
             popup.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.patient_profile -> {
+                    /*R.id.patient_profile -> {
                         listener.onPatientProfileClick(item)
-                    }
+                    }*/
                     R.id.update_profile -> {
                         listener.onUpdateProfile(item)
                     }

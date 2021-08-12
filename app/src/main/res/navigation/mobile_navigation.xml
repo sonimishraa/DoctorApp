@@ -218,6 +218,9 @@
         <action
             android:id="@+id/action_patientRecordFragment_to_viewPatientPrescripFragment"
             app:destination="@id/viewPatientPrescripFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_prescriptionFragment"
+            app:destination="@id/prescriptionFragment" />
 
     </fragment>
     <fragment
@@ -327,8 +330,8 @@
         android:id="@+id/prescriptionFragment"
         android:name="com.iotric.doctorplus.fragment.PrescriptionFragment"
         android:label="PrescriptionFragment" >
-        <argument
+       <!-- <argument
             android:name="prescriptionItem"
-            app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />
+            app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />-->
     </fragment>
 </navigation>

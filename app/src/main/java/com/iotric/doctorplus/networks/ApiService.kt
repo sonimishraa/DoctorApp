@@ -6,6 +6,7 @@ import com.iotric.doctorplus.utils.Constants.ADD_NEW_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT_REPORT
 import com.iotric.doctorplus.utils.Constants.ADD_PRESCRIPTION
+import com.iotric.doctorplus.utils.Constants.CHANGE_DR_PROFILE
 import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
 import com.iotric.doctorplus.utils.Constants.CLOSE_CASE_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.DELETE_APPOINTMENT
@@ -55,6 +56,9 @@ interface ApiService {
 
     @POST(FORGET_PASSWORD_OTP)
     fun forgetPasswordOtp(@Body forgetPassword: ForgetPasswordOtpRequest): Call<ForgetPasswordOtpResponse>
+
+    @PATCH(CHANGE_DR_PROFILE)
+    fun changeProfile(@Part file: MultipartBody.Part):Call<String>
 
 
     // Patients Api
