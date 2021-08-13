@@ -20,7 +20,11 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </Toolbar>
-
+<ScrollView
+    android:id="@+id/layout_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:nestedScrollingEnabled="true">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lLayout"
         android:layout_width="match_parent"
@@ -159,13 +163,13 @@
                 android:textSize="15sp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>
 
         <Button
             android:id="@+id/btnAddDoctor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lLayout"
-            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/medium_margin"
             android:layout_marginEnd="@dimen/medium_margin"
             android:text="REGISTER"

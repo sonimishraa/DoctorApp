@@ -37,7 +37,7 @@ class CloseCasePatientList : BaseFragment() {
     }
 
     private fun initView() {
-        binding.appbar.toolbarTitle.text = "INACTIVE PATIENT LIST"
+        binding.appbar.toolbarTitle.text = "INACTIVE PATIENTS"
         viewModel.getClosePatientApi(requireActivity().application)
         closePatientListAdapter =
             InActivePatientListAdapter(object : InActivePatientListAdapter.ItemClickListener {
@@ -63,8 +63,10 @@ class CloseCasePatientList : BaseFragment() {
             dismissLoading()
             if (it.patient.isNullOrEmpty()) {
                 binding.layoutNoitem.visibility = View.VISIBLE
+                binding.layoutRecyclerView.visibility = View.GONE
             } else {
                 binding.layoutNoitem.visibility = View.GONE
+                binding.layoutRecyclerView.visibility = View.VISIBLE
                 it.patient.let{
                     closePatientListAdapter.submitList(it)
                 }

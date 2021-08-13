@@ -115,8 +115,10 @@ class ActivePatientListFragment : BaseFragment() {
             dismissLoading()
             if (it.patients.isNullOrEmpty()) {
                 binding.layoutNoitem.visibility = View.VISIBLE
+                binding.layoutRecyclerview.visibility = View.GONE
             } else {
                 binding.layoutNoitem.visibility = View.GONE
+                binding.layoutRecyclerview.visibility = View.VISIBLE
                 it.patients.let {
                     patientListAdapter.submitList(it)
                 }

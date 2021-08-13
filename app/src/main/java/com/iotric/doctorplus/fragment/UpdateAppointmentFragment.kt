@@ -74,14 +74,15 @@ class UpdateAppointmentFragment : BaseFragment() {
         binding.btnCancle.setOnClickListener {
             findNavController().popBackStack()
         }
-        binding.btnSave.setOnClickListener {
-            updateAppoint()
-        }
         binding.visitDate.setOnClickListener {
             pickDate()
         }
         binding.visitTime.setOnClickListener {
             pickAppointmentTime()
+        }
+        binding.btnSave.setOnClickListener {
+            updateAppoint()
+            findNavController().popBackStack()
         }
     }
 
@@ -106,7 +107,6 @@ class UpdateAppointmentFragment : BaseFragment() {
     private fun initObserver() {
         viewModel.updateAppointment.observe(requireActivity(),{
             toastMessage("${it.message}")
-            findNavController().popBackStack()
         })
         viewModel.deleteAppointment.observe(requireActivity(),{
             snackBar("${it.message}",binding.root)

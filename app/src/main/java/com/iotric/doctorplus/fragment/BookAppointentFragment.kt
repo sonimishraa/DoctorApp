@@ -44,8 +44,6 @@ class BookAppointentFragment : BaseFragment() {
     lateinit var visitTime:String
     lateinit var description:String
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,7 +64,6 @@ class BookAppointentFragment : BaseFragment() {
         binding.appbar.toolbarTitle.text = "NEW APPOINTMENT"
     }
 
-
     private fun initListener() {
         binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
@@ -82,6 +79,7 @@ class BookAppointentFragment : BaseFragment() {
         }
         binding.btnSave.setOnClickListener {
             addnewAppointment()
+            findNavController().popBackStack()
         }
 
     }
@@ -101,8 +99,6 @@ class BookAppointentFragment : BaseFragment() {
     private fun initObserver() {
       viewModel.newAppointment.observe(requireActivity(), {
           toastMessage("${it.message}")
-          findNavController().popBackStack()
-
       })
         viewModel.getErrorMessage.observe(requireActivity(), {
             toastMessage("${it}")
