@@ -69,4 +69,10 @@
     <string name="my_patient_list_toolbar_title">MY PATIENT LIST</string>
     <string name="upload_report_fragment_title">ADD NEW REPORT</string>
     <string name="visit_date_time"><![CDATA[Visit Date & Time:]]></string>
+    
+    <string-array name="gender">
+        <item> m </item>
+        <item>f</item>
+        <item>others </item>
+    </string-array>
 </resources>

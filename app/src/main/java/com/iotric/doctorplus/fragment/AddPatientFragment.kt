@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.core.view.MenuCompat
 import androidx.fragment.app.viewModels
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AddPatientFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener {
+class AddPatientFragment : BaseFragment() {
 
     val viewModel: AddPatientViewModel by viewModels()
     private lateinit var binding: AddPatientFragmentBinding
@@ -64,7 +65,7 @@ class AddPatientFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener {
         binding.btnAdd.setOnClickListener {
             registerPatient()
         }
-        binding.editGender.setOnClickListener {
+        binding.autotextGender.setOnClickListener {
             showDropDown()
         }
     }
@@ -106,7 +107,7 @@ class AddPatientFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener {
         phone = binding.editPhone.text.toString().trim()
         age = binding.editAge.text.toString().trim()
         //address = binding.editAddress.text.toString().trim()
-        gender = binding.editGender.text.toString().trim()
+        gender = binding.autotextGender.text.toString().trim()
         bloodgroup = binding.editBloodgroup.text.toString().trim()
         symptoms = binding.editSymptoms.text.toString().trim()
 
@@ -148,26 +149,8 @@ class AddPatientFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener {
     }
 
     private fun showDropDown() {
-        val popup = PopupMenu(requireContext(), binding.layoutEditGender)
-        popup.getMenuInflater().inflate(R.menu.gender_drop_down, popup.getMenu())
-        MenuCompat.setGroupDividerEnabled(popup.menu, true)
-        popup.setOnMenuItemClickListener(this)
-        popup.show()
-
-    }
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        val id = item?.itemId
-       when(id){
-           R.id.female ->{
-               binding.editGender.setText("f")
-           }
-           R.id.male ->{
-               binding.editGender.setText("m")
-           }
-           R.id.others ->{
-               binding.editGender.setText("others")
-           }
-       }
-        return super.onOptionsItemSelected(item!!)
+        val gender = resources.getStringArray(R.array.gender)
+        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.gender_dropdown_item,gender)
+        binding.autotextGender.setAdapter(arrayAdapter)
     }
 }
