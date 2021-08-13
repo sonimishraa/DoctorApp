@@ -36,10 +36,10 @@ class LabTestFragment : Fragment() {
     }
 
     private fun initview() {
-      /*  binding.appbar.toolbarTitle.text = getString(R.string.lab_test)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.toolbarTitle.text = getString(R.string.lab_test)
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
-        }*/
+        }
     }
 
 }

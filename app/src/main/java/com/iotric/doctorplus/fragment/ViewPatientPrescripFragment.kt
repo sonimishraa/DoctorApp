@@ -63,7 +63,7 @@ class ViewPatientPrescripFragment : BaseFragment() {
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener {
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
     }

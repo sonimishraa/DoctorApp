@@ -35,7 +35,7 @@ class NotificationFragment : Fragment() {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.notification_toolbar_title)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
     }

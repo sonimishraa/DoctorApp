@@ -110,7 +110,8 @@
                 android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password*" />
+                android:hint="Password*"
+                android:inputType="textVisiblePassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -141,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="@dimen/small_padding"
-                android:text="Already Have An Account?"
+                android:text="Already Have an Account?"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="15sp"/>
@@ -150,10 +151,10 @@
                 android:id="@+id/tv_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Login Here"
+                android:text="Login Here!"
                 android:layout_weight=".6"
                 android:padding="@dimen/small_padding"
-                android:textColor="@color/purple_500"
+                android:textColor="@color/color_primaryDark"
                 android:layout_gravity="end"
                 android:textSize="15sp"/>
         </androidx.appcompat.widget.LinearLayoutCompat>

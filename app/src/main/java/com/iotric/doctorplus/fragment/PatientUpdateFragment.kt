@@ -82,7 +82,7 @@ class PatientUpdateFragment : BaseFragment() {
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.btnCancle.setOnClickListener {

@@ -33,7 +33,7 @@ class TermsConditionFragment : Fragment() {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.menu_terms)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
     }

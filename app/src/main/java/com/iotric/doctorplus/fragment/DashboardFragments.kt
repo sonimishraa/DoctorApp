@@ -87,14 +87,13 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
             getDoctorId = it
             getDoctorId.let {
                 if ( it._id == loginDrid) {
-                    Glide.with(requireContext()).load(it.profilepic).into(profile)
+                   // Glide.with(requireContext()).load(it.profilepic).into(profile)
                   name.text = it.doctorname
                 }
             }
             dismissLoading()
         })
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         binding.drawerLayout.close()
@@ -104,8 +103,20 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
                 findNavController().navigate(R.id.action_profile_fragment)
 
             }
-            R.id.navigation_appointment -> {
-                findNavController().navigate(R.id.action_appointment_fragment)
+            R.id.navigation_lab -> {
+                findNavController().navigate(R.id.action_lab_fragment)
+
+            }
+            R.id.navigation_notifications -> {
+                findNavController().navigate(R.id.action_notifications)
+
+            }
+            R.id.navigation_faq -> {
+                findNavController().navigate(R.id.action_faq_fragment)
+
+            }
+            R.id.navigation_terms -> {
+                findNavController().navigate(R.id.action_terms_Fragment)
 
             }
             R.id.navigation_privacy -> {

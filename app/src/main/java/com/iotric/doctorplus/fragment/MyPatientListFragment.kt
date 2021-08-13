@@ -43,7 +43,7 @@ class MyPatientListFragment : Fragment() {
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setOnClickListener {
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
     }

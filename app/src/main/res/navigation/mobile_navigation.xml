@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.iotric.doctorplus.fragment.HomeFragment"
         android:label="@string/navigation_home"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" />-->
 
 
     <fragment
@@ -23,7 +23,7 @@
         android:name="com.iotric.doctorplus.fragment.NotificationFragment"
         android:label="@string/notifications"
         tools:layout="@layout/notification_fragment" />
--->
+
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.iotric.doctorplus.fragment.DashboardFragments"
@@ -54,6 +54,21 @@
         <action
             android:id="@+id/action_appointment_fragment"
             app:destination="@+id/navigation_appointment" />
+
+        <action
+            android:id="@+id/action_lab_fragment"
+            app:destination="@+id/navigation_lab" />
+
+        <action
+            android:id="@+id/action_notifications"
+            app:destination="@+id/navigation_notifications" />
+
+        <action
+            android:id="@+id/action_faq_fragment"
+            app:destination="@+id/navigation_faq" />
+        <action
+            android:id="@+id/action_terms_Fragment"
+            app:destination="@+id/navigation_terms" />
 
         <action
             android:id="@+id/action_privacy_fragment"
@@ -334,4 +349,20 @@
             android:name="prescriptionItem"
             app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />-->
     </fragment>
+    <fragment
+        android:id="@+id/hilt_FaqFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_FaqFragment"
+        android:label="Hilt_FaqFragment" />
+    <fragment
+        android:id="@+id/hilt_BlogsFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_BlogsFragment"
+        android:label="Hilt_BlogsFragment" />
+    <fragment
+        android:id="@+id/hilt_TermsConditionFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_TermsConditionFragment"
+        android:label="Hilt_TermsConditionFragment" />
+    <fragment
+        android:id="@+id/hilt_PrivacyFragment2"
+        android:name="com.iotric.doctorplus.fragment.Hilt_PrivacyFragment"
+        android:label="Hilt_PrivacyFragment" />
 </navigation>

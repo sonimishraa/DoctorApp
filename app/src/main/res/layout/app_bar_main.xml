@@ -12,15 +12,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:navigationIcon="@drawable/ic_baseline_arrow_back_24">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/navigationBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"/>
 
         <TextView
             android:id="@+id/toolbarTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/medium_margin"
-            android:gravity="center"
+            android:textAlignment="center"
             android:hint="MEDICAL RECORDS"
             android:textColor="@color/white"
             android:textSize="20sp"

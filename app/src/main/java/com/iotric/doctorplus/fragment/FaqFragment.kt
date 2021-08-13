@@ -32,7 +32,7 @@ class FaqFragment : Fragment() {
 
     private fun initview() {
         binding.appbar.toolbarTitle.text = getString(R.string.menu_faq)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
     }

@@ -32,7 +32,7 @@ class PrivacyFragment : Fragment() {
 
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.menu_privacy)
-        binding.appbar.toolbar.setNavigationOnClickListener {view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
     }

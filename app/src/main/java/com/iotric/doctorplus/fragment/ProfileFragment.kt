@@ -27,7 +27,7 @@ const val CAPTURE_IMAGE_REQUEST = 2
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment() {
-    lateinit var getDoctorId:GetDoctorByidResponse
+    lateinit var getDoctorId: GetDoctorByidResponse
     val viewModel: ProfileFragmentViewModel by viewModels()
     private lateinit var binding: DrProfileFragmentBinding
     lateinit var multiPartImageBody: MultipartBody.Part
@@ -55,7 +55,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.editProfile.setOnClickListener {
@@ -68,7 +68,6 @@ class ProfileFragment : BaseFragment() {
         }
         binding.ivProfilePic.setOnClickListener {
             pickImage()
-            uploadImage()
         }
     }
 
@@ -76,11 +75,11 @@ class ProfileFragment : BaseFragment() {
         showLoading()
         val loginDrid = getDoctorId()
         Log.i("ProfileFragment", "_id:${id}")
-        viewModel.getDoctorById.observe(requireActivity(), Observer {
+        viewModel.getDoctorById.observe(requireActivity(), {
             getDoctorId = it
             getDoctorId.let {
-                if ( it._id == loginDrid) {
-                    Glide.with(requireContext()).load(it.profilepic).into(binding.ivProfilePic)?: ""
+                if (it._id == loginDrid) {
+                    //Glide.with(requireContext()).load(it.profilepic).into(binding.ivProfilePic)
                     binding.tvName.text = it.doctorname
                     binding.tvGender.text = it.gender
                     binding.tvEmail.text = it.email
@@ -91,12 +90,11 @@ class ProfileFragment : BaseFragment() {
                     binding.tvEducation.text = it.education
                     binding.tvExperience.text = it.experience
                     binding.tvTitle.text = it.title
-
                 }
             }
             dismissLoading()
         })
-        viewModel.uploadProfileImage.observe(viewLifecycleOwner,{
+        viewModel.uploadProfileImage.observe(viewLifecycleOwner, {
             dismissLoading()
             toastMessage("Sucessfully Uploaded")
         })
@@ -109,7 +107,7 @@ class ProfileFragment : BaseFragment() {
             Context.MODE_PRIVATE
         )
         val id = sharePref.getString("DoctorID", "")
-        Log.i("ProfileFragment","${id}")
+        Log.i("ProfileFragment", "${id}")
         return id
     }
 
@@ -120,9 +118,22 @@ class ProfileFragment : BaseFragment() {
             data?.data?.let {
                 setImageUriOnPick(it)
                 binding.ivProfilePic.setImageURI(it)
+                /*if (validateFields()) {
+                    uploadImage()
+                }*/
             } ?: toastMessage("image invalid selection")
         }
     }
+
+    private fun validateFields(): Boolean {
+        var isAllFieldValidate = true
+
+        if (::multiPartImageBody.isInitialized.not()) {
+            isAllFieldValidate = false
+        }
+        return isAllFieldValidate
+    }
+
 
     private fun setImageUriOnPick(uri: Uri) {
         val body = FileUtil.selectFileName(requireContext(), uri)
@@ -140,32 +151,32 @@ class ProfileFragment : BaseFragment() {
         )
     }
 
-  /*  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
-            && data != null && data.getData() != null
-        ) {
-            val uri: Uri? = data.getData()
+    /*  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+          super.onActivityResult(requestCode, resultCode, data)
+          if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
+              && data != null && data.getData() != null
+          ) {
+              val uri: Uri? = data.getData()
 
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
-                binding.ivProfilePic.setImageBitmap(bitmap)
+              try {
+                  val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
+                  binding.ivProfilePic.setImageBitmap(bitmap)
 
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+              } catch (e: IOException) {
+                  e.printStackTrace()
+              }
+          }
+          if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
 
-            try {
-                val imageBitmap = data.extras?.get("data") as Bitmap
-                binding.ivProfilePic.setImageBitmap(imageBitmap)
+              try {
+                  val imageBitmap = data.extras?.get("data") as Bitmap
+                  binding.ivProfilePic.setImageBitmap(imageBitmap)
 
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
-    }
-*/
+              } catch (e: IOException) {
+                  e.printStackTrace()
+              }
+          }
+      }
+  */
 
 }

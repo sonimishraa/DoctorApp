@@ -42,7 +42,7 @@ class ActivePatientListFragment : BaseFragment() {
 
     private fun initListener() {
         binding.appbar.toolbarTitle.text = getString(R.string.patient_list)
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.searchQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener,

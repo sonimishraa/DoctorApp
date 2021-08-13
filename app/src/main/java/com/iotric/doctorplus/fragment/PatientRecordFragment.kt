@@ -48,7 +48,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
     }
 
     private fun initListener() {
-        binding.appbar.toolbar.setNavigationOnClickListener { view ->
+        binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
         binding.ivProfilePic.setOnClickListener {
@@ -78,7 +78,6 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         MenuCompat.setGroupDividerEnabled(popup.menu, true)
         popup.setOnMenuItemClickListener(this)
         popup.show()
-
     }
 
     private fun setArgs() {

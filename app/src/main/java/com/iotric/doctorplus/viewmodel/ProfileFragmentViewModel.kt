@@ -50,8 +50,8 @@ class ProfileFragmentViewModel : ViewModel() {
             })
     }
 
-    fun uploadProfileApi(multiPartImageBody: MultipartBody.Part, application: Application) {
-        ServiceBuilder.getRetrofit(application).changeProfile(multiPartImageBody)
+    fun uploadProfileApi(imagePart: MultipartBody.Part, application: Application) {
+        ServiceBuilder.getRetrofit(application).changeProfile(imagePart)
             .enqueue(object : Callback<String> {
                 override fun onResponse(
                     call: Call<String>,
