@@ -1,44 +1,32 @@
 package com.iotric.doctorplus.fragment
 
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.AddPrescripFragmentBinding
 import com.iotric.doctorplus.util.FileUtil
-import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.AddPrescripViewModel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.util.*
+import java.io.ByteArrayOutputStream
+
 
 class AddPrescripFragment : BaseFragment() {
-    var hr = 0
-    var min = 0
-    var pickYear = 0
-    var pickMonth = 0
-    var pickDay = 0
-    var year= 0
-    var month = 0
-    var day = 0
-
     lateinit var binding: AddPrescripFragmentBinding
     val viewModel: AddPrescripViewModel by viewModels()
     val args: AddPrescripFragmentArgs by navArgs()
-    lateinit var datePickerDialog: DatePickerDialog
     lateinit var prescripName: String
     lateinit var description: String
     lateinit var multiPartImageBody: MultipartBody.Part
@@ -63,6 +51,7 @@ class AddPrescripFragment : BaseFragment() {
         binding.appbar.toolbarTitle.text = "ADD NEW PRESCRIP"
 
     }
+
     private fun initListener() {
         binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
@@ -82,7 +71,10 @@ class AddPrescripFragment : BaseFragment() {
         viewModel.uploadPrescrip.observe(requireActivity(), {
             it?.let {
                 toastMessage("${it.message}")
-                findNavController().popBackStack()
+                view?.post {
+                    findNavController().popBackStack()
+                }
+
             }
         })
         viewModel.apiErrorMessage.observe(requireActivity(), {
@@ -122,6 +114,13 @@ class AddPrescripFragment : BaseFragment() {
                 binding.image.setImageURI(it)
             } ?: toastMessage("image invalid selection")
         }
+        if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.image.setImageBitmap(imageBitmap)
+            data.data?.let {
+                //setImageUriOnPick(it)
+            }
+        }
     }
 
     private fun setImageUriOnPick(uri: Uri) {
@@ -134,14 +133,20 @@ class AddPrescripFragment : BaseFragment() {
     private fun reportUpload() {
         // add another part within the multipart request
         val fullName =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), binding.prescripName.text.toString())
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                binding.prescripName.text.toString()
+            )
         val patientId =
             RequestBody.create(
                 "multipart/form-data".toMediaTypeOrNull(),
                 args.patientId.id.orEmpty()
             )
         val description =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), binding.description.text.toString())
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                binding.description.text.toString()
+            )
         viewModel.getUploadPrescripApi(
             multiPartImageBody,
             fullName,
@@ -150,27 +155,4 @@ class AddPrescripFragment : BaseFragment() {
             requireActivity().application
         )
     }
-
-   /* private fun pickDate() {
-        val calendar = Calendar.getInstance()
-        year = calendar.get(Calendar.YEAR)
-        month = calendar.get(Calendar.MONTH)
-        day = calendar.get(Calendar.DAY_OF_MONTH)
-        val now = calendar.timeInMillis
-        datePickerDialog =
-            DatePickerDialog(requireContext(), object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                    pickYear = year
-                    pickMonth = month + 1
-                    pickDay = dayOfMonth
-                    val date = UtilClass.makeDateString(pickYear, pickMonth, pickDay)
-                    binding.prescripDate.setText(date)
-                }
-            }, year, month, day)
-        datePickerDialog.datePicker.minDate = now
-        datePickerDialog.show()
-    }
-*/
-
-
 }

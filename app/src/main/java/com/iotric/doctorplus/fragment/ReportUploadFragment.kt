@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -120,6 +121,14 @@ class ReportUploadFragment : BaseFragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             // Result for Image Selection
+            data?.data?.let {
+                setImageUriOnPick(it)
+                binding.image.setImageURI(it)
+            } ?: toastMessage("image invalid selection")
+        }
+        if(requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+           /* val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.image.setImageBitmap(imageBitmap)*/
             data?.data?.let {
                 setImageUriOnPick(it)
                 binding.image.setImageURI(it)

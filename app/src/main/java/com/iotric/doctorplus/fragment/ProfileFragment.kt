@@ -3,6 +3,7 @@ package com.iotric.doctorplus.fragment
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -122,6 +123,17 @@ class ProfileFragment : BaseFragment() {
                     uploadImage()
                 }*/
             } ?: toastMessage("image invalid selection")
+        }
+        if(requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK){
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.ivProfilePic.setImageBitmap(imageBitmap)
+           /* data?.data?.let {
+                setImageUriOnPick(it)
+                binding.ivProfilePic.setImageURI(it)
+                if (validateFields()) {
+                    uploadImage()
+                }
+            } ?: toastMessage("image invalid selection")*/
         }
     }
 
