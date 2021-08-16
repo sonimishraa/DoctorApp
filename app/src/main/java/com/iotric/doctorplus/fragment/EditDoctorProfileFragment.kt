@@ -65,10 +65,33 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment() {
 
     }
 
+    private fun initListener() {
+        binding.appbar.navigationBtn.setOnClickListener { view ->
+            findNavController().popBackStack()
+        }
+        binding.editStartTime.setOnClickListener {
+            startTimePicker()
+        }
+
+        binding.editEndTime.setOnClickListener {
+            endTimePicker()
+        }
+        binding.btnCancle.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.btnSave.setOnClickListener {
+            EditDoctor()
+           // findNavController().navigate(R.id.action_Drprofile_fragment)
+        }
+    }
+
     private fun initObserver() {
         viewModel.updateDoctorProfile.observe(requireActivity(), Observer {
             it?.let {
                 Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                view?.post {
+                    findNavController().popBackStack()
+                }
             }
         })
         viewModel.updateErrorMessage.observe(requireActivity(), Observer {
@@ -89,25 +112,6 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment() {
         binding.editEndTime.setText(args.clinicendtime)
     }
 
-    private fun initListener() {
-        binding.appbar.navigationBtn.setOnClickListener { view ->
-            findNavController().popBackStack()
-        }
-        binding.editStartTime.setOnClickListener {
-            startTimePicker()
-        }
-
-        binding.editEndTime.setOnClickListener {
-            endTimePicker()
-        }
-        binding.btnCancle.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        binding.btnSave.setOnClickListener {
-            EditDoctor()
-        }
-    }
-
     private fun EditDoctor() {
         if (validateFields()) {
             //val clinicHr = startTime + " - " + endTime
@@ -121,13 +125,7 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment() {
                 clinicendtime = endTime
             )
             viewModel.getUpdateApi(doctor, requireActivity().application)
-            findNavController().navigate(R.id.action_Drprofile_fragment)
-        } else
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.mendatory_field_message),
-                Toast.LENGTH_SHORT
-            ).show()
+        }
     }
 
     private fun validateFields(): Boolean {

@@ -67,7 +67,9 @@ class PatientUpdateFragment : BaseFragment() {
         viewModel.updatePatientProfile.observe(requireActivity(), Observer {
             if (it != null) {
                 Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack()
+                view?.post {
+                    findNavController().popBackStack()
+                }
             }
         })
     }

@@ -95,7 +95,9 @@ class AddPatientFragment : BaseFragment() {
 
         viewModel.registerPatientItem.observe(requireActivity(), {
             toastMessage(it.message.toString())
-            findNavController().popBackStack()
+            view?.post {
+                findNavController().popBackStack()
+            }
         })
     }
 

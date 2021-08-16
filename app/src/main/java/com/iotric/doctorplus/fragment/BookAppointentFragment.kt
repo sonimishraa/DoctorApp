@@ -18,9 +18,7 @@ import com.iotric.doctorplus.model.request.AddNewAppointmentRequest
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.BookAppointentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.time.milliseconds
 
 
 @AndroidEntryPoint
@@ -31,24 +29,24 @@ class BookAppointentFragment : BaseFragment() {
     var pickYear = 0
     var pickMonth = 0
     var pickDay = 0
-    var year= 0
+    var year = 0
     var month = 0
     var day = 0
 
     val viewModel: BookAppointentViewModel by viewModels()
     val args: BookAppointentFragmentArgs by navArgs()
-    lateinit var binding:BookAppointentFragmentBinding
+    lateinit var binding: BookAppointentFragmentBinding
     lateinit var timePickerDialog: TimePickerDialog
     lateinit var datePickerDialog: DatePickerDialog
     lateinit var visitDate: String
-    lateinit var visitTime:String
-    lateinit var description:String
+    lateinit var visitTime: String
+    lateinit var description: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =BookAppointentFragmentBinding.inflate(layoutInflater)
+        binding = BookAppointentFragmentBinding.inflate(layoutInflater)
         val view = binding.root
         return view
     }
@@ -78,6 +76,7 @@ class BookAppointentFragment : BaseFragment() {
             findNavController().popBackStack()
         }
         binding.btnSave.setOnClickListener {
+            validateFields()
             addnewAppointment()
             findNavController().popBackStack()
         }
@@ -86,20 +85,20 @@ class BookAppointentFragment : BaseFragment() {
 
     private fun addnewAppointment() {
         val patientId = args.patientId.id
-        if (validateFields()){
-            patientId?.let {
-                val request =  AddNewAppointmentRequest(
-                    patientid = it, nextvisitdate = visitDate,
-                    nextvisittime = visitTime, description = description
-                )
-                viewModel.getNewAppointmentApi(request, requireActivity().application)
-            }
+        patientId?.let {
+            val request = AddNewAppointmentRequest(
+                patientid = it, nextvisitdate = visitDate,
+                nextvisittime = visitTime, description = description
+            )
+            viewModel.getNewAppointmentApi(request, requireActivity().application)
+
         }
     }
+
     private fun initObserver() {
-      viewModel.newAppointment.observe(requireActivity(), {
-          toastMessage("${it.message}")
-      })
+        viewModel.newAppointment.observe(requireActivity(), {
+            toastMessage("${it.message}")
+        })
         viewModel.getErrorMessage.observe(requireActivity(), {
             toastMessage("${it}")
         })
@@ -136,7 +135,6 @@ class BookAppointentFragment : BaseFragment() {
 
     private fun pickAppointmentTime() {
         UtilClass.getTimeCalender()
-
         timePickerDialog =
             TimePickerDialog(requireContext(), object : TimePickerDialog.OnTimeSetListener {
                 override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {

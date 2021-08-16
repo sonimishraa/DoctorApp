@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ class UpdateAppointmentFragment : BaseFragment() {
     var pickYear = 0
     var pickMonth = 0
     var pickDay = 0
-    var year= 0
+    var year = 0
     var month = 0
     var day = 0
 
@@ -39,9 +38,9 @@ class UpdateAppointmentFragment : BaseFragment() {
     lateinit var timePickerDialog: TimePickerDialog
     lateinit var datePickerDialog: DatePickerDialog
     val args: UpdateAppointmentFragmentArgs by navArgs()
-    lateinit var visitDate:String
-    lateinit var visitTime:String
-    lateinit var description:String
+    lateinit var visitDate: String
+    lateinit var visitTime: String
+    lateinit var description: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,12 +81,11 @@ class UpdateAppointmentFragment : BaseFragment() {
         }
         binding.btnSave.setOnClickListener {
             updateAppoint()
-            findNavController().popBackStack()
         }
     }
 
     private fun updateAppoint() {
-        if(validateFields()) {
+        if (validateFields()) {
             val appointId = args.AppointItem.id
             if (appointId != null) {
                 val updateRequest = UpdateAppointmentRequest(
@@ -101,17 +99,24 @@ class UpdateAppointmentFragment : BaseFragment() {
                     requireActivity().application
                 )
             }
-        }
+
+        }else
+            snackBar(getString(R.string.mendatory_field_message),binding.root)
     }
 
     private fun initObserver() {
-        viewModel.updateAppointment.observe(requireActivity(),{
+        viewModel.updateAppointment.observe(requireActivity(), {
             toastMessage("${it.message}")
+            if (it.message != null){
+                view?.post {
+                    findNavController().popBackStack()
+                }
+            }
         })
-        viewModel.deleteAppointment.observe(requireActivity(),{
-            snackBar("${it.message}",binding.root)
+        viewModel.deleteAppointment.observe(requireActivity(), {
+            snackBar("${it.message}", binding.root)
         })
-        viewModel.getErrorMessage.observe(requireActivity(),{
+        viewModel.getErrorMessage.observe(requireActivity(), {
             toastMessage("${it}")
         })
     }
@@ -178,8 +183,6 @@ class UpdateAppointmentFragment : BaseFragment() {
         datePickerDialog.datePicker.minDate = now
         datePickerDialog.show()
     }
-
-
 
 
 }
