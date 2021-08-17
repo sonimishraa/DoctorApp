@@ -1,21 +1,19 @@
 package com.iotric.doctorplus.fragment
 
 import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.drjacky.imagepicker.ImagePicker
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
-import com.iotric.doctorplus.util.FileUtil
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 
@@ -53,7 +51,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
             findNavController().popBackStack()
         }
         binding.ivProfilePic.setOnClickListener {
-            pickImage()
+            imagepick()
         }
         binding.tvPrescription.setOnClickListener {
             prisDropDown()
@@ -63,6 +61,29 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
             reportDropdown()
         }
     }
+
+    private fun imagepick() {
+        ImagePicker.with(requireActivity())
+            .crop()
+            .cropOval()
+            .galleryMimeTypes(
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
+                )
+            )
+            .createIntentFromDialog { launcher.launch(it) }
+
+    }
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
+                binding.ivProfilePic.setImageURI(uri)
+            }
+        }
 
     private fun setArgs() {
         val argsItem = args.result
@@ -88,15 +109,15 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
                     )
                 findNavController().navigate(action)
             }
-            R.id.view_prescrip -> {
-                val id = args.result
-                /* val action =
+            /* R.id.view_prescrip -> {
+                 val id = args.result
+                 *//* val action =
                      PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPrescripFragment(id)
-                 findNavController().navigate(action)*/
+                 findNavController().navigate(action)*//*
                 val action =
                     PatientRecordFragmentDirections.actionPatientRecordFragmentToPrescriptionFragment()
                 findNavController().navigate(action)
-            }
+            }*/
             R.id.add_report -> {
                 val patientId = args.result
                 val action =
@@ -118,7 +139,24 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         return super.onOptionsItemSelected(item!!)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    private fun reportDropdown() {
+        val popup = PopupMenu(requireContext(), binding.tvReport)
+        popup.getMenuInflater().inflate(R.menu.report_dropdown, popup.getMenu())
+        MenuCompat.setGroupDividerEnabled(popup.menu, true)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+
+    }
+
+    private fun prisDropDown() {
+        val popup = PopupMenu(requireContext(), binding.tvPrescription)
+        popup.getMenuInflater().inflate(R.menu.prescription_dropdown, popup.getMenu())
+        MenuCompat.setGroupDividerEnabled(popup.menu, true)
+        popup.setOnMenuItemClickListener(this)
+        popup.show()
+    }
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
             // Result for Image Selection
@@ -139,22 +177,5 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
             multiPartImageBody = it
         }
     }
-
-    private fun reportDropdown() {
-        val popup = PopupMenu(requireContext(), binding.tvReport)
-        popup.getMenuInflater().inflate(R.menu.report_dropdown, popup.getMenu())
-        MenuCompat.setGroupDividerEnabled(popup.menu, true)
-        popup.setOnMenuItemClickListener(this)
-        popup.show()
-
-    }
-
-    private fun prisDropDown() {
-        val popup = PopupMenu(requireContext(), binding.tvPrescription)
-        popup.getMenuInflater().inflate(R.menu.prescription_dropdown, popup.getMenu())
-        MenuCompat.setGroupDividerEnabled(popup.menu, true)
-        popup.setOnMenuItemClickListener(this)
-        popup.show()
-    }
-
+*/
 }

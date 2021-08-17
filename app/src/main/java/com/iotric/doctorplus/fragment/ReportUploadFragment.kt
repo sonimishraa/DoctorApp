@@ -75,14 +75,16 @@ class ReportUploadFragment : BaseFragment() {
             pickDate()
         }
         binding.uploadReport.setOnClickListener {
+            showLoading()
             if (validateFields()) {
+                dismissLoading()
                 reportUpload()
             }
         }
     }
-
     private fun initObserver() {
         viewModel.uploadReport.observe(requireActivity(), {
+            dismissLoading()
             it?.let {
                 toastMessage("${it.message}")
                 findNavController().popBackStack()

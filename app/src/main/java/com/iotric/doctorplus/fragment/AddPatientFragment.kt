@@ -85,7 +85,9 @@ class AddPatientFragment : BaseFragment() {
     }
 
     private fun initObserver() {
+        showLoading()
         viewModel.registerPatientError.observe(requireActivity(), {
+            dismissLoading()
             Log.i("Error Message", "${it}")
             if (it != null) {
                 snackBar("${it}", binding.root)
@@ -94,6 +96,7 @@ class AddPatientFragment : BaseFragment() {
         })
 
         viewModel.registerPatientItem.observe(requireActivity(), {
+            dismissLoading()
             toastMessage(it.message.toString())
             view?.post {
                 findNavController().popBackStack()
