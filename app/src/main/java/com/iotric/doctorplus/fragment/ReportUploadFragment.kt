@@ -1,10 +1,7 @@
 package com.iotric.doctorplus.fragment
 
-import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.drjacky.imagepicker.ImagePicker
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentReportUploadBinding
 import com.iotric.doctorplus.util.FileUtil
@@ -33,7 +32,7 @@ class ReportUploadFragment : BaseFragment() {
     var pickYear = 0
     var pickMonth = 0
     var pickDay = 0
-    var year= 0
+    var year = 0
     var month = 0
     var day = 0
 
@@ -70,7 +69,7 @@ class ReportUploadFragment : BaseFragment() {
         }
 
         binding.addReportButton.setOnClickListener {
-            pickImage()
+            imagepick()
         }
         binding.reportDate.setOnClickListener {
             pickDate()
@@ -117,24 +116,29 @@ class ReportUploadFragment : BaseFragment() {
         return isAllFieldValidate
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            // Result for Image Selection
-            data?.data?.let {
-                setImageUriOnPick(it)
-                binding.image.setImageURI(it)
-            } ?: toastMessage("image invalid selection")
-        }
-        if(requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-           /* val imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.image.setImageBitmap(imageBitmap)*/
-            data?.data?.let {
-                setImageUriOnPick(it)
-                binding.image.setImageURI(it)
-            } ?: toastMessage("image invalid selection")
-        }
+    private fun imagepick() {
+        ImagePicker.with(requireActivity())
+            .crop()
+            .cropOval()
+            .galleryMimeTypes(  //Exclude gif images
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
+                )
+            )
+            .createIntentFromDialog { launcher.launch(it) }
+
     }
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
+                binding.image.setImageURI(uri)
+                setImageUriOnPick(uri)
+            }
+        }
 
     private fun setImageUriOnPick(uri: Uri) {
         val body = FileUtil.selectFileName(requireContext(), uri)
@@ -146,14 +150,20 @@ class ReportUploadFragment : BaseFragment() {
     private fun reportUpload() {
         // add another part within the multipart request
         val fullName =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), binding.reportName.text.toString())
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                binding.reportName.text.toString()
+            )
         val patientId =
             RequestBody.create(
                 "multipart/form-data".toMediaTypeOrNull(),
                 args.patientId.id.orEmpty()
             )
         val date =
-            RequestBody.create("multipart/form-data".toMediaTypeOrNull(), binding.reportDate.text.toString())
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                binding.reportDate.text.toString()
+            )
         viewModel.getUploadReportApi(
             multiPartImageBody,
             fullName,
@@ -182,6 +192,4 @@ class ReportUploadFragment : BaseFragment() {
         datePickerDialog.datePicker.minDate = now
         datePickerDialog.show()
     }
-
-
 }

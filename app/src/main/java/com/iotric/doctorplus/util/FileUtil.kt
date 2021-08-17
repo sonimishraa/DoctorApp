@@ -1,21 +1,16 @@
 package com.iotric.doctorplus.util
 
-import android.content.ContentValues
 import android.content.Context
-import android.graphics.Bitmap
-import android.media.MediaScannerConnection
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.*
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.coroutines.coroutineContext
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 
 object FileUtil {
@@ -60,5 +55,13 @@ object FileUtil {
         }
     }
 
-
+    fun cameraClickFile(context: Context, uri: Uri): MultipartBody.Part? {
+        val tempFile = createTempFile(context, "hello", ".jpg")
+        val filePath = tempFile.absolutePath
+        val requestFile: RequestBody =
+            File(filePath).asRequestBody("multipart/form-data".toMediaTypeOrNull())
+        val body: MultipartBody.Part =
+            MultipartBody.Part.createFormData("images", "hello.jpg", requestFile)
+        return body
+    }
 }

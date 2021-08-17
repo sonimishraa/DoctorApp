@@ -3,7 +3,6 @@ package com.iotric.doctorplus.fragment
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
+import com.github.drjacky.imagepicker.ImagePicker
+import androidx.activity.result.contract.ActivityResultContracts
 import com.iotric.doctorplus.databinding.AddPrescripFragmentBinding
 import com.iotric.doctorplus.util.FileUtil
 import com.iotric.doctorplus.viewmodel.AddPrescripViewModel
@@ -21,7 +22,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
-
 
 class AddPrescripFragment : BaseFragment() {
     lateinit var binding: AddPrescripFragmentBinding
@@ -58,7 +58,7 @@ class AddPrescripFragment : BaseFragment() {
         }
 
         binding.addPrescripButton.setOnClickListener {
-            pickImage()
+            imagepick()
         }
         binding.uploadPrescrip.setOnClickListener {
             if (validateFields()) {
@@ -105,23 +105,28 @@ class AddPrescripFragment : BaseFragment() {
         return isAllFieldValidate
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            // Result for Image Selection
-            data?.data?.let {
-                setImageUriOnPick(it)
-                binding.image.setImageURI(it)
-            } ?: toastMessage("image invalid selection")
-        }
-        if (requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.image.setImageBitmap(imageBitmap)
-            data.data?.let {
-                //setImageUriOnPick(it)
+    private fun imagepick() {
+        ImagePicker.with(requireActivity())
+            .crop()
+            .cropOval()
+            .galleryMimeTypes(  //Exclude gif images
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
+                )
+            )
+            .createIntentFromDialog { launcher.launch(it) }
+    }
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
+                binding.image.setImageURI(uri)
+                setImageUriOnPick(uri)
             }
         }
-    }
 
     private fun setImageUriOnPick(uri: Uri) {
         val body = FileUtil.selectFileName(requireContext(), uri)
@@ -129,6 +134,14 @@ class AddPrescripFragment : BaseFragment() {
             multiPartImageBody = it
         }
     }
+
+    private fun setCameraClickUri(uri: Uri) {
+        val body = FileUtil.cameraClickFile(requireContext(), uri)
+        body?.let {
+            multiPartImageBody = it
+        }
+    }
+
 
     private fun reportUpload() {
         // add another part within the multipart request

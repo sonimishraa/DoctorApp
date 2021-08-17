@@ -103,4 +103,7 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:3.4.0"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
 
+    // ImagePicker Library
+    implementation 'com.github.Drjacky:ImagePicker:2.1.13'
+
 }

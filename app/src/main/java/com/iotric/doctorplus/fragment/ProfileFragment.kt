@@ -2,18 +2,16 @@ package com.iotric.doctorplus.fragment
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
+import com.github.drjacky.imagepicker.ImagePicker
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DrProfileFragmentBinding
 import com.iotric.doctorplus.model.response.GetDoctorByidResponse
@@ -65,10 +63,12 @@ class ProfileFragment : BaseFragment() {
                 ProfileFragmentDirections.actionNavigationProfileToEditDoctorProfileFragment(
                     EditDocResult
                 )
-            findNavController().navigate(action)
+            view?.post {
+                findNavController().navigate(action)
+            }
         }
         binding.ivProfilePic.setOnClickListener {
-            pickImage()
+            imagepick()
         }
     }
 
@@ -112,30 +112,6 @@ class ProfileFragment : BaseFragment() {
         return id
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            // Result for Image Selection
-            data?.data?.let {
-                setImageUriOnPick(it)
-                binding.ivProfilePic.setImageURI(it)
-                /*if (validateFields()) {
-                    uploadImage()
-                }*/
-            } ?: toastMessage("image invalid selection")
-        }
-        if(requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK){
-            val imageBitmap = data?.extras?.get("data") as Bitmap
-            binding.ivProfilePic.setImageBitmap(imageBitmap)
-           /* data?.data?.let {
-                setImageUriOnPick(it)
-                binding.ivProfilePic.setImageURI(it)
-                if (validateFields()) {
-                    uploadImage()
-                }
-            } ?: toastMessage("image invalid selection")*/
-        }
-    }
 
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
@@ -145,6 +121,30 @@ class ProfileFragment : BaseFragment() {
         }
         return isAllFieldValidate
     }
+
+    private fun imagepick() {
+        ImagePicker.with(requireActivity())
+            .crop()
+            .cropOval()
+            .galleryMimeTypes(  //Exclude gif images
+                mimeTypes = arrayOf(
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg"
+                )
+            )
+            .createIntentFromDialog { launcher.launch(it) }
+
+    }
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val uri = it.data?.data!!
+                binding.ivProfilePic.setImageURI(uri)
+                // setImageUriOnPick(uri)
+            }
+        }
 
 
     private fun setImageUriOnPick(uri: Uri) {
@@ -162,33 +162,29 @@ class ProfileFragment : BaseFragment() {
             requireActivity().application
         )
     }
-
-    /*  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-          super.onActivityResult(requestCode, resultCode, data)
-          if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
-              && data != null && data.getData() != null
-          ) {
-              val uri: Uri? = data.getData()
-
-              try {
-                  val bitmap = MediaStore.Images.Media.getBitmap(activity?.contentResolver, uri)
-                  binding.ivProfilePic.setImageBitmap(bitmap)
-
-              } catch (e: IOException) {
-                  e.printStackTrace()
-              }
-          }
-          if (requestCode == 2 && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-
-              try {
-                  val imageBitmap = data.extras?.get("data") as Bitmap
-                  binding.ivProfilePic.setImageBitmap(imageBitmap)
-
-              } catch (e: IOException) {
-                  e.printStackTrace()
-              }
-          }
-      }
-  */
-
+    /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         super.onActivityResult(requestCode, resultCode, data)
+         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+             // Result for Image Selection
+             data?.data?.let {
+                 setImageUriOnPick(it)
+                 binding.ivProfilePic.setImageURI(it)
+                 *//*if (validateFields()) {
+                    uploadImage()
+                }*//*
+            } ?: toastMessage("image invalid selection")
+        }
+        if(requestCode == CAPTURE_IMAGE_REQUEST && resultCode == Activity.RESULT_OK){
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            binding.ivProfilePic.setImageBitmap(imageBitmap)
+            *//* data?.data?.let {
+                 setImageUriOnPick(it)
+                 binding.ivProfilePic.setImageURI(it)
+                 if (validateFields()) {
+                     uploadImage()
+                 }
+             } ?: toastMessage("image invalid selection")*//*
+        }
+    }
+*/
 }
