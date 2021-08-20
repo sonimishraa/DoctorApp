@@ -134,15 +134,6 @@ class AddPrescripFragment : BaseFragment() {
             multiPartImageBody = it
         }
     }
-
-    private fun setCameraClickUri(uri: Uri) {
-        val body = FileUtil.cameraClickFile(requireContext(), uri)
-        body?.let {
-            multiPartImageBody = it
-        }
-    }
-
-
     private fun reportUpload() {
         // add another part within the multipart request
         val fullName =

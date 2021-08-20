@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.github.drjacky.imagepicker.ImagePicker
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
@@ -87,6 +88,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
 
     private fun setArgs() {
         val argsItem = args.result
+        Glide.with(requireContext()).load(argsItem.pic).into(binding.profileImage)
         binding.tvPatientId.text = argsItem.uniqueid
         binding.tvName.text = argsItem.pname
         binding.tvContact.text = argsItem.pphone

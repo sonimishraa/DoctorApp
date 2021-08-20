@@ -21,13 +21,14 @@ import com.iotric.doctorplus.model.response.GetDoctorByidResponse
 import com.iotric.doctorplus.model.response.PatientsItems
 import com.iotric.doctorplus.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import de.hdodenhof.circleimageview.CircleImageView
 
 @AndroidEntryPoint
 class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var binding: DashboardFragmentBinding
     lateinit var getDoctorId:GetDoctorByidResponse
     val viewModel: ProfileFragmentViewModel by viewModels()
-    lateinit var profile:AppCompatImageView
+    lateinit var profile:CircleImageView
     lateinit var name:AppCompatTextView
 
     override fun onCreateView(
@@ -51,7 +52,7 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
             binding.navView.setNavigationItemSelectedListener(this)
         }
         val headerView =  binding.navView.inflateHeaderView(R.layout.nav_header_main)
-        profile = headerView.findViewById(R.id.profile)
+        profile = headerView.findViewById(R.id.profile_image)
         name= headerView.findViewById(R.id.name)
         val id = getDoctorId()
         viewModel.getDoctorApi(id, requireActivity().application)
@@ -87,7 +88,7 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
             getDoctorId = it
             getDoctorId.let {
                 if ( it._id == loginDrid) {
-                   // Glide.with(requireContext()).load(it.profilepic).into(profile)
+                    Glide.with(requireContext()).load(it.profilepic).into(profile)
                   name.text = it.doctorname
                 }
             }

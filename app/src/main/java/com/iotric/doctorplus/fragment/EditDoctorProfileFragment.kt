@@ -76,9 +76,9 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment() {
         binding.editEndTime.setOnClickListener {
             endTimePicker()
         }
-        binding.btnCancle.setOnClickListener {
+      /*  binding.btnCancle.setOnClickListener {
             findNavController().popBackStack()
-        }
+        }*/
         binding.btnSave.setOnClickListener {
             EditDoctor()
            // findNavController().navigate(R.id.action_Drprofile_fragment)

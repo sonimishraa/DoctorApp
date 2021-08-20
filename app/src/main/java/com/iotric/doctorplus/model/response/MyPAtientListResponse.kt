@@ -21,6 +21,9 @@ data class PatientsItem(
 	@field:SerializedName("address")
 	val address: List<String?>? = null,
 
+	@field:SerializedName("pic")
+	val pic: String? = null,
+
 	@field:SerializedName("pphone")
 	val pphone: String? = null,
 
