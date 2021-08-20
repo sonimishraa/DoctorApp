@@ -91,6 +91,7 @@ class ReportUploadFragment : BaseFragment() {
             }
         })
         viewModel.apiErrorMessage.observe(requireActivity(), {
+            dismissLoading()
             Log.i("UploadImage", "Error Message:${it}")
             toastMessage("${it}")
         })

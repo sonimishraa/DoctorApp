@@ -340,29 +340,40 @@
         <action
             android:id="@+id/action_viewPatientPrescripFragment_to_prescriptionFragment"
             app:destination="@id/prescriptionFragment" />
+        <action
+            android:id="@+id/action_viewPatientPrescripFragment_to_viewPrecriptionDetailFragment"
+            app:destination="@id/viewPrecriptionDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/prescriptionFragment"
         android:name="com.iotric.doctorplus.fragment.PrescriptionFragment"
         android:label="PrescriptionFragment" >
-       <!-- <argument
+        <argument
             android:name="prescriptionItem"
-            app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />-->
+            app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />
     </fragment>
     <fragment
-        android:id="@+id/hilt_FaqFragment"
+        android:id="@+id/faqFragment"
         android:name="com.iotric.doctorplus.fragment.Hilt_FaqFragment"
-        android:label="Hilt_FaqFragment" />
+        android:label="FaqFragment" />
     <fragment
-        android:id="@+id/hilt_BlogsFragment"
+        android:id="@+id/blogsFragment"
         android:name="com.iotric.doctorplus.fragment.Hilt_BlogsFragment"
         android:label="Hilt_BlogsFragment" />
     <fragment
-        android:id="@+id/hilt_TermsConditionFragment"
+        android:id="@+id/termsConditionFragment"
         android:name="com.iotric.doctorplus.fragment.Hilt_TermsConditionFragment"
         android:label="Hilt_TermsConditionFragment" />
     <fragment
-        android:id="@+id/hilt_PrivacyFragment2"
+        android:id="@+id/privacyFragment"
         android:name="com.iotric.doctorplus.fragment.Hilt_PrivacyFragment"
-        android:label="Hilt_PrivacyFragment" />
+        android:label="Privacy" />
+    <fragment
+        android:id="@+id/viewPrecriptionDetailFragment"
+        android:name="com.iotric.doctorplus.fragment.ViewPrecriptionDetailFragment"
+        android:label="ViewPrecriptionDetailFragment" >
+        <argument
+            android:name="prescripItem"
+            app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />
+    </fragment>
 </navigation>

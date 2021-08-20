@@ -1,16 +1,12 @@
 package com.iotric.doctorplus.fragment
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.PopupMenu
-import androidx.core.view.MenuCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.iotric.doctorplus.R
@@ -33,7 +29,7 @@ class AddPatientFragment : BaseFragment() {
     lateinit var age: String
     lateinit var gender: String
     lateinit var bloodgroup: String
-    lateinit var symptoms:String
+    lateinit var symptoms: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,7 +59,10 @@ class AddPatientFragment : BaseFragment() {
             findNavController().popBackStack()
         }
         binding.btnAdd.setOnClickListener {
-            registerPatient()
+            showLoading()
+            if (validateFields()){
+                registerPatient()
+            }
         }
         binding.autotextGender.setOnClickListener {
             showDropDown()
@@ -71,21 +70,27 @@ class AddPatientFragment : BaseFragment() {
     }
 
     private fun registerPatient() {
-        if (validateFields()) {
-           /* val multipartParams = MultipartParams.Builder()
-            //val filePath = File(uri?.path)
-            val patient = multipartParams.add("patientname", name)
-                .add("phone", phone).add("address", address).add("email", email).add("age", age)
-                .add("gender", gender)*/
-            val patient = AddPatientRequest(patientname = name,email = email,phone = phone,gender = gender,age = age,bloodgroup = bloodgroup,symptoms = symptoms)
+            /* val multipartParams = MultipartParams.Builder()
+             //val filePath = File(uri?.path)
+             val patient = multipartParams.add("patientname", name)
+                 .add("phone", phone).add("address", address).add("email", email).add("age", age)
+                 .add("gender", gender)*/
+            val patient = AddPatientRequest(
+                patientname = name,
+                email = email,
+                phone = phone,
+                gender = gender,
+                age = age,
+                bloodgroup = bloodgroup,
+                symptoms = symptoms
+            )
             viewModel.getApi(patient, requireActivity().application)
-        } else {
+       /* else {
             snackBar(getString(R.string.mendatory_field_message), binding.root)
-        }
+        }*/
     }
 
     private fun initObserver() {
-        showLoading()
         viewModel.registerPatientError.observe(requireActivity(), {
             dismissLoading()
             Log.i("Error Message", "${it}")
@@ -155,7 +160,7 @@ class AddPatientFragment : BaseFragment() {
 
     private fun showDropDown() {
         val gender = resources.getStringArray(R.array.gender)
-        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.gender_dropdown_item,gender)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.gender_dropdown_item, gender)
         binding.autotextGender.setAdapter(arrayAdapter)
     }
 }

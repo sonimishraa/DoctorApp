@@ -50,7 +50,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         binding.appbar.navigationBtn.setOnClickListener { view ->
             findNavController().popBackStack()
         }
-        binding.ivProfilePic.setOnClickListener {
+        binding.floatingActionButton.setOnClickListener {
             imagepick()
         }
         binding.tvPrescription.setOnClickListener {
@@ -81,7 +81,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-                binding.ivProfilePic.setImageURI(uri)
+                binding.profileImage.setImageURI(uri)
             }
         }
 
@@ -109,15 +109,15 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
                     )
                 findNavController().navigate(action)
             }
-            /* R.id.view_prescrip -> {
+             R.id.view_prescrip -> {
                  val id = args.result
-                 *//* val action =
+                  val action =
                      PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPrescripFragment(id)
-                 findNavController().navigate(action)*//*
-                val action =
+                 findNavController().navigate(action)
+               /* val action =
                     PatientRecordFragmentDirections.actionPatientRecordFragmentToPrescriptionFragment()
-                findNavController().navigate(action)
-            }*/
+                findNavController().navigate(action)*/
+            }
             R.id.add_report -> {
                 val patientId = args.result
                 val action =

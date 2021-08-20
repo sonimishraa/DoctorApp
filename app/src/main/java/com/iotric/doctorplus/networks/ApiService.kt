@@ -58,8 +58,8 @@ interface ApiService {
     fun forgetPasswordOtp(@Body forgetPassword: ForgetPasswordOtpRequest): Call<ForgetPasswordOtpResponse>
 
     @Multipart
-    @PATCH(CHANGE_DR_PROFILE)
-    fun changeProfile(@Part file: MultipartBody.Part):Call<String>
+    @POST(CHANGE_DR_PROFILE)
+    fun changeProfile(@Part image: MultipartBody.Part):Call<UpdateProfileImageResponse>
 
 
     // Patients Api

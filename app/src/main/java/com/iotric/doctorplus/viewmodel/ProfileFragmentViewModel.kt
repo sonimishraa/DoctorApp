@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.iotric.doctorplus.model.response.ErrorResponse
 import com.iotric.doctorplus.model.response.GetDoctorByidResponse
+import com.iotric.doctorplus.model.response.UpdateProfileImageResponse
 import com.iotric.doctorplus.networks.ServiceBuilder
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -19,7 +20,7 @@ class ProfileFragmentViewModel : ViewModel() {
     val getDoctorById = MutableLiveData<GetDoctorByidResponse>()
     val getDoctorErrorMessage = MutableLiveData<String>()
 
-    val uploadProfileImage = MutableLiveData<String>()
+    val uploadProfileImage = MutableLiveData<UpdateProfileImageResponse>()
 
     fun getDoctorApi(id: String?, application: Application) {
         ServiceBuilder.getRetrofit(application).getDoctorId(id)
@@ -50,16 +51,17 @@ class ProfileFragmentViewModel : ViewModel() {
             })
     }
 
-    fun uploadProfileApi(imagePart: MultipartBody.Part, application: Application) {
+    fun uploadProfileApi(id: String?, imagePart: MultipartBody.Part, application: Application) {
         ServiceBuilder.getRetrofit(application).changeProfile(imagePart)
-            .enqueue(object : Callback<String> {
+            .enqueue(object : Callback<UpdateProfileImageResponse> {
                 override fun onResponse(
-                    call: Call<String>,
-                    response: Response<String>
+                    call: Call<UpdateProfileImageResponse>,
+                    response: Response<UpdateProfileImageResponse>
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.let {
-                            //getDoctorById.postValue()
+                            uploadProfileImage.postValue(it)
+                            getDoctorApi(id, application)
                         }
                     } else {
                         val errorMessage = response.errorBody()?.string()
@@ -69,7 +71,7 @@ class ProfileFragmentViewModel : ViewModel() {
                     }
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<UpdateProfileImageResponse>, t: Throwable) {
                     Toast.makeText(
                         application.applicationContext,
                         "${t.message}",

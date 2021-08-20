@@ -40,7 +40,7 @@ class PrescriptionFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-   /* private fun initView() {
+    /*private fun initView() {
         binding.floatingCamera.setOnClickListener {
             pickImage()
         }

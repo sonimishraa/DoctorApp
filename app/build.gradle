@@ -106,4 +106,7 @@ dependencies {
     // ImagePicker Library
     implementation 'com.github.Drjacky:ImagePicker:2.1.13'
 
+    //Circular Image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

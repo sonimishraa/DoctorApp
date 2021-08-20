@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.github.drjacky.imagepicker.ImagePicker
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.DrProfileFragmentBinding
@@ -50,6 +51,7 @@ class ProfileFragment : BaseFragment() {
     private fun initView() {
         binding.appbar.toolbarTitle.text = getString(R.string.menu_profile)
         val id = getDoctorId()
+        showLoading()
         viewModel.getDoctorApi(id, requireActivity().application)
     }
 
@@ -67,20 +69,25 @@ class ProfileFragment : BaseFragment() {
                 findNavController().navigate(action)
             }
         }
-        binding.ivProfilePic.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             imagepick()
+        }
+        binding.floatingActionButton.setOnClickListener {
+            if (validateFields()) {
+                uploadImage()
+            }
         }
     }
 
     private fun initObserver() {
-        showLoading()
         val loginDrid = getDoctorId()
         Log.i("ProfileFragment", "_id:${id}")
         viewModel.getDoctorById.observe(requireActivity(), {
+            dismissLoading()
             getDoctorId = it
             getDoctorId.let {
                 if (it._id == loginDrid) {
-                    //Glide.with(requireContext()).load(it.profilepic).into(binding.ivProfilePic)
+                   // Glide.with(requireContext()).load(it.profilepic).into(binding.profileImage)
                     binding.tvName.text = it.doctorname
                     binding.tvGender.text = it.gender
                     binding.tvEmail.text = it.email
@@ -93,7 +100,6 @@ class ProfileFragment : BaseFragment() {
                     binding.tvTitle.text = it.title
                 }
             }
-            dismissLoading()
         })
         viewModel.uploadProfileImage.observe(viewLifecycleOwner, {
             dismissLoading()
@@ -141,8 +147,8 @@ class ProfileFragment : BaseFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val uri = it.data?.data!!
-                binding.ivProfilePic.setImageURI(uri)
-                // setImageUriOnPick(uri)
+                binding.profileImage.setImageURI(uri)
+                 setImageUriOnPick(uri)
             }
         }
 
@@ -156,8 +162,9 @@ class ProfileFragment : BaseFragment() {
 
 
     private fun uploadImage() {
+        val id = getDoctorId()
         // add another part within the multipart request
-        viewModel.uploadProfileApi(
+        viewModel.uploadProfileApi(id,
             multiPartImageBody,
             requireActivity().application
         )
