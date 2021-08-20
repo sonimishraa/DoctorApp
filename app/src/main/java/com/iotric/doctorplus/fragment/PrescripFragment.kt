@@ -22,7 +22,6 @@ class PrescripFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PrescripViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }
