@@ -87,7 +87,7 @@ class ProfileFragment : BaseFragment() {
             getDoctorId = it
             getDoctorId.let {
                 if (it._id == loginDrid) {
-                   Glide.with(requireContext()).load(it.profilepic).into(binding.profileImage)
+                    //Glide.with(requireContext()).load(it.profilepic).into(binding.profileImage)
                     binding.tvName.text = it.doctorname
                     binding.tvGender.text = it.gender
                     binding.tvEmail.text = it.email

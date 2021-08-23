@@ -40,7 +40,9 @@ class ViewPrescripAdapter(val listener: ItemClickListener) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.name.text = item.title
-        Glide.with(this.binding.root).load(item.image).into(holder.imageView)
+        item.image?.forEach {
+            Glide.with(this.binding.root).load(it).into(holder.imageView)
+        }
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -12,7 +12,8 @@ import com.google.gson.annotations.SerializedName
 data class UpdatePatientRequest(
 	val pname: String?,
 	val pphone: String?,
-	val address: String?,
+	val age:String?,
+	val healthIssue:String?
 
 )
 

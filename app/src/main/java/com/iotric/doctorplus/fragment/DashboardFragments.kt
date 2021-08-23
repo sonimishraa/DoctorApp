@@ -88,7 +88,7 @@ class DashboardFragments : BaseFragment(), NavigationView.OnNavigationItemSelect
             getDoctorId = it
             getDoctorId.let {
                 if ( it._id == loginDrid) {
-                    Glide.with(requireContext()).load(it.profilepic).into(profile)
+                    //Glide.with(requireContext()).load(it.profilepic).into(profile)
                   name.text = it.doctorname
                 }
             }

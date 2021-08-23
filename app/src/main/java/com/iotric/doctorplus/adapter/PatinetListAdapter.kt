@@ -66,9 +66,9 @@ class PatinetListAdapter(val listener: ItemClickListener) :
                     R.id.Update_Status -> {
                         listener.onChangeStatus(item)
                     }
-                    R.id.delete_Profile -> {
+                    /*R.id.delete_Profile -> {
                         listener.onDeleteClick(item)
-                    }
+                    }*/
                     R.id.book_appointment -> {
                         listener.onBookAppointmentClick(item)
                     }
@@ -98,7 +98,7 @@ class PatinetListAdapter(val listener: ItemClickListener) :
          }
     }
     interface ItemClickListener {
-        fun onDeleteClick(result: PatientsItem)
+        //fun onDeleteClick(result: PatientsItem)
         fun onPatientProfileClick(result: PatientsItem)
         fun onUpdateProfile(result: PatientsItem)
         fun onChangeStatus(result: PatientsItem)

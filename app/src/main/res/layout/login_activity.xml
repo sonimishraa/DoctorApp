@@ -71,7 +71,7 @@
                 android:drawableStart="@drawable/ic_baseline_call_24"
                 android:drawablePadding="@dimen/medium_padding"
                 android:hint="Phone Number*"
-                android:text= "8360036006"
+                android:text= ""
                 android:inputType="number"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -92,7 +92,7 @@
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="@dimen/medium_padding"
                 android:hint="Password*"
-                android:text="123456"
+                android:text=""
                 android:inputType="text"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>

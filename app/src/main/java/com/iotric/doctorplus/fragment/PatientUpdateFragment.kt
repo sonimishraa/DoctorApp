@@ -30,8 +30,9 @@ class PatientUpdateFragment : BaseFragment() {
     lateinit var name: String
     lateinit var report: String
     lateinit var phone: String
-    lateinit var address: String
+    lateinit var age: String
     lateinit var email: String
+    lateinit var healthIssue:String
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateFragmentArgs by navArgs()
@@ -79,8 +80,8 @@ class PatientUpdateFragment : BaseFragment() {
         Log.i("PatientUpdateFragment", "${argsItem}")
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
-        binding.editAddress.setText(argsItem.address?.firstOrNull())
-
+        binding.editAge.setText(argsItem.age)
+        binding.healthIssue.setText(argsItem.symtoms?.firstOrNull())
     }
 
     private fun initListener() {
@@ -95,12 +96,11 @@ class PatientUpdateFragment : BaseFragment() {
         }
 
     }
-
     private fun updatePatient() {
         if (validateFields()) {
             val id = args.result.id ?: ""
             val updatePatient = UpdatePatientRequest(
-                pname = name, pphone = phone, address = address)
+                pname = name, pphone = phone, age = age, healthIssue = healthIssue )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
 
         } else
@@ -115,7 +115,8 @@ class PatientUpdateFragment : BaseFragment() {
         var isAllFieldValidate = true
         name = binding.editName.text.toString()
         phone = binding.editContact.text.toString()
-        address = binding.editAddress.text.toString()
+        age = binding.editAge.text.toString()
+        healthIssue = binding.healthIssue.text.toString()
 
         if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
@@ -131,10 +132,15 @@ class PatientUpdateFragment : BaseFragment() {
             isAllFieldValidate = false
         } else binding.layoutEditContact.setError(null)
 
-        if (address.isEmpty()) {
+        if (age.isEmpty()) {
             binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else binding.layoutEditAddress.setError(null)
+
+        if (healthIssue.isEmpty()) {
+            binding.layoutHealthIssue.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else binding.layoutHealthIssue.setError(null)
 
         return isAllFieldValidate
     }

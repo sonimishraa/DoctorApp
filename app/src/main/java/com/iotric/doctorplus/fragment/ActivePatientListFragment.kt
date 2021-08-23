@@ -101,9 +101,9 @@ class ActivePatientListFragment : BaseFragment() {
                 findNavController().navigate(action)
             }
 
-            override fun onDeleteClick(result: PatientsItem) {
+           /* override fun onDeleteClick(result: PatientsItem) {
                 showDeleteDilogue(result)
-            }
+            }*/
 
         })
         binding.recyclerView.adapter = patientListAdapter

@@ -36,7 +36,7 @@ class ViewPatientPrescripFragment : BaseFragment() {
     }
 
     private fun initview() {
-        binding.appbar.toolbarTitle.setText(" REPORTS")
+        binding.appbar.toolbarTitle.setText(" Prescription")
         viewPrescripAdapter =
             ViewPrescripAdapter(object : ViewPrescripAdapter.ItemClickListener {
                 override fun onImageViewClick(item: PrecriptionItem) {

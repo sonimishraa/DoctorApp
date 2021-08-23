@@ -26,10 +26,10 @@
         android:title="Book Appointment"
         app:showAsAction="never" />
 
-    <item
+   <!-- <item
         android:id="@+id/delete_Profile"
         android:orderInCategory="100"
         android:title="Delete Profile"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
 
 </menu>
