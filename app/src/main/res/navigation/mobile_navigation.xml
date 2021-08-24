@@ -236,6 +236,12 @@
         <action
             android:id="@+id/action_patientRecordFragment_to_prescriptionFragment"
             app:destination="@id/prescriptionFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_to_digitalPrescriptionFragment"
+            app:destination="@id/digitalPrescriptionFragment" />
+        <action
+            android:id="@+id/action_patientRecordFragment_self"
+            app:destination="@id/patientRecordFragment" />
 
     </fragment>
     <fragment
@@ -329,6 +335,10 @@
         <argument
             android:name="patientId"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+        <action
+            android:id="@+id/action_patient_record_fragment"
+            app:destination="@id/patientRecordFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/viewPatientPrescripFragment"
@@ -375,5 +385,27 @@
         <argument
             android:name="prescripItem"
             app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/digitalPrescriptionFragment"
+        android:name="com.iotric.doctorplus.fragment.DigitalPrescriptionFragment"
+        android:label="DigitalPrescriptionFragment" >
+      <!--  <action
+            android:id="@+id/action_digitalPrescriptionFragment_to_prescriptionFormatFragment"
+            app:destination="@id/prescriptionFormatFragment" />-->
+        <argument
+            android:name="patiensItem"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
+        <action
+            android:id="@+id/action_digitalPrescriptionFragment_to_addPrescripFragment"
+            app:destination="@id/addPrescripFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prescriptionFormatFragment"
+        android:name="com.iotric.doctorplus.fragment.PrescriptionFormatFragment"
+        android:label="PrescriptionFormatFragment" >
+        <argument
+            android:name="patientsItem"
+            app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
     </fragment>
 </navigation>

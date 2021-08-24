@@ -2,11 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/grp1">
-        <item android:id="@+id/add_prescrip"
-            android:title="ADD PRESCRIPTION" />
+        <item android:id="@+id/add_digital_prescrip"
+            android:title="ADD DIGITAL PRESCRIP" />
+    </group>
+    <group android:id="@+id/grp2">
+        <item android:id="@+id/add_manual_prescrip"
+            android:title="ADD MANUAL PRESCRIP" />
     </group>
 
-    <group android:id="@+id/grp2">
+    <group android:id="@+id/grp3">
         <item android:id="@+id/view_prescrip"
             android:title="VIEW PRESCRIPTION" />
 

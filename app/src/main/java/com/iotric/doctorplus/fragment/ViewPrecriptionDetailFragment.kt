@@ -33,7 +33,7 @@ class ViewPrecriptionDetailFragment : BaseFragment() {
 
     private fun initView() {
         args.prescripItem.image?.forEach {
-                Glide.with(requireContext()).load(it).into(binding.ivReport)
+                Glide.with(requireContext()).load(it).into(binding.ivPrescrip)
             }
         }
 }

@@ -109,4 +109,7 @@ dependencies {
     //Circular Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    // Drawing Canvas Library
+    compile 'me.panavtec:drawableview:0.6.0'
+
 }

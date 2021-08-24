@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/app_bar_main"
+        android:visibility="visible" />
+
+    <me.panavtec.drawableview.DrawableView
+        android:id="@+id/drawingPad"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        android:background="@color/white"
+        android:visibility="visible"
+        android:layout_above="@+id/drawingPan"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/drawingPan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_primaryDark"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/draw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_draw_24" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/erase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_delete_forever_24" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_color_lens_24" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_save_24" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

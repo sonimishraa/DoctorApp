@@ -103,7 +103,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         val id = item?.itemId
         when (id) {
-            R.id.add_prescrip -> {
+            R.id.add_manual_prescrip -> {
                 val patientId = args.result
                 val action =
                     PatientRecordFragmentDirections.actionPatientRecordFragmentToAddPrescripFragment(
@@ -111,14 +111,22 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
                     )
                 findNavController().navigate(action)
             }
-             R.id.view_prescrip -> {
-                 val id = args.result
-                  val action =
-                     PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPrescripFragment(id)
-                 findNavController().navigate(action)
-               /* val action =
-                    PatientRecordFragmentDirections.actionPatientRecordFragmentToPrescriptionFragment()
-                findNavController().navigate(action)*/
+            R.id.add_digital_prescrip -> {
+                val patientId = args.result
+                val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToDigitalPrescriptionFragment(patientId)
+                findNavController().navigate(action)
+
+            }
+            R.id.view_prescrip -> {
+                val id = args.result
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToViewPrescripFragment(
+                        id
+                    )
+                findNavController().navigate(action)
+                /* val action =
+                     PatientRecordFragmentDirections.actionPatientRecordFragmentToPrescriptionFragment()
+                 findNavController().navigate(action)*/
             }
             R.id.add_report -> {
                 val patientId = args.result
@@ -141,13 +149,13 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         return super.onOptionsItemSelected(item!!)
     }
 
+
     private fun reportDropdown() {
         val popup = PopupMenu(requireContext(), binding.tvReport)
         popup.getMenuInflater().inflate(R.menu.report_dropdown, popup.getMenu())
         MenuCompat.setGroupDividerEnabled(popup.menu, true)
         popup.setOnMenuItemClickListener(this)
         popup.show()
-
     }
 
     private fun prisDropDown() {

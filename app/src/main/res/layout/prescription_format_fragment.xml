@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:gravity="top">
+    android:orientation="vertical">
+
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar_main"
@@ -23,7 +23,6 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -141,7 +140,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Patient's Details"
-                    android:gravity="start"
                     android:layout_marginTop="@dimen/small_margin"
                     android:textSize="18dp"
                     android:textColor="@color/black"
@@ -309,13 +307,11 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_prescrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/small_padding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 android:src="@drawable/rose"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.core.widget.NestedScrollView>
-
 </androidx.appcompat.widget.LinearLayoutCompat>

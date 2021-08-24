@@ -104,6 +104,7 @@ class AddPatientFragment : BaseFragment() {
             dismissLoading()
             toastMessage(it.message.toString())
             view?.post {
+                val action = AddPatientFragmentDirections.actionAddfragmentToPatientList()
                 findNavController().popBackStack()
             }
         })
