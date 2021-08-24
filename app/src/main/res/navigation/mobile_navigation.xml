@@ -281,7 +281,7 @@
     </fragment>-->
     <fragment
         android:id="@+id/viewPatientReportFragment"
-        android:name="com.iotric.doctorplus.fragment.ViewPatientReportFragment"
+        android:name="com.iotric.doctorplus.fragment.PatientReportListFragment"
         android:label="VIEW PATIENT REPORT">
 
         <argument
@@ -320,7 +320,7 @@
 
     <fragment
         android:id="@+id/viewReportFragment"
-        android:name="com.iotric.doctorplus.fragment.ViewReportFragment"
+        android:name="com.iotric.doctorplus.fragment.ReportDetailFragment"
         android:label="REPORT"
         tools:layout="@layout/fragment_view_report" >
         <argument
@@ -342,7 +342,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewPatientPrescripFragment"
-        android:name="com.iotric.doctorplus.fragment.ViewPatientPrescripFragment"
+        android:name="com.iotric.doctorplus.fragment.PatientPrescripListFragment"
         android:label="ViewPrescripFragment" >
         <argument
             android:name="patientId"
@@ -380,7 +380,7 @@
         android:label="Privacy" />
     <fragment
         android:id="@+id/viewPrecriptionDetailFragment"
-        android:name="com.iotric.doctorplus.fragment.ViewPrecriptionDetailFragment"
+        android:name="com.iotric.doctorplus.fragment.PrecriptionDetailFragment"
         android:label="ViewPrecriptionDetailFragment" >
         <argument
             android:name="prescripItem"
@@ -400,12 +400,12 @@
             android:id="@+id/action_digitalPrescriptionFragment_to_addPrescripFragment"
             app:destination="@id/addPrescripFragment" />
     </fragment>
-    <fragment
+    <!--<fragment
         android:id="@+id/prescriptionFormatFragment"
         android:name="com.iotric.doctorplus.fragment.PrescriptionFormatFragment"
         android:label="PrescriptionFormatFragment" >
         <argument
             android:name="patientsItem"
             app:argType="com.iotric.doctorplus.model.response.PatientsItem" />
-    </fragment>
+    </fragment>-->
 </navigation>

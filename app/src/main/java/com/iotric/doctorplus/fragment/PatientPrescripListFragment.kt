@@ -13,12 +13,12 @@ import com.iotric.doctorplus.model.response.Data
 import com.iotric.doctorplus.model.response.PrecriptionItem
 import com.iotric.doctorplus.viewmodel.ViewPrescripViewModel
 
-class ViewPatientPrescripFragment : BaseFragment() {
+class PatientPrescripListFragment : BaseFragment() {
 
     val viewModelView: ViewPrescripViewModel by viewModels()
     lateinit var binding: ViewPrescripFragmentBinding
     lateinit var viewPrescripAdapter: ViewPrescripAdapter
-    val args: ViewPatientPrescripFragmentArgs by navArgs()
+    val args: PatientPrescripListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +40,11 @@ class ViewPatientPrescripFragment : BaseFragment() {
         viewPrescripAdapter =
             ViewPrescripAdapter(object : ViewPrescripAdapter.ItemClickListener {
                 override fun onImageViewClick(item: PrecriptionItem) {
-                    val action = ViewPatientPrescripFragmentDirections.actionViewPatientPrescripFragmentToViewPrecriptionDetailFragment(item)
+                    val action = PatientPrescripListFragmentDirections.actionViewPatientPrescripFragmentToViewPrecriptionDetailFragment(item)
                     findNavController().navigate(action)
                 }
 
-                override fun onDeleteClick(item: PrecriptionItem) {
+                /*override fun onDeleteClick(item: PrecriptionItem) {
                     val patientId = args.patientId.id
                     val reportId = item.id
                     if (reportId != null) {
@@ -54,7 +54,7 @@ class ViewPatientPrescripFragment : BaseFragment() {
                             requireActivity().application
                         )
                     }
-                }
+                }*/
 
             })
         binding.recyclerView.adapter = viewPrescripAdapter

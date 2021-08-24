@@ -54,15 +54,15 @@ class ViewPrescripAdapter(val listener: ItemClickListener) :
             imageView.setOnClickListener {
                 listener.onImageViewClick(getItem(position))
             }
-            btnDelete.setOnClickListener {
+         /*   btnDelete.setOnClickListener {
                 listener.onDeleteClick(getItem(position))
-            }
+            }*/
         }
     }
 
 
     interface ItemClickListener {
         fun onImageViewClick(item: PrecriptionItem)
-        fun onDeleteClick(item: PrecriptionItem)
+        //fun onDeleteClick(item: PrecriptionItem)
     }
 }

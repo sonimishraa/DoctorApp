@@ -14,12 +14,12 @@ import com.iotric.doctorplus.viewmodel.ViewPatientRecordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ViewPatientReportFragment : BaseFragment() {
+class PatientReportListFragment : BaseFragment() {
     var myDownloadId: Long = 0
     val viewModelView: ViewPatientRecordViewModel by viewModels()
     lateinit var patientReportAdapter: PatientReportAdapter
     lateinit var binding: ViewPatientReportFragmentBinding
-    val args: ViewPatientReportFragmentArgs by navArgs()
+    val args: PatientReportListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +41,7 @@ class ViewPatientReportFragment : BaseFragment() {
         patientReportAdapter =
             PatientReportAdapter(object : PatientReportAdapter.ItemClickListener {
                 override fun onImageViewClick(item: ReportItem) {
-                   val action = ViewPatientReportFragmentDirections.actionViewPatientReportFragmentToViewReportFragment(item)
+                   val action = PatientReportListFragmentDirections.actionViewPatientReportFragmentToViewReportFragment(item)
                     findNavController().navigate(action)
                 }
 
