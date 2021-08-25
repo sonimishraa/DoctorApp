@@ -55,13 +55,26 @@ object FileUtil {
         }
     }
 
-    fun cameraClickFile(context: Context, uri: Uri): MultipartBody.Part? {
-        val tempFile = createTempFile(context, "hello", ".jpg")
-        val filePath = tempFile.absolutePath
-        val requestFile: RequestBody =
-            File(filePath).asRequestBody("multipart/form-data".toMediaTypeOrNull())
-        val body: MultipartBody.Part =
-            MultipartBody.Part.createFormData("images", "hello.jpg", requestFile)
-        return body
+
+    fun selectFileNameForProfileUpdate(context: Context, uri: Uri): MultipartBody.Part? {
+        context.contentResolver.openInputStream(uri)?.use { inputStream ->
+            // STEP 1: Create a tempFile for storing the image from scoped storage.
+            val tempFile = createTempFile(context, "hello", ".jpg")
+
+            // STEP 2: copy inputStream into the tempFile
+            copyStreamToFile(inputStream, tempFile)
+
+            // STEP 3: get file path from tempFile for further upload process.
+            val filePath = tempFile.absolutePath
+
+            val requestFile: RequestBody =
+                File(filePath).asRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val body: MultipartBody.Part =
+                MultipartBody.Part.createFormData("image", "hello.jpg", requestFile)
+            return body
+        }
+        return null
     }
+
+
 }

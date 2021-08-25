@@ -140,7 +140,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Patient's Details"
+                    android:text="Patient Details"
                     android:gravity="start"
                     android:layout_marginTop="@dimen/small_margin"
                     android:textSize="18dp"

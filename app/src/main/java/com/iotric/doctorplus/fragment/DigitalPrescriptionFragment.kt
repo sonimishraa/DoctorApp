@@ -101,8 +101,8 @@ class DigitalPrescriptionFragment : BaseFragment() {
     private fun dialogue() {
         val saveDialog: android.app.AlertDialog.Builder =
             android.app.AlertDialog.Builder(requireContext())
-        saveDialog.setTitle("Save drawing")
-        saveDialog.setMessage("Save drawing to device Gallery?")
+        saveDialog.setTitle("Save Prescription")
+        saveDialog.setMessage("Save Prescription to device Gallery?")
         saveDialog.setPositiveButton(
             "Yes",
             DialogInterface.OnClickListener { dialog, which -> // First check for permissions
@@ -146,11 +146,11 @@ class DigitalPrescriptionFragment : BaseFragment() {
         if (compressAndSaveImage(storedImagePath, drawableView.drawToBitmap())) {
             val savedToast = Toast.makeText(
                 requireContext(),
-                "Drawing saved to Gallery!", Toast.LENGTH_SHORT
+                "Prescription saved to Gallery!", Toast.LENGTH_SHORT
             )
             savedToast.show()
         } else {
-            toastMessage("Oops! Image could not be saved.")
+            toastMessage("Oops! Prescription could not be saved.")
         }
 
         val url: Uri =
