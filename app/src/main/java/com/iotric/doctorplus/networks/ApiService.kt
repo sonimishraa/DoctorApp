@@ -7,13 +7,15 @@ import com.iotric.doctorplus.utils.Constants.ADD_PATIENT
 import com.iotric.doctorplus.utils.Constants.ADD_PATIENT_REPORT
 import com.iotric.doctorplus.utils.Constants.ADD_PRESCRIPTION
 import com.iotric.doctorplus.utils.Constants.CHANGE_DR_PROFILE
+import com.iotric.doctorplus.utils.Constants.CHANGE_PASSWORD
 import com.iotric.doctorplus.utils.Constants.CHANGE_PATIENT_STATUS
 import com.iotric.doctorplus.utils.Constants.CLOSE_CASE_PATIENT_LIST
 import com.iotric.doctorplus.utils.Constants.DELETE_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.DELETE_PATIENT
 import com.iotric.doctorplus.utils.Constants.DELETE_REPORT
 import com.iotric.doctorplus.utils.Constants.DOCTOR_LOGIN
-import com.iotric.doctorplus.utils.Constants.FORGET_PASSWORD_OTP
+import com.iotric.doctorplus.utils.Constants.FORGET_PASSWORD_OTP_VERIFICATION
+import com.iotric.doctorplus.utils.Constants.FORGET_PASSWORD_SEND_OTP
 import com.iotric.doctorplus.utils.Constants.GET_DAILY_APPOINTMENT
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_ID
 import com.iotric.doctorplus.utils.Constants.GET_DOCTOR_NUMBER
@@ -54,8 +56,14 @@ interface ApiService {
         @Body updateDoctorRequest: UpdateDoctorRequest
     ): Call<UpdateDoctorResponse>
 
-    @POST(FORGET_PASSWORD_OTP)
+    @POST(FORGET_PASSWORD_SEND_OTP)
     fun forgetPasswordOtp(@Body forgetPassword: ForgetPasswordOtpRequest): Call<ForgetPasswordOtpResponse>
+
+    @POST(FORGET_PASSWORD_OTP_VERIFICATION)
+    fun verifyOtp(@Body verifyOtpRequest: OtpVerificationRequest): Call<OtpVerificationResponse>
+
+    @POST(CHANGE_PASSWORD)
+    fun changePassword(@Body changepasswordRequest: ChangePasswordRequest): Call<ChangePasswordResponse>
 
     @Multipart
     @POST(CHANGE_DR_PROFILE)

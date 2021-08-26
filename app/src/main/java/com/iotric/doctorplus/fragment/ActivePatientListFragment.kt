@@ -77,10 +77,8 @@ class ActivePatientListFragment : BaseFragment() {
                 findNavController().navigate(action)
             }
 
-            override fun onPatientProfileClick(result: PatientsItem) {
-                val action =
-                    ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
-                findNavController().navigate(action)
+            override fun onPatientPreExamine(result: PatientsItem) {
+
             }
 
             override fun onUpdateProfile(result: PatientsItem) {

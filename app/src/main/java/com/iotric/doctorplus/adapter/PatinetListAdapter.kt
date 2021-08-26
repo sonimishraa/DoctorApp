@@ -57,9 +57,9 @@ class PatinetListAdapter(val listener: ItemClickListener) :
             popup.menuInflater.inflate(R.menu.more_option_menu, popup.menu)
             popup.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    /*R.id.patient_profile -> {
-                        listener.onPatientProfileClick(item)
-                    }*/
+                    R.id.patient_preExamine -> {
+                        listener.onPatientPreExamine(item)
+                    }
                     R.id.update_profile -> {
                         listener.onUpdateProfile(item)
                     }
@@ -99,7 +99,7 @@ class PatinetListAdapter(val listener: ItemClickListener) :
     }
     interface ItemClickListener {
         //fun onDeleteClick(result: PatientsItem)
-        fun onPatientProfileClick(result: PatientsItem)
+        fun onPatientPreExamine(result: PatientsItem)
         fun onUpdateProfile(result: PatientsItem)
         fun onChangeStatus(result: PatientsItem)
         fun onBookAppointmentClick(result: PatientsItem)

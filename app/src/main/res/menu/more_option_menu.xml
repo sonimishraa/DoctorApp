@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-   <!-- <item
-        android:id="@+id/patient_profile"
+    <item
+        android:id="@+id/patient_preExamine"
         android:orderInCategory="100"
-        android:title="Patient Profile"
-        app:showAsAction="never" />-->
+        android:title="Patient PreExamine"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/update_profile"

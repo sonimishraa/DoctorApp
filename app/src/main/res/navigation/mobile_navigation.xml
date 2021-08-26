@@ -11,6 +11,7 @@
         android:label="@string/navigation_home"
         tools:layout="@layout/home_fragment" />-->
 
+ <!--Drawer Item-->
 
     <fragment
         android:id="@+id/navigation_lab"
@@ -25,89 +26,21 @@
         tools:layout="@layout/notification_fragment" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.iotric.doctorplus.fragment.DashboardFragments"
-        android:label="DASHBOARD"
-        tools:layout="@layout/dashboard_fragment">
-
-        <action
-            android:id="@+id/action_closeCase_fragment"
-            app:destination="@+id/closePatient_fragment" />
-
-       <!-- <action
-            android:id="@+id/action_myPatientList_fragment"
-            app:destination="@+id/myPatientList_fragment" />-->
-
-        <action
-            android:id="@+id/action_patientList_fragment"
-            app:destination="@+id/patient_list_fragement" />
-
-
-        <action
-            android:id="@+id/action_add_patient"
-            app:destination="@+id/add_patient_fragment" />
-
-        <action
-            android:id="@+id/action_profile_fragment"
-            app:destination="@+id/navigation_profile" />
-
-        <action
-            android:id="@+id/action_appointment_fragment"
-            app:destination="@+id/navigation_appointment" />
-
-        <action
-            android:id="@+id/action_lab_fragment"
-            app:destination="@+id/navigation_lab" />
-
-        <action
-            android:id="@+id/action_notifications"
-            app:destination="@+id/navigation_notifications" />
-
-        <action
-            android:id="@+id/action_faq_fragment"
-            app:destination="@+id/navigation_faq" />
-        <action
-            android:id="@+id/action_terms_Fragment"
-            app:destination="@+id/navigation_terms" />
-
-        <action
-            android:id="@+id/action_privacy_fragment"
-            app:destination="@+id/navigation_privacy" />
-
-        <action
-            android:id="@+id/action_logout_fragment"
-            app:destination="@+id/navigation_logout" />
-
-
-    </fragment>
-
+        android:id="@+id/faqFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_FaqFragment"
+        android:label="FaqFragment" />
     <fragment
-        android:id="@+id/myPatientList_fragment"
-        android:name="com.iotric.doctorplus.fragment.MyPatientListFragment"
-        android:label="MY PATIENT LIST"
-        tools:layout="@layout/my_patient_list_fragment">
-
-       <!-- <action
-            android:id="@+id/action_patientRecords_fragment"
-            app:destination="@id/patientRecordFragment" />
-
-        <action
-            android:id="@+id/action_Update_patient_fragment"
-            app:destination="@id/patientUpdateLDialogFragment" />
-
-        <action
-            android:id="@+id/action_appointment_fragment"
-            app:destination="@+id/bookAppointentFragment"/>-->
-    </fragment>
-
+        android:id="@+id/blogsFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_BlogsFragment"
+        android:label="Hilt_BlogsFragment" />
     <fragment
-        android:id="@+id/closePatient_fragment"
-        android:name="com.iotric.doctorplus.fragment.CloseCasePatientList"
-        android:label="INACTIVE PATIENT LIST"
-        tools:layout="@layout/close_patient_list">
-
-    </fragment>
-
+        android:id="@+id/termsConditionFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_TermsConditionFragment"
+        android:label="Hilt_TermsConditionFragment" />
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.iotric.doctorplus.fragment.Hilt_PrivacyFragment"
+        android:label="Privacy" />
 
     <fragment
         android:id="@+id/navigation_profile"
@@ -168,6 +101,95 @@
         android:label="@string/nav_logout">
     </dialog>
 
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.iotric.doctorplus.fragment.DashboardFragments"
+        android:label="DASHBOARD"
+        tools:layout="@layout/dashboard_fragment">
+
+        <action
+            android:id="@+id/action_closeCase_fragment"
+            app:destination="@+id/closePatient_fragment" />
+
+       <!-- <action
+            android:id="@+id/action_myPatientList_fragment"
+            app:destination="@+id/myPatientList_fragment" />-->
+
+        <action
+            android:id="@+id/action_patientList_fragment"
+            app:destination="@+id/patient_list_fragement" />
+
+
+        <action
+            android:id="@+id/action_add_patient"
+            app:destination="@+id/add_patient_fragment" />
+
+        <action
+            android:id="@+id/action_profile_fragment"
+            app:destination="@+id/navigation_profile" />
+
+        <action
+            android:id="@+id/action_appointment_fragment"
+            app:destination="@+id/navigation_appointment" />
+
+        <action
+            android:id="@+id/action_lab_fragment"
+            app:destination="@+id/navigation_lab" />
+
+        <action
+            android:id="@+id/action_notifications"
+            app:destination="@+id/navigation_notifications" />
+
+        <action
+            android:id="@+id/action_faq_fragment"
+            app:destination="@+id/navigation_faq" />
+        <action
+            android:id="@+id/action_terms_Fragment"
+            app:destination="@+id/navigation_terms" />
+
+        <action
+            android:id="@+id/action_privacy_fragment"
+            app:destination="@+id/navigation_privacy" />
+
+        <action
+            android:id="@+id/action_logout_fragment"
+            app:destination="@+id/navigation_logout" />
+
+
+    </fragment>
+
+    <!--Patient List unsed-->
+
+    <fragment
+        android:id="@+id/myPatientList_fragment"
+        android:name="com.iotric.doctorplus.fragment.MyPatientListFragment"
+        android:label="MY PATIENT LIST"
+        tools:layout="@layout/my_patient_list_fragment">
+
+       <!-- <action
+            android:id="@+id/action_patientRecords_fragment"
+            app:destination="@id/patientRecordFragment" />
+
+        <action
+            android:id="@+id/action_Update_patient_fragment"
+            app:destination="@id/patientUpdateLDialogFragment" />
+
+        <action
+            android:id="@+id/action_appointment_fragment"
+            app:destination="@+id/bookAppointentFragment"/>-->
+    </fragment>
+
+    <!--Close Patient list-->
+
+    <fragment
+        android:id="@+id/closePatient_fragment"
+        android:name="com.iotric.doctorplus.fragment.CloseCasePatientList"
+        android:label="INACTIVE PATIENT LIST"
+        tools:layout="@layout/close_patient_list">
+
+    </fragment>
+
+
 
     <fragment
         android:id="@+id/patient_list_fragement"
@@ -193,6 +215,9 @@
         <action
             android:id="@+id/action_patient_list_fragement_to_reportUploadFragment"
             app:destination="@id/reportUploadFragment" />
+        <action
+            android:id="@+id/action_patient_list_fragement_to_patientPreExamineFragment"
+            app:destination="@id/patientPreExamineFragment" />
     </fragment>
 
     <fragment
@@ -362,22 +387,7 @@
             android:name="prescriptionItem"
             app:argType="com.iotric.doctorplus.model.response.PrecriptionItem" />
     </fragment>
-    <fragment
-        android:id="@+id/faqFragment"
-        android:name="com.iotric.doctorplus.fragment.Hilt_FaqFragment"
-        android:label="FaqFragment" />
-    <fragment
-        android:id="@+id/blogsFragment"
-        android:name="com.iotric.doctorplus.fragment.Hilt_BlogsFragment"
-        android:label="Hilt_BlogsFragment" />
-    <fragment
-        android:id="@+id/termsConditionFragment"
-        android:name="com.iotric.doctorplus.fragment.Hilt_TermsConditionFragment"
-        android:label="Hilt_TermsConditionFragment" />
-    <fragment
-        android:id="@+id/privacyFragment"
-        android:name="com.iotric.doctorplus.fragment.Hilt_PrivacyFragment"
-        android:label="Privacy" />
+
     <fragment
         android:id="@+id/viewPrecriptionDetailFragment"
         android:name="com.iotric.doctorplus.fragment.PrecriptionDetailFragment"
@@ -400,6 +410,11 @@
             android:id="@+id/action_digitalPrescriptionFragment_to_addPrescripFragment"
             app:destination="@id/addPrescripFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/patientPreExamineFragment"
+        android:name="com.iotric.doctorplus.fragment.PatientPreExamineFragment"
+        android:label="patient_pre_examine_fragment"
+        tools:layout="@layout/patient_pre_examine_fragment" />
     <!--<fragment
         android:id="@+id/prescriptionFormatFragment"
         android:name="com.iotric.doctorplus.fragment.PrescriptionFormatFragment"

@@ -23,7 +23,7 @@ class LoginActivity : BaseActivity() {
     val viewModel by viewModels<LoginActivityViewModel>()
     lateinit var binding1: ChangePasswordDialogueBinding
     lateinit var alertDialogue: AlertDialog
-    lateinit var number: String
+    lateinit var userid: String
     lateinit var password: String
     lateinit var editNumber: String
 
@@ -119,7 +119,7 @@ class LoginActivity : BaseActivity() {
 
     private fun loginDoctor() {
         if (validateFields()) {
-            val loginRequest = DoctorLoginRequest(number, password)
+            val loginRequest = DoctorLoginRequest(userid, password)
             viewModel.fetchLoginRequest(loginRequest, application)
         } else
             snackBar(getString(R.string.mendatory_field_message), binding.root)
@@ -127,19 +127,15 @@ class LoginActivity : BaseActivity() {
 
     private fun validateFields(): Boolean {
         var isAllFieldValidate = true
-        number = binding.editPhone.text.toString().trim()
+        userid = binding.editPhone.text.toString().trim()
         password = binding.editPassword.text.toString().trim()
 
-        if (number.isEmpty()) {
+        if (userid.isEmpty()) {
             binding.layoutEditNumber.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else if (number.length < 10) {
-            binding.layoutEditNumber.setError(getString(R.string.Phone_number_validation))
-            isAllFieldValidate = false
-        } else {
+        }  else {
             binding.layoutEditNumber.setError(null)
         }
-
         if (password.isEmpty()) {
             binding.layoutEditPassword.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
