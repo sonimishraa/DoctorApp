@@ -35,7 +35,7 @@
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name*"
+                    android:hint="Name"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,7 +51,7 @@
                     android:id="@+id/edit_contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contact*"
+                    android:hint="Contact"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
                     android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email*"
+                    android:hint="Email"
                     android:visibility="gone" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,8 +84,23 @@
                     android:id="@+id/edit_age"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Age*"
+                    android:hint="Age"
                     android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_bloodgroup"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_bloodgroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Blood Group" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -100,8 +115,78 @@
                     android:id="@+id/healthIssue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Health Issue*"
+                    android:hint="Health Issue"
                     android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:drawableStart="@drawable/ic_baseline_home_24"
+                android:gravity="start"
+                android:textSize="16dp"
+                android:drawablePadding="@dimen/small_padding"
+                android:text="Home Address"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_addressHome"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_addressHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Home Address"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:drawableStart="@drawable/business_address"
+                android:drawablePadding="@dimen/small_padding"
+                android:textSize="16dp"
+                android:gravity="start"
+                android:text="Business Address"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_CompanyName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_companyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Company Name"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_campanyAddress"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_companyAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Company Address"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>

@@ -33,6 +33,8 @@ class PatientUpdateFragment : BaseFragment() {
     lateinit var age: String
     lateinit var email: String
     lateinit var healthIssue:String
+    lateinit var address:String
+    lateinit var bloodGroup:String
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateFragmentArgs by navArgs()
@@ -100,7 +102,7 @@ class PatientUpdateFragment : BaseFragment() {
         if (validateFields()) {
             val id = args.result.id ?: ""
             val updatePatient = UpdatePatientRequest(
-                pname = name, pphone = phone, age = age, healthIssue = healthIssue )
+                pname = name, pphone = phone, age = age, healthIssue = healthIssue,address = address,bloodgroup = bloodGroup )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
 
         } else
@@ -117,8 +119,11 @@ class PatientUpdateFragment : BaseFragment() {
         phone = binding.editContact.text.toString()
         age = binding.editAge.text.toString()
         healthIssue = binding.healthIssue.text.toString()
+        address = binding.editAddressHome.text.toString()
+        bloodGroup = binding.editBloodgroup.text.toString()
 
-        if (name.isEmpty()) {
+
+       /* if (name.isEmpty()) {
             binding.layoutEditName.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
         } else {
@@ -140,7 +145,7 @@ class PatientUpdateFragment : BaseFragment() {
         if (healthIssue.isEmpty()) {
             binding.layoutHealthIssue.setError(getString(R.string.empty_field_message))
             isAllFieldValidate = false
-        } else binding.layoutHealthIssue.setError(null)
+        } else binding.layoutHealthIssue.setError(null)*/
 
         return isAllFieldValidate
     }

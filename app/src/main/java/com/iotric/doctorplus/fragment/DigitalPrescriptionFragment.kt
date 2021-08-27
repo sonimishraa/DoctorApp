@@ -1,6 +1,7 @@
 package com.iotric.doctorplus.fragment
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.DialogInterface
@@ -24,7 +25,9 @@ import androidx.core.view.drawToBitmap
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
+import com.iotric.doctorplus.databinding.ChangePasswordDialogueBinding
 import com.iotric.doctorplus.databinding.DigitalPrescriptionFragmentBinding
+import com.iotric.doctorplus.databinding.PrescriptionSaveDialogueBinding
 import me.panavtec.drawableview.DrawableView
 import me.panavtec.drawableview.DrawableViewConfig
 import java.io.File
@@ -41,6 +44,10 @@ class DigitalPrescriptionFragment : BaseFragment() {
     lateinit var drawableView: DrawableView
     val args: DigitalPrescriptionFragmentArgs by navArgs()
     lateinit var binding: DigitalPrescriptionFragmentBinding
+    lateinit var binding1:PrescriptionSaveDialogueBinding
+    lateinit var alertDialogue:AlertDialog
+    lateinit var name:String
+    lateinit var date:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -90,12 +97,36 @@ class DigitalPrescriptionFragment : BaseFragment() {
         }
         binding.save.setOnClickListener {
             drawableView.obtainBitmap()
-            dialogue()
+            alertDialogue()
         }
         binding.back.setOnClickListener {
 
             drawableView.undo()
         }
+    }
+
+    private fun alertDialogue(){
+        val builder = AlertDialog.Builder(requireContext())
+        binding1 = PrescriptionSaveDialogueBinding.inflate(layoutInflater)
+        val view = binding1.root
+        builder.setCancelable(false)
+        builder.setView(view)
+        alertDialogue = builder.create()
+        alertDialogue.show()
+        val btnCancel = binding1.btCancel
+        val btnSend = binding1.btSave
+
+        btnSend.setOnClickListener {
+            if (validateDialogue()) {
+                checkPermissionAndSave()
+                alertDialogue.dismiss()
+            }
+
+        }
+        btnCancel.setOnClickListener {
+            alertDialogue.dismiss()
+        }
+        alertDialogue.setCanceledOnTouchOutside(true)
     }
 
     private fun dialogue() {
@@ -106,27 +137,7 @@ class DigitalPrescriptionFragment : BaseFragment() {
         saveDialog.setPositiveButton(
             "Yes",
             DialogInterface.OnClickListener { dialog, which -> // First check for permissions
-                if (ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
-                    ActivityCompat.requestPermissions(
-                        requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
-                    )
-                    saveDrawing()
-
-                } else {
-                    saveDrawing()
-                    val patientId = args.patiensItem
-                    val action =
-                        DigitalPrescriptionFragmentDirections.actionDigitalPrescriptionFragmentToAddPrescripFragment(
-                            patientId
-                        )
-                    findNavController().navigate(action)
-                }
+                checkPermissionAndSave()
 
             })
         saveDialog.setNegativeButton(
@@ -136,6 +147,51 @@ class DigitalPrescriptionFragment : BaseFragment() {
 
             })
         saveDialog.show()
+    }
+
+    private fun checkPermissionAndSave() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE
+            )
+            saveDrawing()
+
+        } else {
+            saveDrawing()
+            val patientId = args.patiensItem
+            val action =
+                DigitalPrescriptionFragmentDirections.actionDigitalPrescriptionFragmentToAddPrescripFragment(
+                    patientId
+                )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun validateDialogue(): Boolean {
+        var isAllFieldValidate = true
+        name = binding1.editName.text.toString().trim()
+        date = binding1.editDate.text.toString().trim()
+
+        if (name.isEmpty()) {
+            binding1.layoutEditName.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else {
+            binding1.layoutEditName.setError(null)
+        }
+
+        if (date.isEmpty()) {
+            binding1.layoutEditDate.setError(getString(R.string.empty_field_message))
+            isAllFieldValidate = false
+        } else {
+            binding1.layoutEditDate.setError(null)
+        }
+        return isAllFieldValidate
     }
 
     private fun saveDrawing() {
@@ -160,8 +216,8 @@ class DigitalPrescriptionFragment : BaseFragment() {
 
     private fun addImageToGallery(cr: ContentResolver, imgType: String, filepath: File): Uri? {
         val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "image-drawingfun")
-        values.put(MediaStore.Images.Media.DISPLAY_NAME, "drawingfun")
+        values.put(MediaStore.Images.Media.TITLE, "Prescription")
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, name)
         values.put(MediaStore.Images.Media.DESCRIPTION, "")
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/$imgType")
         values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis())

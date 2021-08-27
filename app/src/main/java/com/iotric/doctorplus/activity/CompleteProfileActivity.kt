@@ -13,6 +13,7 @@ import com.iotric.doctorplus.model.request.UpdateDoctorRequest
 import com.iotric.doctorplus.util.UtilClass
 import com.iotric.doctorplus.viewmodel.EditDoctorProfileViewModel
 
+// not working
 class CompleteProfileActivity : BaseActivity() {
     var hr = 0
     var min = 0
