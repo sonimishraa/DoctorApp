@@ -97,8 +97,22 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         binding.tvEmail.text = argsItem.pemail
         binding.tvBloogGroup.text = argsItem.bloodgroup
         binding.tvAge.text = argsItem.age + " " + "Years"
-        argsItem.address?.forEach {
-            binding.tvAddress.text = it
+        argsItem.address?.forEachIndexed { index, s ->
+            when (index) {
+                0 -> {
+                    binding.tvStreet.text = s
+                }
+                1 -> {
+                    binding.tvCity.text= s
+                }
+                2->{
+                    binding.tvState.text = s
+                }
+                3 -> {
+                    binding.tvZipcode.text = s
+                }
+            }
+
 
         }
         if (argsItem.gender == "m") {

@@ -13,9 +13,9 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/btn_layout"
         android:layout_below="@id/appbar"
-        android:overScrollMode="always"
-        android:layout_above="@+id/btn_layout">
+        android:overScrollMode="always">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -32,17 +32,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
-                android:visibility="gone"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_uploadPris"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Upload Priscription*"
+                    android:drawableEnd="@drawable/ic_baseline_image_24"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:drawableEnd="@drawable/ic_baseline_image_24" />
+                    android:hint="Upload Priscription*" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -67,8 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
-                android:visibility="visible"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_email"
@@ -123,12 +123,12 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/autotext_gender"
-                    android:padding="@dimen/medium_padding"
-                    android:layout_marginBottom="@dimen/small_margin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/small_margin"
                     android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24"
-                    android:hint="Gender*" />
+                    android:hint="Gender*"
+                    android:padding="@dimen/medium_padding" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -136,9 +136,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_bloodgroup"
@@ -152,9 +152,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_symptoms"
@@ -169,27 +169,96 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
                 android:drawableStart="@drawable/ic_baseline_home_24"
-                android:gravity="start"
-                android:textSize="16dp"
                 android:drawablePadding="@dimen/small_padding"
-                android:text="Home Address"/>
+                android:gravity="start"
+                android:text="Home Address"
+                android:textSize="16dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_edit_address"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_address"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_streetAddress"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Home Address"
-                    android:inputType="text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_streetAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Street"
+                       android:inputType="textPostalAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_city"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_state"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="State"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_zipcode"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_zipcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Zipcode"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -197,18 +266,18 @@
                 android:layout_marginTop="@dimen/small_margin"
                 android:drawableStart="@drawable/business_address"
                 android:drawablePadding="@dimen/small_padding"
-                android:textSize="16dp"
                 android:gravity="start"
-                android:text="Business Address"/>
+                android:text="Business Address"
+                android:textSize="16dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_CompanyName"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_companyName"
@@ -217,14 +286,15 @@
                     android:hint="Company Name"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_campanyAddress"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_companyAddress"
@@ -247,8 +317,8 @@
             android:id="@+id/btnCancle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="1"
             android:text="Cancel"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -257,8 +327,8 @@
             android:id="@+id/btnAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="1"
             android:text="Register"
             android:textSize="15sp"
             android:textStyle="bold" />

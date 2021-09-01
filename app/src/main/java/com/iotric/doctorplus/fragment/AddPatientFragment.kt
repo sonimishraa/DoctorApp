@@ -30,6 +30,10 @@ class AddPatientFragment : BaseFragment() {
     lateinit var gender: String
     lateinit var bloodgroup: String
     lateinit var symptoms: String
+    lateinit var street:String
+    lateinit var city:String
+    lateinit var state:String
+    lateinit var zipcode:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +86,8 @@ class AddPatientFragment : BaseFragment() {
                 gender = gender,
                 age = age,
                 bloodgroup = bloodgroup,
-                symptoms = symptoms
+                symptoms = symptoms,
+                address = arrayListOf(street,city,state,zipcode)
             )
             viewModel.getApi(patient, requireActivity().application)
        /* else {
@@ -117,10 +122,13 @@ class AddPatientFragment : BaseFragment() {
         email = binding.editEmail.text.toString().trim()
         phone = binding.editPhone.text.toString().trim()
         age = binding.editAge.text.toString().trim()
-        //address = binding.editAddress.text.toString().trim()
         gender = binding.autotextGender.text.toString().trim()
         bloodgroup = binding.editBloodgroup.text.toString().trim()
         symptoms = binding.editSymptoms.text.toString().trim()
+        street = binding.editStreetAddress.text.toString().trim()
+        city = binding.editCity.text.toString().trim()
+        state = binding.editState.text.toString().trim()
+        zipcode = binding.editZipcode.text.toString().trim()
 
         if (age.isEmpty()) {
             binding.layoutEditAge.setError(getString(R.string.empty_field_message))
