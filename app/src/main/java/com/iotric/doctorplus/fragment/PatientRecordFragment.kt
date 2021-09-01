@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.github.drjacky.imagepicker.ImagePicker
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.PatientRecordFragmentsBinding
+import com.iotric.doctorplus.util.DateTimeUtil
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MultipartBody
 
@@ -90,10 +91,16 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         val argsItem = args.result
         Glide.with(requireContext()).load(argsItem.pic).into(binding.profileImage)
         binding.tvPatientId.text = argsItem.uniqueid
+        binding.startDate.text = DateTimeUtil.getSimpleDateFromUtc(argsItem.createdAt)
         binding.tvName.text = argsItem.pname
         binding.tvContact.text = argsItem.pphone
         binding.tvEmail.text = argsItem.pemail
+        binding.tvBloogGroup.text = argsItem.bloodgroup
         binding.tvAge.text = argsItem.age + " " + "Years"
+        argsItem.address?.forEach {
+            binding.tvAddress.text = it
+
+        }
         if (argsItem.gender == "m") {
             binding.tvGender.text = "Male"
         } else
@@ -113,7 +120,10 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
             }
             R.id.add_digital_prescrip -> {
                 val patientId = args.result
-                val action = PatientRecordFragmentDirections.actionPatientRecordFragmentToDigitalPrescriptionFragment(patientId)
+                val action =
+                    PatientRecordFragmentDirections.actionPatientRecordFragmentToDigitalPrescriptionFragment(
+                        patientId
+                    )
                 findNavController().navigate(action)
 
             }

@@ -27,6 +27,9 @@ data class PatientsItem(
 	@field:SerializedName("pic")
 	val pic: String? = null,
 
+	@field:SerializedName("bloodgroup")
+	val bloodgroup: String? = null,
+
 	@field:SerializedName("pphone")
 	val pphone: String? = null,
 

@@ -72,6 +72,7 @@ class ActivePatientListFragment : BaseFragment() {
     private fun initAdapter() {
         patientListAdapter = PatinetListAdapter(object : PatinetListAdapter.ItemClickListener {
             override fun onItemLayoutClick(result: PatientsItem) {
+
                 val action =
                     ActivePatientListFragmentDirections.actionPatientRecordsFragment(result)
                 findNavController().navigate(action)
