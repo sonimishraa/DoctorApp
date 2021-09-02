@@ -1,14 +1,10 @@
 package com.iotric.doctorplus.fragment
 
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -17,10 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.iotric.doctorplus.R
 import com.iotric.doctorplus.databinding.FragmentPatientUpdateBinding
 import com.iotric.doctorplus.model.request.UpdatePatientRequest
-import com.iotric.doctorplus.util.UtilClass
-import com.iotric.doctorplus.util.UtilClass.day
-import com.iotric.doctorplus.util.UtilClass.month
-import com.iotric.doctorplus.util.UtilClass.year
 import com.iotric.doctorplus.viewmodel.PatientUpdateViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,9 +24,13 @@ class PatientUpdateFragment : BaseFragment() {
     lateinit var phone: String
     lateinit var age: String
     lateinit var email: String
-    lateinit var healthIssue:String
-    lateinit var address:String
-    lateinit var bloodGroup:String
+    lateinit var healthIssue: String
+    lateinit var address: String
+    lateinit var bloodGroup: String
+    lateinit var street: String
+    lateinit var city: String
+    lateinit var state: String
+    lateinit var zipcode: String
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateFragmentArgs by navArgs()
@@ -83,7 +79,25 @@ class PatientUpdateFragment : BaseFragment() {
         binding.editName.setText(argsItem.pname.orEmpty())
         binding.editContact.setText(argsItem.pphone.orEmpty())
         binding.editAge.setText(argsItem.age)
+        binding.editBloodgroup.setText(argsItem.bloodgroup)
         binding.healthIssue.setText(argsItem.symtoms?.firstOrNull())
+        argsItem.address?.forEachIndexed { index, string ->
+            when (index) {
+                0 -> {
+                    binding.editStreetAddress.setText(string)
+                }
+                1 -> {
+                    binding.editCity.setText(string)
+                }
+                2 -> {
+                    binding.editState.setText(string)
+                }
+                3 -> {
+                    binding.editZipcode.setText(string)
+                }
+            }
+        }
+
     }
 
     private fun initListener() {
@@ -98,11 +112,18 @@ class PatientUpdateFragment : BaseFragment() {
         }
 
     }
+
     private fun updatePatient() {
         if (validateFields()) {
             val id = args.result.id ?: ""
             val updatePatient = UpdatePatientRequest(
-                pname = name, pphone = phone, age = age, healthIssue = healthIssue,address = address,bloodgroup = bloodGroup )
+                pname = name,
+                pphone = phone,
+                age = age,
+                healthIssue = healthIssue,
+                address = arrayListOf(street, city, state, zipcode),
+                bloodgroup = bloodGroup
+            )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
 
         } else
@@ -119,33 +140,36 @@ class PatientUpdateFragment : BaseFragment() {
         phone = binding.editContact.text.toString()
         age = binding.editAge.text.toString()
         healthIssue = binding.healthIssue.text.toString()
-        address = binding.editAddressHome.text.toString()
         bloodGroup = binding.editBloodgroup.text.toString()
+        street = binding.editStreetAddress.text.toString().trim()
+        city = binding.editCity.text.toString().trim()
+        state = binding.editState.text.toString().trim()
+        zipcode = binding.editZipcode.text.toString().trim()
 
 
-       /* if (name.isEmpty()) {
-            binding.layoutEditName.setError(getString(R.string.empty_field_message))
-            isAllFieldValidate = false
-        } else {
-            binding.layoutEditName.setError(null)
-        }
-        if (phone.isEmpty()) {
-            binding.layoutEditContact.setError(getString(R.string.empty_field_message))
-            isAllFieldValidate = false
-        } else if (phone.length < 10) {
-            binding.layoutEditContact.setError(getString(R.string.Phone_number_validation))
-            isAllFieldValidate = false
-        } else binding.layoutEditContact.setError(null)
+        /* if (name.isEmpty()) {
+             binding.layoutEditName.setError(getString(R.string.empty_field_message))
+             isAllFieldValidate = false
+         } else {
+             binding.layoutEditName.setError(null)
+         }
+         if (phone.isEmpty()) {
+             binding.layoutEditContact.setError(getString(R.string.empty_field_message))
+             isAllFieldValidate = false
+         } else if (phone.length < 10) {
+             binding.layoutEditContact.setError(getString(R.string.Phone_number_validation))
+             isAllFieldValidate = false
+         } else binding.layoutEditContact.setError(null)
 
-        if (age.isEmpty()) {
-            binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
-            isAllFieldValidate = false
-        } else binding.layoutEditAddress.setError(null)
+         if (age.isEmpty()) {
+             binding.layoutEditAddress.setError(getString(R.string.empty_field_message))
+             isAllFieldValidate = false
+         } else binding.layoutEditAddress.setError(null)
 
-        if (healthIssue.isEmpty()) {
-            binding.layoutHealthIssue.setError(getString(R.string.empty_field_message))
-            isAllFieldValidate = false
-        } else binding.layoutHealthIssue.setError(null)*/
+         if (healthIssue.isEmpty()) {
+             binding.layoutHealthIssue.setError(getString(R.string.empty_field_message))
+             isAllFieldValidate = false
+         } else binding.layoutHealthIssue.setError(null)*/
 
         return isAllFieldValidate
     }
