@@ -31,6 +31,10 @@ class PatientUpdateFragment : BaseFragment() {
     lateinit var city: String
     lateinit var state: String
     lateinit var zipcode: String
+    lateinit var companyStreet: String
+    lateinit var companyCity: String
+    lateinit var companyState: String
+    lateinit var companyZip: String
 
     private lateinit var binding: FragmentPatientUpdateBinding
     val args: PatientUpdateFragmentArgs by navArgs()
@@ -122,6 +126,7 @@ class PatientUpdateFragment : BaseFragment() {
                 age = age,
                 healthIssue = healthIssue,
                 address = arrayListOf(street, city, state, zipcode),
+                companyaddress = arrayListOf(companyStreet,companyCity,companyState,companyZip),
                 bloodgroup = bloodGroup
             )
             viewModel.getUpdateApi(id, updatePatient, requireActivity().application)
@@ -145,6 +150,10 @@ class PatientUpdateFragment : BaseFragment() {
         city = binding.editCity.text.toString().trim()
         state = binding.editState.text.toString().trim()
         zipcode = binding.editZipcode.text.toString().trim()
+        companyStreet = binding.conpanyStreetAddress.text.toString().trim()
+        companyCity = binding.companyCity.text.toString().trim()
+        companyState = binding.companyState.text.toString().trim()
+        companyZip = binding.companyZipcode.text.toString().trim()
 
 
         /* if (name.isEmpty()) {

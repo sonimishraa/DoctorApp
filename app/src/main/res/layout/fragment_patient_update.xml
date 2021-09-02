@@ -8,12 +8,13 @@
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar_main"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/layoutbtn"
         android:layout_below="@id/appbar">
 
 
@@ -85,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Age"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -116,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Health Issue"
-                    android:inputType="text"/>
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -124,10 +125,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
                 android:drawableStart="@drawable/ic_baseline_home_24"
-                android:gravity="start"
-                android:textSize="16dp"
                 android:drawablePadding="@dimen/small_padding"
-                android:text="Home Address"/>
+                android:gravity="start"
+                android:text="Home Address"
+                android:textSize="16dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -139,10 +140,10 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -158,9 +159,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -182,10 +183,10 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -201,9 +202,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -214,24 +215,25 @@
                         android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
                 android:drawableStart="@drawable/business_address"
                 android:drawablePadding="@dimen/small_padding"
-                android:textSize="16dp"
                 android:gravity="start"
-                android:text="Business Address"/>
+                android:text="Business Address"
+                android:textSize="16dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_campanyAddress"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
                 android:layout_marginTop="@dimen/small_margin"
-                android:layout_marginBottom="@dimen/small_margin">
+                android:layout_marginBottom="@dimen/small_margin"
+                android:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_companyAddress"
@@ -251,10 +253,10 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -270,9 +272,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -294,10 +296,10 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -313,9 +315,9 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginTop="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    android:layout_weight="1"
                     android:visibility="visible">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -334,15 +336,15 @@
         android:id="@+id/layoutbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/nested_scroll">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-       <Button
+        <Button
             android:id="@+id/btnCancle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="1"
             android:text="Cancel"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -351,8 +353,8 @@
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="@dimen/medium_margin"
+            android:layout_weight="1"
             android:text="Save"
             android:textSize="15sp"
             android:textStyle="bold" />

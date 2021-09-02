@@ -15,6 +15,7 @@ data class UpdatePatientRequest(
 	val age:String?,
 	val healthIssue:String?,
 	val address:List<String>,
+	val companyaddress: List<String>,
 	val bloodgroup:String
 
 )
