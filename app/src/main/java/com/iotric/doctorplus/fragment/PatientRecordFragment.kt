@@ -24,7 +24,6 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
 
     val args: PatientRecordFragmentArgs by navArgs()
     lateinit var multiPartImageBody: MultipartBody.Part
-
     private lateinit var binding: PatientRecordFragmentsBinding
 
     override fun onCreateView(
@@ -97,24 +96,7 @@ class PatientRecordFragment : BaseFragment(), PopupMenu.OnMenuItemClickListener 
         binding.tvEmail.text = argsItem.pemail
         binding.tvBloogGroup.text = argsItem.bloodgroup
         binding.tvAge.text = argsItem.age + " " + "Years"
-        argsItem.address?.forEachIndexed { index, s ->
-            when (index) {
-                0 -> {
-                    binding.tvStreet.text = s
-                }
-                1 -> {
-                    binding.tvCity.text= s
-                }
-                2->{
-                    binding.tvState.text = s
-                }
-                3 -> {
-                    binding.tvZipcode.text = s
-                }
-            }
-
-
-        }
+        binding.tvAddressHome.text = argsItem.address?.joinToString(separator = ",")
         if (argsItem.gender == "m") {
             binding.tvGender.text = "Male"
         } else

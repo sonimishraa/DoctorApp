@@ -299,54 +299,23 @@
                 android:padding="@dimen/small_padding">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="Address :"
-                    android:layout_marginEnd="@dimen/small_margin"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="start">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_street"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="kanpur"
+                    android:text="Address :"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_city"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text="kanpur"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_state"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text="Uttar Pradesh"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_zipcode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:text="208011"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_addressHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="Delhi"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
