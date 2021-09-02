@@ -105,7 +105,7 @@ class LoginActivity : BaseActivity() {
         })
         viewModel.forgetPasswordOtp.observe(this, {
             it?.let {
-                toastMessage("${it.verification?.sendCodeAttempts}")
+                //toastMessage("${it.verification?.sendCodeAttempts}")
                 val intent = Intent(this, ForgetPasswordActivity::class.java)
                 startActivity(intent)
                 alertDialogue.dismiss()
