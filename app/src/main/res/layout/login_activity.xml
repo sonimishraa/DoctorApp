@@ -72,7 +72,6 @@
                 android:drawablePadding="@dimen/medium_padding"
                 android:hint="Enter Number/Email*"
                 android:text= ""
-                android:inputType="number"
                 android:padding="@dimen/medium_margin" />
         </com.google.android.material.textfield.TextInputLayout>
 
