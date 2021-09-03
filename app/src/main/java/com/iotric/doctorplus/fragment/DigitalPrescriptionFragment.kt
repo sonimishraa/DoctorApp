@@ -129,7 +129,7 @@ class DigitalPrescriptionFragment : BaseFragment() {
         alertDialogue.setCanceledOnTouchOutside(true)
     }
 
-    private fun dialogue() {
+   /* private fun dialogue() {
         val saveDialog: android.app.AlertDialog.Builder =
             android.app.AlertDialog.Builder(requireContext())
         saveDialog.setTitle("Save Prescription")
@@ -148,7 +148,7 @@ class DigitalPrescriptionFragment : BaseFragment() {
             })
         saveDialog.show()
     }
-
+*/
     private fun checkPermissionAndSave() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),

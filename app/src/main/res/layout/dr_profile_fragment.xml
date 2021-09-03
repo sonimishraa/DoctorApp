@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="top"
+    android:id="@+id/layoutProfile"
+    android:visibility="visible"
     android:orientation="vertical">
 
     <include

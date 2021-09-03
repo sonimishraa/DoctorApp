@@ -82,8 +82,10 @@ class ProfileFragment : BaseFragment() {
     private fun initObserver() {
         val loginDrid = getDoctorId()
         Log.i("ProfileFragment", "_id:${id}")
+        binding.layoutProfile.visibility = View.GONE
         viewModel.getDoctorById.observe(requireActivity(), {
             dismissLoading()
+            binding.layoutProfile.visibility = View.VISIBLE
             getDoctorId = it
             getDoctorId.let {
                 if (it._id == loginDrid) {

@@ -10,13 +10,19 @@
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/add_patient_fragment.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/dashboard_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/dashboard_fragment_item.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/digital_prescription_fragment.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/dr_profile_fragment.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/forget_password_activity.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/fragment_patient_update.xml" value="0.22" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/login_activity.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/main_activity.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/nav_header_main.xml" value="0.1" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/patient_record_fragments.xml" value="0.22" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/prescription_form.xml" value="0.1" />
+        <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/prescription_save_dialogue.xml" value="0.22" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/layout/view_precription_detail_fragment.xml" value="0.22" />
+        <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/menu/activity_main_drawer.xml" value="0.22" />
         <entry key="..\:/Users/DELL/Documents/Iotric/DocCheck/app/src/main/res/menu/more_option_menu.xml" value="0.1" />
       </map>
     </option>
