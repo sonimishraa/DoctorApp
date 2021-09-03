@@ -102,7 +102,7 @@ class EditDoctorProfileFragment : BottomSheetDialogFragment() {
     }
 
     private fun setArgs() {
-        val args = args.EditDocResult
+        val args = args.editDocResult
         binding.editGender.setText(args.gender)
         binding.editHospital.setText(args.hospital)
         binding.editEducation.setText(args.education)

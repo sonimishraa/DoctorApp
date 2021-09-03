@@ -5,6 +5,7 @@ buildscript {
         google()
         jcenter()
 
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.3"
@@ -22,8 +23,11 @@ allprojects {
     repositories {
         google()
         jcenter()
-        mavenCentral() // For ImagePicker library, this line is enough. Although, it has been published on jitpack as well
+        mavenCentral()
+        // For ImagePicker library, this line is enough. Although, it has been published on jitpack as well
         maven { url "https://jitpack.io" }
+        //Make sure to add this in your project for uCrop - an internal library
+
     }
 }
 
